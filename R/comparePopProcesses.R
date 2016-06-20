@@ -48,20 +48,6 @@ comparePopProcesses<-function(reps2013=NULL,
     plots<-list();
 
     #----------------------------------
-    #recruitment size distribution
-    #----------------------------------
-    if (verbose) cat("Plotting recruitment size distribution\n");
-    mdfr1<-rTCSAM2013::getMDFR.PopProcesses(reps2013,type="R_cz")
-    mdfr2<-rTCSAM2015::getMDFR.RecSizeDistribution(reps2015,rsims,verbose);
-    mdfr<-rbind(mdfr1,mdfr2);
-    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='z',agg.formula='pc+x+model+z',faceting='pc~.',
-                   xlab='size (mm CW)',ylab='Recruitment size distribution',units='millions',lnscale=FALSE,
-                   colour='model',guideTitleColour='',
-                   shape='model',guideTitleShape='');
-    if (showPlot||!is.null(pdf)) print(p);
-    plots$R_cz<-p;
-    
-    #----------------------------------
     #natural mortality
     #----------------------------------
     if (verbose) cat("Plotting natural mortality info\n");
@@ -82,10 +68,10 @@ comparePopProcesses<-function(reps2013=NULL,
     mdfr1<-rTCSAM2013::getMDFR.PopProcesses(reps2013,type="prM2M_cxz",verbose);
     mdfr2<-rTCSAM2015::getMDFR.prM2M(reps2015,rsims,verbose);
     mdfr<-rbind(mdfr1,mdfr2);
-    p<-plotMDFR.XY(mdfr,x='z',agg.formula='pc+x+model+z',faceting='pc~x',
-                   colour='model',guideTitleColour='',
-                   shape='model',guideTitleShape='',
-                   xlab='size (mm CW)',ylab='pr(molt-to-maturity)');
+    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='z',agg.formula='pc+x+model+z',faceting='pc~x',
+                               colour='model',guideTitleColour='',
+                               shape='model',guideTitleShape='',
+                               xlab='size (mm CW)',ylab='pr(molt-to-maturity)');
     if (showPlot||!is.null(pdf)) print(p);
     plots$prM2M_cz<-p;
     
@@ -94,34 +80,37 @@ comparePopProcesses<-function(reps2013=NULL,
     mdfr1<-rTCSAM2013::getMDFR.PopProcesses(reps2013,type="mnZAM_cxz",verbose);
     mdfr2<-rTCSAM2015::getMDFR.MeanGrowthIncrements(reps2015,rsims,verbose);
     mdfr<-rbind(mdfr1,mdfr2);
-    p<-plotMDFR.XY(mdfr,x='z',value.var='val',faceting='pc~x',
-                   plotABline=TRUE,
-                   xlab='pre-molt size (mm CW)',ylab='post-molt size (mm CW)',units="",
-                   shape='model',guideTitleShape='',
-                   colour='model',guideTitleColour='');
+    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='z',value.var='val',faceting='pc~x',
+                               plotABline=TRUE,
+                               xlab='pre-molt size (mm CW)',ylab='post-molt size (mm CW)',units="",
+                               shape='model',guideTitleShape='',
+                               colour='model',guideTitleColour='');
     if (showPlot||!is.null(pdf)) print(p);
     plots$mnZAM_cz<-p;
     
     #growth transition matrices
     if (verbose) cat("Plotting growth transition matrices\n");
-    mdfr<-getMDFR.GrowthTansitionMatrices(tcsams,rsims,verbose);
-    p<-plotMDFR.Bubbles(mdfr,x='zp',y='z',faceting='model+pc~x',
-                        xlab='pre-molt size (mm CW)',ylab='post-molt size (mm CW)',units="",
-                        colour='.',guideTitleColor='',useColourGradient=TRUE,alpha=0.5);
+    mdfr1<-rTCSAM2013::getMDFR.PopProcesses(reps2013,type="T_cxzz",verbose);
+    mdfr1$z<-floor(mdfr1$z)+0.5;
+    mdfr2<-rTCSAM2015::getMDFR.GrowthTransitionMatrices(reps2015,rsims,verbose);
+    mdfr<-rbind(mdfr1,mdfr2);
+    p<-rTCSAM2015::compareModels.GrowthTransitionMatrices(mdfr);
     if (showPlot||!is.null(pdf)) print(p);
     plots$T_czz<-p;
 
-    #initial size distribution
-    if (verbose) cat("Plotting initial size distribution\n");
-    path<-'mr/iN_xmsz';
-    mdfr<-getMDFR(path,tcsams,rsims);
-    mdfr<-removeImmOS(mdfr);
-    p<-plotMDFR.XY(mdfr,x='z',agg.formula='model+x+m+s+z',faceting='m+s~x',
-                          xlab='size (mm CW)',ylab='Initial size distribution',units='millions',lnscale=FALSE,
-                          colour='model',guideTitleColour='Model\nCase',
-                          shape=NULL,guideTitleShape='');
+    #----------------------------------
+    #recruitment size distribution
+    #----------------------------------
+    if (verbose) cat("Plotting recruitment size distribution\n");
+    mdfr1<-rTCSAM2013::getMDFR.PopProcesses(reps2013,type="R_cz")
+    mdfr2<-rTCSAM2015::getMDFR.RecSizeDistribution(reps2015,rsims,verbose);
+    mdfr<-rbind(mdfr1,mdfr2);
+    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='z',agg.formula='pc+x+model+z',faceting='pc~.',
+                   xlab='size (mm CW)',ylab='Recruitment size distribution',units='millions',lnscale=FALSE,
+                   colour='model',guideTitleColour='',
+                   shape='model',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$iN_xmsz<-p;
+    plots$R_cz<-p;
     
-    return(plots)
+    return(plots);
 }
