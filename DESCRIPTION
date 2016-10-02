@@ -1,8 +1,8 @@
 Package: rCompTCMs
 Type: Package
 Title: Package to compare TCSAM2013 and 2015 model runs
-Version: 2016.06.20
-Date: 2016-06-20
+Version: 2016.10.02
+Date: 2016-10-02
 Author: William Stockhausen (NOAA/NMFS/AFSC)
 Maintainer: William Stockhausen <william.stockhausen@noaa.gov>
 Description: Contains functions to to compare TCSAM2013 and 2015 model runs
