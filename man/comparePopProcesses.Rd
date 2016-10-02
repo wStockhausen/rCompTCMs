@@ -2,18 +2,12 @@
 % Please edit documentation in R/comparePopProcesses.R
 \name{comparePopProcesses}
 \alias{comparePopProcesses}
-\title{Compare population processes from TCSAM2013 and 2015 model runs}
+\title{Compare population processes from TCSAM2013 and TCSAM02 model runs}
 \usage{
-comparePopProcesses(reps2013 = NULL, reps2015 = NULL, rsims = NULL,
-  showPlot = TRUE, pdf = NULL, width = 8, height = 6, verbose = FALSE)
+comparePopProcesses(objs, showPlot = TRUE, pdf = NULL, width = 8,
+  height = 6, verbose = FALSE)
 }
 \arguments{
-\item{reps2013}{- TCSAM2013 report file object (or named list of objects)}
-
-\item{reps2015}{- TCSAM2015 report file object (or named list of objects)}
-
-\item{rsims}{- rsimTCSAM results object (named list of objects)}
-
 \item{showPlot}{- flag to show/print plots immediately}
 
 \item{pdf}{- name of pdf file to record plot output to}
@@ -28,7 +22,7 @@ comparePopProcesses(reps2013 = NULL, reps2015 = NULL, rsims = NULL,
 list of ggplot2 objects
 }
 \description{
-Function to compare population processes from TCSAM2013 and 2015 model runs.
+Function to compare population processes from TCSAM2013 and TCSAM02 model runs.
 }
 \details{
 None.

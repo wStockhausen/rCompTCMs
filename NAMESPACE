@@ -2,4 +2,6 @@
 
 export(comparePopProcesses)
 export(comparePopQuants)
+export(getMDFR.PopProcesses)
+export(getResLsts)
 import(ggplot2)

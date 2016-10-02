@@ -1,11 +1,9 @@
 #'
-#'@title Compare population quantities from TCSAM2013 and 2015 model runs
+#'@title Compare population quantities from TCSAM2013 and TCSAM02 model runs
 #'
-#'@description Function to compare population quantities from TCSAM2013 and 2015 model runs.
+#'@description Function to compare population quantities from TCSAM2013 and TCSAM02 model runs.
 #'
-#'@param reps2013 - TCSAM2013 report file object (or named list of objects)
-#'@param reps2015 - TCSAM2015 report file object (or named list of objects)
-#'@param rsims    - rsimTCSAM results object (named list of objects)
+#'@param objs -  (named list of objects)
 #'@param showPlot - flag to show/print plots immediately
 #'@param pdf - name of pdf file to record plot output to
 #'@param width - pdf page width (in inches)
@@ -20,9 +18,7 @@
 #'
 #'@export
 #'
-comparePopQuants<-function(reps2013=NULL,
-                           reps2015=NULL,
-                           rsims=NULL,
+comparePopQuants<-function(objs,
                            showPlot=TRUE,
                            pdf=NULL,
                            width=8,
@@ -34,16 +30,8 @@ comparePopQuants<-function(reps2013=NULL,
         pdf(file=pdf,width=width,height=height);
         on.exit(dev.close())
     }
-    
-    if (inherits(reps2013,'tcsam2013.rep')){
-        reps2013<-list(`2013`=reps2013);#wrap in list
-    }
-    if (inherits(reps2015,'tcsam2015.rep')){
-        reps2015<-list(`2015`=reps2015);#wrap in list
-    }
-    if (class(rsims)=='rsimTCSAM'){
-        rsims<-list(rsim=rsims);#wrap in list
-    }
+  
+    cases<-names(objs);
     
     plots<-list();
 
@@ -51,9 +39,15 @@ comparePopQuants<-function(reps2013=NULL,
     #recruitment
     #----------------------------------
     if (verbose) cat("Plotting recruitment\n");
-    mdfr1<-rTCSAM2013::getMDFR.PopQuants(reps2013,type="R_y")
-    mdfr2<-rTCSAM2015::getMDFR('mp/R_list/R_y',reps2015,rsims);
-    mdfr<-rbind(mdfr1,mdfr2);
+    mdfr<-NULL;
+    for (case in cases){
+        obj<-objs[[case]];
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuants(obj,type="R_y");
+        if (inherits(obj,"rsimTCSAM"))        mdfr1<-rsimTCSAM::getMDFR.PopQuantities(obj,type="R_y");
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.PopQuantities(obj,verbose=verbose);
+        mdfr1$case<-case;
+        mdfr<-rbind(mdfr,mdfr1);
+    }
     p<-rTCSAM2015::plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=FALSE,
                    colour='model',guideTitleColor='',
