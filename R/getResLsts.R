@@ -29,7 +29,7 @@ getResLsts<-function(inp.dirs=NULL){
         cat("rCompTCMs:getResLsts(): Creating resLst[",r,"]: \n\t'",rw$path,"'\n",sep='');
         if (tolower(rw$modelType)==tolower("TCSAM2013")) resLst<-rTCSAM2013::getResLst(rw$path,rw$rep,rw$model,rw$prsType);
         if (tolower(rw$modelType)==tolower("rsimTCSAM")) resLst<-rsimTCSAM::getResLst(rw$path);
-        if (tolower(rw$modelType)=="tcsam02")            resLst<-rTCSAM02::getResLst(rw$path,rw$rep,rw$model,rw$prsType);
+        if (tolower(rw$modelType)=="tcsam02")            resLst<-rTCSAM02::getResLst(rw$path,rw$rep,rw$model,rw$prsType,);
         if (!is.null(resLst)){
             lst[[rw$case]]<-resLst;
             resLst<-NULL;

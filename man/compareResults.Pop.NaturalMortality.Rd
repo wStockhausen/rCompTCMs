@@ -15,6 +15,8 @@ compareResults.Pop.NaturalMortality(objs, dodge = 0.2, showPlot = TRUE,
 \item{showPlot}{- flag (T/F) to show plot}
 
 \item{pdf}{- creates pdf, if not NULL}
+
+\item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
 ggplot2 object

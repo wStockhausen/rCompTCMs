@@ -1,11 +1,13 @@
 #'
-#'@title Compare mean post-molt growth among several model runs
+#'@title Compare mean post-molt size among several model runs
 #'
-#'@description Function to compare mean post-molt growth among several model runs.
+#'@description Function to compare mean post-molt size among several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst objects
+#'@param objs - list of resLst objects
+#'@param dodge - width to dodge overlapping series
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
+#'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details None.
 #'
@@ -15,12 +17,11 @@
 #'
 #'@export
 #'
-compareModelResults.MeanGrowth<-function(obj,
-                                         showPlot=FALSE,
-                                         pdf=NULL){
-
-    lst<-convertToListOfResults(obj);
-    cases<-names(lst);
+compareResults.Pop.MeanGrowth<-function(objs,
+                                        dodge=0.2,
+                                        showPlot=TRUE,
+                                        pdf=NULL,
+                                        verbose=TRUE){
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -29,15 +30,28 @@ compareModelResults.MeanGrowth<-function(obj,
         showPlot<-TRUE;
     }
     
+    cases<-names(objs);
+
+    mdfr<-NULL;
+    for (case in cases){
+        obj<-objs[[case]];
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.MeanGrowth(obj,verbose);
+        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.MeanGrowth(obj,verbose);
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.MeanGrowth(obj,verbose);
+        mdfr1$case<-case;
+        mdfr<-rbind(mdfr,mdfr1);
+    }
+    mdfr$z<-as.numeric(mdfr$z)
+    mdfr$case<-factor(mdfr$case,levels=cases);
+    
     #-------------------------------------------#
     #plot mean growth
     #-------------------------------------------#
-    dfr<-getMDFR.meanGrowth(lst);
-    dfr$case<-factor(dfr$case,levels=cases);
-    p <- ggplot(dfr,aes_string(x='z',y='val',colour='case'));
-    p <- p + geom_line();
-    p <- p + geom_point();
-    if (any(!is.na(dfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'));
+    pd<-position_dodge(width=dodge);
+    p <- ggplot(mdfr,aes_string(x='z',y='val',colour='case'));
+    p <- p + geom_line(position=pd);
+    p <- p + geom_point(position=pd);
+    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
     p <- p + geom_abline(slope=1,linetype=2);
     p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
     p <- p + ggtitle("Mean Growth");

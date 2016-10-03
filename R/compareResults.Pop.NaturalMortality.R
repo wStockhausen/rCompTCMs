@@ -8,6 +8,7 @@
 #'@param dodge - width to dodge overlapping series
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
+#'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return ggplot2 object
 #'
@@ -42,6 +43,10 @@ compareResults.Pop.NaturalMortality<-function(objs,
     }
     mdfr$y<-as.numeric(mdfr$y)
     mdfr$case<-factor(mdfr$case,levels=cases);
+    
+    #----------------------------------
+    # plot natural mortality rates by year
+    #----------------------------------
     pd<-position_dodge(width=dodge);
     p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));
     p <- p + geom_line(position=pd);
