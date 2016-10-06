@@ -18,12 +18,12 @@
 #'
 #'@export
 #'
-comparePopQuants<-function(objs,
-                           showPlot=TRUE,
-                           pdf=NULL,
-                           width=8,
-                           height=6,
-                           verbose=FALSE){
+compareResults.Pop.Quantities<-function(objs,
+                                        showPlot=TRUE,
+                                        pdf=NULL,
+                                        width=8,
+                                        height=6,
+                                        verbose=FALSE){
   
     #set up pdf device, if requested
     if (!is.null(pdf)){
@@ -39,27 +39,19 @@ comparePopQuants<-function(objs,
     #recruitment
     #----------------------------------
     if (verbose) cat("Plotting recruitment\n");
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuants(obj,type="R_y");
-        if (inherits(obj,"rsimTCSAM"))        mdfr1<-rsimTCSAM::getMDFR.PopQuantities(obj,type="R_y");
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.PopQuantities(obj,verbose=verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
-                   xlab='year',ylab='Recruitment',units='millions',lnscale=FALSE,
-                   colour='model',guideTitleColor='',
-                   shape='model',guideTitleShape='');
-    if (showPlot||!is.null(pdf)) print(p);
-    plots$R_y<-p;
-    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
-                   xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
-                   colour='model',guideTitleColor='',
-                   shape='model',guideTitleShape='');
-    if (showPlot||!is.null(pdf)) print(p);
-    plots$lnR_y<-p;
+    ps<-compareResults.Pop.Recruitment(objs,dodge=0.2,showPlot=FALSE,verbose=verbose);
+    if (showPlot||!is.null(pdf)) print(ps);
+    plots$R_y<-ps[[1]];
+    plots$lnR_y<-ps[[2]];
+
+    #----------------------------------
+    #mature biomass
+    #----------------------------------
+    if (verbose) cat("Plotting mature biomass\n");
+    ps<-compareResults.Pop.MatureBiomass(objs,dodge=0.2,showPlot=FALSE,verbose=verbose);
+    if (showPlot||!is.null(pdf)) print(ps);
+    plots$MB_yx<-ps[[1]];
+    plots$lnMB_yx<-ps[[2]];
 
     #----------------------------------
     #initial size distribution
