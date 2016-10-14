@@ -2,18 +2,28 @@
 % Please edit documentation in R/compareResults.Pop.Biomass.R
 \name{compareResults.Pop.Biomass}
 \alias{compareResults.Pop.Biomass}
-\title{Function to compare biomass estimates by year among several models}
+\title{Function to compare estimated abundance biomass by year among several models}
 \usage{
-compareResults.Pop.Biomass(objs, type = c("B_yxms", "B_yxm", "B_yx"),
-  numRecent = 15, dodge = 0.2, showPlot = TRUE, pdf = NULL,
-  verbose = TRUE)
+compareResults.Pop.Biomass(objs, cast = "y+x", facet_grid = "x~.",
+  facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15, nrow = 5,
+  showPlot = FALSE, pdf = NULL, verbose = TRUE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{numRecent}{- number of "recent" years to plot}
+\item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
+
+\item{facet_grid}{- formula for faceting using facet_grid}
+
+\item{facet_wrap}{- formula for faceting using facet_wrap}
 
 \item{dodge}{- width to dodge overlapping series}
+
+\item{years}{- 'all' or vector of years to include}
+
+\item{mxy}{- max number of years per page}
+
+\item{nrow}{- number of rows per page, when facet_wrap'ing}
 
 \item{showPlot}{- flag (T/F) to show plot}
 
@@ -25,12 +35,11 @@ compareResults.Pop.Biomass(objs, type = c("B_yxms", "B_yxm", "B_yx"),
 ggplot2 object
 }
 \description{
-This function compares biomass estimates by year
+This function compares estimated abundance biomass by year
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-\code{plotMDFR.XY}.
+If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
+a set of time series plots are produced.
 }
 

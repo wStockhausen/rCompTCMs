@@ -57,17 +57,17 @@ compareResults.Pop.Quantities<-function(objs,
     #initial size distribution
     #----------------------------------
     if (verbose) cat("Plotting initial size distribution\n");
-    mdfr1<-rTCSAM2013::getMDFR.PopQuants(reps2013,type="iN_xmsz");
-    mdfr2<-rTCSAM2015::getMDFR('mr/iN_xmsz',reps2015,rsims);
-    mdfr2$y<-NA;
-    mdfr<-rbind(mdfr1,mdfr2);
-    mdfr<-rTCSAM2015::removeImmOS(mdfr);
-    p<-rTCSAM2015::plotMDFR.XY(mdfr,x='z',agg.formula='model+x+m+s+z',faceting='m+s~x',
-                          xlab='size (mm CW)',ylab='Initial size distribution',units='millions',lnscale=FALSE,
-                          colour='model',guideTitleColour='Model\nCase',
-                          shape=NULL,guideTitleShape='');
+    p<-compareResults.Pop.IF.NatZ(objs,type="iN_xmsz",verbose=verbose);
     if (showPlot||!is.null(pdf)) print(p);
     plots$iN_xmsz<-p;
+    
+    #----------------------------------
+    #final size distribution
+    #----------------------------------
+    if (verbose) cat("Plotting final size distribution\n");
+    p<-compareResults.Pop.IF.NatZ(objs,type="fN_xmsz",verbose=verbose);
+    if (showPlot||!is.null(pdf)) print(p);
+    plots$fN_xmsz<-p;
     
     return(plots);
 }
