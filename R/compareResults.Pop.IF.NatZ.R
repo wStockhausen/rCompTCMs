@@ -63,8 +63,8 @@ if (verbose) cat("rCompTCMs::compareResults.Pop.IF.NatZ: Plotting initial/final 
         if (verbose) cat("Plotting size comps\n")
     if (type=='iN_xmsz') ylab<-'Initial Population Abundance\n';
     if (type=='fN_xmsz') ylab<-'Final Population Abundance\n';
-    p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
-                   facet_grid="x~m+s",
+    p<-plotMDFR.XY(mdfr,x='z',value.var='val',agg.formula=NULL,
+                   facet_grid="m+s~x",
                    xlab='size (mm CW)',ylab=ylab,units='millions',lnscale=FALSE,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='',
