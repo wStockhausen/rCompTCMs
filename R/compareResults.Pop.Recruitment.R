@@ -25,7 +25,8 @@ compareResults.Pop.Recruitment<-function(objs,
                                           showPlot=TRUE,
                                           pdf=NULL,
                                           verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Recruitment: Plotting recruitment.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.Recruitment().\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 

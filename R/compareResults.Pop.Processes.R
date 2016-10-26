@@ -24,6 +24,7 @@ compareResults.Pop.Processes<-function(objs,
                                        width=8,
                                        height=6,
                                        verbose=FALSE){
+    options(stringsAsFactors=FALSE);
   
     #set up pdf device, if requested
     if (!is.null(pdf)){

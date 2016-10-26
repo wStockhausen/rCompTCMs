@@ -27,7 +27,8 @@ compareResults.Surveys.SelFcns<-function(objs,
                                          showPlot=TRUE,
                                          pdf=NULL,
                                          verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Surveys.SelFcns: Start.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.SelFcns().\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 
@@ -42,6 +43,7 @@ compareResults.Surveys.SelFcns<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        mdfr1<-NULL;
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-NULL;#rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
@@ -62,7 +64,7 @@ compareResults.Surveys.SelFcns<-function(objs,
     if (!is.null(cast)&&(cast!='')) {
         mxy<-5;
         facet_wrap<-NULL;
-        facet_grid<-paste0('y~',cast);
+        facet_grid<-paste0('y~',gsub("y+","",cast,fixed=TRUE));
     }
     uF<-unique(mdfr$fleet);
     for (f in uF){

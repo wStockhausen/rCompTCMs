@@ -22,6 +22,8 @@ compareResults.Pop.GrowthMatrices<-function(objs,
                                              pdf=NULL,
                                              verbose=TRUE){
 
+    options(stringsAsFactors=FALSE);
+    
     #create pdf, if necessary
     if (!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);

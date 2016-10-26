@@ -23,7 +23,8 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
                                                  pdf=NULL,
                                                  verbose=TRUE){
 
-    if (verbose) cat("rCompTCMs::compareResults.Pop.RecSizeDistribution: starting!\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 

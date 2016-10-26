@@ -37,7 +37,9 @@ compareResults.Surveys.Abundance<-function(objs,
                                            showPlot=FALSE,
                                            pdf=NULL,
                                            verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Surveys.Abundance: Start.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Abundance().\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Surveys.Abundance()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

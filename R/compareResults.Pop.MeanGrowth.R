@@ -22,6 +22,7 @@ compareResults.Pop.MeanGrowth<-function(objs,
                                         showPlot=TRUE,
                                         pdf=NULL,
                                         verbose=TRUE){
+    options(stringsAsFactors=FALSE);
 
     #create pdf, if necessary
     if(!is.null(pdf)){

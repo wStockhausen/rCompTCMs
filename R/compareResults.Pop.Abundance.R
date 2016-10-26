@@ -37,6 +37,8 @@ compareResults.Pop.Abundance<-function(objs,
                                        pdf=NULL,
                                        verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance: Start.\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Pop.Abundance()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

@@ -31,7 +31,8 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
                                             showPlot=TRUE,
                                             pdf=NULL,
                                             verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.NatZ.LinePlots: Plotting abundance.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.NatZ.LinePlots().\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 

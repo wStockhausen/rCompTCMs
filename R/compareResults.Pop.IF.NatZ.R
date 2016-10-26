@@ -27,7 +27,8 @@ compareResults.Pop.IF.NatZ<-function(objs,
                                      showPlot=FALSE,
                                      pdf=NULL,
                                      verbose=TRUE){
-if (verbose) cat("rCompTCMs::compareResults.Pop.IF.NatZ: Plotting initial/final abundance.\n");
+    if (verbose) cat("Strating rCompTCMs::compareResults.Pop.IF.NatZ().\n");
+    options(stringsAsFactors=FALSE);
     
     type<-type[1];
     types<-c("iN_xmsz","fN_xmsz");
@@ -71,6 +72,6 @@ if (verbose) cat("rCompTCMs::compareResults.Pop.IF.NatZ: Plotting initial/final 
                    showPlot=FALSE);
     if (showPlot||!is.null(pdf)) print(p);
 
-    if (verbose) cat("rCompTCMs::compareResults.Pop.IF.NatZ: Done!\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.IF.NatZ(): Done!\n");
     return(p)
 }

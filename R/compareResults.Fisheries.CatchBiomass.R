@@ -39,6 +39,8 @@ compareResults.Fisheries.CatchBiomass<-function(objs,
                                            pdf=NULL,
                                            verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.Fisheries.CatchBiomass: Start.\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Fisheries.CatchBiomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

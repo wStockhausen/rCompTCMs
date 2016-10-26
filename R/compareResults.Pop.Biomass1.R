@@ -39,6 +39,7 @@ compareResults.Pop.Biomass1<-function(objs,
                                      pdf=NULL,
                                      verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass: Plotting biomass.\n");
+    options(stringsAsFactors=FALSE);
     
     type<-type[1];
     types<-c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx");

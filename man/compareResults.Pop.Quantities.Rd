@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareResults.Pop.Quantities.R
 \name{compareResults.Pop.Quantities}
 \alias{compareResults.Pop.Quantities}
-\title{Compare population quantities from TCSAM2013 and TCSAM02 model runs}
+\title{Compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs}
 \usage{
 compareResults.Pop.Quantities(objs, showPlot = TRUE, pdf = NULL,
   width = 8, height = 6, verbose = FALSE)
@@ -24,7 +24,7 @@ compareResults.Pop.Quantities(objs, showPlot = TRUE, pdf = NULL,
 list of ggplot2 objects
 }
 \description{
-Function to compare population quantities from TCSAM2013 and TCSAM02 model runs.
+Function to compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs.
 }
 \details{
 None.

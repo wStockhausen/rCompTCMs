@@ -22,6 +22,7 @@ compareResults.Pop.PrM2M<-function(objs,
                                    showPlot=TRUE,
                                    pdf=NULL,
                                    verbose=TRUE){
+    options(stringsAsFactors=FALSE);
 
     cases<-names(objs);
 

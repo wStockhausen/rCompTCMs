@@ -29,7 +29,7 @@ returns a dataframe in canonical format
  \item{m - maturity state or 'all'}
  \item{s - shell condition or 'all'}
  \item{z - size or 'all'}
- \item{zp - size, [only for growth increments and growth rtansition matrices]}
+ \item{zp - size, [only for growth increments and growth transition matrices]}
  \item{val - value}
  \item{lci - lower ci}
  \item{uci - upper ci}

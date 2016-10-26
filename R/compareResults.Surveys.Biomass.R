@@ -37,7 +37,9 @@ compareResults.Surveys.Biomass<-function(objs,
                                            showPlot=FALSE,
                                            pdf=NULL,
                                            verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Surveys.Biomass: Start.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Biomass().\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Surveys.Biomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

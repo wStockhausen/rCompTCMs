@@ -39,6 +39,8 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                                            pdf=NULL,
                                            verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.Fisheries.CatchAbundance: Start.\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Fisheries.CatchAbundance()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

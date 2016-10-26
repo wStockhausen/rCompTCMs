@@ -28,6 +28,7 @@ compareResults.Fisheries.SelFcns<-function(objs,
                                          pdf=NULL,
                                          verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.fisherys.SelFcns: Start.\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 

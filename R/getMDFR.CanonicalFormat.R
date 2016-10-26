@@ -20,7 +20,7 @@
 #'  \item{m - maturity state or 'all'}
 #'  \item{s - shell condition or 'all'}
 #'  \item{z - size or 'all'}
-#'  \item{zp - size, [only for growth increments and growth rtansition matrices]}
+#'  \item{zp - size, [only for growth increments and growth transition matrices]}
 #'  \item{val - value}
 #'  \item{lci - lower ci}
 #'  \item{uci - upper ci}
@@ -29,6 +29,8 @@
 #'@export
 #'
 getMDFR.CanonicalFormat<-function(mdfr){
+    options(stringsAsFactors=FALSE);
+
     #check existing columns and add missing ones
     nms<-names(mdfr);
     if (!('case' %in% nms))     mdfr[['case']]    <-"";

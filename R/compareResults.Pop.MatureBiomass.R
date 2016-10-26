@@ -27,7 +27,8 @@ compareResults.Pop.MatureBiomass<-function(objs,
                                            showPlot=TRUE,
                                            pdf=NULL,
                                            verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.MatureBiomass: Plotting mature biomass.\n");
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.MatureBiomass().\n");
+    options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
 
@@ -42,11 +43,14 @@ compareResults.Pop.MatureBiomass<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        mdfr1<-NULL;
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuantities(obj,type="MB_yx",verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type="MB_yx",verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type="MB_yx",verbose=verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
+        if (!is.null(mdfr1)){
+            mdfr1$case<-case;
+            mdfr<-rbind(mdfr,mdfr1);
+        }
     }
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$case<-factor(mdfr$case,levels=cases);
@@ -87,6 +91,6 @@ compareResults.Pop.MatureBiomass<-function(objs,
     if (showPlot||!is.null(pdf)) print(p);
     plots$lnRMB_yx<-p;
     
-    if (verbose) cat("rCompTCMs::compareResults.Pop.MatureBiomass: Done!\n");
+    if (verbose) cat("Finished rCompTCMs::compareResults.Pop.MatureBiomass()!\n");
     return(plots)
 }

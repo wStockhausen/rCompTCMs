@@ -37,6 +37,8 @@ compareResults.Pop.Biomass<-function(objs,
                                        pdf=NULL,
                                        verbose=TRUE){
     if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass: Start.\n");
+    options(stringsAsFactors=FALSE);
+    
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Pop.Biomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");

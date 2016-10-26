@@ -1,7 +1,7 @@
 #'
-#'@title Compare population quantities from TCSAM2013 and TCSAM02 model runs
+#'@title Compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs
 #'
-#'@description Function to compare population quantities from TCSAM2013 and TCSAM02 model runs.
+#'@description Function to compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs.
 #'
 #'@param objs -  (named list of objects)
 #'@param showPlot - flag to show/print plots immediately
@@ -24,6 +24,7 @@ compareResults.Pop.Quantities<-function(objs,
                                         width=8,
                                         height=6,
                                         verbose=FALSE){
+    options(stringsAsFactors=FALSE);
   
     #set up pdf device, if requested
     if (!is.null(pdf)){
