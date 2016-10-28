@@ -60,6 +60,7 @@ compareFits.BiomassData<-function(objs=NULL,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        mdfr1<-NULL;
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
                                                                                       fleet.type=fleet.type,
