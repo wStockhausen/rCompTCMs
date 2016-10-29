@@ -52,9 +52,9 @@ compareFits.SizeComps<-function(objs=NULL,
         showPlot<-TRUE;
     }
     
-    if (catch.type=='retained') type<-'bio.retm';
-    if (catch.type=='discard')  type<-'bio.dscm';
-    if (catch.type=='total')    type<-'bio.totm';
+    if (catch.type=='index')    type<-'prNatZ_yxmz';
+    if (catch.type=='retained') type<-'prNatZ.ret';
+    if (catch.type=='total')    type<-'prNatZ.tot';
     
     mdfr<-NULL;
     for (case in cases){
@@ -67,22 +67,18 @@ compareFits.SizeComps<-function(objs=NULL,
                                                                                       data.type='n.at.z',
                                                                                       catch.type=catch.type,
                                                                                       verbose=verbose);
-        # if (fleet.type=='survey'){
-        #     if (inherits(obj,"tcsam2013.resLst"))
-        #     mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-        #                                                 type='MB_yx',
-        #                                                 pdfType='lognormal',
-        #                                                 ci=ci,
-        #                                                 verbose=verbose);
-        # }
-        # if (fleet.type=='fishery'){
-        #     if (inherits(obj,"tcsam2013.resLst"))
-        #         mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-        #                                                      type=type,
-        #                                                      pdfType=fishery.pdfType,
-        #                                                      ci=ci,
-        #                                                      verbose=verbose);
-        # }
+        if (fleet.type=='survey'){
+            if (inherits(obj,"tcsam2013.resLst"))
+            mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
+                                                        type=type,
+                                                        verbose=verbose);
+        }
+        if (fleet.type=='fishery'){
+            if (inherits(obj,"tcsam2013.resLst"))
+                mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
+                                                             type=type,
+                                                             verbose=verbose);
+        }
         if (!is.null(mdfr1)){
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
