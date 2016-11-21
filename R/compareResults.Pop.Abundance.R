@@ -19,7 +19,9 @@
 #'@return ggplot2 object
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-#'a set of time series plots are produced.
+#'a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
+#'\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
+#'cast to aggregate. This differs from \code{compareResults.Pop.Abundance1}.
 #'
 #'@import ggplot2
 #'

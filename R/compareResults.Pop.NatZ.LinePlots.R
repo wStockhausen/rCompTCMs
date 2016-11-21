@@ -15,7 +15,7 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
+#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
 #'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
 #'\code{plotMDFR.XY}.
 #'
@@ -53,7 +53,7 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuantities(obj,type=type[1],verbose=verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.Quantities(obj,type=type[1],verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type=type[1],verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type=type[1],verbose=verbose);
         mdfr1$case<-case;
@@ -139,6 +139,6 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
     }
 
     
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance: Done!\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.NatZ.LinePlots: Done!\n");
     return(plots)
 }

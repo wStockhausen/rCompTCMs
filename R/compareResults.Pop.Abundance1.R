@@ -1,7 +1,7 @@
 #'
 #'@title Function to compare population abundance estimates by year among several models
 #'
-#'@description This function compares population abundance estimates by year
+#'@description This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
 #'   among several models.
 #'   
 #'@param objs - list of resLst objects
@@ -18,9 +18,11 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-#'\code{plotMDFR.XY}.
+#'@details This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
+#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
+#'\code{compreResults.Pop.Abundance}, where a cast'ing formula is specified.) 
 #'
 #'@import ggplot2
 #'
@@ -38,7 +40,7 @@ compareResults.Pop.Abundance1<-function(objs,
                                        showPlot=TRUE,
                                        pdf=NULL,
                                        verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance: Plotting abundance.\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance1: Plotting abundance.\n");
     
     type<-type[1];
     types<-c("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx");
@@ -125,6 +127,6 @@ compareResults.Pop.Abundance1<-function(objs,
         }#pg
     }
 
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance: Done!\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance1: Done!\n");
     return(plots)
 }

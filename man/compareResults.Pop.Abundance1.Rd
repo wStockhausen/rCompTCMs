@@ -36,12 +36,14 @@ compareResults.Pop.Abundance1(objs, type = c("N_yxmsz", "N_yxmz", "N_yxz",
 ggplot2 object
 }
 \description{
-This function compares population abundance estimates by year
+This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-\code{plotMDFR.XY}.
+This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
+  among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
+\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
+\code{compreResults.Pop.Abundance}, where a cast'ing formula is specified.)
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareResults.Pop.Biomass.R
 \name{compareResults.Pop.Biomass}
 \alias{compareResults.Pop.Biomass}
-\title{Function to compare estimated abundance biomass by year among several models}
+\title{Function to compare estimated population biomass by year among several models}
 \usage{
 compareResults.Pop.Biomass(objs, cast = "y+x", facet_grid = "x~.",
   facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15, nrow = 5,
@@ -40,6 +40,8 @@ This function compares estimated abundance biomass by year
 }
 \details{
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced.
+a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Biomass},
+\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and 
+cast to aggregate. This differs from \code{compareResults.Pop.Biomass1}.
 }
 

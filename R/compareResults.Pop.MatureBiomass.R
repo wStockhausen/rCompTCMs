@@ -13,7 +13,7 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
+#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
 #'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
 #'\code{plotMDFR.XY}.
 #'
@@ -44,7 +44,7 @@ compareResults.Pop.MatureBiomass<-function(objs,
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         mdfr1<-NULL;
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuantities(obj,type="MB_yx",verbose=verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.Quantities(obj,type="MB_yx",verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type="MB_yx",verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type="MB_yx",verbose=verbose);
         if (!is.null(mdfr1)){

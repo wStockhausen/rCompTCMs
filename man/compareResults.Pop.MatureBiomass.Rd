@@ -28,7 +28,7 @@ This function compares mature biomass estimates by year
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
+uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
 \code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
 \code{plotMDFR.XY}.
 }

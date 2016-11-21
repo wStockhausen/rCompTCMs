@@ -1,5 +1,5 @@
 #'
-#'@title Function to compare estimated abundance biomass by year among several models
+#'@title Function to compare estimated population biomass by year among several models
 #'
 #'@description This function compares estimated abundance biomass by year
 #'   among several models.
@@ -19,7 +19,9 @@
 #'@return ggplot2 object
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-#'a set of time series plots are produced.
+#'a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Biomass},
+#'\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and 
+#'cast to aggregate. This differs from \code{compareResults.Pop.Biomass1}.
 #'
 #'@import ggplot2
 #'

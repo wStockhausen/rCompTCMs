@@ -1,7 +1,7 @@
 #'
-#'@title Function to compare biomass estimates by year among several models
+#'@title Function to compare population biomass estimates by year among several models
 #'
-#'@description This function compares biomass estimates by year
+#'@description This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
 #'   among several models.
 #'   
 #'@param objs - list of resLst objects
@@ -18,9 +18,11 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-#'\code{plotMDFR.XY}.
+#'@details  This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
+#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
+#'\code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.) 
 #'
 #'@import ggplot2
 #'
@@ -38,13 +40,13 @@ compareResults.Pop.Biomass1<-function(objs,
                                        showPlot=TRUE,
                                      pdf=NULL,
                                      verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass: Plotting biomass.\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass1: Plotting biomass.\n");
     options(stringsAsFactors=FALSE);
     
     type<-type[1];
     types<-c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx");
     if (!(type %in% types)){
-        cat("rCompTCMs::compareResults.Pop.Biomass: Unknown type requested: '",type,"'.\n",sep='');
+        cat("rCompTCMs::compareResults.Pop.Biomass1: Unknown type requested: '",type,"'.\n",sep='');
         return(NULL);
     }
     
@@ -61,7 +63,7 @@ compareResults.Pop.Biomass1<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.PopQuantities(obj,type=type,verbose=verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.Quantities(obj,type=type,verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type=type,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type=type,verbose=verbose);
         if (!is.null(mdfr1)) mdfr1$case<-case;
@@ -125,6 +127,6 @@ compareResults.Pop.Biomass1<-function(objs,
         }#pg
     }
 
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass: Done!\n");
+    if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass1: Done!\n");
     return(plots)
 }

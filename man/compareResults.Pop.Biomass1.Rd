@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareResults.Pop.Biomass1.R
 \name{compareResults.Pop.Biomass1}
 \alias{compareResults.Pop.Biomass1}
-\title{Function to compare biomass estimates by year among several models}
+\title{Function to compare population biomass estimates by year among several models}
 \usage{
 compareResults.Pop.Biomass1(objs, type = c("B_yxmsz", "B_yxmz", "B_yxz",
   "B_yxms", "B_yxm", "B_yx"), numRecent = 15, facet_grid = NULL,
@@ -36,12 +36,14 @@ compareResults.Pop.Biomass1(objs, type = c("B_yxmsz", "B_yxmz", "B_yxz",
 ggplot2 object
 }
 \description{
-This function compares biomass estimates by year
+This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-\code{plotMDFR.XY}.
+This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
+  among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
+\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
+\code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.)
 }
 
