@@ -58,38 +58,46 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
     plots<-list();
     np<-ncol*nrow;
     uz<-sort(unique(mdfr$z));
+    uy<-sort(unique(mdfr$y));
     npg<-ceiling(length(uz)/np);
     if (length(cases)>1){
         ux<-unique(mdfr$x);
         for (x in ux){
+            idxx<-mdfr$x == x;
+            for (y in uy){
+                idxy<- mdfr$y==y;
+                for (pg in 1:npg){
+                    idxp<-mdfr$z %in% uz[(1+np*(pg-1)):min(length(uz),(np*pg))];
+                    dfrp<-mdfr[idxp&idxx&idxy,];
+                    p<-plotMDFR.XY(dfrp,x='zp',agg.formula=NULL,
+                                   xlab='post-molt size (mm CW)',ylab='pr(post-molt size)',units="",
+                                   facet_wrap='z',ncol=ncol,dir='v',
+                                   dodge=dodge,title=paste(tolower(x),"growth:",uy),
+                                   colour='case',guideTitleColor='',
+                                   shape='case',guideTitleShape='');
+                    if (showPlot||!is.null(pdf)) print(p);
+                    cap<-paste(x,y,pg,sep='.');
+                    plots[[cap]]<-p;
+                }#pg
+            }#y
+        }#x
+    } else {
+        for (y in uy){
+            idxy<- mdfr$y==y;
             for (pg in 1:npg){
                 idxp<-mdfr$z %in% uz[(1+np*(pg-1)):min(length(uz),(np*pg))];
-                dfrp<-mdfr[idxp,];
+                dfrp<-mdfr[idxp&idxy,];
                 p<-plotMDFR.XY(dfrp,x='zp',agg.formula=NULL,
                                xlab='post-molt size (mm CW)',ylab='pr(post-molt size)',units="",
                                facet_wrap='z',ncol=ncol,dir='v',
                                dodge=dodge,title='',
-                               colour='case',guideTitleColor='',
-                               shape='case',guideTitleShape='');
+                               colour='x',guideTitleColor='',
+                               shape='x',guideTitleShape='');
                 if (showPlot||!is.null(pdf)) print(p);
-                cap<-paste(x,pg,sep='.');
+                cap<-as.character(pg);
                 plots[[cap]]<-p;
             }#pg
-        }#x
-    } else {
-        for (pg in 1:npg){
-            idxp<-mdfr$z %in% uz[(1+np*(pg-1)):min(length(uz),(np*pg))];
-            dfrp<-mdfr[idxp,];
-            p<-plotMDFR.XY(dfrp,x='zp',agg.formula=NULL,
-                           xlab='post-molt size (mm CW)',ylab='pr(post-molt size)',units="",
-                           facet_wrap='z',ncol=ncol,dir='v',
-                           dodge=dodge,title='',
-                           colour='x',guideTitleColor='',
-                           shape='x',guideTitleShape='');
-            if (showPlot||!is.null(pdf)) print(p);
-            cap<-as.character(pg);
-            plots[[cap]]<-p;
-        }#pg
+        }#y
     }
     
     return(plots);
