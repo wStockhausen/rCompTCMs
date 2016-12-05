@@ -41,7 +41,11 @@ compareResults.Pop.Recruitment<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
+        if (inherits(obj,"tcsam2013.resLst")) {
+            mdfr1<-rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
+            mdfr1$y<-as.numeric(mdfr1$y);
+            mdfr1$y<-mdfr1$y-1;#adjust to TCSAM02 sense for timing of recruitment
+        }
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type="R_y",verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type="R_y",verbose=verbose);
         mdfr1$case<-case;
@@ -84,7 +88,7 @@ compareResults.Pop.Recruitment<-function(objs,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$lnR_y<-p;
+    plots$lnRR_y<-p;
 
     if (verbose) cat("rCompTCMs::compareResults.Pop.Recruitment: Done!\n");
     return(plots)

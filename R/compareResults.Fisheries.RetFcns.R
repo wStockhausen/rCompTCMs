@@ -1,7 +1,7 @@
 #'
-#'@title Function to compare fishery selectivity functions by year among several models
+#'@title Function to compare fishery retention functions by year among several models
 #'
-#'@description This function compares fishery selectivity functions by year
+#'@description This function compares fishery retention functions by year
 #'   among several models.
 #'   
 #'@param objs - list of resLst objects
@@ -23,17 +23,17 @@
 #'
 #'@export
 #'
-compareResults.Fisheries.SelFcns<-function(objs,
-                                         cast='y+x',
-                                         years='all',
-                                         dodge=0.2,
-                                         mxy=15,
-                                         facet_wrap=NULL,
-                                         facet_grid="y~x",
-                                         showPlot=FALSE,
-                                         pdf=NULL,
-                                         verbose=FALSE){
-    if (verbose) cat("Starting rCompTCMs::compareResults.Fisheries.SelFcns().\n");
+compareResults.Fisheries.RetFcns<-function(objs,
+                                           cast='y+x',
+                                           years='all',
+                                           dodge=0.2,
+                                           mxy=15,
+                                           facet_wrap=NULL,
+                                           facet_grid="y~x",
+                                           showPlot=FALSE,
+                                           pdf=NULL,
+                                           verbose=FALSE){
+    if (verbose) cat("Starting rCompTCMs::compareResults.Fisheries.RetFcns().\n");
     options(stringsAsFactors=FALSE);
     
     cases<-names(objs);
@@ -49,9 +49,9 @@ compareResults.Fisheries.SelFcns<-function(objs,
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,type='sel_yxz',verbose=verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,type='ret_yxz',verbose=verbose);
+        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.RetFcns(obj,cast=cast,verbose=verbose);
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.RetFcns(obj,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
@@ -63,7 +63,7 @@ compareResults.Fisheries.SelFcns<-function(objs,
     if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
     
     #----------------------------------
-    #selectivity functions
+    #retention functions
     #----------------------------------
     plots<-list();
     uF<-unique(mdfr$fleet);
@@ -75,7 +75,7 @@ compareResults.Fisheries.SelFcns<-function(objs,
             mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
             p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
                            facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
-                           xlab='size (mm CW)',ylab='Selectivity',units='',lnscale=FALSE,
+                           xlab='size (mm CW)',ylab='retention',units='',lnscale=FALSE,
                            title=f,
                            colour='case',guideTitleColor='',
                            shape='case',guideTitleShape='',
@@ -85,6 +85,6 @@ compareResults.Fisheries.SelFcns<-function(objs,
         }#pg
     }#uF
 
-    if (verbose) cat("rCompTCMs::compareResults.Fisheries.SelFcns: Done!\n");
+    if (verbose) cat("rCompTCMs::compareResults.Fisheries.RetFcns(): Done!\n");
     return(plots)
 }

@@ -4,17 +4,17 @@
 \alias{compareResults.Pop.NaturalMortality}
 \title{Function to plot natural mortality rates by year using ggplot2}
 \usage{
-compareResults.Pop.NaturalMortality(objs, dodge = 0.2, showPlot = TRUE,
-  pdf = NULL, verbose = TRUE)
+compareResults.Pop.NaturalMortality(objs, dodge = 0.2, pdf = NULL,
+  showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{dodge}{- width to dodge overlapping series}
 
-\item{showPlot}{- flag (T/F) to show plot}
-
 \item{pdf}{- creates pdf, if not NULL}
+
+\item{showPlot}{- flag (T/F) to show plot}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
@@ -22,8 +22,8 @@ compareResults.Pop.NaturalMortality(objs, dodge = 0.2, showPlot = TRUE,
 ggplot2 object
 }
 \description{
-This function plots natural mortality estimates by year
-  and sex for immatures, new shell matures and old shell matures.
+This function plots natural mortality estimates by year,
+  sex and maturity state.
 }
 \details{
 None.

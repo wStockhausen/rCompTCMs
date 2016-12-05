@@ -4,17 +4,17 @@
 \alias{compareFits.GrowthData}
 \title{Compare fits to growth data among several model runs}
 \usage{
-compareFits.GrowthData(objs, dodge = 0.2, showPlot = TRUE, pdf = NULL,
-  verbose = TRUE)
+compareFits.GrowthData(objs, dodge = 0.2, pdf = NULL, showPlot = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{dodge}{- width to dodge overlapping series}
 
-\item{showPlot}{- flag to print plot to current device}
-
 \item{pdf}{- name for output pdf file}
+
+\item{showPlot}{- flag to print plot to current device}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }

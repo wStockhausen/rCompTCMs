@@ -5,8 +5,8 @@
 #'
 #'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
-#'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
+#'@param showPlot - flag to print plot to current device
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details None.
@@ -19,9 +19,9 @@
 #'
 compareFits.GrowthData<-function(objs,
                                  dodge=0.2,
-                                 showPlot=TRUE,
                                  pdf=NULL,
-                                 verbose=TRUE){
+                                 showPlot=FALSE,
+                                 verbose=FALSE){
     options(stringsAsFactors=FALSE);
 
     #create pdf, if necessary

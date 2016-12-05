@@ -4,21 +4,28 @@
 \alias{compareResults.Surveys.SelFcns}
 \title{Function to compare survey selectivity functions by year among several models}
 \usage{
-compareResults.Surveys.SelFcns(objs, cast = "x", dodge = 0.2, mxy = 15,
-  showPlot = TRUE, pdf = NULL, verbose = TRUE)
+compareResults.Surveys.SelFcns(objs, cast = "y+x", years = "all",
+  dodge = 0.2, mxy = 15, facet_wrap = NULL, facet_grid = "y~x",
+  pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 
+\item{years}{- vector of years to show, or 'all' to show all years}
+
 \item{dodge}{- width to dodge overlapping series}
 
 \item{mxy}{- max number of years per page}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{facet_wrap}{- ggplot2 formula to produce figure with wrapped facets}
+
+\item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
 
 \item{pdf}{- creates pdf, if not NULL}
+
+\item{showPlot}{- flag (T/F) to show plot}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }

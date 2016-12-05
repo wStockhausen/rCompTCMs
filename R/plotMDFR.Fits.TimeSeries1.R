@@ -60,6 +60,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     dfrp<-dfr[idx,];#predicted values
     if (plot1stObs){
         #remove observations from all but first case
+        dfr$case<-as.character(dfr$case);
         cases<-as.character(unique(dfr$case));
         dfro<-dfr[(dfr$case==cases[1])&(!idx),];
         dfro$case<-'observed';
@@ -67,7 +68,14 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     } else {
         dfro<-dfr[!idx,];
     }
+    cases<-unique(dfr$case);
+    dfr$case <-factor(dfr$case, levels=cases);
+    dfrp$case<-factor(dfrp$case,levels=cases);
+    dfro$case<-factor(dfro$case,levels=cases);
+    if (verbose)  cat("Cases: ",paste0(cases,collapse=", "),".\n")
+    
     p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
+    p <- p + scale_color_hue(breaks=cases);#default color scheme
     if (plotObs){
         p <- p + geom_point(aes_string(shape=case),data=dfro,size=2,alpha=0.7,position=position);
         if (!is.null(dfro$lci)&&!all(is.na(dfro$lci))){

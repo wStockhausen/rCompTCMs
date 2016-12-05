@@ -7,8 +7,9 @@
 #'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard', or 'total')
-#'@param showPlot - flag (T/F) to show plot
 #'@param pdf - name for output pdf file
+#'@param showPlot - flag (T/F) to show plot
+#'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 #'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.ABData()}.
@@ -23,8 +24,8 @@
 compareFits.ZScores.Abundance<-function(objs=NULL,
                                         fleet.type=c('survey','fishery'),
                                         catch.type=c('index','retained','discard','total'),
-                                        showPlot=FALSE,
                                         pdf=NULL,
+                                        showPlot=FALSE,
                                         verbose=FALSE){
     
     if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.Abundance().\n");

@@ -6,10 +6,13 @@
 #'   
 #'@param objs - list of resLst objects
 #'@param cast - formula to exclude factors from "averaging" over
+#'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
-#'@param showPlot - flag (T/F) to show plot
+#'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
+#'@param facet_grid - ggplot2 formula to produce figure with gridded facets
 #'@param pdf - creates pdf, if not NULL
+#'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return ggplot2 object
@@ -21,12 +24,15 @@
 #'@export
 #'
 compareResults.Surveys.SelFcns<-function(objs,
-                                         cast='x',
+                                         cast='y+x',
+                                         years='all',
                                          dodge=0.2,
                                          mxy=15,
-                                         showPlot=TRUE,
+                                         facet_wrap=NULL,
+                                         facet_grid="y~x",
                                          pdf=NULL,
-                                         verbose=TRUE){
+                                         showPlot=FALSE,
+                                         verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.SelFcns().\n");
     options(stringsAsFactors=FALSE);
     
@@ -44,7 +50,7 @@ compareResults.Surveys.SelFcns<-function(objs,
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         mdfr1<-NULL;
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-NULL;#rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,type="selSrv_yxz",verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
@@ -55,17 +61,12 @@ compareResults.Surveys.SelFcns<-function(objs,
     mdfr$z<-as.numeric(mdfr$z)
     mdfr$case<-factor(mdfr$case,levels=cases);
     
+    if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
+    
     #----------------------------------
     #selectivity functions
     #----------------------------------
     plots<-list();
-    facet_wrap<-'~y'; 
-    facet_grid<-NULL;
-    if (!is.null(cast)&&(cast!='')) {
-        mxy<-5;
-        facet_wrap<-NULL;
-        facet_grid<-paste0('y~',gsub("y+","",cast,fixed=TRUE));
-    }
     uF<-unique(mdfr$fleet);
     for (f in uF){
         if (verbose) cat("Plotting fleet",f,"\n")
