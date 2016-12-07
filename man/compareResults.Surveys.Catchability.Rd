@@ -4,20 +4,22 @@
 \alias{compareResults.Surveys.Catchability}
 \title{Function to plot survey catchabilities by year using ggplot2}
 \usage{
-compareResults.Surveys.Catchability(objs, cast = "x", years = "all",
-  dodge = 0.2, facet_grid = "fleet~x", pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareResults.Surveys.Catchability(objs, years = "all", cast = "x",
+  dodge = 0.2, facet_grid = "x~.", scales = "free_y", pdf = NULL,
+  showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{cast}{- formula to exclude factors from "averaging" over}
-
 \item{years}{- vector of years to show, or 'all' to show all years}
+
+\item{cast}{- formula to exclude factors from "averaging" over}
 
 \item{dodge}{- width to dodge overlapping series}
 
 \item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
+
+\item{scales}{- parameter passed to ggplot2::facet_grid()}
 
 \item{pdf}{- creates pdf, if not NULL}
 
@@ -26,7 +28,7 @@ compareResults.Surveys.Catchability(objs, cast = "x", years = "all",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+list of ggplot2 objects
 }
 \description{
 This function plots survey catchability estimates by year,

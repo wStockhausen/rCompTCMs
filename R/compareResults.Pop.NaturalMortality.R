@@ -10,7 +10,7 @@
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return ggplot2 object as list element
 #'
 #'@details None.
 #'
@@ -34,17 +34,7 @@ compareResults.Pop.NaturalMortality<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.NaturalMortality(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.NaturalMortality(obj,'M_yxm',verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.NaturalMortality(obj,'M_yxm',verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$y<-as.numeric(mdfr$y)
-    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr<-extractMDFR.Pop.NaturalMortality(objs,verbose=verbose);
     
     #----------------------------------
     # plot natural mortality rates by year
@@ -61,5 +51,8 @@ compareResults.Pop.NaturalMortality<-function(objs,
     p <- p + ylim(c(0,NA));
     if (showPlot) print(p);
     
-    return(p)
+    plots<-list();
+    cap1<-"  \n  \nFigure &&figno. Estimated natural mortality rates, by year.  \n  \n";
+    plots[[cap1]]<-p;
+    return(plots);
 }

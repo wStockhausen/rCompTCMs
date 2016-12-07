@@ -19,7 +19,7 @@ compareResults.Pop.NaturalMortality(objs, dodge = 0.2, pdf = NULL,
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+ggplot2 object as list element
 }
 \description{
 This function plots natural mortality estimates by year,

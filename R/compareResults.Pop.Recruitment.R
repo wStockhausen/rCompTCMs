@@ -37,22 +37,7 @@ compareResults.Pop.Recruitment<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) {
-            mdfr1<-rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
-            mdfr1$y<-as.numeric(mdfr1$y);
-            mdfr1$y<-mdfr1$y-1;#adjust to TCSAM02 sense for timing of recruitment
-        }
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.Quantities(obj,type="R_y",verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.Quantities(obj,type="R_y",verbose=verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$y<-as.numeric(mdfr$y)
-    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr<-extractMDFR.Pop.Recruitment(objs,verbose=verbose);
     
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
     
@@ -66,14 +51,16 @@ compareResults.Pop.Recruitment<-function(objs,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$R_y<-p;
+    cap1<-"  \n  \nFigure &&figno. Estimated annual recruitment.  \n  \n";
+    plots[[cap1]]<-p;
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=FALSE,
                    dodge=dodge,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$RR_y<-p;
+    cap1<-"  \n  \nFigure &&figno. Estimated recent recruitment.  \n  \n";
+    plots[[cap1]]<-p;
     
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
@@ -81,14 +68,16 @@ compareResults.Pop.Recruitment<-function(objs,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$lnR_y<-p;
+    cap1<-"  \n  \nFigure &&figno. Estimated annual recruitment, on ln-scale.  \n  \n";
+    plots[[cap1]]<-p;
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
                    dodge=dodge,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
-    plots$lnRR_y<-p;
+    cap1<-"  \n  \nFigure &&figno. Estimated recent recruitment, on ln-scale.  \n  \n";
+    plots[[cap1]]<-p;
 
     if (verbose) cat("rCompTCMs::compareResults.Pop.Recruitment: Done!\n");
     return(plots)

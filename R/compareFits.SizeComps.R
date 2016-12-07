@@ -4,14 +4,16 @@
 #'@description Function to compare fits to size comps by fleet among 
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
-#'@param fleet.type - fleet type ('fishery' or 'survey')
-#'@param catch.type - catch type ('index','retained',  or 'total')
-#'@param nrow - number of rows per page for output plots
-#'@param ncol - number of columns per page for output plots
-#'@param pdf - name for output pdf file
-#'@param showPlot - flag (T/F) to show plot
-#'@param verbose - flag (T/F) to print diagnostic information
+#' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param fleet.type - fleet type ('fishery' or 'survey')
+#' @param catch.type - catch type ('index','retained',  or 'total')
+#' @param  years - years to plot, as numerical vector (or "all" to plot all years)
+#' @param plot1stObs - flag (T/F) to plot observations only from first case
+#' @param nrow - number of rows per page for output plots
+#' @param ncol - number of columns per page for output plots
+#' @param pdf - name for output pdf file
+#' @param showPlot - flag (T/F) to show plot
+#' @param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 #'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
@@ -26,11 +28,10 @@
 compareFits.SizeComps<-function(objs=NULL,
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
+                                  years='all',
+                                  plot1stObs=TRUE,
                                   nrow=5,
                                   ncol=3,
-                                  numRecent=15,
-                                  plot1stObs=TRUE,
-                                  scales="free_y",
                                   pdf=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
@@ -56,40 +57,13 @@ compareFits.SizeComps<-function(objs=NULL,
     if (catch.type=='retained') type<-'prNatZ.ret';
     if (catch.type=='total')    type<-'prNatZ.tot';
     
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        mdfr1<-NULL;
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
-                                                                                      fleet.type=fleet.type,
-                                                                                      data.type='n.at.z',
-                                                                                      catch.type=catch.type,
-                                                                                      verbose=verbose);
-        if (fleet.type=='survey'){
-            if (inherits(obj,"tcsam2013.resLst"))
-            mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-                                                        type=type,
-                                                        verbose=verbose);
-        }
-        if (fleet.type=='fishery'){
-            if (inherits(obj,"tcsam2013.resLst"))
-                mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-                                                             type=type,
-                                                             verbose=verbose);
-        }
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
-    }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    mdfr$x[mdfr$x=='all']<-'all sex';
-    mdfr$m[mdfr$m=='all']<-'all maturity';
-    mdfr$s[mdfr$s=='all']<-'all shell';
-
+    mdfr<-rCompTCMs::extractFits.SizeComps(objs,
+                                           fleet.type=fleet.type,
+                                           catch.type=catch.type,
+                                           years=years,
+                                           plot1stObs=plot1stObs,
+                                           verbose=verbose);
+    
     #----------------------------------
     # define output list of plots
     #----------------------------------
@@ -142,12 +116,13 @@ compareFits.SizeComps<-function(objs=NULL,
                             if (verbose) cat("--Dropping",x,m,s,"\n");
                         } else {
                             if (verbose) cat("--Plotting",x,m,s,"size comps\n");
-                            mdfrp<-mdfr[idf&idx&idm&ids,];#select results for fleet, catch type, and sex
+                            mdfrp<-mdfr[idf&idx&idm&ids,];#select results for fleet, sex, maturity state, and shell condition
                             if (verbose) cat("--Plotting",nrow(mdfrp),"rows.\n")
                             
+                            #add in missing years as size comps with 0's
                             ys<-sort(unique(mdfrp$y));
                             mny<-5*floor(min(ys)/5);
-                            mxy<-mny+mxp*ceiling((max(ys)-mny)/mxp)-1;
+                            mxy<-mny+mxp*ceiling((max(ys)-mny+1)/mxp)-1;
                             mdfrpp<-mdfrp[1,];
                             mdfrpp$val<-0;
                             if (mny<min(ys)){
@@ -165,6 +140,13 @@ compareFits.SizeComps<-function(objs=NULL,
                             ys<-mny:mxy;
                             npg<-ceiling(length(ys)/mxp);
                             if (verbose) cat("mny =",mny,",mxy =",mxy,", npg =",npg,'\n')
+                            for (y in ys){
+                                if (!any(mdfrp$y==y)) {
+                                    #year y is missing, so add in zero size comp for year y
+                                    mdfrpp$y<-y; 
+                                    mdfrp<-rbind(mdfrp,mdfrpp);
+                                }
+                            }
                             
                             rng<-range(mdfrp$val,na.rm=TRUE,finite=TRUE);
                             if (verbose) cat("rng = ",rng,'\n')
@@ -176,8 +158,6 @@ compareFits.SizeComps<-function(objs=NULL,
                                 p <- ggplot(data=dfrp)
                                 p <- p + geom_bar(aes(x=z,y=val,fill=case),data=dfrp[dfrp$type=='observed',],stat="identity",position='identity',alpha=0.5)
                                 p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
-                    #             p <- p + scale_x_continuous(breaks=pretty(uz)) 
-                    #             p <- p + scale_y_continuous(breaks=pretty(rng),expand=c(0.01,0))
                                 p <- p + ylim(0,rng[2])
                                 p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
                                 p <- p + labs(x=xlab,y=ylab)

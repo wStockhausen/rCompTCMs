@@ -5,6 +5,7 @@
 #'   sex and maturity state.
 #'   
 #'@param objs - list of resLst objects
+#'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over (x,m,s)
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
@@ -15,6 +16,7 @@
 #'@export
 #'
 extractMDFR.Surveys.Catchability<-function(objs,
+                                           years='all',
                                            cast='x',
                                            verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Surveys.Catchability().\n");
@@ -33,6 +35,8 @@ extractMDFR.Surveys.Catchability<-function(objs,
     }
     mdfr$y<-as.numeric(mdfr$y)
     mdfr$case<-factor(mdfr$case,levels=cases);
+    
+    if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
 
     if (verbose) cat("Finished rCompTCMs::extractMDFR.Surveys.Catchability().\n");
     return(mdfr)

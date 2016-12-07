@@ -4,16 +4,17 @@
 #'@description This function plots fishery catchability estimates by year,
 #'   sex and maturity state.
 #'   
-#'@param objs - list of resLst objects
-#'@param cast - formula to exclude factors from "averaging" over
-#'@param years - vector of years to show, or 'all' to show all years
-#'@param dodge - width to dodge overlapping series
-#'@param facet_grid - ggplot2 formula to produce figure with gridded facets
-#'@param pdf - creates pdf, if not NULL
-#'@param showPlot - flag (T/F) to show plot
-#'@param verbose - flag (T/F) to print diagnostic information
+#' @param objs - list of resLst objects
+#' @param years - vector of years to show, or 'all' to show all years
+#' @param cast - formula to exclude factors from "averaging" over
+#' @param dodge - width to dodge overlapping series
+#' @param facet_grid - ggplot2 formula to produce figure with gridded facets
+#' @param scales - parameter passed to ggplot2::facet_grid()
+#' @param pdf - creates pdf, if not NULL
+#' @param showPlot - flag (T/F) to show plot
+#' @param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return list of ggplot2 objects
 #'
 #'@details None.
 #'
@@ -22,10 +23,11 @@
 #'@export
 #'
 compareResults.Fisheries.Catchability<-function(objs,
-                                                cast='x',
                                                 years='all',
+                                                cast='x',
                                                 dodge=0.2,
-                                                facet_grid="fleet~x",
+                                                facet_grid="x~.",
+                                                scales="free_y",
                                                 pdf=NULL,
                                                 showPlot=FALSE,
                                                 verbose=FALSE){
@@ -41,52 +43,40 @@ compareResults.Fisheries.Catchability<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,type="qFsh_xy",verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL; #rsimTCSAM::getMDFR.Fisheries.Catchability(obj,cast=cast,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.Catchability(obj,cast=cast,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$y<-as.numeric(mdfr$y)
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    
-    if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
-    
+    mdfr<-extractMDFR.Fisheries.Catchability(objs,years=years,cast=cast,verbose=verbose);
+
     #----------------------------------
     # plot fishery catchability by year
     #----------------------------------
     uF<-unique(mdfr$fleet);
     plots<-list();
     pd<-position_dodge(width=dodge);
-    # for (f in uF){
-    #     if (verbose) cat("Plotting fleet",f,"\n")
-    #     mdfrp<-mdfr[mdfr$fleet==f,];
-    #     p <- ggplot(mdfrp,aes_string(x='y',y='val',colour='case'));
-    #     p <- p + geom_line(position=pd);
-    #     p <- p + geom_point(position=pd);
-    #     if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    #     p <- p + geom_abline(intercept=0.23,slope=0,linetype=2,colour='black')
-    #     p <- p + labs(x='year',y="survey catchability");
-    #     p <- p + ggtitle(f);
-    #     p <- p + facet_grid(facet_grid);
-    #     p <- p + ylim(c(0,NA));
-    #     if (showPlot) print(p);
-    #     cap<-paste0("\n  \nFig. &&figno. Survey catchabilities for ",f,".\n   \n");
-    #     plots[[cap]]<-p;
-    # }
-    p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));
-    p <- p + geom_line(position=pd);
-    p <- p + geom_point(position=pd);
-    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    p <- p + labs(x='year',y="fishery catchability");
-    p <- p + facet_grid(facet_grid,scales="free_y");
-    p <- p + ylim(c(0,max(1.0,1.05*max(mdfr$val,mdfr$uci,rm.na=TRUE))));
-    if (showPlot) print(p);
-    cap<-paste0("\n  \nFig. &&figno. Fishery catchabilities.\n   \n");
-    plots[[cap]]<-p;
+    for (f in uF){
+        if (verbose) cat("Plotting fleet",f,"\n")
+        mdfrp<-mdfr[mdfr$fleet==f,];
+        p <- ggplot(mdfrp,aes_string(x='y',y='val',colour='case'));
+        p <- p + geom_line(position=pd);
+        p <- p + geom_point(position=pd);
+        if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+        p <- p + labs(x='year',y="fishery catchability");
+        p <- p + ggtitle(f);
+        p <- p + facet_grid(facet_grid,scales=scales);
+        p <- p + ylim(c(0,NA));
+        if (showPlot) print(p);
+        cap<-paste0("\n  \nFigure &&figno. Fishery catchabilities for ",f,".\n   \n");
+        plots[[cap]]<-p;
+    }
+    
+    # p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));
+    # p <- p + geom_line(position=pd);
+    # p <- p + geom_point(position=pd);
+    # if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+    # p <- p + labs(x='year',y="fishery catchability");
+    # p <- p + facet_grid(facet_grid,scales="free_y");
+    # p <- p + ylim(c(0,max(1.0,1.05*max(mdfr$val,mdfr$uci,rm.na=TRUE))));
+    # if (showPlot) print(p);
+    # cap<-paste0("\n  \nFig. &&figno. Fishery catchabilities.\n   \n");
+    # plots[[cap]]<-p;
 
     if (verbose) cat("Finished rCompTCMs::compareResults.Fisheries.Catchability().\n");
     return(plots)
