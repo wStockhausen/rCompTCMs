@@ -22,8 +22,7 @@ compareResults.Pop.GrowthMatrices<-function(objs,
                                              pdf=NULL,
                                              verbose=TRUE){
 
-    options(stringsAsFactors=FALSE);
-    
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
     #create pdf, if necessary
     if (!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -33,19 +32,8 @@ compareResults.Pop.GrowthMatrices<-function(objs,
     
     cases<-names(objs);
     
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$z<-as.numeric(mdfr$z);
-    mdfr$zp<-as.numeric(mdfr$zp);
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    
+    mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose);
+
     #----------------------------------
     # plot growth transition matrices
     #----------------------------------
@@ -63,5 +51,6 @@ compareResults.Pop.GrowthMatrices<-function(objs,
     }
     if (showPlot) print(p);
 
+    if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
     return(p);
 }

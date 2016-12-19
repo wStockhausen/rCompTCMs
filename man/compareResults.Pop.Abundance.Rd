@@ -4,14 +4,15 @@
 \alias{compareResults.Pop.Abundance}
 \title{Function to compare estimated population abundance by year among several models}
 \usage{
-compareResults.Pop.Abundance(objs, cast = "y+x", facet_grid = "x~.",
+compareResults.Pop.Abundance(objs, cast = "x", facet_grid = NULL,
   facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15, nrow = 5,
-  showPlot = FALSE, pdf = NULL, verbose = TRUE)
+  lnscale = FALSE, scales = "fixed", showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
+\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
 
 \item{facet_grid}{- formula for faceting using facet_grid}
 
@@ -24,6 +25,10 @@ compareResults.Pop.Abundance(objs, cast = "y+x", facet_grid = "x~.",
 \item{mxy}{- max number of years per page}
 
 \item{nrow}{- number of rows per page, when facet_wrap'ing}
+
+\item{lnscale}{- use log scale on y axis}
+
+\item{scales}{- scales parameter for facet_grid/facet_wrap}
 
 \item{showPlot}{- flag (T/F) to show plot}
 

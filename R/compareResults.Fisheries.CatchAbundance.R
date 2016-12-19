@@ -7,12 +7,14 @@
 #'@param objs - list of resLst objects
 #'@param category - 'captured','discarded','retained','discard mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (x,m,s,z)
-#'@param facet_grid - formula for faceting using facet_grid
-#'@param facet_wrap - formula for faceting using facet_wrap
+#'@param facet_grid - formula (or string version of formula) for faceting using facet_grid
+#'@param facet_wrap - one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap
+#'@param scales - scales parameter for use with facet_grid/facet_wrap
 #'@param dodge - width to dodge overlapping series
 #'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param lnscale - use log scale on y axis
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -31,14 +33,16 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                                            cast=NULL,
                                            facet_grid=NULL,
                                            facet_wrap=NULL,
+                                           scales="fixed",
                                            dodge=0.2,
                                            years='all',
                                            mxy=15,
                                            nrow=5,
-                                           showPlot=TRUE,
+                                           lnscale=FALSE,
+                                           showPlot=FALSE,
                                            pdf=NULL,
-                                           verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Fisheries.CatchAbundance: Start.\n");
+                                           verbose=FALSE){
+    if (verbose) cat("--starting rCompTCMs::compareResults.Fisheries.CatchAbundance().\n");
     options(stringsAsFactors=FALSE);
     
     if (is.null(cast)){
@@ -58,24 +62,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-NULL;#rTCSAM2013::getMDFR.Pop.Recruitment(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.CatchAbundance(obj,category=category,cast=cast,verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.CatchAbundance(obj,category=category,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
-    }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    
-    if (is.numeric(years)) {
-        mdfr<-mdfr[mdfr$y %in% years,];
-    }
+    mdfr<-extractMDFR.Fisheries.CatchAbundance(objs,category=category,cast=cast,years=years,verbose=verbose);
     
     #----------------------------------
     #fishery catch abundance
@@ -91,18 +78,39 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
             if (verbose) cat("Plotting fleet",f,"\n")
             mdfrp<-mdfr[mdfr$fleet==f,];
             uY<-sort(unique(mdfrp$y));
-            for (pg in 1:ceiling(length(uY)/mxy)){
-                mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
-                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
-                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,
-                               xlab='size (mm CW)',ylab='Catch Abundance',units='millions',lnscale=FALSE,
-                               title=paste0(f,"\n",category," catch"),
-                               colour='case',guideTitleColor='',
-                               shape='case',guideTitleShape='',
-                               showPlot=FALSE);
-                if (showPlot||!is.null(pdf)) print(p);
-                plots[[paste(f,pg,sep=".")]]<-p;
-            }#pg
+            uX<-sort(unique(mdfrp$x));
+            uM<-sort(unique(mdfrp$m));
+            uS<-sort(unique(mdfrp$s));
+            for (x in uX){
+                idx<-mdfrp$x==x;
+                for (m in uM){
+                    idm<-mdfrp$m==m;
+                    for (s in uS){
+                        ids<-mdfrp$s==s
+                        for (pg in 1:ceiling(length(uY)/mxy)){
+                            idy<-mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)];
+                            mdfrpp<-mdfrp[idx&idm&ids&idy,];
+                            if (nrow(mdfrpp)>0){
+                                if (verbose) cat("Plotting ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                                mdfrpp$y<-as.character(mdfrpp$y);
+                                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+                                               facet_grid=facet_grid,scales=scales,
+                                               facet_wrap=facet_wrap,nrow=nrow,
+                                               xlab='size (mm CW)',ylab='Catch Abundance',units='millions',lnscale=lnscale,
+                                               title=paste0(f," ",category," catch for \n",x," ",m," ",s),
+                                               colour='case',guideTitleColor='',
+                                               shape='case',guideTitleShape='',
+                                               showPlot=FALSE);
+                                if (showPlot||!is.null(pdf)) print(p);
+                                cap<-paste0("\n  \nFigure &&figno. ",f," ",category," catch abundance for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+                                plots[[cap]]<-p;
+                            } else {
+                                if (verbose) cat("Skipping ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                            }
+                        }#pg
+                    }#uS
+                }#uM
+            }#uX
         }#uF
     } else {
         #plot time series
@@ -111,8 +119,9 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
             if (verbose) cat("Plotting fleet",f,"\n")
             mdfrp<-mdfr[mdfr$fleet==f,];
             p<-plotMDFR.XY(mdfrp,x='y',value.var='val',agg.formula=NULL,
-                           facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,
-                           xlab='year',ylab='Catch Abundance',units='millions',lnscale=FALSE,
+                           facet_grid=facet_grid,scales=scales,
+                           facet_wrap=facet_wrap,nrow=nrow,
+                           xlab='year',ylab='Catch Abundance',units='millions',lnscale=lnscale,
                            title=paste0(f,"\n",category," catch"),
                            colour='case',guideTitleColor='',
                            shape='case',guideTitleShape='',

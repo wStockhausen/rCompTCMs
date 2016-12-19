@@ -25,7 +25,10 @@ extractFits.SizeComps<-function(objs=NULL,
                                   plot1stObs=TRUE,
                                   verbose=FALSE){
     
-    if (verbose) cat("Starting rCompTCMs::extractFits.SizeComps().\n");
+    if (verbose) {
+        cat("Starting rCompTCMs::extractFits.SizeComps().\n");
+        cat("Extracting fleet.type = ",fleet.type,", catch.type = ",catch.type,"\n");
+    }
     options(stringsAsFactors=FALSE);
     
     fleet.type<-fleet.type[1];

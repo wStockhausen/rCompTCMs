@@ -4,14 +4,15 @@
 \alias{compareResults.Pop.Biomass}
 \title{Function to compare estimated population biomass by year among several models}
 \usage{
-compareResults.Pop.Biomass(objs, cast = "y+x", facet_grid = "x~.",
+compareResults.Pop.Biomass(objs, cast = "x", facet_grid = "x~.",
   facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15, nrow = 5,
-  showPlot = FALSE, pdf = NULL, verbose = TRUE)
+  lnscale = FALSE, scales = "fixed", showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
+\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
 
 \item{facet_grid}{- formula for faceting using facet_grid}
 
@@ -25,6 +26,10 @@ compareResults.Pop.Biomass(objs, cast = "y+x", facet_grid = "x~.",
 
 \item{nrow}{- number of rows per page, when facet_wrap'ing}
 
+\item{lnscale}{- use log scale on y axis}
+
+\item{scales}{- scales parameter for facet_grid/facet_wrap}
+
 \item{showPlot}{- flag (T/F) to show plot}
 
 \item{pdf}{- creates pdf, if not NULL}
@@ -35,7 +40,7 @@ compareResults.Pop.Biomass(objs, cast = "y+x", facet_grid = "x~.",
 ggplot2 object
 }
 \description{
-This function compares estimated abundance biomass by year
+This function compares estimated population biomass by year
   among several models.
 }
 \details{

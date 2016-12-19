@@ -60,7 +60,7 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
     
     if (showPlot) print(p);
     
-    if (verbose) cat("rCompTCMs::compareResults.Pop.RecSizeDistribution: done!\n");
+    if (verbose) cat("--finished rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     return(p);
 }
 

@@ -6,8 +6,9 @@
 \usage{
 compareResults.Fisheries.CatchBiomass(objs, category = c("captured",
   "discarded", "retained", "discard mortality", "index"), cast = NULL,
-  facet_grid = NULL, facet_wrap = NULL, dodge = 0.2, years = "all",
-  mxy = 15, nrow = 5, showPlot = TRUE, pdf = NULL, verbose = TRUE)
+  facet_grid = NULL, facet_wrap = NULL, scales = "free_y", dodge = 0.2,
+  years = "all", mxy = 15, nrow = 5, showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
@@ -16,9 +17,11 @@ compareResults.Fisheries.CatchBiomass(objs, category = c("captured",
 
 \item{cast}{- cast'ing formula for aggregating by factors (x,m,s,z)}
 
-\item{facet_grid}{- formula for faceting using facet_grid}
+\item{facet_grid}{- formula (or string version of formula) for faceting using facet_grid}
 
-\item{facet_wrap}{- formula for faceting using facet_wrap}
+\item{facet_wrap}{- one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap}
+
+\item{scales}{- scales parameter for use with facet_grid/facet_wrap}
 
 \item{dodge}{- width to dodge overlapping series}
 

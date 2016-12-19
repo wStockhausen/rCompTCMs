@@ -28,8 +28,7 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
                                                       pdf=NULL,
                                                       verbose=TRUE){
 
-    options(stringsAsFactors=FALSE);
-    
+    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.GrowthMatrices.LinePlots().\n")
     #create pdf, if necessary
     if (!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -39,36 +38,34 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
     
     cases<-names(objs);
     
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$z<-factor(mdfr$z,levels=as.character(mdfr$z));
-    mdfr$zp<-as.numeric(mdfr$zp);
-    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose);
+    mdfr$z<-floor(mdfr$z);
+    mdfr$z<-factor(mdfr$z,levels=as.character(sort(unique(mdfr$z))));
     
     #----------------------------------
     # plot growth transition matrices
     #----------------------------------
     plots<-list();
     np<-ncol*nrow;
-    uz<-sort(unique(mdfr$z));
-    uy<-sort(unique(mdfr$y));
+    uz<-as.character(sort(unique(as.numeric(as.character(mdfr$z)))));
+    #uy<-sort(unique(mdfr$y));
+    uy<-paste(unique(mdfr$y),collapse=", ");
+    if (verbose) cat("Unique z = ",uz,"\n")
+    if (verbose) cat("Unique y = ",uy,"\n")
     npg<-ceiling(length(uz)/np);
     if (length(cases)>1){
+        if (verbose) cat("Plotting",length(cases),"\n")
         ux<-unique(mdfr$x);
         for (x in ux){
+            if (verbose) cat("--Plotting sex",x,"\n")
             idxx<-mdfr$x == x;
             for (y in uy){
-                idxy<- mdfr$y==y;
+                if (verbose) cat("--Plotting year(s)",y,"\n")
+                #idxy<- mdfr$y==y;
                 for (pg in 1:npg){
-                    idxp<-mdfr$z %in% uz[(1+np*(pg-1)):min(length(uz),(np*pg))];
-                    dfrp<-mdfr[idxp&idxx&idxy,];
+                    idxp<-as.character(mdfr$z) %in% uz[(1+np*(pg-1)):min(length(uz),(np*pg))];
+                    #dfrp<-mdfr[idxp&idxx&idxy,];
+                    dfrp<-mdfr[idxp&idxx,];
                     p<-plotMDFR.XY(dfrp,x='zp',agg.formula=NULL,
                                    xlab='post-molt size (mm CW)',ylab='pr(post-molt size)',units="",
                                    facet_wrap='z',ncol=ncol,dir='v',
@@ -76,7 +73,7 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
                                    colour='case',guideTitleColor='',
                                    shape='case',guideTitleShape='');
                     if (showPlot||!is.null(pdf)) print(p);
-                    cap<-paste(x,y,pg,sep='.');
+                    cap<-paste("  \n  \nFigure &&figno. Growth matrices for ",x,"s during ",y,", page ",pg,".  \n  \n",sep='');
                     plots[[cap]]<-p;
                 }#pg
             }#y
@@ -94,11 +91,12 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
                                colour='x',guideTitleColor='',
                                shape='x',guideTitleShape='');
                 if (showPlot||!is.null(pdf)) print(p);
-                cap<-as.character(pg);
+                cap<-paste("  \n  \nFigure &&figno. Growth matrices for ",y,", page ",pg,".  \n  \n",sep='');
                 plots[[cap]]<-p;
             }#pg
         }#y
     }
     
+    if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices.LinePlots().\n")
     return(plots);
 }
