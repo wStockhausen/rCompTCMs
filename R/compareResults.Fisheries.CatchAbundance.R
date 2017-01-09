@@ -19,7 +19,7 @@
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return list of ggplot2 objects
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
 #'a set of time series plots are produced.
@@ -76,6 +76,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
         mdfr$z<-as.numeric(mdfr$z);
         for (f in uF){
             if (verbose) cat("Plotting fleet",f,"\n")
+            subPlots<-list();
             mdfrp<-mdfr[mdfr$fleet==f,];
             uY<-sort(unique(mdfrp$y));
             uX<-sort(unique(mdfrp$x));
@@ -103,7 +104,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                                                showPlot=FALSE);
                                 if (showPlot||!is.null(pdf)) print(p);
                                 cap<-paste0("\n  \nFigure &&figno. ",f," ",category," catch abundance for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
-                                plots[[cap]]<-p;
+                                subPlots[[cap]]<-p;
                             } else {
                                 if (verbose) cat("Skipping ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
                             }
@@ -111,6 +112,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                     }#uS
                 }#uM
             }#uX
+            plots[[f]]<-subPlots;
         }#uF
     } else {
         #plot time series

@@ -5,22 +5,24 @@
 \title{Function to compare estimated survey abundance by year among several models}
 \usage{
 compareResults.Surveys.Abundance(objs, category = "index", cast = "x",
-  facet_grid = NULL, facet_wrap = NULL, dodge = 0.2, years = "all",
-  mxy = 15, nrow = 5, lnscale = FALSE, showPlot = FALSE, pdf = NULL,
-  verbose = TRUE)
+  years = "all", facet_grid = NULL, facet_wrap = NULL, scales = "fixed",
+  dodge = 0.2, mxy = 15, nrow = 5, lnscale = FALSE, showPlot = FALSE,
+  pdf = NULL, verbose = TRUE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
 
+\item{years}{- 'all' or vector of years to include}
+
 \item{facet_grid}{- formula for faceting using facet_grid}
 
 \item{facet_wrap}{- formula for faceting using facet_wrap}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{scales}{- parameter passed to ggplot2::facet_grid()}
 
-\item{years}{- 'all' or vector of years to include}
+\item{dodge}{- width to dodge overlapping series}
 
 \item{mxy}{- max number of years per page}
 

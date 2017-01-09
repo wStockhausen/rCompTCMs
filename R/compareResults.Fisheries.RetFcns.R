@@ -15,7 +15,7 @@
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return lists ofggplot2 objects, nested by fishery
 #'
 #'@details None.
 #'
@@ -71,6 +71,7 @@ compareResults.Fisheries.RetFcns<-function(objs,
         if (verbose) cat("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
         uY<-unique(mdfrp$y);
+        subPlots<-list();
         for (pg in 1:ceiling(length(uY)/mxy)){
             mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
             p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
@@ -81,8 +82,9 @@ compareResults.Fisheries.RetFcns<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[paste(f,pg,sep=".")]]<-p;
+            subPlots[[paste(f,pg,sep=".")]]<-p;
         }#pg
+        plots[[f]]<-subPlots;
     }#uF
 
     if (verbose) cat("rCompTCMs::compareResults.Fisheries.RetFcns(): Done!\n");

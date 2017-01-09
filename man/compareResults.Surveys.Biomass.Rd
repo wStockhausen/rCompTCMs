@@ -5,21 +5,24 @@
 \title{Function to compare estimated survey biomass by year among several models}
 \usage{
 compareResults.Surveys.Biomass(objs, category = "index", cast = "y+x",
-  facet_grid = "x~.", facet_wrap = NULL, dodge = 0.2, years = "all",
-  mxy = 15, nrow = 5, showPlot = FALSE, pdf = NULL, verbose = TRUE)
+  years = "all", facet_grid = "x~.", facet_wrap = NULL,
+  scales = "fixed", dodge = 0.2, mxy = 15, nrow = 5, showPlot = FALSE,
+  pdf = NULL, verbose = TRUE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
 
+\item{years}{- 'all' or vector of years to include}
+
 \item{facet_grid}{- formula for faceting using facet_grid}
 
 \item{facet_wrap}{- formula for faceting using facet_wrap}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{scales}{- parameter passed to ggplot2::facet_grid()}
 
-\item{years}{- 'all' or vector of years to include}
+\item{dodge}{- width to dodge overlapping series}
 
 \item{mxy}{- max number of years per page}
 

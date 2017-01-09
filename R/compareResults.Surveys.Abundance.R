@@ -6,10 +6,11 @@
 #'   
 #'@param objs - list of resLst objects
 #'@param cast - casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+#'@param years - 'all' or vector of years to include
 #'@param facet_grid - formula for faceting using facet_grid
 #'@param facet_wrap - formula for faceting using facet_wrap
+#'@param scales - parameter passed to ggplot2::facet_grid()
 #'@param dodge - width to dodge overlapping series
-#'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing 
 #'@param lnscale - use log scale on y axis
@@ -29,10 +30,11 @@
 compareResults.Surveys.Abundance<-function(objs,
                                            category='index',
                                            cast="x",
+                                           years='all',
                                            facet_grid=NULL,
                                            facet_wrap=NULL,
+                                           scales='fixed',
                                            dodge=0.2,
-                                           years='all',
                                            mxy=15,
                                            nrow=5,
                                            lnscale=FALSE,
@@ -59,24 +61,7 @@ compareResults.Surveys.Abundance<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
-    }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    
-    if (is.numeric(years)) {
-        mdfr<-mdfr[mdfr$y %in% years,];
-    }
+    mdfr<-extractMDFR.Surveys.Abundance(objs,category=category,cast=cast,years=years,verbose=verbose);
     
     #----------------------------------
     #survey abundance
@@ -108,7 +93,7 @@ compareResults.Surveys.Abundance<-function(objs,
                                 if (verbose) cat("Plotting ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
                                 mdfrpp$y<-as.character(mdfrpp$y);
                                 p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
-                                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,
+                                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
                                                xlab='size (mm CW)',ylab='Survey Abundance',units='millions',lnscale=lnscale,
                                                title=f,
                                                colour='case',guideTitleColor='',
@@ -132,7 +117,7 @@ compareResults.Surveys.Abundance<-function(objs,
             if (verbose) cat("Plotting fleet",f,"\n")
             mdfrp<-mdfr[mdfr$fleet==f,];
             p<-plotMDFR.XY(mdfrp,x='y',value.var='val',agg.formula=NULL,
-                           facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,
+                           facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
                            xlab='year',ylab='Survey Abundance',units='millions',lnscale=lnscale,
                            title=f,
                            colour='case',guideTitleColor='',

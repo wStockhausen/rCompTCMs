@@ -40,7 +40,7 @@ compareResults.Fisheries.CatchAbundance(objs, category = c("captured",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+list of ggplot2 objects
 }
 \description{
 This function compares estimated fishery catch abundance by year

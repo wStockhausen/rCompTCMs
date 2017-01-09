@@ -5,20 +5,24 @@
 \title{Function to compare population abundance estimates by year among several models}
 \usage{
 compareResults.Pop.Abundance1(objs, type = c("N_yxmsz", "N_yxmz", "N_yxz",
-  "N_yxms", "N_yxm", "N_yx"), numRecent = 15, facet_grid = NULL,
-  facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15, nrow = 5,
-  showPlot = TRUE, pdf = NULL, verbose = TRUE)
+  "N_yxms", "N_yxm", "N_yx"), years = "all", numRecent = 15,
+  facet_grid = NULL, facet_wrap = NULL, scales = "fixed", dodge = 0.2,
+  mxy = 15, nrow = 5, showPlot = TRUE, pdf = NULL, verbose = TRUE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{type}{- type of abuundance ("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx")}
 
+\item{years}{- "all" or numerical vector of years to include}
+
 \item{numRecent}{- number of "recent" years to plot}
 
 \item{facet_grid}{- formula for faceting using facet_grid}
 
 \item{facet_wrap}{- formula for faceting using facet_wrap}
+
+\item{scales}{- ggplot2 scales option for facet_grid}
 
 \item{dodge}{- width to dodge overlapping series}
 

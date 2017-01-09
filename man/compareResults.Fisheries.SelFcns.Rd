@@ -30,7 +30,7 @@ compareResults.Fisheries.SelFcns(objs, cast = "y+x", years = "all",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+lists ofggplot2 objects, nested by fishery
 }
 \description{
 This function compares fishery selectivity functions by year

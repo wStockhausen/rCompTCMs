@@ -6,9 +6,11 @@
 #'   
 #'@param objs - list of resLst objects
 #'@param type - type of abuundance ("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx")
+#'@param years - "all" or numerical vector of years to include
 #'@param numRecent - number of "recent" years to plot
 #'@param facet_grid - formula for faceting using facet_grid
 #'@param facet_wrap - formula for faceting using facet_wrap
+#'@param scales - ggplot2 scales option for facet_grid
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing 
@@ -30,17 +32,18 @@
 #'
 compareResults.Pop.Abundance1<-function(objs,
                                        type=c("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx"),
+                                       years='all',
                                        numRecent=15,
                                        facet_grid=NULL,
                                        facet_wrap=NULL,
+                                       scales='fixed',
                                        dodge=0.2,
-                                       years='all',
                                        mxy=15,
                                        nrow=5,
                                        showPlot=TRUE,
                                        pdf=NULL,
                                        verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Abundance1: Plotting abundance.\n");
+    if (verbose) cat("starting rCompTCMs::compareResults.Pop.Abundance1().\n");
     
     type<-type[1];
     types<-c("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx");
@@ -69,8 +72,9 @@ compareResults.Pop.Abundance1<-function(objs,
         mdfr<-rbind(mdfr,mdfr1);
     }
     mdfr$y<-as.numeric(mdfr$y);
-    mdfr$z<-as.numeric(mdfr$z);
     mdfr$case<-factor(mdfr$case,levels=cases);
+    
+    if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
     
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
     
@@ -81,14 +85,14 @@ compareResults.Pop.Abundance1<-function(objs,
         plots<-list();
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$A<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -96,14 +100,14 @@ compareResults.Pop.Abundance1<-function(objs,
         
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$lnA<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);

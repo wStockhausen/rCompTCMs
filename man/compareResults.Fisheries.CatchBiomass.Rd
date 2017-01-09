@@ -38,7 +38,7 @@ compareResults.Fisheries.CatchBiomass(objs, category = c("captured",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+list of ggplot2 plot objects
 }
 \description{
 This function compares estimated fishery catch biomass by year

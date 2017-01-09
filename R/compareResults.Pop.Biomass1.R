@@ -6,9 +6,11 @@
 #'   
 #'@param objs - list of resLst objects
 #'@param type - type of biomass ("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx")
+#'@param years - "all" or numerical vector of years to include
 #'@param numRecent - number of "recent" years to plot
 #'@param facet_grid - formula for faceting using facet_grid
 #'@param facet_wrap - formula for faceting using facet_wrap
+#'@param scales - ggplot2 scales option for facet_grid
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing 
@@ -29,18 +31,19 @@
 #'@export
 #'
 compareResults.Pop.Biomass1<-function(objs,
-                                     type=c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx"),
-                                       numRecent=15,
-                                       facet_grid=NULL,
-                                       facet_wrap=NULL,
-                                       dodge=0.2,
-                                       years='all',
-                                       mxy=15,
-                                       nrow=5,
-                                       showPlot=TRUE,
-                                     pdf=NULL,
-                                     verbose=TRUE){
-    if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass1: Plotting biomass.\n");
+                                      type=c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx"),
+                                      years='all',
+                                      numRecent=15,
+                                      facet_grid=NULL,
+                                      facet_wrap=NULL,
+                                      scales="fixed",
+                                      dodge=0.2,
+                                      mxy=15,
+                                      nrow=5,
+                                      showPlot=FALSE,
+                                      pdf=NULL,
+                                      verbose=FALSE){
+    if (verbose) cat("starting rCompTCMs::compareResults.Pop.Biomass1().\n");
     options(stringsAsFactors=FALSE);
     
     type<-type[1];
@@ -72,6 +75,8 @@ compareResults.Pop.Biomass1<-function(objs,
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$case<-factor(mdfr$case,levels=cases);
     
+    if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
+    
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
     
     if (sum(grep('z',type,fixed=TRUE))==0){
@@ -81,14 +86,14 @@ compareResults.Pop.Biomass1<-function(objs,
         plots<-list();
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$B<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -96,14 +101,14 @@ compareResults.Pop.Biomass1<-function(objs,
         
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
-                       facet_grid='m+x~s',dodge=dodge,
+                       facet_grid='m+x~s',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$lnB<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
-                       facet_grid='m+x~s',dodge=dodge,
+                       facet_grid='m+x~s',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);

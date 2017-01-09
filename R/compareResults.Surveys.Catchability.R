@@ -9,7 +9,7 @@
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param dodge - width to dodge overlapping series
 #'@param facet_grid - ggplot2 formula to produce figure with gridded facets
-#' @param scales - parameter passed to ggplot2::facet_grid()
+#'@param scales - parameter passed to ggplot2::facet_grid()
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
