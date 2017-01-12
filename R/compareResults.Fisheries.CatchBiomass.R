@@ -67,7 +67,7 @@ compareResults.Fisheries.CatchBiomass<-function(objs,
     #----------------------------------
     plots<-list();
     uF<-unique(mdfr$fleet);
-    print(uF);
+    if (verbose) print(uF);
     if (sum(grep('z',cast,fixed=TRUE))>0){
         #plot size comps by year
         if (verbose) cat("Plotting size comps\n")
