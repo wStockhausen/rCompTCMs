@@ -14,7 +14,7 @@
 #'@export
 #'
 extractMDFR.Pop.Recruitment<-function(objs,
-                                      verbose=TRUE){
+                                      verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Pop.Recruitment().\n");
     options(stringsAsFactors=FALSE);
     

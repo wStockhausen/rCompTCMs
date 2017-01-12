@@ -117,7 +117,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
         p <- p + guides(fill=guide_legend('observed'),colour=guide_legend('predicted'),shape=guide_legend('predicted'),linetype=guide_legend('type'))
         cp1<-gsub("&&fleet",fleet,cap1,fixed=TRUE);
         if (showPlot) figno<-wtsUtilities::printGGList(p,figno,cp1,showPlot)$figno;
-        plots[[fleet]]<-p;
+        plots[[cp1]]<-p;
     }#fleets
 
     if (verbose) cat("Finished rCompTCMs::compareFits.MeanSizeComps().\n");

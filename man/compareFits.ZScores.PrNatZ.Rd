@@ -22,6 +22,8 @@ compareFits.ZScores.PrNatZ(objs = NULL, fleet.type = c("survey", "fishery"),
 
 \item{pdf}{- name for output pdf file}
 
+\item{verbose}{- flag (T/F) to print diagnostic information}
+
 \item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{

@@ -5,7 +5,7 @@
 \title{Compare probability of molt-to-maturity among several model runs}
 \usage{
 compareResults.Pop.PrM2M(objs, dodge = 0.2, showPlot = TRUE, pdf = NULL,
-  verbose = TRUE)
+  verbose = FALSE)
 }
 \arguments{
 \item{dodge}{- width to dodge overlapping series}

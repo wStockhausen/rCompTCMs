@@ -26,7 +26,7 @@ compareResults.Pop.IF.NatZ<-function(objs,
                                      dodge=0.2,
                                      showPlot=FALSE,
                                      pdf=NULL,
-                                     verbose=TRUE){
+                                     verbose=FALSE){
     if (verbose) cat("Strating rCompTCMs::compareResults.Pop.IF.NatZ().\n");
     options(stringsAsFactors=FALSE);
     

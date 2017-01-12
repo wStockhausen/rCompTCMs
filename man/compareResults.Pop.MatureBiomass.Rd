@@ -5,7 +5,7 @@
 \title{Function to compare mature biomass estimates by year among several models}
 \usage{
 compareResults.Pop.MatureBiomass(objs, numRecent = 15, dodge = 0.2,
-  showPlot = TRUE, pdf = NULL, verbose = TRUE)
+  showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

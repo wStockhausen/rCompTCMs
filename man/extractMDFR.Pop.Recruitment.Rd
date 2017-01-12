@@ -4,7 +4,7 @@
 \alias{extractMDFR.Pop.Recruitment}
 \title{Function to extract recruitment estimates by year among several models}
 \usage{
-extractMDFR.Pop.Recruitment(objs, verbose = TRUE)
+extractMDFR.Pop.Recruitment(objs, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

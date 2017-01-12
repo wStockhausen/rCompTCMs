@@ -28,9 +28,9 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
                                                    "iN_xmsz","fN_xmsz"),
                                             dodge=0.2,
                                             ncol=3,nrow=5, 
-                                            showPlot=TRUE,
+                                            showPlot=FALSE,
                                             pdf=NULL,
-                                            verbose=TRUE){
+                                            verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.NatZ.LinePlots().\n");
     options(stringsAsFactors=FALSE);
     

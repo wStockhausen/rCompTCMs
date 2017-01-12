@@ -5,7 +5,7 @@
 \title{Function to compare initial/final population abundance estimates among several models}
 \usage{
 compareResults.Pop.IF.NatZ(objs, type = c("iN_yxmsz", "fN_yxmsz"),
-  dodge = 0.2, showPlot = FALSE, pdf = NULL, verbose = TRUE)
+  dodge = 0.2, showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

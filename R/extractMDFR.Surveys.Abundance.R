@@ -19,7 +19,7 @@ extractMDFR.Surveys.Abundance<-function(objs,
                                         category='index',
                                         cast="x",
                                         years='all',
-                                        verbose=TRUE){
+                                        verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Surveys.Abundance().\n");
     options(stringsAsFactors=FALSE);
     

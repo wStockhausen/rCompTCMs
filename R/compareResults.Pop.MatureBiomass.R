@@ -24,9 +24,9 @@
 compareResults.Pop.MatureBiomass<-function(objs,
                                            numRecent=15,
                                            dodge=0.2,
-                                           showPlot=TRUE,
+                                           showPlot=FALSE,
                                            pdf=NULL,
-                                           verbose=TRUE){
+                                           verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.MatureBiomass().\n");
     options(stringsAsFactors=FALSE);
     

@@ -82,7 +82,8 @@ compareResults.Fisheries.SelFcns<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            subPlots[[paste(f,pg,sep=".")]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+            subPlots[[cap]]<-p;
         }#pg
         plots[[f]]<-subPlots;
     }#uF

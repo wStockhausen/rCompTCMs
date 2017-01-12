@@ -49,8 +49,8 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     title=NULL,
                                     xlims=NULL,
                                     ylims=NULL,
-                                    showPlot=TRUE,
-                                    verbose=TRUE){
+                                    showPlot=FALSE,
+                                    verbose=FALSE){
     idx<-dfr[[type]]!='observed';
     if (verbose) {
         cat("Starting plotMDFR.Fits.TimeSeries1().\n")

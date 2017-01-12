@@ -9,7 +9,7 @@ plotMDFR.BarLine(mdfr, x = NULL, value.var = "val", agg.formula = NULL,
   shape = NULL, faceting = NULL, xlab = "", ylab = "", units = "",
   lnscale = FALSE, title = "", guideTitleColour = NULL,
   guideTitleFill = NULL, guideTitleLineType = NULL,
-  guideTitleShape = NULL, showPlot = TRUE)
+  guideTitleShape = NULL, showPlot = FALSE)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

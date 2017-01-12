@@ -8,7 +8,7 @@ plotMDFR.Fits.TimeSeries(dfr, plot1stObs = TRUE, numRecent = 15, x = "y",
   y = "val", lci = "lci", uci = "uci", case = "case", type = "type",
   facets = NULL, scales = "fixed", plotObs = TRUE, plotMod = TRUE,
   xlab = "year", ylab = NULL, title = NULL, xlims = NULL,
-  ylims = NULL, showPlot = TRUE)
+  ylims = NULL, showPlot = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe}

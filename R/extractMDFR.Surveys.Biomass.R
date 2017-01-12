@@ -19,7 +19,7 @@ extractMDFR.Surveys.Biomass<-function(objs,
                                          category='index',
                                          cast="y+x",
                                          years='all',
-                                         verbose=TRUE){
+                                         verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Surveys.Biomass().\n");
     options(stringsAsFactors=FALSE);
     

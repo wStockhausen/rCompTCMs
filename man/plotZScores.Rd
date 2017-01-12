@@ -7,7 +7,7 @@
 plotZScores(dfr, x = "y", y = "zscore", color = NULL, shape = NULL,
   position = "identity", dodge = 0.2, facets = NULL,
   facet.scales = "fixed", xlab = "year", ylab = NULL, title = NULL,
-  legend = NULL, xlims = NULL, ylims = NULL, showPlot = TRUE)
+  legend = NULL, xlims = NULL, ylims = NULL, showPlot = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe}

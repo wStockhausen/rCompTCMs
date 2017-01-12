@@ -26,7 +26,7 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
                                                       ncol=3,nrow=5, 
                                                       showPlot=FALSE,
                                                       pdf=NULL,
-                                                      verbose=TRUE){
+                                                      verbose=FALSE){
 
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.GrowthMatrices.LinePlots().\n")
     #create pdf, if necessary

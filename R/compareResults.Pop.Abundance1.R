@@ -40,9 +40,9 @@ compareResults.Pop.Abundance1<-function(objs,
                                        dodge=0.2,
                                        mxy=15,
                                        nrow=5,
-                                       showPlot=TRUE,
+                                       showPlot=FALSE,
                                        pdf=NULL,
-                                       verbose=TRUE){
+                                       verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.Pop.Abundance1().\n");
     
     type<-type[1];
@@ -89,14 +89,16 @@ compareResults.Pop.Abundance1<-function(objs,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$A<-p;
+        cap<-paste0("\n  \nFigure &&figno. Population abundance trends.  \n  \n")
+        plots[[cap]]<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
                        facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$RA<-p;
+        cap<-paste0("\n  \nFigure &&figno. Recent population abundance trends.  \n  \n")
+        plots[[cap]]<-p;
         
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
@@ -104,14 +106,16 @@ compareResults.Pop.Abundance1<-function(objs,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$lnA<-p;
+        cap<-paste0("\n  \nFigure &&figno. Ln-scale population abundance trends.  \n  \n")
+        plots[[cap]]<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
                        facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$lnRA<-p;
+        cap<-paste0("\n  \nFigure &&figno. Recent ln-scale population abundance trends.  \n  \n")
+        plots[[cap]]<-p;
     } else {
         #plot size comps by year
         if (verbose) cat("Plotting size comps\n")
@@ -127,7 +131,8 @@ compareResults.Pop.Abundance1<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[paste(type,pg,sep=".")]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Population abundance size compositions (",type,"; ",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+            plots[[cap]]<-p;
         }#pg
     }
 

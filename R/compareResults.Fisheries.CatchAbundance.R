@@ -103,7 +103,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                                                shape='case',guideTitleShape='',
                                                showPlot=FALSE);
                                 if (showPlot||!is.null(pdf)) print(p);
-                                cap<-paste0("\n  \nFigure &&figno. ",f," ",category," catch abundance for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+                                cap<-paste0("\n  \nFigure &&figno. Predicted ",f," ",category," catch abundance for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
                                 subPlots[[cap]]<-p;
                             } else {
                                 if (verbose) cat("Skipping ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
@@ -129,7 +129,8 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[f]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Predicted ",f," ",category," catch abundance.  \n  \n")
+            plots[[cap]]<-p;
         }#uF
     }
 

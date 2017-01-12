@@ -90,14 +90,16 @@ compareResults.Pop.Biomass1<-function(objs,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$B<-p;
+        cap<-paste0("\n  \nFigure &&figno. Population biomass trends.  \n  \n")
+        plots[[cap]]<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
                        facet_grid='m+s~x',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$RB<-p;
+        cap<-paste0("\n  \nFigure &&figno. Recent population biomass trends.  \n  \n")
+        plots[[cap]]<-p;
         
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
@@ -105,14 +107,16 @@ compareResults.Pop.Biomass1<-function(objs,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$lnB<-p;
+        cap<-paste0("\n  \nFigure &&figno. Ln-scale population biomass trends.  \n  \n")
+        plots[[cap]]<-p;
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
                        facet_grid='m+x~s',dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
-        plots$lnRB<-p;
+        cap<-paste0("\n  \nFigure &&figno. Recent ln-scale population biomass trends.  \n  \n")
+        plots[[cap]]<-p;
     } else {
         #plot size comps by year
         if (verbose) cat("Plotting size comps\n")
@@ -128,7 +132,8 @@ compareResults.Pop.Biomass1<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[paste(type,pg,sep=".")]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Population biomass size compositions (",type,"; ",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+            plots[[cap]]<-p;
         }#pg
     }
 

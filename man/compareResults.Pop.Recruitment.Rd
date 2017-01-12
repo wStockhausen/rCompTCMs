@@ -5,7 +5,7 @@
 \title{Function to compare recruitment estimates by year among several models}
 \usage{
 compareResults.Pop.Recruitment(objs, numRecent = 15, dodge = 0.2,
-  showPlot = TRUE, pdf = NULL, verbose = TRUE)
+  showPlot = TRUE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

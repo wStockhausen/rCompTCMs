@@ -4,7 +4,7 @@
 \alias{extractResults.Pop.MatureBiomass}
 \title{Function to extract mature biomass estimates by year among several models}
 \usage{
-extractResults.Pop.MatureBiomass(objs, verbose = TRUE)
+extractResults.Pop.MatureBiomass(objs, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

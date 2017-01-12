@@ -95,7 +95,7 @@ compareResults.Pop.Biomass<-function(objs,
                                            shape='case',guideTitleShape='',
                                            showPlot=FALSE);
                             if (showPlot||!is.null(pdf)) print(p);
-                                cap<-paste0("\n  \nFigure &&figno. Population biomass for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+                                cap<-paste0("\n  \nFigure &&figno. Population biomass size comps for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
                                 plots[[cap]]<-p;
                         } else {
                             if (verbose) cat("Skipping ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
@@ -114,7 +114,8 @@ compareResults.Pop.Biomass<-function(objs,
                        shape='case',guideTitleShape='',
                        showPlot=FALSE);
         if (showPlot||!is.null(pdf)) print(p);
-        plots[[cast]]<-p;
+        cap<-paste0("\n  \nFigure &&figno. Population biomass trends.  \n  \n")
+        plots[[cap]]<-p;
     }
 
     if (verbose) cat("rCompTCMs::compareResults.Pop.Biomass: Done!\n");

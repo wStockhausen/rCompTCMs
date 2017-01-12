@@ -13,7 +13,7 @@
 #'@export
 #'
 extractMDFR.Pop.GrowthMatrices<-function(objs,
-                                         verbose=TRUE){
+                                         verbose=FALSE){
 
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Pop.GrowthMatrices().\n")
     options(stringsAsFactors=FALSE);

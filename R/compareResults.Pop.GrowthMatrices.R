@@ -20,7 +20,7 @@
 compareResults.Pop.GrowthMatrices<-function(objs,
                                              showPlot=FALSE,
                                              pdf=NULL,
-                                             verbose=TRUE){
+                                             verbose=FALSE){
 
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
     #create pdf, if necessary

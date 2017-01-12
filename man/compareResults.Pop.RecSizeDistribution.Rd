@@ -5,7 +5,7 @@
 \title{Compare recruitment size distributions among several model runs}
 \usage{
 compareResults.Pop.RecSizeDistribution(objs, dodge = 0.2, showPlot = TRUE,
-  pdf = NULL, verbose = TRUE)
+  pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{dodge}{- width to dodge overlapping series}

@@ -123,8 +123,8 @@ compareFits.BiomassData<-function(objs=NULL,
     }
     if (catch.type=="total") {
         ylab<-"Total catch (1000's t)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted total catch for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted total catch for &&fleet. Recent time period.  \n  \n";
+        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet.  \n  \n";
+        cap2<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet. Recent time period.  \n  \n";
     }
     uFs<-as.character(unique(mdfr$fleet));
     for (uF in uFs){

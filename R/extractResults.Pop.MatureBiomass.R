@@ -15,7 +15,7 @@
 #'@export
 #'
 extractResults.Pop.MatureBiomass<-function(objs,
-                                           verbose=TRUE){
+                                           verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractResults.Pop.MatureBiomass().\n");
     options(stringsAsFactors=FALSE);
     

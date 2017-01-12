@@ -4,7 +4,7 @@
 \alias{extractMDFR.Pop.GrowthMatrices}
 \title{Extract growth matrices among several model runs}
 \usage{
-extractMDFR.Pop.GrowthMatrices(objs, verbose = TRUE)
+extractMDFR.Pop.GrowthMatrices(objs, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

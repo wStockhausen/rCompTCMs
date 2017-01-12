@@ -4,8 +4,8 @@
 \alias{compareResults.Pop.MeanGrowth}
 \title{Compare mean post-molt size among several model runs}
 \usage{
-compareResults.Pop.MeanGrowth(objs, dodge = 0.2, showPlot = TRUE,
-  pdf = NULL, verbose = TRUE)
+compareResults.Pop.MeanGrowth(objs, dodge = 0.2, showPlot = FALSE,
+  pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

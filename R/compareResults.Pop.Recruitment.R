@@ -24,7 +24,7 @@ compareResults.Pop.Recruitment<-function(objs,
                                           dodge=0.2,
                                           showPlot=TRUE,
                                           pdf=NULL,
-                                          verbose=TRUE){
+                                          verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.Recruitment().\n");
     options(stringsAsFactors=FALSE);
     

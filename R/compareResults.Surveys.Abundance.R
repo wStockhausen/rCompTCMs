@@ -40,7 +40,7 @@ compareResults.Surveys.Abundance<-function(objs,
                                            lnscale=FALSE,
                                            showPlot=FALSE,
                                            pdf=NULL,
-                                           verbose=TRUE){
+                                           verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Abundance().\n");
     options(stringsAsFactors=FALSE);
     
@@ -124,7 +124,8 @@ compareResults.Surveys.Abundance<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[f]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. ",f," catch abundance.  \n  \n")
+            plots[[cap]]<-p;
         }#uF
     }
 

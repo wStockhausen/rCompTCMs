@@ -38,7 +38,7 @@ compareResults.Surveys.Biomass<-function(objs,
                                          nrow=5,
                                          showPlot=FALSE,
                                          pdf=NULL,
-                                         verbose=TRUE){
+                                         verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Biomass().\n");
     options(stringsAsFactors=FALSE);
     
@@ -74,18 +74,38 @@ compareResults.Surveys.Biomass<-function(objs,
             if (verbose) cat("Plotting fleet",f,"\n")
             mdfrp<-mdfr[mdfr$fleet==f,];
             uY<-sort(unique(mdfrp$y));
-            for (pg in 1:ceiling(length(uY)/mxy)){
-                mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
-                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
-                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
-                               xlab='size (mm CW)',ylab='Survey Biomass',units="1000's t",lnscale=FALSE,
-                               title=f,
-                               colour='case',guideTitleColor='',
-                               shape='case',guideTitleShape='',
-                               showPlot=FALSE);
-                if (showPlot||!is.null(pdf)) print(p);
-                plots[[paste(f,pg,sep=".")]]<-p;
-            }#pg
+            uX<-sort(unique(mdfrp$x));
+            uM<-sort(unique(mdfrp$m));
+            uS<-sort(unique(mdfrp$s));
+            for (x in uX){
+                idx<-mdfrp$x==x;
+                for (m in uM){
+                    idm<-mdfrp$m==m;
+                    for (s in uS){
+                        ids<-mdfrp$s==s
+                        for (pg in 1:ceiling(length(uY)/mxy)){
+                            idy<-mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)];
+                            mdfrpp<-mdfrp[idx&idm&ids&idy,];
+                            if (nrow(mdfrpp)>0){
+                                if (verbose) cat("Plotting ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                                mdfrpp$y<-as.character(mdfrpp$y);
+                                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+                                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
+                                               xlab='size (mm CW)',ylab='Survey Biomass',units="1000's t",lnscale=lnscale,
+                                               title=f,
+                                               colour='case',guideTitleColor='',
+                                               shape='case',guideTitleShape='',
+                                               showPlot=FALSE);
+                                if (showPlot||!is.null(pdf)) print(p);
+                                cap<-paste0("\n  \nFigure &&figno. ",f," catch biomass for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+                                plots[[cap]]<-p;
+                            } else {
+                                if (verbose) cat("Skipping ",x,m,s,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                            }
+                        }#pg
+                    }#uS
+                }#uM
+            }#uX
         }#uF
     } else {
         #plot time series
@@ -101,7 +121,8 @@ compareResults.Surveys.Biomass<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[f]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. ",f," catch biomass.  \n  \n")
+            plots[[cap]]<-p;
         }#uF
     }
 

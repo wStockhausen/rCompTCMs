@@ -53,7 +53,7 @@ plotMDFR.BarLine<-function(mdfr,
                            guideTitleFill=NULL,
                            guideTitleLineType=NULL,
                            guideTitleShape=NULL,
-                           showPlot=TRUE
+                           showPlot=FALSE
                            ){
     #cast melted dataframe
     if (!is.null(agg.formula)){

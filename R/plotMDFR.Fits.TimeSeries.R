@@ -48,7 +48,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                   title=NULL,
                                   xlims=NULL,
                                   ylims=NULL,
-                                  showPlot=TRUE){
+                                  showPlot=FALSE){
     plots<-list();
     
     #plot with observations & case results

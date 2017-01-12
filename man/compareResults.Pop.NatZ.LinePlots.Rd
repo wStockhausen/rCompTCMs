@@ -6,7 +6,7 @@
 \usage{
 compareResults.Pop.NatZ.LinePlots(objs, type = c("N_yxmsz", "N_yxmz", "N_yxz",
   "iN_xmsz", "fN_xmsz"), dodge = 0.2, ncol = 3, nrow = 5,
-  showPlot = TRUE, pdf = NULL, verbose = TRUE)
+  showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

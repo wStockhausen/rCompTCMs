@@ -5,7 +5,7 @@
 \title{Compare growth matrices among several model runs}
 \usage{
 compareResults.Pop.GrowthMatrices(objs, showPlot = FALSE, pdf = NULL,
-  verbose = TRUE)
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

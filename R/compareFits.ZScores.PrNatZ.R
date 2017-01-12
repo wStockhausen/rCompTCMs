@@ -11,6 +11,7 @@
 #'@param residuals.type - residual type for tcsam02 models ('pearsons' or 'nlls')
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - name for output pdf file
+#'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 #'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.PrNatZ()}.

@@ -65,7 +65,7 @@ compareFits.GrowthData<-function(objs,
         p <- p + ggtitle(d);
         p <- p + facet_grid(x~.);
         if (showPlot) print(p);
-        cap<-paste0("\n  \nModel fits to ",d,".\n   \n")
+        cap<-paste0("\n  \nFigure &&figno. Model fits to ",d,".\n   \n")
         plots[[cap]]<-p;
         #-------------------------------------------#
         #plot nll scores
@@ -78,7 +78,7 @@ compareFits.GrowthData<-function(objs,
         p <- p + ggtitle(d);
         p <- p + facet_grid(x~.);
         if (showPlot) print(p);
-        cap<-paste0("\n  \nNegative log-likelihood values for fits to ",d,".\n   \n")
+        cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d,".\n   \n")
         plots[[cap]]<-p;
         #-------------------------------------------#
         #plot zscores
@@ -91,7 +91,7 @@ compareFits.GrowthData<-function(objs,
         p <- p + ggtitle(d);
         p <- p + facet_grid(x~.);
         if (showPlot) print(p);
-        cap<-paste0("\n  \nZ-scores for fits to ",d,".\n   \n")
+        cap<-paste0("Figure &&figno. \n  \nZ-scores for fits to ",d,".\n   \n")
         plots[[cap]]<-p;
     }#d
 
