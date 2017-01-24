@@ -10,7 +10,7 @@
 #'@param agg.function - aggregation function (fun.aggregate in cast)
 #'@param ... - further arguments passed to aggregating function
 #'@param colour - column name to which colour aesthetic is mapped
-#'@param faceting - faceting formula
+#'@param facet_grid - faceting formula
 #'@param units - units for bubble size scale
 #'@param xlab - x axis label
 #'@param ylab - y axis label
@@ -37,7 +37,7 @@ plotMDFR.Bubbles<-function(mdfr,
                            agg.function=sum,
                            ...,
                            colour=NULL,
-                           faceting=NULL,
+                           facet_grid=NULL,
                            units="",
                            xlab="",
                            ylab="",
@@ -68,7 +68,7 @@ plotMDFR.Bubbles<-function(mdfr,
     if (!is.null(xlab))     p <- p + xlab(xlab);
     if (!is.null(ylab))     p <- p + ylab(ylab);
     if (!is.null(title))    p <- p + ggtitle(title);
-    if (!is.null(faceting)) p <- p + facet_grid(faceting);
+    if (!is.null(facet_grid)) p <- p + facet_grid(facet_grid);
     p <- p + guides(size=guide_legend(title=units,override.aes=list(alpha=1.0),order=1));
     if (!is.null(guideTitleColour)) {
         if (useColourGradient) {

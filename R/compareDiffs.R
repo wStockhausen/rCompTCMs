@@ -74,6 +74,8 @@ compareDiffs<-function(dfr,
     names(dfrp)<-cls;
     var<-'var';
     mdfr<-reshape2::melt(dfrp,id.vars,measure.vars,value.name="val",variable.name=var);
+    idx<-names(mdfr)==var;
+    names(mdfr)[idx]<-"case";
 
 
     #----------------------------------
@@ -100,6 +102,7 @@ compareDiffs<-function(dfr,
             mdfrpp<-mdfrp[idx,];
             if (sum(mdfrpp$val)==0) mdfrpp$val[1]<-1.0e-10;
             p<-plotMDFR.Bubbles(mdfrpp,x='z',y='zp',colour="sign",
+                                facet_grid=facet_grid,
                                 title=paste("growth matrices\nfor",x),
                                 guideTitleColour=paste(diff.type,"\ndifference"))
             if (showPlot||!is.null(pdf)) print(p);
@@ -109,6 +112,7 @@ compareDiffs<-function(dfr,
     } else if (sum(grep('z',cast,fixed=TRUE))>0){
         #plot size comps by year
         if (verbose) cat("Plotting size comps\n")
+        mdfr$y<-as.numeric(mdfr$y);
         mdfr$z<-as.numeric(mdfr$z);
         mdfr$sign<-ifelse(mdfr$val>=0,">=0","<0");
         mdfr$val<-abs(mdfr$val);
@@ -136,7 +140,8 @@ compareDiffs<-function(dfr,
                         if (nrow(mdfrpp)>0){
                             if (verbose) cat("Plotting ",nrow(mdfrpp)," rows for",x,m,s,".\n")
                             p<-plotMDFR.Bubbles(mdfrpp,x='y',y='z',colour="sign",
-                                                title=paste(uF,title,"\nfor",x,m,s),
+                                                facet_grid=facet_grid,
+                                                title=paste(f,title,"\nfor",x,m,s),
                                                 guideTitleColour=paste(diff.type,"\ndifference"))
                             if (showPlot||!is.null(pdf)) print(p);
                             cap<-paste0("\n  \nFigure &&figno. Differences for ",f," ",title," for ",x," ",m," ",s,".  \n  \n")
@@ -152,6 +157,7 @@ compareDiffs<-function(dfr,
     } else {
         #plot time series
         if (verbose) cat("Plotting time series.\n")
+        mdfr$y<-as.numeric(mdfr$y);
         for (f in uF){
             if (verbose) cat("Plotting fleet",f,"\n")
             title1<-title;
@@ -165,8 +171,8 @@ compareDiffs<-function(dfr,
                            facet_wrap=facet_wrap,nrow=nrow,
                            xlab='year',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
                            title=title1,
-                           colour=var,guideTitleColour='case',
-                           shape=var,guideTitleShape='case',
+                           colour='case',guideTitleColour='case',
+                           shape='case',guideTitleShape='case',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
             cap<-paste0("\n  \nFigure &&figno. Differences for ",title1,".  \n  \n")

@@ -6,7 +6,7 @@
 \usage{
 plotMDFR.Bubbles(mdfr, x = NULL, y = NULL, value.var = "val",
   agg.formula = NULL, agg.function = sum, ..., colour = NULL,
-  faceting = NULL, units = "", xlab = "", ylab = "", title = "",
+  facet_grid = NULL, units = "", xlab = "", ylab = "", title = "",
   alpha = 0.5, maxBubbleSize = 6, useColourGradient = FALSE,
   guideTitleColour = "", showPlot = FALSE)
 }
@@ -25,7 +25,7 @@ plotMDFR.Bubbles(mdfr, x = NULL, y = NULL, value.var = "val",
 
 \item{colour}{- column name to which colour aesthetic is mapped}
 
-\item{faceting}{- faceting formula}
+\item{facet_grid}{- faceting formula}
 
 \item{units}{- units for bubble size scale}
 
