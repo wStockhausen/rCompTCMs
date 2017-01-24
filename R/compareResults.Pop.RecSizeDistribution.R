@@ -35,18 +35,7 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
         showPlot<-TRUE;
     }
     
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.RecSizeDistribution(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.RecSizeDistribution(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.RecSizeDistribution(obj,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$z<-as.numeric(mdfr$z)
-    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr<-extractMDFR.Pop.RecSizeDistribution(objs,verbose)
     
     #-------------------------------------------#
     #plot recruitment size distribution

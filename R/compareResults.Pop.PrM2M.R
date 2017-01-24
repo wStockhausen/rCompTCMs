@@ -33,17 +33,7 @@ compareResults.Pop.PrM2M<-function(objs,
         showPlot<-TRUE;
     }
     
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.PrM2M(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.PrM2M(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.PrM2M(obj,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
-    }
-    mdfr$z<-as.numeric(mdfr$z)
-    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr<-extractMDFR.Pop.PrM2M(objs,verbose);
     
     #----------------------------------
     # plot probability of molt-to-maturity

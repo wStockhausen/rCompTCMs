@@ -79,7 +79,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     if (plotObs){
         p <- p + geom_point(aes_string(shape=case),data=dfro,size=2,alpha=0.7,position=position);
         if (!is.null(dfro$lci)&&!all(is.na(dfro$lci))){
-            cat("Plotting cis\n")
+            if (verbose) cat("Plotting cis\n")
             p <- p + geom_errorbar(aes_string(ymin=lci,ymax=uci),data=dfro,position=position);
         }
     }
