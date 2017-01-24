@@ -61,6 +61,7 @@ plotMDFR.Bubbles<-function(mdfr,
     }
   
     #plot resulting dataframe
+    if (sum(mdfr[["."]])==0) mdfr[["."]][1]<-1.0e-10;
     p <- ggplot(aes_string(x=x,y=y,size='.',colour=colour),data=mdfr);
     p <- p + scale_size_area(max_size=maxBubbleSize);
     if (useColourGradient) p <- p + scale_color_gradientn(colours=wtsUtilities::createColorPalette('jet',100,alpha=alpha))
