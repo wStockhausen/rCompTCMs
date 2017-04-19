@@ -35,4 +35,3 @@ returns a dataframe in canonical format
  \item{uci - upper ci}
 }
 }
-

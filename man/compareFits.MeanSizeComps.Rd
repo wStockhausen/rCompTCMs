@@ -44,4 +44,3 @@ Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 \code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
 Also uses \code{reshape2::dcast}, \code{wtsUtilities::calcCIs}, \code{wtsUtilities::printGGList}.
 }
-

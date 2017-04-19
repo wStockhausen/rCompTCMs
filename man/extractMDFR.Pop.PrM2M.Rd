@@ -20,4 +20,3 @@ Function to extract probability of molt-to-maturity from several model runs.
 \details{
 None.
 }
-

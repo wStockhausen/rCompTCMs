@@ -33,4 +33,3 @@ The line plots are faceted by pre-molt size. If multiple models are compared, th
 created, with individual lines corresponding to different models. If a single model is plotted, the
 different sexes are plotted using different colors on the same faceted plots.
 }
-

@@ -27,4 +27,3 @@ Function to compare mean post-molt size among several model runs.
 \details{
 None.
 }
-

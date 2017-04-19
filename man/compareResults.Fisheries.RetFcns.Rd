@@ -39,4 +39,3 @@ This function compares fishery retention functions by year
 \details{
 None.
 }
-

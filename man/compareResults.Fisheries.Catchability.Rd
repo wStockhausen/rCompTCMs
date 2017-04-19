@@ -37,4 +37,3 @@ This function plots fishery catchability estimates by year,
 \details{
 None.
 }
-

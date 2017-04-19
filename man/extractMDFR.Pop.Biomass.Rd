@@ -28,4 +28,3 @@ Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Biomass},
 \code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and 
 cast to aggregate. This differs from \code{extractMDFR.Pop.Biomass1}.
 }
-

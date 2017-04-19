@@ -27,4 +27,3 @@ Function to compare recruitment size distributions among several model runs.
 \details{
 None.
 }
-

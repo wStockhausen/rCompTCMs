@@ -2,6 +2,7 @@
 
 export(compareDiffs)
 export(compareFits.BiomassData)
+export(compareFits.EffortData)
 export(compareFits.GrowthData)
 export(compareFits.MeanSizeComps)
 export(compareFits.SizeComps)

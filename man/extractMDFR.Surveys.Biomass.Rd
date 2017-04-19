@@ -26,4 +26,3 @@ This function extracts estimated survey biomass by year
 \details{
 None.
 }
-

@@ -21,4 +21,3 @@ This function extracts recruitment estimates by year
 \details{
 None.
 }
-

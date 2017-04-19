@@ -26,4 +26,3 @@ This function extracts fishery retention functions by year
 \details{
 None.
 }
-

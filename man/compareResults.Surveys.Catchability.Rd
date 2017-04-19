@@ -37,4 +37,3 @@ This function plots survey catchability estimates by year,
 \details{
 None.
 }
-

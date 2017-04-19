@@ -33,4 +33,3 @@ Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 \code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.ABData()}.
 Also uses \code{wtsUtilities::printGGList}.
 }
-

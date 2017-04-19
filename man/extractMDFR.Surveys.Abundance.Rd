@@ -26,4 +26,3 @@ This function extracts estimated survey abundance by year
 \details{
 None.
 }
-

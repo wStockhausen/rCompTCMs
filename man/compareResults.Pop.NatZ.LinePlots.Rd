@@ -37,4 +37,3 @@ uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
 \code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
 \code{plotMDFR.XY}.
 }
-

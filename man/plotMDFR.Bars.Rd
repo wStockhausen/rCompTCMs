@@ -56,4 +56,3 @@ Function to plot a melted dataframe using a barchart format.
 \details{
 uses \code{reshape2} package.
 }
-

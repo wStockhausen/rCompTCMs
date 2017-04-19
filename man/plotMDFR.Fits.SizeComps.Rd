@@ -37,4 +37,3 @@ several model runs from a dataframe.
 \details{
 Uses \code{wtsUtilities::printGGList}.
 }
-

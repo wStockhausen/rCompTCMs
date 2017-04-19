@@ -26,4 +26,3 @@ This function compares fishery selectivity functions by year
 \details{
 None.
 }
-

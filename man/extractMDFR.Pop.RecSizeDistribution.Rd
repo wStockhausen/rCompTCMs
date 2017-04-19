@@ -20,4 +20,3 @@ Function to extract recruitment size distributions from several model runs.
 \details{
 None.
 }
-

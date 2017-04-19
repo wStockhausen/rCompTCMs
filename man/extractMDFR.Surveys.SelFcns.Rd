@@ -26,4 +26,3 @@ This function extracts survey selectivity functions by year
 \details{
 None.
 }
-

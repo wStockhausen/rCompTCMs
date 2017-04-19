@@ -25,4 +25,3 @@ Function to compute differences between model cases
 \details{
 None.
 }
-

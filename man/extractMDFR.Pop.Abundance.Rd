@@ -28,4 +28,3 @@ Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
 \code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
 cast to aggregate. This differs from \code{extractMDFR.Pop.Abundance1}.
 }
-

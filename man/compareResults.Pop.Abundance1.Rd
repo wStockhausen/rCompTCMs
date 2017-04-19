@@ -50,4 +50,3 @@ This function compares population abundance estimates (aggregated or as size com
 \code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
 \code{compreResults.Pop.Abundance}, where a cast'ing formula is specified.)
 }
-

@@ -54,4 +54,3 @@ Creates or adds to a circle plot of age or size comp.s.
 \details{
 uses \code{reshape2} package.
 }
-

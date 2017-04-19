@@ -32,4 +32,3 @@ several model runs.
 Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 \code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
 }
-

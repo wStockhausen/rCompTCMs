@@ -22,4 +22,3 @@ This function extracts mature biomass estimates by year
 uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
 \code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}.
 }
-

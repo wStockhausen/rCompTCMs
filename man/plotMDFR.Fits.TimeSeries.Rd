@@ -59,4 +59,3 @@ Function to plot a comparison of fits to time series from a set of model runs, w
 numRecent provides the "zoom" for a second set of faceted plots including
 only the most recent years. Calls \code{plotMDFR.Fits.TimeSeries1}.
 }
-

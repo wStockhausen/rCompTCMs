@@ -20,4 +20,3 @@ Function to extract mean post-molt size from several model runs.
 \details{
 None.
 }
-

@@ -50,4 +50,3 @@ This function compares estimated fishery catch abundance by year
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
 a set of time series plots are produced.
 }
-

@@ -26,4 +26,3 @@ This function extracts survey catchability estimates by year,
 \details{
 None.
 }
-

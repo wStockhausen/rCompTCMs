@@ -63,4 +63,3 @@ Function to plot a melted dataframe using a barchart/line-plot format.
 \details{
 uses \code{reshape2} package.
 }
-

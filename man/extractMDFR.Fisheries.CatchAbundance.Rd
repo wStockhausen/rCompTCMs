@@ -29,4 +29,3 @@ This function extracts estimated fishery catch abundance by year
 \details{
 None.
 }
-

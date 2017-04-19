@@ -39,4 +39,3 @@ This function compares survey selectivity functions by year
 \details{
 None.
 }
-

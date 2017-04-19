@@ -20,4 +20,3 @@ Function to create a list of TCSAM2013, TCSAM02 and rsimTCSAM resLst objects fro
 \details{
 Uses \code{getResLst} to open a folders with model runs listed in inp.dirs.
 }
-

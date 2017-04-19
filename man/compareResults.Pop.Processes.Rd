@@ -29,4 +29,3 @@ Function to compare population processes from TCSAM2013 and TCSAM02 model runs.
 \details{
 Uses \code{wtsUtilities::printGGList()}. List names are captions.
 }
-

@@ -20,4 +20,3 @@ Function to extract growth matrices among several model runs.
 \details{
 None.
 }
-

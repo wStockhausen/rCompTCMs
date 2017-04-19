@@ -91,4 +91,3 @@ Function to plot a melted dataframe using an xy plot format.
 \details{
 uses \code{reshape2} package.
 }
-

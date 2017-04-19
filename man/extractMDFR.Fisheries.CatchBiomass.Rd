@@ -29,4 +29,3 @@ This function extracts estimated fishery catch biomass by year
 \details{
 None.
 }
-

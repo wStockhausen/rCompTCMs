@@ -30,4 +30,3 @@ This function compares recruitment estimates by year
 \details{
 None.
 }
-

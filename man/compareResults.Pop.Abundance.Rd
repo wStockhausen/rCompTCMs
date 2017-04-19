@@ -49,4 +49,3 @@ a set of time series plots are produced. Results are extracted using \code{rTCSA
 \code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
 cast to aggregate. This differs from \code{compareResults.Pop.Abundance1}.
 }
-
