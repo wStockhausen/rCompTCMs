@@ -21,7 +21,8 @@
 #'
 #'@return list of ggplot2 objects
 #'
-#'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
+#'@details If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced. 
+#'If 'z' is a cast'ing factor but not 'y', 'z' will be used as the x axis. Otherwise,
 #'a set of time series plots are produced.
 #'
 #'@import ggplot2
@@ -85,6 +86,9 @@ compareDiffs<-function(dfr,
     uF<-"";
     if (!is.null(mdfr$fleet)) uF<-unique(mdfr$fleet);
     if (verbose) cat("Fleets = ",uF,"\n");
+    isZcast<-sum(grep('z',cast,fixed=TRUE))>0;
+    isYcast<-sum(grep('y',cast,fixed=TRUE))>0;
+    isYfacet<-sum(grep('y',facet_grid,fixed=TRUE),grep('y',facet_wrap,fixed=TRUE))>0;
     if (sum(grep('zp',cast,fixed=TRUE))>0){
         #plot growth matrices
         if (verbose) cat("Plotting growth matrices\n")
@@ -109,8 +113,8 @@ compareDiffs<-function(dfr,
             cap<-paste0("\n  \nFigure &&figno. Growth matrix differences for ",x,".  \n  \n")
             plots[[cap]]<-p;
         }
-    } else if (sum(grep('z',cast,fixed=TRUE))>0){
-        #plot size comps by year or functions of size
+    } else if (isZcast&&isYcast&&!isYfacet){
+        #plot size comps by year as bubble plot
         if (verbose) cat("Plotting size comps\n")
         if (!is.null(mdfr$y))  mdfr$y<-as.numeric(mdfr$y);
         mdfr$z<-as.numeric(mdfr$z);
@@ -153,6 +157,30 @@ compareDiffs<-function(dfr,
                 }#uM
             }#uX
             plots[[f]]<-subPlots;
+        }#uF
+    } else if (isZcast){
+        #plot with 'z' on x axis ('y' could be a faceting variable)
+        if (verbose) cat("Plotting function of size.\n")
+        mdfr$z<-as.numeric(mdfr$z);
+        for (f in uF){
+            if (verbose) cat("Plotting fleet",f,"\n")
+            title1<-title;
+            mdfrp<-mdfr;
+            if (!is.null(mdfr$fleet)) {
+              title1<-paste0(f,": ",title);
+              mdfrp<-mdfr[mdfr$fleet==f,];
+            }
+            p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
+                           facet_grid=facet_grid,scales=scales,
+                           facet_wrap=facet_wrap,nrow=nrow,
+                           xlab='size (mm CW)',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
+                           title=title1,
+                           colour='case',guideTitleColour='case',
+                           shape='case',guideTitleShape='case',
+                           showPlot=FALSE);
+            if (showPlot||!is.null(pdf)) print(p);
+            cap<-paste0("\n  \nFigure &&figno. Differences for ",title1,".  \n  \n")
+            plots[[cap]]<-p;
         }#uF
     } else {
         #plot time series

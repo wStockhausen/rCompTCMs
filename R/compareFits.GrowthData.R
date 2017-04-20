@@ -5,6 +5,7 @@
 #'
 #'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
+#'@param plot1stObs - flag to include observations only from 1st model scenario
 #'@param pdf - name for output pdf file
 #'@param showPlot - flag to print plot to current device
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -19,6 +20,7 @@
 #'
 compareFits.GrowthData<-function(objs,
                                  dodge=0.2,
+                                 plot1stObs=FALSE,
                                  pdf=NULL,
                                  showPlot=FALSE,
                                  verbose=FALSE){
@@ -35,6 +37,7 @@ compareFits.GrowthData<-function(objs,
 
     mdfr<-NULL;
     for (case in cases){
+        mdfr1<-NULL;
         obj<-objs[[case]];
         #if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.MeanGrowth(obj,verbose);
         #if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.MeanGrowth(obj,verbose);
@@ -59,10 +62,15 @@ compareFits.GrowthData<-function(objs,
     plots<-list();
     for (d in datasets){
         mdfrp<-mdfr[(mdfr$category==d),];
+        dcs<-unique(mdfrp$case);
         #-------------------------------------------#
         #plot growth data and fits
         #-------------------------------------------#
-        mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+        if (plot1stObs) {
+            mdfrpo<-mdfrp[(mdfrp$type == 'observed')&(mdfrp$case==dcs[1]), ];
+        } else {
+            mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+        }
         mdfrpp<-mdfrp[mdfrp$type == 'predicted',];
         p <- ggplot(mdfrp,aes_string(x='z',y='val',colour='case',shape='case'));
         p <- p + geom_point(data=mdfrpo,position=pd);

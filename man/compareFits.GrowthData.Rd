@@ -4,13 +4,15 @@
 \alias{compareFits.GrowthData}
 \title{Compare fits to growth data among several model runs}
 \usage{
-compareFits.GrowthData(objs, dodge = 0.2, pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareFits.GrowthData(objs, dodge = 0.2, plot1stObs = FALSE, pdf = NULL,
+  showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{dodge}{- width to dodge overlapping series}
+
+\item{plot1stObs}{- flag to include observations only from 1st model scenario}
 
 \item{pdf}{- name for output pdf file}
 

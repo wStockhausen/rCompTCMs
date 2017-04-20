@@ -35,6 +35,7 @@ compareFits.EffortData<-function(objs,
 
     mdfr<-NULL;
     for (case in cases){
+        mdfr1<-NULL;
         obj<-objs[[case]];
         #if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.MeanGrowth(obj,verbose);
         #if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.MeanGrowth(obj,verbose);
