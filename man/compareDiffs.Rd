@@ -6,8 +6,8 @@
 \usage{
 compareDiffs(dfr, base = 1, diff.type = c("percent", "absolute"),
   diff.min = 0.001, cast = NULL, facet_grid = NULL, facet_wrap = NULL,
-  scales = "fixed", dodge = 0.2, title = "", years = "all",
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+  nrow = NULL, ncol = NULL, scales = "fixed", dodge = 0.2, title = "",
+  years = "all", showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe in canonical format}
@@ -22,6 +22,10 @@ compareDiffs(dfr, base = 1, diff.type = c("percent", "absolute"),
 
 \item{facet_wrap}{- one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap}
 
+\item{nrow}{- number of rows per page, when facet_wrap'ing}
+
+\item{ncol}{- number of columns per page, when facet_wrap'ing}
+
 \item{scales}{- scales parameter for use with facet_grid/facet_wrap}
 
 \item{dodge}{- width to dodge overlapping series}
@@ -35,8 +39,6 @@ compareDiffs(dfr, base = 1, diff.type = c("percent", "absolute"),
 \item{verbose}{- flag (T/F) to print diagnostic information}
 
 \item{mxy}{- max number of years per page}
-
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
 }
 \value{
 list of ggplot2 objects

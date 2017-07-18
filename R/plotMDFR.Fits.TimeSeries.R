@@ -130,7 +130,40 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       ylims=ylims,
                                       showPlot=showPlot);
         plots$p1<-p1;
-        plots$p2<-NULL;
+        #plot in recent years only
+        xmx<-max(dfr[[x]],na.rm=TRUE);
+        xplims<-c(xmx-numRecent,xmx+1);
+        if (!is.null(xlims)){
+            xplims[1]<-max(xlims[1],xplims[1],na.rm=TRUE);#max of mins
+            xplims[2]<-min(xlims[2],xplims[2],na.rm=TRUE);#min of maxes
+        }
+        yplims<-NULL;
+        if (!is.null(ylims)){
+            idy<-dfr[[x]] %in% xplims[1]:xplims[2];
+            yplims<-range(dfr[[y]][idy],na.rm=TRUE,finite=TRUE);
+            yplims[1]<-max(ylims[1],yplims[1],na.rm=TRUE);#max of mins
+            yplims[2]<-min(ylims[2],yplims[2],na.rm=TRUE);#min of maxes
+        }
+        dfrp<-dfr[dfr[[x]]>=(xmx-numRecent),];
+        p2<-plotMDFR.Fits.TimeSeries1(dfrp,
+                                      plot1stObs=plot1stObs,
+                                      x=x,
+                                      y=y,
+                                      lci=lci,
+                                      uci=uci,
+                                      case=case,
+                                      type=type,
+                                      facets=facets,
+                                      scales=scales,
+                                      plotObs=TRUE,
+                                      plotMod=FALSE,
+                                      xlab=xlab,
+                                      ylab=ylab,
+                                      title=title,
+                                      xlims=xplims,
+                                      ylims=yplims,
+                                      showPlot=showPlot);
+        plots$p2<-p2;
     }
     
     #plot with case results only

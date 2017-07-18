@@ -15,6 +15,7 @@
 #'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param ncol - number of columns per page, when facet_wrap'ing 
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -36,6 +37,8 @@ compareDiffs<-function(dfr,
                        cast=NULL,
                        facet_grid=NULL,
                        facet_wrap=NULL,
+                       nrow=NULL,
+                       ncol=NULL,
                        scales="fixed",
                        dodge=0.2,
                        title="",
@@ -115,7 +118,7 @@ compareDiffs<-function(dfr,
         }
     } else if (isZcast&&isYcast&&!isYfacet){
         #plot size comps by year as bubble plot
-        if (verbose) cat("Plotting size comps\n")
+        if (verbose) cat("Plotting size comps as bubble plot.\n")
         if (!is.null(mdfr$y))  mdfr$y<-as.numeric(mdfr$y);
         mdfr$z<-as.numeric(mdfr$z);
         mdfr$sign<-ifelse(mdfr$val>=0,">=0","<0");
@@ -161,6 +164,8 @@ compareDiffs<-function(dfr,
     } else if (isZcast){
         #plot with 'z' on x axis ('y' could be a faceting variable)
         if (verbose) cat("Plotting function of size.\n")
+        isXfacet<-sum(grep('x',facet_grid,fixed=TRUE),grep('x',facet_wrap,fixed=TRUE))>0;
+        if (verbose) cat("Faceting by sex is",isXfacet,"\n");
         mdfr$z<-as.numeric(mdfr$z);
         for (f in uF){
             if (verbose) cat("Plotting fleet",f,"\n")
@@ -170,17 +175,37 @@ compareDiffs<-function(dfr,
               title1<-paste0(f,": ",title);
               mdfrp<-mdfr[mdfr$fleet==f,];
             }
-            p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
-                           facet_grid=facet_grid,scales=scales,
-                           facet_wrap=facet_wrap,nrow=nrow,
-                           xlab='size (mm CW)',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
-                           title=title1,
-                           colour='case',guideTitleColour='case',
-                           shape='case',guideTitleShape='case',
-                           showPlot=FALSE);
-            if (showPlot||!is.null(pdf)) print(p);
-            cap<-paste0("\n  \nFigure &&figno. Differences for ",title1,".  \n  \n")
-            plots[[cap]]<-p;
+            if (isXfacet){
+                p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
+                               facet_grid=facet_grid,scales=scales,
+                               facet_wrap=facet_wrap,nrow=nrow,ncol=ncol,
+                               xlab='size (mm CW)',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
+                               title=title1,
+                               colour='case',guideTitleColour='case',
+                               shape='case',guideTitleShape='case',
+                               showPlot=FALSE);
+                if (showPlot||!is.null(pdf)) print(p);
+                cap<-paste0("\n  \nFigure &&figno. Differences for ",title1,".  \n  \n")
+                plots[[cap]]<-p;
+            } else {
+                uX<-sort(unique(mdfrp$x));
+                for (x in uX){
+                    mdfrpp<-mdfrp[mdfrp$x==x,];
+                    title2<-title1;
+                    if (!isXfacet) title2<-paste0(f," ",x,"s: ",title);
+                    p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+                                   facet_grid=facet_grid,scales=scales,
+                                   facet_wrap=facet_wrap,nrow=nrow,ncol=ncol,
+                                   xlab='size (mm CW)',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
+                                   title=title2,
+                                   colour='case',guideTitleColour='case',
+                                   shape='case',guideTitleShape='case',
+                                   showPlot=FALSE);
+                    if (showPlot||!is.null(pdf)) print(p);
+                    cap<-paste0("\n  \nFigure &&figno. Differences for ",title2,".  \n  \n")
+                    plots[[cap]]<-p;
+                }#x
+            }#isXfacet
         }#uF
     } else {
         #plot time series
@@ -196,7 +221,7 @@ compareDiffs<-function(dfr,
             }
             p<-plotMDFR.XY(mdfrp,x='y',value.var='val',agg.formula=NULL,
                            facet_grid=facet_grid,scales=scales,
-                           facet_wrap=facet_wrap,nrow=nrow,
+                           facet_wrap=facet_wrap,nrow=nrow,ncol=ncol,
                            xlab='year',ylab=paste(diff.type,"difference"),units='',lnscale=FALSE,
                            title=title1,
                            colour='case',guideTitleColour='case',

@@ -9,7 +9,7 @@
 #'@param y - column name with y axis values
 #'@param lci - column name with y axis values
 #'@param uci - column name with y axis values
-#'@param case - column name with case names 
+#'@param case - column name with case names
 #'@param type - column name with type values (i.e., "observed","predicted")
 #'@param facets - string giving faceting formula
 #'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
@@ -18,12 +18,12 @@
 #'@param plotMod - plot case fits/predictions
 #'@param ci - confidence interval for error bars
 #'@param pdfType - assumed error distribution for confidence intervals
-#'@param xlab - 
-#'@param ylab - 
-#'@param title - 
-#'@param xlims - 
-#'@param ylims - 
-#'@param showPlot - 
+#'@param xlab -
+#'@param ylab -
+#'@param title -
+#'@param xlims -
+#'@param ylims -
+#'@param showPlot -
 #'
 #'@return ggplot object
 #'
@@ -63,8 +63,10 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
         dfr$case<-as.character(dfr$case);
         cases<-as.character(unique(dfr$case));
         dfro<-dfr[(dfr$case==cases[1])&(!idx),];
-        dfro$case<-'observed';
-        dfr<-rbind(dfro,dfrp);
+        if (!is.null(dfro)&&(nrow(dfro)>0)){
+          dfro$case<-'observed';
+          dfr<-rbind(dfro,dfrp);
+        }
     } else {
         dfro<-dfr[!idx,];
     }
@@ -73,7 +75,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     dfrp$case<-factor(dfrp$case,levels=cases);
     dfro$case<-factor(dfro$case,levels=cases);
     if (verbose)  cat("Cases: ",paste0(cases,collapse=", "),".\n")
-    
+
     p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
     p <- p + scale_color_hue(breaks=cases);#default color scheme
     if (plotObs){
@@ -89,7 +91,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     p <- p + ggtitle(title);
     if (!is.null(facets)) p <- p + facet_grid(facets,scales=scales);
     if (showPlot) print(p);
-    
+
     return(p);
 }
 
