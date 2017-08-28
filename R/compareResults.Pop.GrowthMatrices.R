@@ -1,17 +1,19 @@
 #'
-#'@title Compare growth matrices among several model runs
+#'@title Compare growth matrices among several model runs using bubble plots
 #'
-#'@description Function to compare growth matrices among several model runs.
+#'@description Function to compare growth matrices among several model runs using bubble plots.
 #'
 #'@param objs - list of resLst objects
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details If multiple models are compared, then a set of sex-specific faceted line plots 
-#'are created. If a single model is plotted, then sex-specific bubble plots are created.
+#'@details If multiple models are compared, then a set of bubble plots
+#'are created faceted by mode case (row) and sex (column).
+#'If a single model is plotted, then bubble plots are created faceted by sex (row). One ggplot
+#'object is returned as a named list, with the figure caption as the name.
 #'
-#'@return list of ggplot objects, by sex
+#'@return list with a ggplot object
 #'
 #'@import ggplot2
 #'
@@ -29,14 +31,15 @@ compareResults.Pop.GrowthMatrices<-function(objs,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
+
     cases<-names(objs);
-    
+
     mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose);
 
     #----------------------------------
     # plot growth transition matrices
     #----------------------------------
+    plots<-list();
     p <- ggplot(mdfr,aes_string(y='zp',x='z',size='val',fill='val'));
     p <- p + geom_abline(slope=1,colour='black',linetype=2)
     p <- p + geom_point(alpha=0.8,shape=21) + scale_size_area(max_size=10)
@@ -51,6 +54,9 @@ compareResults.Pop.GrowthMatrices<-function(objs,
     }
     if (showPlot) print(p);
 
+    cap<-paste("  \n  \nFigure &&figno. Estimated growth matrices, as bubble plots. \n \n",sep='');
+    plots[[cap]]<-p;
+
     if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
-    return(p);
+    return(plots);
 }

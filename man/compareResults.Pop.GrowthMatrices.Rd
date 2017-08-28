@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareResults.Pop.GrowthMatrices.R
 \name{compareResults.Pop.GrowthMatrices}
 \alias{compareResults.Pop.GrowthMatrices}
-\title{Compare growth matrices among several model runs}
+\title{Compare growth matrices among several model runs using bubble plots}
 \usage{
 compareResults.Pop.GrowthMatrices(objs, showPlot = FALSE, pdf = NULL,
   verbose = FALSE)
@@ -17,12 +17,14 @@ compareResults.Pop.GrowthMatrices(objs, showPlot = FALSE, pdf = NULL,
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-list of ggplot objects, by sex
+list with a ggplot object
 }
 \description{
-Function to compare growth matrices among several model runs.
+Function to compare growth matrices among several model runs using bubble plots.
 }
 \details{
-If multiple models are compared, then a set of sex-specific faceted line plots 
-are created. If a single model is plotted, then sex-specific bubble plots are created.
+If multiple models are compared, then a set of bubble plots
+are created faceted by mode case (row) and sex (column).
+If a single model is plotted, then bubble plots are created faceted by sex (row). One ggplot
+object is returned as a named list, with the figure caption as the name.
 }
