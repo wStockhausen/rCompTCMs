@@ -4,17 +4,21 @@
 \alias{printResults.ParameterValues}
 \title{Function to print a table of parameters from several models}
 \usage{
-printResults.ParameterValues(objs, caption = "", format = c("latex",
-  "docx"), landscape = FALSE, font = "11pt", verbose = FALSE)
+printResults.ParameterValues(objs = NULL, mdfr = NULL, format = c("latex",
+  "docx"), landscape = FALSE, fontsize = "11pt", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{caption}{- string for table caption}
+\item{mdfr}{- dataframe from call to \code{extractMDFR.Results.ParameterValues} (as alternative to objs)}
+
+\item{format}{- 'latex' or 'docx'}
+
+\item{landscape}{- flag indicating whether page orientation is landscape or portrait}
+
+\item{fontsize}{- font size (can be 'small')}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{showPlot}{- flag (T/F) to show plot}
 }
 \value{
 ggplot2 object
@@ -25,5 +29,5 @@ This function prints a table of parameters from several models.
 \details{
 Uses \code{extractMDFR.Results.ParameterValues} to get a dataframe of parameters.
 If format="latex", the package \code{tables} is used to create and print a table
-in latex format.
+in latex format. Output format for values and standard deviations is 3 significant figures.
 }

@@ -4,12 +4,17 @@
 \alias{compareFits.MeanSizeComps}
 \title{Compare fits to mean size comps by fleet among several model runs}
 \usage{
-compareFits.MeanSizeComps(objs = NULL, fleet.type = c("survey", "fishery"),
-  catch.type = c("index", "retained", "discard", "total"), years = "all",
-  ci = 0.8, plot1stObs = TRUE, facet_grid = "m+s~x", scales = "free_y",
-  pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareFits.MeanSizeComps(objs = NULL, mdfr = NULL,
+  fleet.type = c("survey", "fishery"), catch.type = c("index", "retained",
+  "discard", "total"), years = "all", ci = 0.8, plot1stObs = TRUE,
+  facet_grid = "m+s~x", scales = "free_y", pdf = NULL, showPlot = FALSE,
+  verbose = FALSE)
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
+\item{mdfr}{- melted dataframe from call to \code{extractFits.MeanSizeComps} (as alternative to objs)}
+
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 
 \item{catch.type}{- catch type ('index','retained',  or 'total')}
@@ -29,14 +34,12 @@ compareFits.MeanSizeComps(objs = NULL, fleet.type = c("survey", "fishery"),
 \item{showPlot}{- flag (T/F) to show plot}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 list of ggplot2 objects, with captions as names
 }
 \description{
-Function to compare fits to mean size comps by fleet among 
+Function to compare fits to mean size comps by fleet among
 several model runs.
 }
 \details{

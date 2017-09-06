@@ -4,7 +4,11 @@
 #'@description This function prints a table of parameters at bounds for several models.
 #'
 #'@param objs - list of resLst objects
-#'@param showPlot - flag (T/F) to show plot
+#'@param mdfr - dataframe from call to \code{extractMDFR.Results.ParametersAtBounds} (as alternative to objs)
+#'@param delta - fraction of range which defines "at the bounds"
+#'@param format - 'latex' or 'docx'
+#'@param landscape - flag indicating whether page orientation is landscape or portrait
+#'@param fontsize - font size (can be 'small')
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return ggplot2 object
@@ -17,33 +21,54 @@
 #'
 #'@export
 #'
-printResults.ParametersAtBounds<-function(objs,
+printResults.ParametersAtBounds<-function(objs=NULL,
+                                          mdfr=NULL,
                                           delta=0.0001,
-                                          caption="",
                                           format=c("latex","docx"),
                                           landscape=FALSE,
-                                          font="11pt",
+                                          fontsize="11pt",
                                           verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::printResults.ParametersAtBounds().\n");
     options(stringsAsFactors=FALSE);
 
-    cases<-names(objs);
-
-    mdfr<-extractMDFR.Results.ParametersAtBounds(objs,delta=delta,verbose=verbose);
+    mdfrp<-mdfr;
+    if (is.null(mdfrp)){
+        mdfrp<-extractMDFR.Results.ParametersAtBounds(objs,delta=delta,verbose=verbose);
+    }
+    mdfr<-NULL;
 
     format<-format[1];
     if (format=="latex")
-        if (font=="small") cat("\\begin{small}\n")
-        # tbr<-tables::tabular(category*process*name*type*index*min*max~case*(test+value+label)*wtsUtilities::Sum,data=mdfr);
-        # latex(tbr,options=list(tabular="longtable",
-        #                        toprule=paste0("\\caption{",cap,"} \\\\
-        #                                        \\hline")));
-        xtbl<-xtable::xtable(mdfr,caption=caption);
-        xtable::print.xtable(xtbl,type="latex",
-                             floating=FALSE,tabular.environment="longtable",
-                             caption.placement="top",
-                             include.rownames=FALSE)
-        if (font=="small") cat("\\end{small}\n")
+        if (fontsize=="small") cat("\\begin{small}\n")
+        if (fontsize=="tiny")  cat("\\begin{tiny}\n")
+        uCs<-unique(mdfrp$category)
+        for (uC in uCs){
+            if (verbose) cat("Processing category = ",uC,"\n",sep='')
+            mdfrpp<-mdfrp[mdfrp$category==uC,];
+            uPs<-unique(mdfrpp$process);
+            for (uP in uPs){
+                if (verbose) cat("\tProcessing process = ",uP,"\n",sep='')
+                mdfr<-mdfrpp[mdfrpp$process==uP,];
+                if (nrow(mdfr>0)){
+                    mdfr$name    <-as.factor(mdfr$name);
+                    mdfr$type    <-as.factor(mdfr$type);
+                    mdfr$index   <-as.factor(mdfr$index);
+                    mdfr$min     <-as.factor(mdfr$min);
+                    mdfr$max     <-as.factor(mdfr$max);
+                    mdfr$label   <-as.factor(mdfr$label);
+                    mdfr$case    <-as.factor(mdfr$case);
+                    caption<-paste0("Model parameters for ",uP," at bounds.");
+                    tbr<-tables::tabular(Factor(name)*Factor(case)*Factor(label)*Factor(type)*Factor(index)*Factor(min)*Factor(max)*DropEmpty()~
+                                             (test+value)*wtsUtilities::Sum,data=mdfr);
+                    Hmisc::latex(tbr,options=list(tabular="longtable",
+                                           toprule=paste0("\\caption{",caption,"} \\\\
+                                                           \\hline")));
+                    cat("\n\n")
+                }
+            }
+        }
+        if (fontsize=="small") cat("\\end{small}\n")
+        if (fontsize=="tiny") cat("\\end{tiny}\n")
 
-    if (verbose) cat("finished rCompTCMs::compareResults.ParameterValues().\n");
+    if (verbose) cat("finished rCompTCMs::compareResults.ParametersAtBounds().\n");
 }

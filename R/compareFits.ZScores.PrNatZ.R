@@ -1,10 +1,11 @@
 #'
 #'@title Compare Pearson's residuals or nll residuals from size comps by fleet among several model runs
 #'
-#'@description Function to compare Pearson's residuals or nll residuals from size comps by fleet among 
+#'@description Function to compare Pearson's residuals or nll residuals from size comps by fleet among
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param mdfr - dataframe from call to \code{extractFits.ZScores.PrNatZ}  (as alternative to objs)
 #'@param tcsam2013.type - pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained',or 'total')
@@ -24,6 +25,7 @@
 #'@export
 #'
 compareFits.ZScores.PrNatZ<-function(objs=NULL,
+                                     mdfr=NULL,
                                      fleet.type=c('survey','fishery'),
                                      catch.type=c('index','retained','total'),
                                      residuals.type=c('pearsons','nlls'),
@@ -31,20 +33,9 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
                                      showPlot=FALSE,
                                      pdf=NULL,
                                      verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.PrNatZ().\n");
     options(stringsAsFactors=FALSE);
-    
-    fleet.type<-fleet.type[1];
-    catch.type<-catch.type[1];
-    residuals.type<-residuals.type[1];
-    tcsam2013.type<-tcsam2013.type[1];
-    
-    if (fleet.type=='survey') catch.type<-'index';
-    if ((fleet.type=='fishery')&&(catch.type=='retained')) tcsam2013.type<-'PRs.ret';
-    if ((fleet.type=='fishery')&&(catch.type=='total'))    tcsam2013.type<-'PRs.tot';
-    
-    cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -52,62 +43,27 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (fleet.type=='survey'){
-            if (inherits(obj,"tcsam2013.resLst")) 
-                mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-                                                            type=tcsam2013.type,
-                                                            verbose=verbose);
-            if (inherits(obj,"tcsam02.resLst"))   
-                mdfr1<-rTCSAM02::getMDFR.ZScores.PrNatZ(obj,
-                                                        fleet.type=fleet.type,
-                                                        catch.type='index',
-                                                        residuals.type=residuals.type,
-                                                        verbose=verbose);
-        }
-        if (fleet.type=='fishery'){
-            if (inherits(obj,"tcsam2013.resLst")) 
-                mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-                                                             type=tcsam2013.type,
-                                                             verbose=verbose);
-            if (inherits(obj,"tcsam02.resLst"))   
-                mdfr1<-rTCSAM02::getMDFR.ZScores.PrNatZ(obj,
-                                                        fleet.type=fleet.type,
-                                                        catch.type=catch.type,
-                                                        residuals.type=residuals.type,
-                                                        verbose=verbose);
-        }
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+
+    if (is.null(mdfr)){
+        mdfr<-extractFits.ZScores.PrNatZ(objs=objs,
+                                         fleet.type=fleet.type,
+                                         catch.type=catch.type,
+                                         residuals.type=residuals.type,
+                                         tcsam2013.type=tcsam2013.type,
+                                         verbose=verbose);
     }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    mdfr$z<-as.numeric(mdfr$z);
-    
+
+    cases<-unique(mdfr$case);
+
     #----------------------------------
     # define output list of plots
     #----------------------------------
     plots<-list();
     figno<-1;
-    
-    #----------------------------------
-    # plot size comp residuals from the survey 
-    #----------------------------------
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$sign<-ifelse(test=mdfr$val>0,yes=">0",no="<0");
-    mdfr$val <- abs(mdfr$val);
-    
-    mdfr$x[mdfr$x=='all']<-'all sex';
-    mdfr$m[mdfr$m=='all']<-'all maturity';
-    mdfr$s[mdfr$s=='all']<-'all shell';
 
+    #----------------------------------
+    # plot size comp residuals by fleet
+    #----------------------------------
     uFs<-unique(mdfr$fleet);
     for (uF in uFs){
         if (verbose) cat("Plotting residuals for",uF,"\n");
@@ -118,21 +74,21 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
         p <- p + geom_point(alpha=1.0,shape=21,color='black',fill=NA);
         p <- p + labs(y="size (mm CW)",x="year") + ggtitle(uF);
         p <- p + guides(fill=guide_legend(override.aes=list(alpha=1.0,size=6),order=2),
-                        size=guide_legend(order=1));
+                        size=guide_legend(order=1))+theme(legend.box="vertical");
         if (length(cases)==1){
             p <- p + facet_grid(x~m+s);
         } else {
             p <- p + facet_grid(case~x+m+s);
         }
         p <- p + theme(legend.box='horizontal')
-        if (residuals.type=='pearsons') 
+        if (residuals.type=='pearsons')
             cap<-paste0("  \n  \nFigure &&fno. Pearson's residuals for proportions-at-size from the ",uF,".  \n  \n");
-        if (residuals.type=='nlls') 
+        if (residuals.type=='nlls')
             cap<-paste0("  \n  \nFigure &&fno. NLL residuals for proportions-at-size from the ",uF,".  \n  \n");
         if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
         plots[[cap]]<-p; p<-NULL;
     }
-    
+
     if (verbose) cat("Finished rCompTCMs::compareFits.ZScores.PrNatZ().\n");
     return(plots);
 }

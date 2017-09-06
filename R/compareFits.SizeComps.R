@@ -1,10 +1,11 @@
 #'
 #'@title Compare fits to size comps by fleet among several model runs
 #'
-#'@description Function to compare fits to size comps by fleet among 
+#'@description Function to compare fits to size comps by fleet among
 #'several model runs.
 #'
-#' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param mdfr - dataframe from call to \code{extractFits.SizeComps} (as alternative to objs)
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
 #' @param  years - years to plot, as numerical vector (or "all" to plot all years)
@@ -26,6 +27,7 @@
 #'@export
 #'
 compareFits.SizeComps<-function(objs=NULL,
+                                mdfr=NULL,
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
                                   years='all',
@@ -35,10 +37,10 @@ compareFits.SizeComps<-function(objs=NULL,
                                   pdf=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::compareFits.SizeComps().\n");
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -52,26 +54,24 @@ compareFits.SizeComps<-function(objs=NULL,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
-    if (catch.type=='index')    type<-'prNatZ_yxmz';
-    if (catch.type=='retained') type<-'prNatZ.ret';
-    if (catch.type=='total')    type<-'prNatZ.tot';
-    
-    mdfr<-rCompTCMs::extractFits.SizeComps(objs,
-                                           fleet.type=fleet.type,
-                                           catch.type=catch.type,
-                                           years=years,
-                                           plot1stObs=plot1stObs,
-                                           verbose=verbose);
-    
+
+    if (is.null(mdfr)){
+        mdfr<-rCompTCMs::extractFits.SizeComps(objs,
+                                               fleet.type=fleet.type,
+                                               catch.type=catch.type,
+                                               years=years,
+                                               plot1stObs=plot1stObs,
+                                               verbose=verbose);
+    }
+
     #----------------------------------
     # define output list of plots
     #----------------------------------
     plots<-list();
     figno<-1;
-    
+
     #----------------------------------
-    # plot fits to size comps 
+    # plot fits to size comps
     #----------------------------------
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1";
@@ -95,7 +95,7 @@ compareFits.SizeComps<-function(objs=NULL,
     ms<-c("immature","mature","all maturity");
     ss<-c("new shell","old shell","all shell");
     zs<-sort(unique(mdfr$z));
-    
+
     mxp<-nrow*ncol;
     xlab<-'size (mm CW)';
     for (fleet in unique(mdfr$fleet)){
@@ -118,7 +118,7 @@ compareFits.SizeComps<-function(objs=NULL,
                             if (verbose) cat("--Plotting",x,m,s,"size comps\n");
                             mdfrp<-mdfr[idf&idx&idm&ids,];#select results for fleet, sex, maturity state, and shell condition
                             if (verbose) cat("--Plotting",nrow(mdfrp),"rows.\n")
-                            
+
                             #add in missing years as size comps with 0's
                             ys<-sort(unique(mdfrp$y));
                             mny<-5*floor(min(ys)/5);
@@ -143,14 +143,14 @@ compareFits.SizeComps<-function(objs=NULL,
                             for (y in ys){
                                 if (!any(mdfrp$y==y)) {
                                     #year y is missing, so add in zero size comp for year y
-                                    mdfrpp$y<-y; 
+                                    mdfrpp$y<-y;
                                     mdfrp<-rbind(mdfrp,mdfrpp);
                                 }
                             }
-                            
+
                             rng<-range(mdfrp$val,na.rm=TRUE,finite=TRUE);
                             if (verbose) cat("rng = ",rng,'\n')
-                            
+
                             for (pg in 1:npg){ #loop over pages
                                 dfrp<-mdfrp[(mdfrp$y %in% ys[(pg-1)*mxp+1:mxp]),]
                                 #do plot
@@ -161,7 +161,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 p <- p + ylim(0,rng[2])
                                 p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
                                 p <- p + labs(x=xlab,y=ylab)
-                                p <- p + facet_wrap(~y,ncol=ncol,dir='v') 
+                                p <- p + facet_wrap(~y,ncol=ncol,dir='v')
                                 ttl<-paste0(fleet,': ',x,", ",m,", ",s);
                                 if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
                                 p <- p + ggtitle(ttl)

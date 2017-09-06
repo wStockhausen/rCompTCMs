@@ -1,10 +1,11 @@
 #'
 #'@title Compare fits to mean size comps by fleet among several model runs
 #'
-#'@description Function to compare fits to mean size comps by fleet among 
+#'@description Function to compare fits to mean size comps by fleet among
 #'several model runs.
 #'
-#' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param mdfr - melted dataframe from call to \code{extractFits.MeanSizeComps} (as alternative to objs)
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
 #' @param  years - years to plot, as numerical vector (or "all" to plot all years)
@@ -27,6 +28,7 @@
 #'@export
 #'
 compareFits.MeanSizeComps<-function(objs=NULL,
+                                    mdfr=NULL,
                                     fleet.type=c('survey','fishery'),
                                     catch.type=c('index','retained','discard','total'),
                                     years='all',
@@ -37,10 +39,10 @@ compareFits.MeanSizeComps<-function(objs=NULL,
                                     pdf=NULL,
                                     showPlot=FALSE,
                                     verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::compareFits.MeanSizeComps().\n");
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -54,48 +56,46 @@ compareFits.MeanSizeComps<-function(objs=NULL,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
-    if (catch.type=='index')    type<-'prNatZ_yxmz';
-    if (catch.type=='retained') type<-'prNatZ.ret';
-    if (catch.type=='total')    type<-'prNatZ.tot';
-    
-    mdfr<-extractFits.MeanSizeComps(objs=objs,
-                                    fleet.type=fleet.type,
-                                    catch.type=catch.type,
-                                    years=years,
-                                    ci=ci,
-                                    plot1stObs=plot1stObs,
-                                    verbose=verbose);
+
+    if (is.null(mdfr)){
+        mdfr<-extractFits.MeanSizeComps(objs=objs,
+                                        fleet.type=fleet.type,
+                                        catch.type=catch.type,
+                                        years=years,
+                                        ci=ci,
+                                        plot1stObs=plot1stObs,
+                                        verbose=verbose);
+    }
 
     #----------------------------------
     # define output list of plots
     #----------------------------------
     plots<-list();
     figno<-1;
-    
+
     #----------------------------------
-    # plot fits to size comps 
+    # plot fits to size comps
     #----------------------------------
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
         ylab<-"mean survey size comps";
-        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted &&xms mean survey size comps for &&fleet.  \n  \n";
+        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted mean survey size comps for &&fleet.  \n  \n";
     }
     if ((catch.type=="index")&&(fleet.type=="fishery")) {
         ylab<-"mean fishery CPUE size comps";
-        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted &&xms mean index catch (CPUE) size comps for &&fleet.  \n  \n";
+        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted mean index catch (CPUE) size comps for &&fleet.  \n  \n";
     }
     if (catch.type=="retained") {
         ylab<-"mean retained catch size comps";
-        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted &&xms mean retained catch size comps for &&fleet.  \n  \n";
+        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted mean retained catch size comps for &&fleet.  \n  \n";
     }
     if (catch.type=="total") {
         ylab<-"mean total catch size comps";
-        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted &&xms mean total catch size comps for &&fleet.  \n  \n";
+        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted mean total catch size comps for &&fleet.  \n  \n";
     }
     zs<-sort(unique(mdfr$z));
-    
+
     xlab<-'size (mm CW)';
     for (fleet in unique(mdfr$fleet)){
         if (verbose) cat("Plotting fleet '",fleet,"'.\n",sep='');

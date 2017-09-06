@@ -4,12 +4,17 @@
 \alias{compareFits.ZScores.PrNatZ}
 \title{Compare Pearson's residuals or nll residuals from size comps by fleet among several model runs}
 \usage{
-compareFits.ZScores.PrNatZ(objs = NULL, fleet.type = c("survey", "fishery"),
-  catch.type = c("index", "retained", "total"),
-  residuals.type = c("pearsons", "nlls"), tcsam2013.type = c("PRs_yxmz",
-  "PRs_yxz"), showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareFits.ZScores.PrNatZ(objs = NULL, mdfr = NULL,
+  fleet.type = c("survey", "fishery"), catch.type = c("index", "retained",
+  "total"), residuals.type = c("pearsons", "nlls"),
+  tcsam2013.type = c("PRs_yxmz", "PRs_yxz"), showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
+\item{mdfr}{- dataframe from call to \code{extractFits.ZScores.PrNatZ}  (as alternative to objs)}
+
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 
 \item{catch.type}{- catch type ('index','retained',or 'total')}
@@ -23,14 +28,12 @@ compareFits.ZScores.PrNatZ(objs = NULL, fleet.type = c("survey", "fishery"),
 \item{pdf}{- name for output pdf file}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 non-nested list of ggplot2 objects, with captions as names
 }
 \description{
-Function to compare Pearson's residuals or nll residuals from size comps by fleet among 
+Function to compare Pearson's residuals or nll residuals from size comps by fleet among
 several model runs.
 }
 \details{

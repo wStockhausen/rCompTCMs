@@ -4,16 +4,24 @@
 \alias{printResults.ParametersAtBounds}
 \title{Function to print a table of parameters at bounds for several models}
 \usage{
-printResults.ParametersAtBounds(objs, delta = 1e-04, caption = "",
-  format = c("latex", "docx"), landscape = FALSE, font = "11pt",
+printResults.ParametersAtBounds(objs = NULL, mdfr = NULL, delta = 1e-04,
+  format = c("latex", "docx"), landscape = FALSE, fontsize = "11pt",
   verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{mdfr}{- dataframe from call to \code{extractMDFR.Results.ParametersAtBounds} (as alternative to objs)}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{delta}{- fraction of range which defines "at the bounds"}
+
+\item{format}{- 'latex' or 'docx'}
+
+\item{landscape}{- flag indicating whether page orientation is landscape or portrait}
+
+\item{fontsize}{- font size (can be 'small')}
+
+\item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
 ggplot2 object
