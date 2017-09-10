@@ -1,9 +1,9 @@
 #'
-#'@title Function to compare mature biomass estimates by year among several models
+#'@title Function to compare mature biomass-at-mating estimates by year among several models
 #'
-#'@description This function compares mature biomass estimates by year
+#'@description This function compares mature biomass-at-mating estimates by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param numRecent - number of "recent" years to plot
 #'@param dodge - width to dodge overlapping series
@@ -13,8 +13,7 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+#'@details uses \code{rCompTCMs::extractMDFR.Pop.MatureBiomass}, and
 #'\code{plotMDFR.XY}.
 #'
 #'@import ggplot2
@@ -29,7 +28,7 @@ compareResults.Pop.MatureBiomass<-function(objs,
                                            verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.MatureBiomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
@@ -39,10 +38,10 @@ compareResults.Pop.MatureBiomass<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractResults.Pop.MatureBiomass(objs,verbose=verbose);
-    
+    mdfr<-extractMDFR.Pop.MatureBiomass(objs,verbose=verbose);
+
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
-    
+
     #----------------------------------
     #mature biomass
     #----------------------------------
@@ -63,7 +62,7 @@ compareResults.Pop.MatureBiomass<-function(objs,
     if (showPlot||!is.null(pdf)) print(p);
     cap1<-"  \n  \nFigure &&figno. Estimated recent mature biomass.  \n  \n";
     plots[[cap1]]<-p;
-    
+
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Mature Biomass',units="1000's t",lnscale=TRUE,
                    facet_grid='x~.',dodge=dodge,
@@ -80,7 +79,7 @@ compareResults.Pop.MatureBiomass<-function(objs,
     if (showPlot||!is.null(pdf)) print(p);
     cap1<-"  \n  \nFigure &&figno. Estimated recent mature biomass, on ln-scale.  \n  \n";
     plots[[cap1]]<-p;
-    
+
     if (verbose) cat("Finished rCompTCMs::compareResults.Pop.MatureBiomass()!\n");
     return(plots)
 }

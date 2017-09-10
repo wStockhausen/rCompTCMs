@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareResults.Pop.MatureBiomass.R
 \name{compareResults.Pop.MatureBiomass}
 \alias{compareResults.Pop.MatureBiomass}
-\title{Function to compare mature biomass estimates by year among several models}
+\title{Function to compare mature biomass-at-mating estimates by year among several models}
 \usage{
 compareResults.Pop.MatureBiomass(objs, numRecent = 15, dodge = 0.2,
   showPlot = FALSE, pdf = NULL, verbose = FALSE)
@@ -24,11 +24,10 @@ compareResults.Pop.MatureBiomass(objs, numRecent = 15, dodge = 0.2,
 ggplot2 object
 }
 \description{
-This function compares mature biomass estimates by year
+This function compares mature biomass-at-mating estimates by year
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+uses \code{rCompTCMs::extractMDFR.Pop.MatureBiomass}, and
 \code{plotMDFR.XY}.
 }

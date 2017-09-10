@@ -3,22 +3,22 @@
 #'
 #'@description This function extracts mature biomass estimates by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return datafram in canonical format
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}.
+#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rTCSAM02::getMDFR.Pop.Quantities}.
 #'
 #'@export
 #'
-extractResults.Pop.MatureBiomass<-function(objs,
-                                           verbose=FALSE){
+extractMDFR.Pop.MatureBiomass<-function(objs,
+                                        verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractResults.Pop.MatureBiomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
@@ -36,6 +36,6 @@ extractResults.Pop.MatureBiomass<-function(objs,
     }
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     return(mdfr);
 }

@@ -39,23 +39,29 @@ compareResults.Pop.GrowthMatrices<-function(objs,
     #----------------------------------
     # plot growth transition matrices
     #----------------------------------
+    mx<-max(mdfr$val,na.rm=TRUE);
     plots<-list();
-    p <- ggplot(mdfr,aes_string(y='zp',x='z',size='val',fill='val'));
-    p <- p + geom_abline(slope=1,colour='black',linetype=2)
-    p <- p + geom_point(alpha=0.8,shape=21) + scale_size_area(max_size=10)
-    p <- p + scale_fill_gradientn(colours=wtsUtilities::createColorPalette('jet',100,alpha=0.7))
-    p <- p + labs(x="pre-molt size (mm CW)", y="post-molt size (mm CW)");
-    p <- p + guides(size=guide_legend("probability",order=1));
-    p <- p + guides(fill=guide_colorbar("probability",alpha=1.0,order=2));
-    if (length(cases)==1){
-        p <- p + facet_grid(x~.);
-    } else {
-        p <- p + facet_grid(case~x);
-    }
-    if (showPlot) print(p);
+    for (case in cases){
+        mdfrp<-mdfr[mdfr$case==case,];
+        if (nrow(mdfrp)>0){
+            p <- ggplot(mdfrp,aes_string(y='zp',x='z',size='val',fill='val'));
+            p <- p + geom_abline(slope=1,colour='black',linetype=2)
+            p <- p + geom_point(alpha=0.8,shape=21) + scale_size_area(max_size=10)
+            p <- p + scale_fill_gradientn(colours=wtsUtilities::createColorPalette('jet',100,alpha=0.7))
+            p <- p + labs(x="pre-molt size (mm CW)", y="post-molt size (mm CW)");
+            p <- p + guides(size=guide_legend("probability",order=1));
+            p <- p + guides(fill=guide_colorbar("probability",alpha=1.0,order=2));
+            if (length(cases)==1){
+                p <- p + facet_grid(x~.);
+            } else {
+                p <- p + facet_grid(x~case);
+            }
+            if (showPlot) print(p);
 
-    cap<-paste("  \n  \nFigure &&figno. Estimated growth matrices, as bubble plots. \n \n",sep='');
-    plots[[cap]]<-p;
+            cap<-paste("  \n  \nFigure &&figno. Estimated growth matrices, as bubble plots, for scenario ",case,". \n \n",sep='');
+            plots[[cap]]<-p;
+        }
+    }
 
     if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
     return(plots);
