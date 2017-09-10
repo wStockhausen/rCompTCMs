@@ -45,8 +45,8 @@ This function compares biomass estimates (aggregated or as size comps, depending
 }
 \details{
 This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
-  among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
+  among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rTCSAM02::getMDFR.Pop.Quantities}, and
+\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike
 \code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.)
 }

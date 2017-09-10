@@ -13,7 +13,7 @@ extractMDFR.Fisheries.CatchBiomass(objs, category = c("captured", "discarded",
 
 \item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
 
-\item{cast}{- cast'ing formula for aggregating by factors (x,m,s,z)}
+\item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
 
 \item{years}{- 'all' or vector of years to include}
 

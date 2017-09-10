@@ -3,7 +3,7 @@
 #'
 #'@description This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param type - type of biomass ("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx")
 #'@param years - "all" or numerical vector of years to include
@@ -13,7 +13,7 @@
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -21,10 +21,10 @@
 #'@return ggplot2 object
 #'
 #'@details  This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
-#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
-#'\code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.) 
+#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rTCSAM02::getMDFR.Pop.Quantities}, and
+#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike
+#'\code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.)
 #'
 #'@import ggplot2
 #'
@@ -45,14 +45,14 @@ compareResults.Pop.Biomass1<-function(objs,
                                       verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.Pop.Biomass1().\n");
     options(stringsAsFactors=FALSE);
-    
+
     type<-type[1];
     types<-c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx");
     if (!(type %in% types)){
         cat("rCompTCMs::compareResults.Pop.Biomass1: Unknown type requested: '",type,"'.\n",sep='');
         return(NULL);
     }
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
@@ -74,11 +74,11 @@ compareResults.Pop.Biomass1<-function(objs,
     }
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
-    
+
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
-    
+
     if (sum(grep('z',type,fixed=TRUE))==0){
         #----------------------------------
         #biomass by year
@@ -100,7 +100,7 @@ compareResults.Pop.Biomass1<-function(objs,
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Recent population biomass trends.  \n  \n")
         plots[[cap]]<-p;
-        
+
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
                        facet_grid='m+x~s',dodge=dodge,scales=scales,

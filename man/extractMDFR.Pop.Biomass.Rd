@@ -10,7 +10,7 @@ extractMDFR.Pop.Biomass(objs, cast = "y+x", years = "all",
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{- casting formula for excluding y,x,m,s,z factor levels from sums across the unspecified factors}
 
 \item{years}{- 'all' or vector of years to include}
 
@@ -25,6 +25,6 @@ This function extracts estimated population biomass by year
 }
 \details{
 Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Biomass},
-\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and 
+\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and
 cast to aggregate. This differs from \code{extractMDFR.Pop.Biomass1}.
 }

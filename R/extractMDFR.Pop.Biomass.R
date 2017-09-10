@@ -3,16 +3,16 @@
 #'
 #'@description This function extracts estimated population biomass by year
 #'   among several models as a dataframe.
-#'   
+#'
 #'@param objs - list of resLst objects
-#'@param cast - casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+#'@param cast - casting formula for excluding y,x,m,s,z factor levels from sums across the unspecified factors
 #'@param years - 'all' or vector of years to include
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return dataframe
 #'
 #'@details Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Biomass},
-#'\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and 
+#'\code{rsimTCSAM::getMDFR.Pop.Biomass}, and/or \code{rTCSAM02::getMDFR.Pop.Biomass}, as appropriate, and
 #'cast to aggregate. This differs from \code{extractMDFR.Pop.Biomass1}.
 #'
 #'@export
@@ -23,13 +23,13 @@ extractMDFR.Pop.Biomass<-function(objs,
                                    verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::extractMDFR.Pop.Biomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     if (is.null(cast)){
         cat("Error in rCompTCMs::extractMDFR.Pop.Biomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");
         return(NULL);
     }
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
@@ -47,11 +47,11 @@ extractMDFR.Pop.Biomass<-function(objs,
     }
     mdfr$case<-factor(mdfr$case,levels=cases);
     mdfr$y<-as.numeric(mdfr$y);
-    
+
     if (is.numeric(years)) {
         mdfr<-mdfr[mdfr$y %in% years,];
     }
-    
+
     if (verbose) cat("finished rCompTCMs::extractMDFR.Pop.Biomass().\n");
     return(mdfr)
 }
