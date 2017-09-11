@@ -35,13 +35,6 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
 
     cases<-names(objs);
 
-    #create pdf, if necessary
-    if(!is.null(pdf)){
-        pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
-        showPlot<-TRUE;
-    }
-
     if (catch.type=='retained') type<-'bio.retm';
     if (catch.type=='discard')  type<-'bio.dscm';
     if (catch.type=='total')    type<-'bio.totm';
