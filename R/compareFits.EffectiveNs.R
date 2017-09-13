@@ -6,7 +6,7 @@
 #'
 #'@param objs - list of resLst objects
 #'@param fleet.type - 'survey','fishery'
-#'@param category - 'captured','discarded','retained','discard mortality', or 'index'
+#'@param category - 'total','discard','retained','discard mortality', or 'index'
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
@@ -53,7 +53,10 @@ compareFits.EffectiveNs<-function(objs=NULL,
                                                       category=category[1],
                                                       verbose=verbose);
         cases<-names(objs);
+    } else {
+        cases<-unique(mdfr$cases);
     }
+
     if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
 
     #----------------------------------

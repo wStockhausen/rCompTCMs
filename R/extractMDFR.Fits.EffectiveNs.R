@@ -6,7 +6,7 @@
 #'
 #'@param objs - list of resLst objects
 #'@param fleet.type - 'survey','fishery'
-#'@param category - 'captured','discarded','retained','discard mortality', or 'index'
+#'@param category - 'total','discard','retained','discard mortality', or 'index'
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return dataframe

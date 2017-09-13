@@ -14,7 +14,7 @@ compareFits.EffectiveNs(objs = NULL, mdfr = NULL, fleet.type = c("survey",
 
 \item{fleet.type}{- 'survey','fishery'}
 
-\item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
+\item{category}{- 'total','discard','retained','discard mortality', or 'index'}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

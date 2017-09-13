@@ -13,7 +13,7 @@ extractMDFR.Fits.EffectiveNs(objs, fleet.type = c("survey", "fishery"),
 
 \item{fleet.type}{- 'survey','fishery'}
 
-\item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
+\item{category}{- 'total','discard','retained','discard mortality', or 'index'}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
