@@ -1,0 +1,81 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Tanner Crab Model Comparisons" 
+    plot1stObs: TRUE
+    doc_type: "pdf"
+output: 
+    word_document: 
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
+    pdf_document: 
+        toc: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        keep_tex: FALSE
+        includes:
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setup,echo=FALSE,results='hide'}
+  ##input model list
+  Models<-params$Models;
+  plot1stObs<-params$plot1stObs;
+  doc_type<-params$doc_type;
+  
+  ##set appendix letter
+  app="A";
+  ##set knitr options for subsequent chunks
+  knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=3.5, dpi=300)
+  
+  ##set caption numbering
+  fig<-1;#figures
+  tbl<-0;#tables
+
+  cases<-names(Models);
+  nCases<-length(cases);
+```
+
+\setcounter{tocdepth}{3}
+
+\addcontentsline{toc}{section}{List of Tables in Model Comparisons}
+\listoftables
+
+\addcontentsline{toc}{section}{List of Figures in Model Comparisons}
+\listoffigures
+
+<!-- \newpage -->
+
+<!-- ```{r child="modelComparisons.ParameterTables.Rmd"} -->
+<!-- ``` -->
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.PopulationProcesses.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.ModelFits.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.SurveyCharacteristics.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.FisheryCharacteristics.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.PopulationQuantities.Rmd",package="rCompTCMs")}
+```
+

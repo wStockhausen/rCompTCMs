@@ -1,0 +1,171 @@
+#'
+#' @title Compare fits to maturity data among several model runs
+#'
+#' @description Function to compare fits to maturity data among several model runs.
+#'
+#' @param objs - list of resLst objects
+#' @param nyrs - number of years/plot
+#' @param types - requested plot types ("fits","nlls",and/or "zscores")
+#' @param dodge - width to dodge overlapping series
+#' @param plot1stObs - flag to include observations only from 1st model scenario
+#' @param pdf - name for output pdf file
+#' @param showPlot - flag to print plot to current device
+#' @param verbose - flag (T/F) to print diagnostic information
+#'
+#' @details None.
+#'
+#' @return ggplot object
+#'
+#' @import ggplot2
+#'
+#' @export
+#'
+compareFits.MaturityData<-function(objs,
+                                   nyrs=5,
+                                   types=c("fits","nlls","zscores"),
+                                   dodge=0.2,
+                                   plot1stObs=FALSE,
+                                   pdf=NULL,
+                                   showPlot=FALSE,
+                                   verbose=FALSE){
+    options(stringsAsFactors=FALSE);
+
+    #create pdf, if necessary
+    if(!is.null(pdf)){
+        pdf(file=pdf,width=11,height=8,onefile=TRUE);
+        on.exit(dev.off());
+        showPlot<-TRUE;
+    }
+
+    cases<-names(objs);
+
+    mdfr<-NULL;
+    for (case in cases){
+        mdfr1<-NULL;
+        obj<-objs[[case]];
+        #if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.MeanMaturity(obj,verbose);
+        #if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.MeanMaturity(obj,verbose);
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.MaturityData(obj,verbose);
+        if (!is.null(mdfr1)){
+            mdfr1$case<-case;
+            mdfr<-rbind(mdfr,mdfr1);
+        }
+    }
+
+    if (is.null(mdfr)) {
+        cat("\n \nNo fits to maturity data.\n \n")
+        return(NULL);
+    }
+
+    mdfr$z<-as.numeric(mdfr$z)
+    mdfr$case<-factor(mdfr$case,levels=cases);
+    mdfr$y<-as.character(mdfr$y);
+
+    pd<-ggplot2::position_dodge(width=dodge);
+    datasets<-unique(mdfr$category);
+    plots<-list();
+    for (d in datasets){
+        mdfrp<-mdfr[(mdfr$category==d),];
+        dcs<-unique(mdfrp$case);   #unique cases
+        uys<-sort(unique(mdfrp$y)); #unique years
+        cat("dcs: ",dcs,"\n")
+        cat("uys: ",uys,"\n")
+        nys<-length(uys);
+        if ("fits" %in% types){
+            #-------------------------------------------#
+            #plot maturity data and fits
+            #-------------------------------------------#
+            if (verbose) cat("\n--Plotting fits.\n")
+            if (plot1stObs) {
+                mdfrpo<-mdfrp[(mdfrp$type == 'observed')&(mdfrp$case==dcs[1]), ];
+            } else {
+                mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+            }
+            mdfrpp<-mdfrp[mdfrp$type == 'predicted',];
+            zlims<-range(c(mdfrpo$z,mdfrpp$z));
+            ylims<-c(0,1);
+            if (verbose) cat("zlims = ",zlims,"\n");
+            if (verbose) cat("ylims = ",ylims,"\n");
+            for (iy in 1:ceiling(nys/nyrs)){
+                iys<-min(c(nyrs*(iy-1)+1,nys+1)):min(c(nyrs*(iy),nys));
+                if (verbose) cat("iys: ",iys,"\n");
+                if (verbose) cat("uys[iys]: ",uys[iys],"\n");
+                dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
+                if (plot1stObs) {
+                    mdfrpo<-dfrp[(dfrp$type == 'observed')&(dfrp$case==dcs[1]), ];
+                } else {
+                    mdfrpo<-dfrp[dfrp$type == 'observed', ];
+                }
+                mdfrpp<-dfrp[dfrp$type == 'predicted',];
+                p <- ggplot(dfrp,aes_string(x='z',y='val',colour='case',shape='case'));
+                p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                p <- p + geom_point(data=mdfrpo,position=pd);
+                p <- p + geom_line(data=mdfrpp,position=pd);
+                if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+                p <- p + labs(x='size (mm CW)',y="probability(mature)");
+                p <- p + facet_grid(y~.);
+                if (showPlot) print(p);
+                cap<-paste0("\n  \nFigure &&figno. Model fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                plots[[cap]]<-p;
+            }
+            rm(mdfrpo,mdfrpp);
+        }
+        if ("nlls" %in% types){
+            #-------------------------------------------#
+            #plot nll scores
+            #-------------------------------------------#
+            cat("\n--Plotting nlls.\n")
+            mdfrpn<-mdfrp[mdfrp$type == 'nlls',];
+            zlims<-range(mdfrpn$z);
+            ylims<-c(min(c(0,mdfrpn$val)),max(mdfrpn$val));
+            if (verbose) cat("zlims = ",zlims,"\n");
+            if (verbose) cat("ylims = ",ylims,"\n");
+            for (iy in 1:ceiling(nys/nyrs)){
+                iys<-min(c(nyrs*(iy-1)+1,nys+1)):min(c(nyrs*(iy),nys));
+                if (verbose) cat("iys: ",iys,"\n");
+                if (verbose) cat("uys[iys]: ",uys[iys],"\n");
+                dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
+                mdfrpn<-dfrp[dfrp$type == 'nlls',];
+                p <- ggplot(mdfrpn,aes_string(x='z',y='val',colour='case',shape='case'));
+                p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                p <- p + geom_point(position=pd);
+                p <- p + geom_abline(slope=0,linetype=2);
+                p <- p + labs(x='size (mm CW)',y="NLLs");
+                p <- p + facet_grid(y~.);
+                if (showPlot) print(p);
+                cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                plots[[cap]]<-p;
+            }
+            rm(mdfrpn);
+        }
+        if ("zscores" %in% types){
+            #-------------------------------------------#
+            #plot zscores
+            #-------------------------------------------#
+            if (verbose) cat("\n--Plotting zscores.\n")
+            mdfrpz<-mdfrp[mdfrp$type == 'zscores',];
+            zlims<-range(mdfrpz$z);
+            ylims<-c(-1,1)*max(abs(mdfrpz$val));
+            if (verbose) cat("zlims = ",zlims,"\n");
+            if (verbose) cat("ylims = ",ylims,"\n");
+            for (iy in 1:ceiling(nys/nyrs)){
+                iys<-min(c(nyrs*(iy-1)+1,nys+1)):min(c(nyrs*(iy),nys));
+                if (verbose) cat("iys: ",iys,"\n");
+                if (verbose) cat("uys[iys]: ",uys[iys],"\n");
+                dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
+                mdfrpz<-dfrp[dfrp$type == 'zscores',];
+                p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
+                p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                p <- p + geom_point(position=pd);
+                p <- p + geom_abline(slope=0,linetype=2);
+                p <- p + labs(x='size (mm CW)',y="z-scores");
+                p <- p + facet_grid(y~.);
+                if (showPlot) print(p);
+                cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                plots[[cap]]<-p;
+            }
+        }
+    }#d
+
+    return(plots);
+}

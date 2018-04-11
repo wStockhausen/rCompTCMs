@@ -1,7 +1,7 @@
 #'
-#'@title Compare fits to biomass time series by fleet among several model runs
+#'@title Compare fits to abundance time series by fleet among several model runs
 #'
-#'@description Function to compare fits to biomass time series by fleet among
+#'@description Function to compare fits to abundance time series by fleet among
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -23,7 +23,7 @@
 #'
 #'@export
 #'
-compareFits.BiomassData<-function(objs=NULL,
+compareFits.AbundanceData<-function(objs=NULL,
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
                                   ci=0.80,
@@ -35,7 +35,7 @@ compareFits.BiomassData<-function(objs=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.BiomassData().\n");
+    if (verbose) cat("Starting rCompTCMs::compareFits.AbundanceData().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -64,26 +64,26 @@ compareFits.BiomassData<-function(objs=NULL,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
                                                                                       fleet.type=fleet.type,
-                                                                                      data.type='biomass',
+                                                                                      data.type='abundance',
                                                                                       catch.type=catch.type,
                                                                                       ci=ci,
                                                                                       verbose=verbose);
         if (fleet.type=='survey'){
             if (inherits(obj,"tcsam2013.resLst"))
-            mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-                                                        type='MB_yx',
-                                                        pdfType='lognormal',
-                                                        ci=ci,
-                                                        verbose=verbose);
+                mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
+                                                            type='N_yxm',
+                                                            pdfType='lognormal',
+                                                            ci=ci,
+                                                            verbose=verbose);
         }
-        if (fleet.type=='fishery'){
-            if (inherits(obj,"tcsam2013.resLst"))
-                mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-                                                             type=type,
-                                                             pdfType=fishery.pdfType,
-                                                             ci=ci,
-                                                             verbose=verbose);
-        }
+        # if (fleet.type=='fishery'){
+        #     if (inherits(obj,"tcsam2013.resLst"))
+        #         mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
+        #                                                      type=type,
+        #                                                      pdfType=fishery.pdfType,
+        #                                                      ci=ci,
+        #                                                      verbose=verbose);
+        # }
         if (!is.null(mdfr1)){
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
@@ -107,9 +107,9 @@ compareFits.BiomassData<-function(objs=NULL,
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1"; cap2<-"2";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
-        ylab<-"Survey biomass (1000's t)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet. Recent time period.  \n  \n";
+        ylab<-"Survey abundance (millions)";
+        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey abundance for &&fleet.  \n  \n";
+        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey abundance for &&fleet. Recent time period.  \n  \n";
     }
     if ((catch.type=="index")&&(fleet.type=="fishery")) {
         ylab<-"Fishery CPUE";
@@ -117,12 +117,12 @@ compareFits.BiomassData<-function(objs=NULL,
         cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet. Recent time period.  \n  \n";
     }
     if (catch.type=="retained") {
-        ylab<-"Retained catch (1000's t)";
+        ylab<-"Retained catch (millions)";
         cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet.  \n  \n";
         cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet. Recent time period.  \n  \n";
     }
     if (catch.type=="total") {
-        ylab<-"Total catch (1000's t)";
+        ylab<-"Total catch (millions)";
         cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet.  \n  \n";
         cap2<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet. Recent time period.  \n  \n";
     }
@@ -149,6 +149,6 @@ compareFits.BiomassData<-function(objs=NULL,
         plots[[cp2]]<-ps[[2]];
     }#uFs
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.BiomassData().\n");
+    if (verbose) cat("Finished rCompTCMs::compareFits.AbundanceData().\n");
     return(plots);
 }

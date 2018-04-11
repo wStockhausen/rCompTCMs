@@ -1,0 +1,74 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Tanner Crab  Model Parameters Comparison" 
+    plot1stObs: TRUE
+    docx_styles: "../StylesForRmdDocs.docx"
+    pdf_styles: "../header.sty"
+    doc_type: "pdf"
+output: 
+    word_document: 
+        # reference_docx: "`r params$docx_styles`"
+    pdf_document: 
+        toc: TRUE
+        number_sections: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        includes:
+          in_header: ../../header.sty
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setupParameterTables,echo=FALSE,results='hide'}
+##input model list
+Models<-params$Models;
+plot1stObs<-params$plot1stObs;
+doc_type<-params$doc_type;
+
+##set knitr options for subsequent chunks
+knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=3.5, dpi=300)
+
+##set caption numbering
+if (!exists("fig")){
+  fig<-1;#figures
+  tbl<-0;#tables
+}
+
+cases<-names(Models);
+nCases<-length(cases);
+```
+
+\blandscape
+
+\section{Parameters}
+
+\subsection{Parameters at bounds}
+
+The following tables list the parameters for each model case that ended up near the lower or upper limits set on the parameter in question. Here, the criterion for being "at" the bound is to be closer than 0.01% of the allowed range to either bound.
+
+```{r printParametersAtBounds,results='asis'}
+  mdfr<-rCompTCMs::extractMDFR.Results.ParametersAtBounds(Models);
+  rCompTCMs::printResults.ParametersAtBounds(mdfr=mdfr,fontsize="tiny");
+  write.csv(mdfr,file="ModelParametersAtBounds.csv",row.names=FALSE);
+  rm(mdfr);
+```
+
+\clearpage
+
+\subsection{Parameter estimates}
+
+Estimated parameter values and associated standard deviations (from the ADMB std file) are presented in the following table for the model scenarios `r paste0(paste0(cases[1:(nCases-1)],collapse=", ")," and ",cases[nCases])`.
+
+```{r printParamsTable, results="asis"}
+  mdfr<-rCompTCMs::extractMDFR.Results.ParameterValues(Models);
+  rCompTCMs::printResults.ParameterValues(mdfr=mdfr,fontsize="tiny");
+  write.csv(mdfr,file="ModelParameterValues.csv",row.names=FALSE);
+  rm(mdfr);
+```
+
+\elandscape

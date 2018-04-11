@@ -1,0 +1,85 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Fishery Characteristics as inferred by the Tanner Crab Model" 
+    plot1stObs: TRUE
+    docx_styles: "../StylesForRmdDocs.docx"
+    pdf_styles: "../header.sty"
+    doc_type: "pdf"
+output: 
+    word_document: 
+        # reference_docx: "`r params$docx_styles`"
+    pdf_document: 
+        toc: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        includes:
+          in_header: ../../header.sty
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setupFisheryCharacteristics, include=FALSE}
+    ##input model list
+    Models<-params$Models;
+    doc_type<-params$doc_type;
+    plot1stObs<-params$plot1stObs;
+    
+    ##set knitr options for subsequent chunks
+    knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=7.0, dpi=300)
+    
+    ##set caption numbering
+    if (!exists("fig")){
+      fig<-1;#figures
+      tbl<-0;#tables
+    }
+    
+    cases<-names(Models);
+    nCases<-length(cases);
+```
+
+#Fisheries
+
+##Fishery catchability
+
+```{r plotFisheryCatchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareResults.Fisheries.Catchability(Models,dodge=0,showPlot=FALSE,verbose=FALSE)
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+  rm(plt,plts);
+```
+
+##Total selectivity functions
+
+```{r plotFisherySelFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareResults.Fisheries.SelFcns(Models,cast="y+x",facet_grid="y~x",mxy=5,years=1986:2015,dodge=0,
+                                                    showPlot=FALSE,verbose=FALSE);
+  captions<-vector(mode="character",length=0);
+  for (fplts in plts) {
+    captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
+    for (plt in fplts) {
+      print(plt); cat("\n\n"); fig<-fig+1;
+    }
+  }
+  rm(plt,fplts,plts);
+```
+
+##Retention functions
+
+```{r plotFisheryRetFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareResults.Fisheries.RetFcns(Models,cast="y+x",facet_grid="y~x",mxy=5,years=1986:2015,dodge=0,
+                                                    showPlot=FALSE,verbose=FALSE);
+  captions<-vector(mode="character",length=0);
+  for (fplts in plts) {
+    captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
+    for (plt in fplts) {
+      print(plt); cat("\n\n"); fig<-fig+1;
+    }
+  }
+  rm(plt,fplts,plts);
+```
+
