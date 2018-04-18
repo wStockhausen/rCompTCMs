@@ -28,7 +28,7 @@ compareFits.AbundanceData(objs = NULL, fleet.type = c("survey", "fishery"),
 \item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
-Non-nested list of ggplot2 objects, with captions as names
+Non-nested list of ggplot2 objects, with captions as names, or NULL.
 }
 \description{
 Function to compare fits to abundance time series by fleet among

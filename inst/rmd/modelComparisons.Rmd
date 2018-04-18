@@ -61,7 +61,17 @@ title: '`r params$title`'
 
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.ModelFits.Rmd",package="rCompTCMs")}
+```{r child=system.file("rmd/modelComparisons.ModelFits.OtherData.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.ModelFits.ACD.Rmd",package="rCompTCMs")}
+```
+
+\newpage
+
+```{r child=system.file("rmd/modelComparisons.ModelFits.ZCs.Rmd",package="rCompTCMs")}
 ```
 
 \newpage

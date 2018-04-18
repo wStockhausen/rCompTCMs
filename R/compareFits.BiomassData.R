@@ -17,7 +17,7 @@
 #'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
 #'Also uses \code{wtsUtilities::printGGList}.
 #'
-#'@return Non-nested list of ggplot2 objects, with captions as names
+#'@return Non-nested list of ggplot2 objects, with captions as names, or NULL.
 #'
 #'@import ggplot2
 #'
@@ -89,65 +89,76 @@ compareFits.BiomassData<-function(objs=NULL,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    mdfr$x[mdfr$x=='all']<-'all sex';
-    mdfr$m[mdfr$m=='all']<-'all maturity';
-    mdfr$s[mdfr$s=='all']<-'all shell';
 
-    #----------------------------------
-    # define output list of plots
-    #----------------------------------
-    plots<-list();
-    figno<-1;
+    plots<-NULL;
+    if (!is.null(mdfr)){
+        mdfr$case<-factor(mdfr$case,levels=cases);
+        mdfr$y<-as.numeric(mdfr$y);
+        mdfr$x[mdfr$x=='all']<-'all sex';
+        mdfr$m[mdfr$m=='all']<-'all maturity';
+        mdfr$s[mdfr$s=='all']<-'all shell';
+        mdfr$facets<-paste0(mdfr$x,"\n",mdfr$m,"\n",mdfr$s)
 
-    #----------------------------------
-    # plot fits to biomass time series
-    #----------------------------------
-    if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
-    ylab<-""; cap1<-"1"; cap2<-"2";
-    if ((catch.type=="index")&&(fleet.type=="survey")) {
-        ylab<-"Survey biomass (1000's t)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet. Recent time period.  \n  \n";
+        #----------------------------------
+        # define output list of plots
+        #----------------------------------
+        plots<-list();
+        figno<-1;
+
+        #----------------------------------
+        # plot fits to biomass time series
+        #----------------------------------
+        if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+        ylab<-""; cap1<-"1"; cap2<-"2";
+        if ((catch.type=="index")&&(fleet.type=="survey")) {
+            ylab<-"Survey biomass (1000's t)";
+            cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet.  \n  \n";
+            cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet. Observed time period.  \n  \n";
+            cap3<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey biomass for &&fleet. Recent time period.  \n  \n";
+        }
+        if ((catch.type=="index")&&(fleet.type=="fishery")) {
+            ylab<-"Fishery CPUE";
+            cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet.  \n  \n";
+            cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet. Observed time period.  \n  \n";
+            cap3<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet. Recent time period.  \n  \n";
+        }
+        if (catch.type=="retained") {
+            ylab<-"Retained catch (1000's t)";
+            cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet.  \n  \n";
+            cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet. Observed time period.  \n  \n";
+            cap3<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet. Recent time period.  \n  \n";
+        }
+        if (catch.type=="total") {
+            ylab<-"Total catch (1000's t)";
+            cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet.  \n  \n";
+            cap2<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet. Observed time period.  \n  \n";
+            cap3<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet. Recent time period.  \n  \n";
+        }
+        uFs<-as.character(unique(mdfr$fleet));
+        for (uF in uFs){
+            ps<-plotMDFR.Fits.TimeSeries(mdfr[mdfr$fleet==uF,],
+                                         numRecent=numRecent,
+                                         plot1stObs=plot1stObs,
+                                         facets='facets~.',
+                                         scales=scales,
+                                         plotObs=TRUE,
+                                         plotMod=TRUE,
+                                         xlab='year',
+                                         ylab=ylab,
+                                         title=uF,
+                                         xlims=NULL,
+                                         ylims=NULL,
+                                         showPlot=showPlot);
+            cp1<-gsub("&&fleet",uF,cap1,fixed=TRUE)
+            cp2<-gsub("&&fleet",uF,cap2,fixed=TRUE)
+            cp3<-gsub("&&fleet",uF,cap3,fixed=TRUE)
+            names(ps)<-c(cp1,cp2,cp3);
+            if (showPlot) figno<-(wtsUtilities::printGGList(ps,figno=figno))$figno;
+            plots[[cp1]]<-ps[[1]];
+            plots[[cp2]]<-ps[[2]];
+            plots[[cp3]]<-ps[[3]];
+        }#uFs
     }
-    if ((catch.type=="index")&&(fleet.type=="fishery")) {
-        ylab<-"Fishery CPUE";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch (CPUE) for &&fleet. Recent time period.  \n  \n";
-    }
-    if (catch.type=="retained") {
-        ylab<-"Retained catch (1000's t)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted retained catch mortality for &&fleet. Recent time period.  \n  \n";
-    }
-    if (catch.type=="total") {
-        ylab<-"Total catch (1000's t)";
-        cap1<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&figno. Comparison of observed and predicted total catch for &&fleet. Recent time period.  \n  \n";
-    }
-    uFs<-as.character(unique(mdfr$fleet));
-    for (uF in uFs){
-        ps<-plotMDFR.Fits.TimeSeries(mdfr[mdfr$fleet==uF,],
-                                     numRecent=numRecent,
-                                     plot1stObs=plot1stObs,
-                                     facets='x+m+s~.',
-                                     scales=scales,
-                                     plotObs=TRUE,
-                                     plotMod=TRUE,
-                                     xlab='year',
-                                     ylab=ylab,
-                                     title=uF,
-                                     xlims=NULL,
-                                     ylims=NULL,
-                                     showPlot=showPlot);
-        cp1<-gsub("&&fleet",uF,cap1,fixed=TRUE)
-        cp2<-gsub("&&fleet",uF,cap2,fixed=TRUE)
-        names(ps)<-c(cp1,cp2);
-        if (showPlot) figno<-(wtsUtilities::printGGList(ps,figno=figno))$figno;
-        plots[[cp1]]<-ps[[1]];
-        plots[[cp2]]<-ps[[2]];
-    }#uFs
 
     if (verbose) cat("Finished rCompTCMs::compareFits.BiomassData().\n");
     return(plots);

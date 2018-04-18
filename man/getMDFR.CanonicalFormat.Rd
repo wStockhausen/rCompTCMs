@@ -10,7 +10,7 @@ getMDFR.CanonicalFormat(mdfr)
 \item{mdfr}{- dataframe to convert}
 }
 \value{
-dataframe in canonical format
+dataframe in canonical format, or NULL if input was not a dataframe
 }
 \description{
 Function to convert dataframe to canonical format.

@@ -10,18 +10,18 @@
 #'@param y - column name with y axis values
 #'@param lci - column name with y axis values
 #'@param uci - column name with y axis values
-#'@param case - column name with case names 
+#'@param case - column name with case names
 #'@param type - column name with type values (i.e., "observed","predicted")
 #'@param facets - string giving faceting formula
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param plotObs - plot observations
 #'@param plotMod - plot model fits/predictions
-#'@param xlab - 
-#'@param ylab - 
-#'@param title - 
-#'@param xlims - 
-#'@param ylims - 
-#'@param showPlot - 
+#'@param xlab -
+#'@param ylab -
+#'@param title -
+#'@param xlims -
+#'@param ylims -
+#'@param showPlot -
 #'
 #'@details numRecent provides the "zoom" for a second set of faceted plots including
 #'only the most recent years. Calls \code{plotMDFR.Fits.TimeSeries1}.
@@ -50,7 +50,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                   ylims=NULL,
                                   showPlot=FALSE){
     plots<-list();
-    
+
     #plot with observations & case results
     if (plotObs&&plotMod){
         p1<-plotMDFR.Fits.TimeSeries1(dfr,
@@ -73,9 +73,9 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       showPlot=showPlot);
         plots$p1<-p1;
 
-        #plot in recent years only
-        xmx<-max(dfr[[x]],na.rm=TRUE);
-        xplims<-c(xmx-numRecent,xmx+1);
+        #plot only over time period with observations
+        idx<-dfr[[type]]=='observed';
+        xplims<-range(dfr[[x]][idx],na.rm=TRUE);
         if (!is.null(xlims)){
             xplims[1]<-max(xlims[1],xplims[1],na.rm=TRUE);#max of mins
             xplims[2]<-min(xlims[2],xplims[2],na.rm=TRUE);#min of maxes
@@ -87,7 +87,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
             yplims[1]<-max(ylims[1],yplims[1],na.rm=TRUE);#max of mins
             yplims[2]<-min(ylims[2],yplims[2],na.rm=TRUE);#min of maxes
         }
-        dfrp<-dfr[dfr[[x]]>=(xmx-numRecent),];
+        dfrp<-dfr[(dfr[[x]]>=xplims[1])&(dfr[[x]]<=xplims[2]),];
         p2<-plotMDFR.Fits.TimeSeries1(dfrp,
                                       plot1stObs=plot1stObs,
                                       x=x,
@@ -107,8 +107,43 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       ylims=yplims,
                                       showPlot=showPlot);
         plots$p2<-p2;
+
+        #plot in recent years only
+        xmx<-max(dfr[[x]],na.rm=TRUE);
+        xplims<-c(xmx-numRecent,xmx+1);
+        if (!is.null(xlims)){
+            xplims[1]<-max(xlims[1],xplims[1],na.rm=TRUE);#max of mins
+            xplims[2]<-min(xlims[2],xplims[2],na.rm=TRUE);#min of maxes
+        }
+        yplims<-NULL;
+        if (!is.null(ylims)){
+            idy<-dfr[[x]] %in% xplims[1]:xplims[2];
+            yplims<-range(dfr[[y]][idy],na.rm=TRUE,finite=TRUE);
+            yplims[1]<-max(ylims[1],yplims[1],na.rm=TRUE);#max of mins
+            yplims[2]<-min(ylims[2],yplims[2],na.rm=TRUE);#min of maxes
+        }
+        dfrp<-dfr[dfr[[x]]>=(xmx-numRecent),];
+        p3<-plotMDFR.Fits.TimeSeries1(dfrp,
+                                      plot1stObs=plot1stObs,
+                                      x=x,
+                                      y=y,
+                                      lci=lci,
+                                      uci=uci,
+                                      case=case,
+                                      type=type,
+                                      facets=facets,
+                                      scales=scales,
+                                      plotObs=TRUE,
+                                      plotMod=TRUE,
+                                      xlab=xlab,
+                                      ylab=ylab,
+                                      title=title,
+                                      xlims=xplims,
+                                      ylims=yplims,
+                                      showPlot=showPlot);
+        plots$p3<-p3;
     }
-    
+
     #plot with observations only
     if (plotObs&&(!plotMod)){
         p1<-plotMDFR.Fits.TimeSeries1(dfr,
@@ -165,7 +200,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       showPlot=showPlot);
         plots$p2<-p2;
     }
-    
+
     #plot with case results only
     if (plotMod&&(!plotObs)){
         #plot full time series

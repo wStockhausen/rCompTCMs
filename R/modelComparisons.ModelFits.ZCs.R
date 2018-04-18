@@ -1,7 +1,8 @@
 #'
-#' @title Render a document of model comparison plots
+#' @title Render a document of comparison plots for model fits to size composition data
 #'
-#' @description Function to render a document of model comparison plots
+#' @description Function to render a document of comparison plots for model fits to
+#' size composition data.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
 #' @param plot1stObs - flag to plot observed data only from first model
@@ -13,19 +14,19 @@
 #' @param pdf_styles - full path to style template for pdf documents
 #' @param clean - T/F to delete intermediate files
 #'
-#' @details Resulting document title will be of the form "ModelComparisons.mmm.ext", where "ext" is the appropriate
-#' file extension and "mmm" is a dash-separated string of model names.
+#' @details Resulting document title will be of the form "ModelComparisons.ModelFits.ZCs.mmm.ext",
+#' where "ext" is the appropriate file extension and "mmm" is a dash-separated string of model names.
 #'
 #' @export
 #'
-modelComparisons<-function(models,
-                            plot1stObs=TRUE,
-                            output_format=c("word_document","pdf_document"),
-                            output_dir=getwd(),
-                            rmd=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"),
-                            docx_styles=system.file("rmd/StylesForRmdDocs.docx",package="wtsUtilities"),
-                            pdf_styles=system.file("rmd/StylesForRmdPDFs.sty",package="wtsUtilities"),
-                            clean=FALSE){
+modelComparisons.ModelFits.ZCs<-function(models,
+                                            plot1stObs=TRUE,
+                                            output_format=c("word_document","pdf_document"),
+                                            output_dir=getwd(),
+                                            rmd=system.file("rmd/modelComparisons.ModelFits.ZCs.Rmd",package="rCompTCMs"),
+                                            docx_styles=system.file("rmd/StylesForRmdDocs.docx",package="wtsUtilities"),
+                                            pdf_styles=system.file("rmd/StylesForRmdPDFs.sty",package="wtsUtilities"),
+                                            clean=FALSE){
   nms<-names(models);
   mmm<-paste0(nms,collapse="-");
   mmv<-paste0(nms,collapse=" vs ");
@@ -45,8 +46,8 @@ modelComparisons<-function(models,
     ext<-"pdf";
     output_options<-list(includes=list(in_header=pdf_styles));
   }
-  output_file<-paste0("ModelComparisons.",mmm,".",ext);
-  title<-paste0("Model Comparisons:\n",mmv);
+  output_file<-paste0("ModelComparisons.ModelFits.ZCs.",mmm,".",ext);
+  title<-paste0("Model Comparisons for Fits to Size Composition Data\n",mmv);
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");
@@ -59,6 +60,5 @@ modelComparisons<-function(models,
                      output_options=output_options,
                      params=list(title=title,Models=models,plot1stObs=plot1stObs,doc_type=doc_type),
                      clean=clean);
-  #res<-file.remove("modelComparisons.knit.md","modelComparisons.utf8.md");
 }
 

@@ -1,0 +1,208 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Tanner Crab Model Fits to Aggregated Catch Data" 
+    plot1stObs: TRUE
+    doc_type: "pdf"
+output: 
+    word_document: 
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
+    pdf_document: 
+        toc: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        includes:
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setupModelFits, include=FALSE}
+    ##input model list
+    Models<-params$Models;
+    doc_type<-params$doc_type;
+    plot1stObs<-params$plot1stObs;
+    
+    ##set appendix letter
+    app="A";
+    ##set knitr options for subsequent chunks
+    knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=7.0, dpi=300)
+    
+    ##set caption numbering
+    if (!exists("fig")){
+      fig<-1;#figures
+      tbl<-0;#tables
+    }
+    
+    cases<-names(Models);
+    nCases<-length(cases);
+```
+
+#Model fits to aggregated catch data
+
+##Survey biomass
+
+```{r plotFits.SurveyBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE);
+    if (!is.null(plts)){
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+    } else {
+        cat("\nNo fits to survey biomass data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.SurveyBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='survey',catch.type='index',verbose=FALSE);
+    if (!is.null(plts)){
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to survey biomass data.\n\n")
+    }
+```
+\FloatBarrier
+
+\clearpage
+
+##Survey abundance
+
+```{r plotFits.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE);
+  if (!is.null(plts)){
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+        cat("\nNo fits to survey abundance data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.SurveyAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='survey',catch.type='index',verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to survey biomass data.\n\n")
+    }
+```
+
+\FloatBarrier
+
+\clearpage
+
+##Fishery retained catch biomass
+
+```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo fits to fishery retained catch biomass data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.FisheryRetainedCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='fishery',catch.type='retained',verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to fishery retained catch biomass data.\n\n")
+    }
+```
+
+\FloatBarrier
+
+\clearpage
+
+##Fishery retained catch abundance
+
+```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo fits to fishery retained catch abundance data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.FisheryRetainedCatchAbundances,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='fishery',catch.type='retained',verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to fishery retained catch abundance data.\n\n")
+    }
+```
+
+\FloatBarrier
+
+\clearpage
+
+##Fishery total catch biomass
+
+```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo fits to fishery total catch biomass data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.FisheryTotalCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='fishery',catch.type='total',verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to fishery total catch biomass data.\n\n")
+    }
+```
+
+\FloatBarrier
+
+\clearpage
+
+##Fishery total catch abundance
+
+```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to fishery total catch abundance data.\n\n")
+    }
+```
+
+```{r plotFits.ZScores.FisheryTotalCatchAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='fishery',catch.type='total',verbose=FALSE);
+    if (!is.null(plts)){
+        captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+        for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+        rm(plt,plts);
+    } else {
+        cat("\nNo z-scores for fits to fishery total catch abundance data.\n\n")
+    }
+```
