@@ -5,12 +5,10 @@ params:
     Models: none
     title: "Tanner Crab Model Fits to Survey Size Compositions" 
     plot1stObs: TRUE
-    docx_styles: "../StylesForRmdDocs.docx"
-    pdf_styles: "../header.sty"
     doc_type: "pdf"
 output: 
     word_document: 
-        # reference_docx: "`r params$docx_styles`"
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
     pdf_document: 
         toc: TRUE
         fig_width: 6.5
@@ -18,7 +16,7 @@ output:
         fig_crop: FALSE
         fig_caption: TRUE
         includes:
-          in_header: ../../header.sty
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
 fontsize: 11pt
 title: '`r params$title`'
 ---

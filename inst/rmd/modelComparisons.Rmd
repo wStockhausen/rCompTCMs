@@ -5,6 +5,7 @@ params:
     Models: none
     title: "Tanner Crab Model Comparisons" 
     plot1stObs: TRUE
+    numRecent: 30
     doc_type: "pdf"
 output: 
     word_document: 
@@ -26,6 +27,7 @@ title: '`r params$title`'
   ##input model list
   Models<-params$Models;
   plot1stObs<-params$plot1stObs;
+  numRecent<-params$numRecent;
   doc_type<-params$doc_type;
   
   ##set appendix letter
@@ -51,7 +53,7 @@ title: '`r params$title`'
 
 <!-- \newpage -->
 
-<!-- ```{r child="modelComparisons.ParameterTables.Rmd"} -->
+<!-- ```{r child=system.file("rmd/"modelComparisons.ParameterTables.Rmd",package="rCompTCMs")} -->
 <!-- ``` -->
 
 \newpage

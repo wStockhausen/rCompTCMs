@@ -5,6 +5,7 @@ params:
     Models: none
     title: "Tanner Crab Model Fits to Aggregated Catch Data" 
     plot1stObs: TRUE
+    numRecent: 30
     doc_type: "pdf"
 output: 
     word_document: 
@@ -21,11 +22,12 @@ fontsize: 11pt
 title: '`r params$title`'
 ---
 
-```{r setupModelFits, include=FALSE}
+```{r setupModelFits.ACDs, include=FALSE}
     ##input model list
     Models<-params$Models;
     doc_type<-params$doc_type;
     plot1stObs<-params$plot1stObs;
+    numRecent<-params$numRecent;
     
     ##set appendix letter
     app="A";
@@ -47,7 +49,7 @@ title: '`r params$title`'
 ##Survey biomass
 
 ```{r plotFits.SurveyBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE);
+  plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
     if (!is.null(plts)){
       captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
       for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -74,7 +76,7 @@ title: '`r params$title`'
 ##Survey abundance
 
 ```{r plotFits.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE);
+  plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
   if (!is.null(plts)){
       captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
       for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -102,7 +104,7 @@ title: '`r params$title`'
 ##Fishery retained catch biomass
 
 ```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE);
+    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -130,7 +132,7 @@ title: '`r params$title`'
 ##Fishery retained catch abundance
 
 ```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE);
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -158,7 +160,7 @@ title: '`r params$title`'
 ##Fishery total catch biomass
 
 ```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE);
+    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -186,7 +188,7 @@ title: '`r params$title`'
 ##Fishery total catch abundance
 
 ```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE);
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}

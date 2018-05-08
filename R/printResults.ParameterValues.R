@@ -22,10 +22,10 @@
 #'
 printResults.ParameterValues<-function(objs=NULL,
                                        mdfr=NULL,
-                                      format=c("latex","docx"),
-                                      landscape=FALSE,
-                                      fontsize="11pt",
-                                      verbose=FALSE){
+                                       format=c("latex","docx"),
+                                       landscape=FALSE,
+                                       fontsize="11pt",
+                                       verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::printResults.ParameterValues().\n");
     options(stringsAsFactors=FALSE);
 
@@ -56,14 +56,19 @@ printResults.ParameterValues<-function(objs=NULL,
                         mdfr$name    <-as.factor(mdfr$name);
                         mdfr$type    <-as.factor(mdfr$type);
                         mdfr$index   <-as.factor(mdfr$index);
-                        mdfr$min     <-as.factor(mdfr$min);
-                        mdfr$max     <-as.factor(mdfr$max);
-                        mdfr$label   <-as.factor(mdfr$label);
-                        mdfr$value<-signif(mdfr$value,digits=3);
-                        mdfr$stdv <-signif(mdfr$stdv,digits=3);
+                        mdfr$parameter_scale<-as.factor(mdfr$parameter_scale);
+                        mdfr$min_arith      <-as.factor(mdfr$min_arith);
+                        mdfr$max_arith      <-as.factor(mdfr$max_arith);
+                        mdfr$min_param      <-as.factor(mdfr$min_param);
+                        mdfr$max_param      <-as.factor(mdfr$max_param);
+                        mdfr$label          <-as.factor(mdfr$label);
+                        mdfr$arith_value<-signif(mdfr$final_arith_value,digits=3);
+                        mdfr$param_value<-signif(mdfr$final_param_value,digits=3);
+                        mdfr$stdv       <-signif(mdfr$stdv,digits=3);
                         caption<-paste0("Model parameter values and standard deviations for ",uP," parameters.");
-                        tbr<-tables::tabular(Factor(name)*Factor(label)*Factor(index)*Factor(min)*Factor(max)*DropEmpty()~
-                                                 Factor(case)*(value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
+                        tbr<-tables::tabular(Factor(name)*Factor(label)*Factor(index)*Factor(parameter_scale)*
+                                                 Factor(min_arith)*Factor(max_arith)*Factor(min_param)*Factor(max_param)*DropEmpty()~
+                                                 Factor(case)*(arith_value+param_value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
                         colLabels(tbr)<-colLabels(tbr)[c(2,3),];
                         Hmisc::latex(tbr,options=list(tabular="longtable",
                                                toprule=paste0("\\caption{",caption,"} \\\\
@@ -75,12 +80,19 @@ printResults.ParameterValues<-function(objs=NULL,
                 for (uS in list(S1="pS1",S2="pS2",S3=c("pS3","pS4"))){
                     if (verbose) cat("\t\tProcessing selectivity parameters = ",paste0(uS,collapse=", "),"\n",sep='');
                     mdfr<-mdfrpp[stringr::str_sub(mdfrpp$name,1,3) %in% uS,];
-                    mdfr$label   <-as.factor(mdfr$label);
-                    mdfr$value<-signif(mdfr$value,digits=3);
-                    mdfr$stdv <-signif(mdfr$stdv,digits=3);
+                    mdfr$parameter_scale<-as.factor(mdfr$parameter_scale);
+                    mdfr$min_arith      <-as.factor(mdfr$min_arith);
+                    mdfr$max_arith      <-as.factor(mdfr$max_arith);
+                    mdfr$min_param      <-as.factor(mdfr$min_param);
+                    mdfr$max_param      <-as.factor(mdfr$max_param);
+                    mdfr$label          <-as.factor(mdfr$label);
+                    mdfr$arith_value<-signif(mdfr$final_arith_value,digits=3);
+                    mdfr$param_value<-signif(mdfr$final_param_value,digits=3);
+                    mdfr$stdv       <-signif(mdfr$stdv,digits=3);
                     caption<-paste0("Parameter values and standard deviations for ",paste0(uS,collapse=", "),"-type selectivity parameters.");
-                    tbr<-tables::tabular(Factor(label)*DropEmpty(which="row")~
-                                             Factor(case)*(value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
+                    tbr<-tables::tabular(Factor(label)*Factor(parameter_scale)*
+                                             Factor(min_arith)*Factor(max_arith)*Factor(min_param)*Factor(max_param)*DropEmpty(which="row")~
+                                             Factor(case)*(arith_value+param_value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
                     # tbr<-tables::tabular(Factor(label)*Factor(name)*Factor(index)*Factor(min)*Factor(max)*DropEmpty()~
                     #                          Factor(case)*(value+stdv)*wtsUtilities::Sum,data=mdfr);
                     colLabels(tbr)<-colLabels(tbr)[c(2,3),];
@@ -92,11 +104,19 @@ printResults.ParameterValues<-function(objs=NULL,
                 for (uS in list(S1="pDevsS1")){
                     if (verbose) cat("\t\tProcessing selectivity parameters = ",paste(uS,collapse=", "),"\n",sep='');
                     mdfr<-mdfrpp[stringr::str_sub(mdfrpp$name,1,7) %in% uS,];
-                    mdfr$value<-signif(mdfr$value,digits=3);
-                    mdfr$stdv <-signif(mdfr$stdv,digits=3);
+                    mdfr$parameter_scale<-as.factor(mdfr$parameter_scale);
+                    mdfr$min_arith      <-as.factor(mdfr$min_arith);
+                    mdfr$max_arith      <-as.factor(mdfr$max_arith);
+                    mdfr$min_param      <-as.factor(mdfr$min_param);
+                    mdfr$max_param      <-as.factor(mdfr$max_param);
+                    mdfr$label          <-as.factor(mdfr$label);
+                    mdfr$arith_value<-signif(mdfr$final_arith_value,digits=3);
+                    mdfr$param_value<-signif(mdfr$final_param_value,digits=3);
+                    mdfr$stdv       <-signif(mdfr$stdv,digits=3);
                     caption<-paste0("Parameter values and standard deviations for ",uS,"-type selectivity parameters.");
-                    tbr<-tables::tabular(Factor(label)*Factor(name)*Factor(index)*Factor(min)*Factor(max)*DropEmpty()~
-                                             Factor(case)*(value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
+                    tbr<-tables::tabular(Factor(label)*Factor(name)*Factor(index)*Factor(min)*Factor(max)*Factor(parameter_scale)*
+                                             Factor(min_arith)*Factor(max_arith)*Factor(min_param)*Factor(max_param)*DropEmpty()~
+                                             Factor(case)*(arith_value+param_value+stdv)*Format(scientific=FALSE,digits=3)*wtsUtilities::Sum,data=mdfr);
                     colLabels(tbr)<-colLabels(tbr)[c(2,3),];
                     Hmisc::latex(tbr,options=list(tabular="longtable",
                                            toprule=paste0("\\caption{",caption,"} \\\\

@@ -52,14 +52,18 @@ printResults.ParametersAtBounds<-function(objs=NULL,
                 if (nrow(mdfr>0)){
                     mdfr$name    <-as.factor(mdfr$name);
                     mdfr$type    <-as.factor(mdfr$type);
-                    mdfr$index   <-as.factor(mdfr$index);
-                    mdfr$min     <-as.factor(mdfr$min);
-                    mdfr$max     <-as.factor(mdfr$max);
-                    mdfr$label   <-as.factor(mdfr$label);
-                    mdfr$case    <-as.factor(mdfr$case);
+                    mdfr$index          <-as.factor(mdfr$index);
+                    mdfr$parameter_scale<-as.factor(mdfr$parameter_scale);
+                    mdfr$min_arith      <-as.factor(mdfr$min_arith);
+                    mdfr$max_arith      <-as.factor(mdfr$max_arith);
+                    mdfr$min_param      <-as.factor(mdfr$min_param);
+                    mdfr$max_param      <-as.factor(mdfr$max_param);
+                    mdfr$label          <-as.factor(mdfr$label);
+                    mdfr$case           <-as.factor(mdfr$case);
                     caption<-paste0("Model parameters for ",uP," at bounds.");
-                    tbr<-tables::tabular(Factor(name)*Factor(case)*Factor(label)*Factor(type)*Factor(index)*Factor(min)*Factor(max)*DropEmpty()~
-                                             (test+value)*wtsUtilities::Sum,data=mdfr);
+                    tbr<-tables::tabular(Factor(name)*Factor(case)*Factor(label)*Factor(type)*Factor(index)*Factor(parameter_scale)*
+                                             Factor(min_arith)*Factor(max_arith)*Factor(min_param)*Factor(max_param)*DropEmpty()~
+                                             (final_arith_value+final_param_value+test)*wtsUtilities::Sum,data=mdfr);
                     Hmisc::latex(tbr,options=list(tabular="longtable",
                                            toprule=paste0("\\caption{",caption,"} \\\\
                                                            \\hline")));

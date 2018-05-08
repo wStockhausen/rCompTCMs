@@ -5,12 +5,10 @@ params:
     Models: none
     title: "Survey Characteristics as inferred by the Tanner Crab Model" 
     plot1stObs: TRUE
-    docx_styles: "../StylesForRmdDocs.docx"
-    pdf_styles: "../header.sty"
     doc_type: "pdf"
 output: 
     word_document: 
-        # reference_docx: "`r params$docx_styles`"
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
     pdf_document: 
         toc: TRUE
         fig_width: 6.5
@@ -18,7 +16,7 @@ output:
         fig_crop: FALSE
         fig_caption: TRUE
         includes:
-          in_header: ../../header.sty
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
 fontsize: 11pt
 title: '`r params$title`'
 ---
@@ -57,6 +55,15 @@ title: '`r params$title`'
 
 ```{r plot11.SurveySelectivity,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,cast="y+x",facet_grid="y~x",mxy=5,years=c(1975,1982,1988),dodge=0,verbose=FALSE);
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+  rm(plt,plts);
+```
+
+##Survey capture probability functions
+
+```{r plot12.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,cast="y+x",facet_grid="y~x",mxy=5,years=c(1975,1982,1988),dodge=0,verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);

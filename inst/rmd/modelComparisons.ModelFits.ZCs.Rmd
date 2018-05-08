@@ -21,7 +21,7 @@ fontsize: 11pt
 title: '`r params$title`'
 ---
 
-```{r setupModelFits, include=FALSE}
+```{r setupModelFits.ZCs, include=FALSE}
     ##input model list
     Models<-params$Models;
     doc_type<-params$doc_type;
