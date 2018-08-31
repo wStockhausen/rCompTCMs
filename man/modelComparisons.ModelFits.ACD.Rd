@@ -5,11 +5,13 @@
 \title{Render a document of comparison plots for model fits to aggregated abundance/biomass data}
 \usage{
 modelComparisons.ModelFits.ACD(models, plot1stObs = TRUE,
-  output_format = c("word_document", "pdf_document"), output_dir = getwd(),
+  output_format = c("word_document", "pdf_document"),
+  output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.ModelFits.ACD.Rmd", package =
-  "rCompTCMs"), docx_styles = system.file("rmd/StylesForRmdDocs.docx", package
-  = "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+  "rCompTCMs"), docx_styles = system.file("rmd/StylesForRmdDocs.docx",
+  package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package =
+  "wtsUtilities"), clean = FALSE)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

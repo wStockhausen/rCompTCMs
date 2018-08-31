@@ -43,11 +43,18 @@ title: '`r params$title`'
 ```
 
 #Model fits to size composition data
+Fits to the size composition data available to the model(s) are presented in this section. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
-##Mean survey size compositions
+#Mean survey size compositions
 
-```{r plotFits.SurveyMeanSizeComps,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,fleet.type="survey",catch.type="index",plot1stObs=plot1stObs,showPlot=FALSE,verbose=FALSE);
+```{r plotFits.SurveyMeanSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleet.type="survey",
+                                             catch.type="index",
+                                             facet_grid="x+m+s~.",
+                                             plot1stObs=plot1stObs,
+                                             showPlot=FALSE,
+                                             verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
@@ -55,10 +62,16 @@ title: '`r params$title`'
 
 \FloatBarrier
 
-##Fishery retained catch mean size compositions
+#Fishery retained catch mean size compositions
 
-```{r plotFits.MeanFisheryRetainedCatchSizeComps,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,fleet.type="fishery",catch.type="retained",plot1stObs=plot1stObs,showPlot=FALSE,verbose=FALSE);
+```{r plotFits.MeanFisheryRetainedCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleet.type="fishery",
+                                             catch.type="retained",
+                                             facet_grid="x+m+s~.",
+                                             plot1stObs=plot1stObs,
+                                             showPlot=FALSE,
+                                             verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
@@ -68,10 +81,16 @@ title: '`r params$title`'
 
 \clearpage
 
-##Fishery total catch mean size compositions
+#Fishery total catch mean size compositions
 
-```{r plotFits.FisheryMeanTotalCatchSizeComps,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,fleet.type="fishery",catch.type="total",plot1stObs=plot1stObs,facet_grid='x~.',showPlot=FALSE,verbose=FALSE);
+```{r plotFits.FisheryMeanTotalCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleet.type="fishery",
+                                             catch.type="total",
+                                             plot1stObs=plot1stObs,
+                                             facet_grid="x+m+s~.",
+                                             showPlot=FALSE,
+                                             verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
@@ -82,45 +101,82 @@ title: '`r params$title`'
 \subsection{Survey size composition residuals}
 
 ```{r plotFits.SurveyZCsBubblePlotsIM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,fleet.type="survey",catch.type="index",residuals.type='pearsons',verbose=FALSE);
-  idx<-(mdfr$x=="male")&(mdfr$m=="immature");
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],fleet.type="survey",catch.type="index",residuals.type='pearsons',
+  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              verbose=FALSE);
+  #idx<-(mdfr$x=="male")&(mdfr$m=="immature");
+  idx<-(mdfr$x=="male");
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
                                               showPlot=FALSE,verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
 ```{r plotFits.SurveyZCsBubblePlotsMM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,fleet.type="survey",catch.type="index",residuals.type='pearsons',verbose=FALSE);
-  idx<-(mdfr$x=="male")&(mdfr$m=="mature");
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],fleet.type="survey",catch.type="index",residuals.type='pearsons',
-                                              showPlot=FALSE,verbose=FALSE);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); fig<-fig+1;}
+  # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             verbose=FALSE);
+  # idx<-(mdfr$x=="male")&(mdfr$m=="mature");
+  # plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             showPlot=FALSE,
+  #                                             verbose=FALSE);
+  # captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  # for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
 ```{r plotFits.SurveyZCsBubblePlotsIF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,fleet.type="survey",catch.type="index",residuals.type='pearsons',verbose=FALSE);
-  idx<-(mdfr$x=="female")&(mdfr$m=="immature");
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],fleet.type="survey",catch.type="index",residuals.type='pearsons',
-                                              showPlot=FALSE,verbose=FALSE);
+  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              verbose=FALSE);
+  #idx<-(mdfr$x=="female")&(mdfr$m=="immature");
+  idx<-(mdfr$x=="female");
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              showPlot=FALSE,
+                                              verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
 for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
 ```{r plotFits.SurveyZCsBubblePlotsMF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,fleet.type="survey",catch.type="index",residuals.type='pearsons',verbose=FALSE);
-  idx<-(mdfr$x=="female")&(mdfr$m=="mature");
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],fleet.type="survey",catch.type="index",residuals.type='pearsons',
-                                              showPlot=FALSE,verbose=FALSE);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); fig<-fig+1;}
+  # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             verbose=FALSE);
+  # idx<-(mdfr$x=="female")&(mdfr$m=="mature");
+  # plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             showPlot=FALSE,
+  #                                             verbose=FALSE);
+  # captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  # for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
 \subsection{Effective Ns for survey size compositions}
 
 ```{r plotFits.SurveyEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.EffectiveNs(Models,fleet.type="survey",category="index",showPlot=FALSE,verbose=FALSE)
+  plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleet.type="survey",
+                                           category="index",
+                                           showPlot=FALSE,
+                                           verbose=FALSE)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (i in 1:length(captions)) {captions[i]<-paste0("Input and effective sample sizes from retained catch size compositions from the ",captions[i],".");}
   for (plt in plts) {print(plt); fig<-fig+1;}
@@ -129,8 +185,12 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 \subsection{Fishery retained catch size composition residuals}
 
 ```{r plotFits.FisheryRetainedCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,fleet.type="fishery",catch.type="retained",residuals.type='pearsons',
-                                             showPlot=FALSE,verbose=FALSE);
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
+                                              fleet.type="fishery",
+                                              catch.type="retained",
+                                              residuals.type='pearsons',
+                                              showPlot=FALSE,
+                                              verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); fig<-fig+1;}
   rm(plt,plts);
@@ -139,7 +199,11 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 \subsection{Effective Ns for retained catch size compositions}
 
 ```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.EffectiveNs(Models,fleet.type="fishery",category="retained",showPlot=FALSE,verbose=FALSE)
+  plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleet.type="fishery",
+                                           category="retained",
+                                           showPlot=FALSE,
+                                           verbose=FALSE)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (i in 1:length(captions)) {captions[i]<-paste0("Input and effective sample sizes from retained catch size compositions from the ",captions[i]," fishery.");}
   for (plt in plts) {print(plt); fig<-fig+1;}
@@ -148,8 +212,12 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 \subsection{Fishery total catch size composition residuals}
 
 ```{r plotFits.FisheryTotalCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,fleet.type="fishery",catch.type="total",residuals.type='pearsons',
-                                              showPlot=FALSE,verbose=FALSE);
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
+                                              fleet.type="fishery",
+                                              catch.type="total",
+                                              residuals.type='pearsons',
+                                              showPlot=FALSE,
+                                              verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); fig<-fig+1;}
   rm(plt,plts);
@@ -158,7 +226,11 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 \subsection{Effective Ns for total catch size compositions}
 
 ```{r plotFits.TotalCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.EffectiveNs(Models,fleet.type="fishery",category="total",showPlot=FALSE,verbose=FALSE)
+  plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleet.type="fishery",
+                                           category="total",
+                                           showPlot=FALSE,
+                                           verbose=FALSE)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (i in 1:length(captions)) {captions[i]<-paste0("Input and effective sample sizes from total catch size compositions from the ",captions[i]," fishery.");}
   for (plt in plts) {print(plt); fig<-fig+1;}

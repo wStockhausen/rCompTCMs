@@ -4,8 +4,8 @@
 \alias{compareFits.GrowthData}
 \title{Compare fits to growth data among several model runs}
 \usage{
-compareFits.GrowthData(objs, dodge = 0.2, plot1stObs = FALSE, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareFits.GrowthData(objs, dodge = 0.2, plot1stObs = FALSE,
+  pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

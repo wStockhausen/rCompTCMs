@@ -6,6 +6,7 @@
 #' @param objs - list of resLst objects
 #' @param nyrs - number of years/plot
 #' @param types - requested plot types ("fits","nlls",and/or "zscores")
+#' @param minSize - minimum size to include in plots
 #' @param dodge - width to dodge overlapping series
 #' @param plot1stObs - flag to include observations only from 1st model scenario
 #' @param pdf - name for output pdf file
@@ -23,6 +24,7 @@
 compareFits.MaturityData<-function(objs,
                                    nyrs=5,
                                    types=c("fits","nlls","zscores"),
+                                   minSize=0,
                                    dodge=0.2,
                                    plot1stObs=FALSE,
                                    pdf=NULL,
@@ -68,8 +70,8 @@ compareFits.MaturityData<-function(objs,
         mdfrp<-mdfr[(mdfr$category==d),];
         dcs<-unique(mdfrp$case);   #unique cases
         uys<-sort(unique(mdfrp$y)); #unique years
-        cat("dcs: ",dcs,"\n")
-        cat("uys: ",uys,"\n")
+        if (verbose) cat("dcs: ",dcs,"\n")
+        if (verbose) cat("uys: ",uys,"\n")
         nys<-length(uys);
         if ("fits" %in% types){
             #-------------------------------------------#
@@ -114,8 +116,8 @@ compareFits.MaturityData<-function(objs,
             #-------------------------------------------#
             #plot nll scores
             #-------------------------------------------#
-            cat("\n--Plotting nlls.\n")
-            mdfrpn<-mdfrp[mdfrp$type == 'nlls',];
+            if (verbose) cat("\n--Plotting nlls.\n")
+            mdfrpn<-mdfrp[(mdfrp$type == 'nlls')&(mdfrp$z>=minSize),];
             zlims<-range(mdfrpn$z);
             ylims<-c(min(c(0,mdfrpn$val)),max(mdfrpn$val));
             if (verbose) cat("zlims = ",zlims,"\n");
@@ -125,7 +127,7 @@ compareFits.MaturityData<-function(objs,
                 if (verbose) cat("iys: ",iys,"\n");
                 if (verbose) cat("uys[iys]: ",uys[iys],"\n");
                 dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
-                mdfrpn<-dfrp[dfrp$type == 'nlls',];
+                mdfrpn<-dfrp[(dfrp$type == 'nlls')&(dfrp$z>=minSize),];
                 p <- ggplot(mdfrpn,aes_string(x='z',y='val',colour='case',shape='case'));
                 p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
                 p <- p + geom_point(position=pd);
@@ -143,17 +145,17 @@ compareFits.MaturityData<-function(objs,
             #plot zscores
             #-------------------------------------------#
             if (verbose) cat("\n--Plotting zscores.\n")
-            mdfrpz<-mdfrp[mdfrp$type == 'zscores',];
+            mdfrpz<-mdfrp[(mdfrp$type == 'zscores')&(mdfrp$z>=minSize),];
             zlims<-range(mdfrpz$z);
-            ylims<-c(-1,1)*max(abs(mdfrpz$val));
             if (verbose) cat("zlims = ",zlims,"\n");
-            if (verbose) cat("ylims = ",ylims,"\n");
             for (iy in 1:ceiling(nys/nyrs)){
                 iys<-min(c(nyrs*(iy-1)+1,nys+1)):min(c(nyrs*(iy),nys));
                 if (verbose) cat("iys: ",iys,"\n");
                 if (verbose) cat("uys[iys]: ",uys[iys],"\n");
                 dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
-                mdfrpz<-dfrp[dfrp$type == 'zscores',];
+                mdfrpz<-dfrp[(dfrp$type == 'zscores')&(dfrp$z>=minSize),];
+                ylims<-c(-1.01,1.01)*max(abs(mdfrpz$val));
+                if (verbose) cat("ylims = ",ylims,"\n");
                 p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
                 p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
                 p <- p + geom_point(position=pd);

@@ -1,7 +1,7 @@
 #'
-#'@title Compare biomass time series data by fleet among several model scenarios
+#'@title Compare time series data by fleet among several model scenarios
 #'
-#'@description Function to compare biomass time series data by fleet among 
+#'@description Function to compare biomass time series data by fleet among
 #'several model scenarios.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -31,10 +31,10 @@ compareData.FleetTimeSeries<-function(objs=NULL,
                                       facets="fleet~x",
                                       scales="free_y",
                                       verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::compareData.FleetTimeSeries().\n");
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -48,12 +48,13 @@ compareData.FleetTimeSeries<-function(objs=NULL,
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         mdfr1<-NULL;
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Data.FleetTimeSeries(obj,
-                                                                                            fleet.type=fleet.type,
-                                                                                            data.type=data.type,
-                                                                                            catch.type=catch.type,
-                                                                                            ci=ci,
-                                                                                            verbose=verbose);
+        if (inherits(obj,"tcsam02.resLst"))
+            mdfr1<-rTCSAM02::getMDFR.Data.FleetTimeSeries(obj,
+                                                          fleet.type=fleet.type,
+                                                          data.type=data.type,
+                                                          catch.type=catch.type,
+                                                          ci=ci,
+                                                          verbose=verbose);
         if (!is.null(mdfr1)){
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
@@ -71,7 +72,7 @@ compareData.FleetTimeSeries<-function(objs=NULL,
     plots<-list();
 
     #----------------------------------
-    # plot fits to time series 
+    # plot fits to time series
     #----------------------------------
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1"; cap2<-"2";
@@ -100,7 +101,7 @@ compareData.FleetTimeSeries<-function(objs=NULL,
         cap1<-"  \n  \nFigure &&figno. Comparison of observed total catch &&data by fleet.  \n  \n";
         cap2<-"  \n  \nFigure &&figno. Comparison of observed total catch &&data by fleet. Recent time period.  \n  \n";
     }
-    
+
     if (data.type=='abundance'){
         ylab<-gsub(pattern="&&data",replacement="millions",x=ylab,fixed=TRUE);
     } else {
@@ -108,7 +109,7 @@ compareData.FleetTimeSeries<-function(objs=NULL,
     }
     cap1<-gsub(pattern="&&data",replacement=data.type,x=cap1,fixed=TRUE);
     cap2<-gsub(pattern="&&data",replacement=data.type,x=cap2,fixed=TRUE);
-    
+
     ps<-plotMDFR.Fits.TimeSeries(mdfr,
                                  numRecent=numRecent,
                                  plot1stObs=FALSE,

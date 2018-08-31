@@ -4,9 +4,9 @@
 \alias{printResults.ParametersAtBounds}
 \title{Function to print a table of parameters at bounds for several models}
 \usage{
-printResults.ParametersAtBounds(objs = NULL, mdfr = NULL, delta = 1e-04,
-  format = c("latex", "docx"), landscape = FALSE, fontsize = "11pt",
-  verbose = FALSE)
+printResults.ParametersAtBounds(objs = NULL, mdfr = NULL,
+  delta = 1e-04, format = c("latex", "docx"), landscape = FALSE,
+  fontsize = "11pt", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

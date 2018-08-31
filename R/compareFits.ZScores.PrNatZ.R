@@ -67,32 +67,36 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
     uFs<-unique(mdfr$fleet);
     for (uF in uFs){
         if (verbose) cat("Plotting residuals for",uF,"\n");
-        mdfrp<-mdfr[mdfr$fleet==uF,];
-        mx<-max(mdfrp$val,na.rm=TRUE);
-        for (case in cases){
-            mdfrpp<-mdfrp[mdfrp$case==case,];
-            if (nrow(mdfrpp)>0){
-                p <- ggplot(data=mdfrpp,mapping=aes_string(x='y',y='z',size='val',fill='sign'));
-                p <- p + scale_size_area(max_size=10,limits=c(0,mx));
-                p <- p + geom_point(alpha=0.8,shape=21,color='black');
-                p <- p + geom_point(alpha=1.0,shape=21,color='black',fill=NA);
-                p <- p + labs(y="size (mm CW)",x="year") + ggtitle(uF);
-                p <- p + guides(fill=guide_legend(override.aes=list(alpha=1.0,size=6),order=2),
-                                size=guide_legend(order=1))+theme(legend.box="vertical");
-                if (length(cases)==1){
-                    p <- p + facet_grid(m+s~x);
-                } else {
-                    p <- p + facet_grid(m+s~case+x);
-                }
-                p <- p + theme(legend.box='horizontal')
-                if (residuals.type=='pearsons')
-                    cap<-paste0("  \n  \nFigure &&fno. Pearson's residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
-                if (residuals.type=='nlls')
-                    cap<-paste0("  \n  \nFigure &&fno. NLL residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
-                if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
-                plots[[cap]]<-p; p<-NULL;
-            }
-        }
+        mdfrp0<-mdfr[mdfr$fleet==uF,];
+        uXs<-unique(mdfrp0$x);
+        for (uX in uXs){
+            mdfrp<-mdfrp0[mdfrp0$x==uX,];
+            mx<-max(mdfrp$val,na.rm=TRUE);
+            for (case in cases){
+                mdfrpp<-mdfrp[mdfrp$case==case,];
+                if (nrow(mdfrpp)>0){
+                    p <- ggplot(data=mdfrpp,mapping=aes_string(x='y',y='z',size='val',fill='sign'));
+                    p <- p + scale_size_area(max_size=10,limits=c(0,mx));
+                    p <- p + geom_point(alpha=0.8,shape=21,color='black');
+                    p <- p + geom_point(alpha=1.0,shape=21,color='black',fill=NA);
+                    p <- p + labs(y="size (mm CW)",x="year") + ggtitle(uF);
+                    p <- p + guides(fill=guide_legend(override.aes=list(alpha=1.0,size=6),order=2),
+                                    size=guide_legend(order=1))+theme(legend.box="vertical");
+                    if (length(cases)==1){
+                        p <- p + facet_grid(x+m+s~.);
+                    } else {
+                        p <- p + facet_grid(x+m+s~case);
+                    }
+                    p <- p + theme(legend.box='horizontal')
+                    if (residuals.type=='pearsons')
+                        cap<-paste0("  \n  \nFigure &&fno. Pearson's residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
+                    if (residuals.type=='nlls')
+                        cap<-paste0("  \n  \nFigure &&fno. NLL residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
+                    if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
+                    plots[[cap]]<-p; p<-NULL;
+                } #--case
+            }#--uX
+        }#--uF
     }
 
     if (verbose) cat("Finished rCompTCMs::compareFits.ZScores.PrNatZ().\n");

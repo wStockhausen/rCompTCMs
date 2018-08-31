@@ -4,10 +4,11 @@
 \alias{compareFits.SizeComps}
 \title{Compare fits to size comps by fleet among several model runs}
 \usage{
-compareFits.SizeComps(objs = NULL, mdfr = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  years = "all", plot1stObs = TRUE, nrow = 5, ncol = 3, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareFits.SizeComps(objs = NULL, mdfr = NULL,
+  fleet.type = c("survey", "fishery"), catch.type = c("index",
+  "retained", "discard", "total"), years = "all", plot1stObs = TRUE,
+  nrow = 5, ncol = 2, pdf = NULL, showPlot = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}

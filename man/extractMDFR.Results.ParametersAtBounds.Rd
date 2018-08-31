@@ -4,7 +4,8 @@
 \alias{extractMDFR.Results.ParametersAtBounds}
 \title{Extract parameters at one of their bounds from several model runs as a dataframe}
 \usage{
-extractMDFR.Results.ParametersAtBounds(objs, delta = 1e-04, verbose = FALSE)
+extractMDFR.Results.ParametersAtBounds(objs, delta = 1e-04,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

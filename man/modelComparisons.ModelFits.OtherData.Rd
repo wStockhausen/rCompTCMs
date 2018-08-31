@@ -5,10 +5,12 @@
 \title{Render a document of comparison plots for model fits to 'other' data}
 \usage{
 modelComparisons.ModelFits.OtherData(models, plot1stObs = TRUE,
-  output_format = c("word_document", "pdf_document"), output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.ModelFits.OtherData.Rmd", package =
-  "rCompTCMs"), docx_styles = system.file("rmd/StylesForRmdDocs.docx", package
-  = "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
+  output_format = c("word_document", "pdf_document"),
+  output_dir = getwd(),
+  rmd = system.file("rmd/modelComparisons.ModelFits.OtherData.Rmd",
+  package = "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
+  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
   package = "wtsUtilities"), clean = FALSE)
 }
 \arguments{

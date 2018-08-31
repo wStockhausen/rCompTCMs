@@ -49,7 +49,7 @@ printResults.ParametersAtBounds<-function(objs=NULL,
             for (uP in uPs){
                 if (verbose) cat("\tProcessing process = ",uP,"\n",sep='')
                 mdfr<-mdfrpp[mdfrpp$process==uP,];
-                if (nrow(mdfr>0)){
+                if (nrow(mdfr)>0){
                     mdfr$name    <-as.factor(mdfr$name);
                     mdfr$type    <-as.factor(mdfr$type);
                     mdfr$index          <-as.factor(mdfr$index);

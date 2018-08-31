@@ -4,8 +4,8 @@
 \alias{compareResults.Pop.Processes}
 \title{Compare population processes from TCSAM2013 and TCSAM02 model runs}
 \usage{
-compareResults.Pop.Processes(objs, showPlot = TRUE, pdf = NULL, width = 8,
-  height = 6, verbose = FALSE)
+compareResults.Pop.Processes(objs, showPlot = TRUE, pdf = NULL,
+  width = 8, height = 6, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

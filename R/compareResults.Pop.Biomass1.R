@@ -48,6 +48,7 @@ compareResults.Pop.Biomass1<-function(objs,
 
     type<-type[1];
     types<-c("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx");
+    fgs  <-c("x+m+s~.","x+m~.", "x~.",  "x+m+s~.","x+m~.","x~.");
     if (!(type %in% types)){
         cat("rCompTCMs::compareResults.Pop.Biomass1: Unknown type requested: '",type,"'.\n",sep='');
         return(NULL);
@@ -80,38 +81,40 @@ compareResults.Pop.Biomass1<-function(objs,
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
 
     if (sum(grep('z',type,fixed=TRUE))==0){
+        if (is.null(facet_grid)) facet_grid <- fgs[types == type];
+        facet_grid <- as.formula(facet_grid);
         #----------------------------------
         #biomass by year
         #----------------------------------
         plots<-list();
-        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Population biomass trends.  \n  \n")
         plots[[cap]]<-p;
-        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Recent population biomass trends.  \n  \n")
         plots[[cap]]<-p;
 
-        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
-                       facet_grid='m+x~s',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Ln-scale population biomass trends.  \n  \n")
         plots[[cap]]<-p;
-        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
-                       facet_grid='m+x~s',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);

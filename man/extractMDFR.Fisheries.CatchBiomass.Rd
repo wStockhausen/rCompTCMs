@@ -4,9 +4,9 @@
 \alias{extractMDFR.Fisheries.CatchBiomass}
 \title{Function to extract estimated fishery catch biomass by year among several models as a dataframe}
 \usage{
-extractMDFR.Fisheries.CatchBiomass(objs, category = c("captured", "discarded",
-  "retained", "discard mortality", "index"), cast = NULL, years = "all",
-  verbose = FALSE)
+extractMDFR.Fisheries.CatchBiomass(objs, category = c("captured",
+  "discarded", "retained", "discard mortality", "index"), cast = NULL,
+  years = "all", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -1,7 +1,7 @@
 #'
 #'@title Compare z-scores from fitting biomass time series by fleet among several model runs
 #'
-#'@description Function to compare z-scores from fitting biomass time series by fleet among 
+#'@description Function to compare z-scores from fitting biomass time series by fleet among
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -27,10 +27,10 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
                                      pdf=NULL,
                                      showPlot=FALSE,
                                      verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.Biomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -44,33 +44,33 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
+
     if (catch.type=='retained') type<-'zscores.ret';
     if (catch.type=='discard')  type<-'zscores.dsc';
     if (catch.type=='total')    type<-'zscores.tot';
-    
+
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (fleet.type=='survey'){
-            if (inherits(obj,"tcsam2013.resLst")) 
+            if (inherits(obj,"tcsam2013.resLst"))
                 mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
                                                             type='zscores',
                                                             verbose=verbose);
-            if (inherits(obj,"tcsam02.resLst"))   
+            if (inherits(obj,"tcsam02.resLst"))
                 mdfr1<-rTCSAM02::getMDFR.ZScores.Biomass(obj,
                                                          fleet.type=fleet.type,
                                                          catch.type='index',
                                                          verbose=verbose);
         }
         if (fleet.type=='fishery'){
-            if (inherits(obj,"tcsam2013.resLst")) 
+            if (inherits(obj,"tcsam2013.resLst"))
                 mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
                                                              type=type,
                                                              verbose=verbose);
-            if (inherits(obj,"tcsam02.resLst"))   
+            if (inherits(obj,"tcsam02.resLst"))
                 mdfr1<-rTCSAM02::getMDFR.ZScores.Biomass(obj,
                                                          fleet.type=fleet.type,
                                                          catch.type=catch.type,
@@ -92,12 +92,12 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
-    
+
     #----------------------------------
-    # plot zscores from fits to time series 
+    # plot zscores from fits to time series
     #----------------------------------
     uFs<-unique(mdfr$fleet);
-    print(uFs);
+    #print(uFs);
     for (uF in uFs){
         idx   <- (mdfr$fleet==uF);
         dfrpp <- mdfr[idx,];

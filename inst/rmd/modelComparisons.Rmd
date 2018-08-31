@@ -58,7 +58,7 @@ title: '`r params$title`'
 
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.PopulationProcesses.Rmd",package="rCompTCMs")}
+```{r child=system.file("rmd/modelComparisons.PopProcesses.Rmd",package="rCompTCMs")}
 ```
 
 \newpage
@@ -88,6 +88,6 @@ title: '`r params$title`'
 
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.PopulationQuantities.Rmd",package="rCompTCMs")}
+```{r child=system.file("rmd/modelComparisons.PopQuantities.Rmd",package="rCompTCMs")}
 ```
 

@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Tanner Crab Model Fits to Aggregated Catch Data" 
+    title: "Tanner Crab Assessment Model/nFits to Aggregated Catch Data" 
     plot1stObs: TRUE
     numRecent: 30
     doc_type: "pdf"
@@ -45,11 +45,21 @@ title: '`r params$title`'
 ```
 
 #Model fits to aggregated catch data
+Fits to the aggregated catch data available to the model(s) are presented in this section. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
-##Survey biomass
+\blandscape
 
-```{r plotFits.SurveyBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+#Survey biomass
+
+##Fits
+
+```{r plotFits.SurveyBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.BiomassData(Models,
+                                           fleet.type='survey',
+                                           catch.type='index',
+                                           plot1stObs=plot1stObs,
+                                           verbose=FALSE,
+                                           numRecent=numRecent);
     if (!is.null(plts)){
       captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
       for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -58,9 +68,17 @@ title: '`r params$title`'
         cat("\nNo fits to survey biomass data.\n\n")
     }
 ```
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
 
 ```{r plotFits.ZScores.SurveyBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='survey',catch.type='index',verbose=FALSE);
+  plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
+                                               fleet.type='survey',
+                                               catch.type='index',
+                                               verbose=FALSE);
     if (!is.null(plts)){
       captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
       for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -71,12 +89,19 @@ title: '`r params$title`'
 ```
 \FloatBarrier
 
-\clearpage
+\blandscape
 
-##Survey abundance
+#Survey abundance
 
-```{r plotFits.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+##Fits
+
+```{r plotFits.SurveyAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.AbundanceData(Models,
+                                             fleet.type='survey',
+                                             catch.type='index',
+                                             plot1stObs=plot1stObs,
+                                             verbose=FALSE,
+                                             numRecent=numRecent);
   if (!is.null(plts)){
       captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
       for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -85,9 +110,17 @@ title: '`r params$title`'
         cat("\nNo fits to survey abundance data.\n\n")
     }
 ```
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
 
 ```{r plotFits.ZScores.SurveyAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='survey',catch.type='index',verbose=FALSE);
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,
+                                                   fleet.type='survey',
+                                                   catch.type='index',
+                                                   verbose=FALSE);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -99,12 +132,19 @@ title: '`r params$title`'
 
 \FloatBarrier
 
-\clearpage
+\blandscape
 
-##Fishery retained catch biomass
+#Fishery retained catch biomass
 
-```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+##Fits
+
+```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.BiomassData(Models,
+                                             fleet.type='fishery',
+                                             catch.type='retained',
+                                             plot1stObs=plot1stObs,
+                                             verbose=FALSE,
+                                             numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -113,9 +153,17 @@ title: '`r params$title`'
         cat("\nNo fits to fishery retained catch biomass data.\n\n")
     }
 ```
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
 
 ```{r plotFits.ZScores.FisheryRetainedCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='fishery',catch.type='retained',verbose=FALSE);
+    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
+                                                 fleet.type='fishery',
+                                                 catch.type='retained',
+                                                 verbose=FALSE);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -127,12 +175,19 @@ title: '`r params$title`'
 
 \FloatBarrier
 
-\clearpage
+\blandscape
 
-##Fishery retained catch abundance
+#Fishery retained catch abundance
 
-```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+##Fits
+
+```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,
+                                               fleet.type='fishery',
+                                               catch.type='retained',
+                                               plot1stObs=plot1stObs,
+                                               verbose=FALSE,
+                                               numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -142,8 +197,17 @@ title: '`r params$title`'
     }
 ```
 
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
+
 ```{r plotFits.ZScores.FisheryRetainedCatchAbundances,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='fishery',catch.type='retained',verbose=FALSE);
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,
+                                                   fleet.type='fishery',
+                                                   catch.type='retained',
+                                                   verbose=FALSE);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -155,12 +219,19 @@ title: '`r params$title`'
 
 \FloatBarrier
 
-\clearpage
+\blandscape
 
-##Fishery total catch biomass
+#Fishery total catch biomass
 
-```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+##Fits
+
+```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.BiomassData(Models,
+                                             fleet.type='fishery',
+                                             catch.type='total',
+                                             plot1stObs=plot1stObs,
+                                             verbose=FALSE,
+                                             numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -170,8 +241,16 @@ title: '`r params$title`'
     }
 ```
 
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
 ```{r plotFits.ZScores.FisheryTotalCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,fleet.type='fishery',catch.type='total',verbose=FALSE);
+    plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
+                                                 fleet.type='fishery',
+                                                 catch.type='total',
+                                                 verbose=FALSE);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -183,12 +262,19 @@ title: '`r params$title`'
 
 \FloatBarrier
 
-\clearpage
+\blandscape
 
-##Fishery total catch abundance
+#Fishery total catch abundance
 
-```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
+##Fits
+
+```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+    plts<-rCompTCMs::compareFits.AbundanceData(Models,
+                                               fleet.type='fishery',
+                                               catch.type='total',
+                                               plot1stObs=plot1stObs,
+                                               verbose=FALSE,
+                                               numRecent=numRecent);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
@@ -198,8 +284,17 @@ title: '`r params$title`'
     }
 ```
 
+\FloatBarrier
+
+\elandscape
+
+##Z-scores
+
 ```{r plotFits.ZScores.FisheryTotalCatchAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,fleet.type='fishery',catch.type='total',verbose=FALSE);
+    plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,
+                                                   fleet.type='fishery',
+                                                   catch.type='total',
+                                                   verbose=FALSE);
     if (!is.null(plts)){
         captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
         for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}

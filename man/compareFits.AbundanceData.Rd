@@ -4,11 +4,11 @@
 \alias{compareFits.AbundanceData}
 \title{Compare fits to abundance time series by fleet among several model runs}
 \usage{
-compareFits.AbundanceData(objs = NULL, fleet.type = c("survey", "fishery"),
-  catch.type = c("index", "retained", "discard", "total"), ci = 0.8,
-  fishery.pdfType = c("norm2", "normal", "lognormal"), numRecent = 15,
-  plot1stObs = TRUE, scales = "free_y", pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareFits.AbundanceData(objs = NULL, fleet.type = c("survey",
+  "fishery"), catch.type = c("index", "retained", "discard", "total"),
+  ci = 0.8, fishery.pdfType = c("norm2", "normal", "lognormal"),
+  numRecent = 15, plot1stObs = TRUE, scales = "free_y", pdf = NULL,
+  showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

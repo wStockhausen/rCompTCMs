@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareData.FleetTimeSeries.R
 \name{compareData.FleetTimeSeries}
 \alias{compareData.FleetTimeSeries}
-\title{Compare biomass time series data by fleet among several model scenarios}
+\title{Compare time series data by fleet among several model scenarios}
 \usage{
 compareData.FleetTimeSeries(objs = NULL, fleet.type = c("survey",
   "fishery"), catch.type = c("index", "retained", "discard", "total"),
@@ -32,7 +32,7 @@ compareData.FleetTimeSeries(objs = NULL, fleet.type = c("survey",
 Non-nested list of ggplot2 objects, with captions as names
 }
 \description{
-Function to compare biomass time series data by fleet among 
+Function to compare biomass time series data by fleet among
 several model scenarios.
 }
 \details{

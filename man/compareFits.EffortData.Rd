@@ -4,8 +4,8 @@
 \alias{compareFits.EffortData}
 \title{Compare fits to effort data among several model runs}
 \usage{
-compareFits.EffortData(objs, dodge = 0.2, pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareFits.EffortData(objs, dodge = 0.2, pdf = NULL,
+  showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

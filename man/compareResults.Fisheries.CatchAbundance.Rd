@@ -6,9 +6,9 @@
 \usage{
 compareResults.Fisheries.CatchAbundance(objs, category = c("captured",
   "discarded", "retained", "discard mortality", "index"), cast = NULL,
-  facet_grid = NULL, facet_wrap = NULL, scales = "fixed", dodge = 0.2,
-  years = "all", mxy = 15, nrow = 5, lnscale = FALSE,
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+  facet_grid = NULL, facet_wrap = NULL, scales = "fixed",
+  dodge = 0.2, years = "all", mxy = 15, nrow = 5,
+  lnscale = FALSE, showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

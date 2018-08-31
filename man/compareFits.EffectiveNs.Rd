@@ -4,10 +4,12 @@
 \alias{compareFits.EffectiveNs}
 \title{Function to compare effective Ns from size compositions by year among several models}
 \usage{
-compareFits.EffectiveNs(objs = NULL, mdfr = NULL, fleet.type = c("survey",
-  "fishery"), category = c("index", "captured", "discarded", "retained",
-  "discard mortality"), years = "all", dodge = 0.2, facet_wrap = NULL,
-  facet_grid = "x~m+s", showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareFits.EffectiveNs(objs = NULL, mdfr = NULL,
+  fleet.type = c("survey", "fishery"), category = c("index",
+  "captured", "discarded", "retained", "discard mortality"),
+  years = "all", dodge = 0.2, facet_wrap = NULL,
+  facet_grid = "x+m+s~.", showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

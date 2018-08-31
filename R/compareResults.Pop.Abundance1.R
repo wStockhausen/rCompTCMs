@@ -3,7 +3,7 @@
 #'
 #'@description This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param type - type of abuundance ("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx")
 #'@param years - "all" or numerical vector of years to include
@@ -13,7 +13,7 @@
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -21,10 +21,10 @@
 #'@return ggplot2 object
 #'
 #'@details This function compares population abundance estimates (aggregated or as size comps, depending on "type") by year
-#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
-#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike 
-#'\code{compreResults.Pop.Abundance}, where a cast'ing formula is specified.) 
+#'   among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rsimTCSAM::getMDFR.Pop.Quantities}, and
+#'\code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike
+#'\code{compreResults.Pop.Abundance}, where a cast'ing formula is specified.)
 #'
 #'@import ggplot2
 #'
@@ -44,14 +44,15 @@ compareResults.Pop.Abundance1<-function(objs,
                                        pdf=NULL,
                                        verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.Pop.Abundance1().\n");
-    
+
     type<-type[1];
-    types<-c("N_yxmsz","N_yxmz","N_yxz","N_yxms","N_yxm","N_yx");
+    types<-c("N_yxmsz","N_yxmz","N_yxz","N_yxms", "N_yxm","N_yx");
+    fgs  <-c("x+m+s~.","x+m~.", "x~.",  "x+m+s~.","x+m~.","x~.");
     if (!(type %in% types)){
-        cat("rCompTCMs::compareResults.Pop.Abundance: Unknown type requested: '",type[1],"'.\n",sep='');
+        cat("rCompTCMs::compareResults.Pop.Abundance: Unknown type requested: '",type,"'.\n",sep='');
         return(NULL);
     }
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
@@ -73,44 +74,46 @@ compareResults.Pop.Abundance1<-function(objs,
     }
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
-    
+
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
-    
+
     if (sum(grep('z',type,fixed=TRUE))==0){
+        if (is.null(facet_grid)) facet_grid <- fgs[types == type];
+        facet_grid <- as.formula(facet_grid);
         #----------------------------------
         #abundance by year
         #----------------------------------
         plots<-list();
-        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Population abundance trends.  \n  \n")
         plots[[cap]]<-p;
-        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Recent population abundance trends.  \n  \n")
         plots[[cap]]<-p;
-        
-        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
+
+        p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Ln-scale population abundance trends.  \n  \n")
         plots[[cap]]<-p;
-        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,scales=scales,
+                       facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);

@@ -25,7 +25,7 @@ compareFits.ZScores.Abundance(objs = NULL, fleet.type = c("survey",
 non-nested list of ggplot2 objects, with captions as names
 }
 \description{
-Function to compare z-scores from fitting abundance time series by fleet among 
+Function to compare z-scores from fitting abundance time series by fleet among
 several model runs.
 }
 \details{

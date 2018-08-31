@@ -4,11 +4,11 @@
 \alias{plotMDFR.Fits.TimeSeries}
 \title{Plot comparisons of fits to time series from a set of model runs, with a "zoom" for recent years}
 \usage{
-plotMDFR.Fits.TimeSeries(dfr, plot1stObs = TRUE, numRecent = 15, x = "y",
-  y = "val", lci = "lci", uci = "uci", case = "case", type = "type",
-  facets = NULL, scales = "fixed", plotObs = TRUE, plotMod = TRUE,
-  xlab = "year", ylab = NULL, title = NULL, xlims = NULL,
-  ylims = NULL, showPlot = FALSE)
+plotMDFR.Fits.TimeSeries(dfr, plot1stObs = TRUE, numRecent = 15,
+  x = "y", y = "val", lci = "lci", uci = "uci", case = "case",
+  type = "type", facets = NULL, scales = "fixed", plotObs = TRUE,
+  plotMod = TRUE, xlab = "year", ylab = NULL, title = NULL,
+  xlims = NULL, ylims = NULL, showPlot = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe}

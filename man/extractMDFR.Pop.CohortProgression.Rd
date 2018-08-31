@@ -4,8 +4,8 @@
 \alias{extractMDFR.Pop.CohortProgression}
 \title{Function to extract cohort progression by year among several models as a dataframe}
 \usage{
-extractMDFR.Pop.CohortProgression(objs, cast = "x+m+s+z", years = "all",
-  verbose = FALSE)
+extractMDFR.Pop.CohortProgression(objs, cast = "x+m+s+z",
+  years = "all", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -5,10 +5,10 @@
 \title{Compare fits to mean size comps by fleet among several model runs}
 \usage{
 compareFits.MeanSizeComps(objs = NULL, mdfr = NULL,
-  fleet.type = c("survey", "fishery"), catch.type = c("index", "retained",
-  "discard", "total"), years = "all", ci = 0.8, plot1stObs = TRUE,
-  facet_grid = "m+s~x", scales = "free_y", pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+  fleet.type = c("survey", "fishery"), catch.type = c("index",
+  "retained", "discard", "total"), years = "all", ci = 0.8,
+  plot1stObs = TRUE, facet_grid = "m+s~x", scales = "free_y",
+  pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}

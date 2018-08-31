@@ -5,8 +5,8 @@
 \title{Compare fits to maturity data among several model runs}
 \usage{
 compareFits.MaturityData(objs, nyrs = 5, types = c("fits", "nlls",
-  "zscores"), dodge = 0.2, plot1stObs = FALSE, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+  "zscores"), minSize = 0, dodge = 0.2, plot1stObs = FALSE,
+  pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
@@ -14,6 +14,8 @@ compareFits.MaturityData(objs, nyrs = 5, types = c("fits", "nlls",
 \item{nyrs}{- number of years/plot}
 
 \item{types}{- requested plot types ("fits","nlls",and/or "zscores")}
+
+\item{minSize}{- minimum size to include in plots}
 
 \item{dodge}{- width to dodge overlapping series}
 

@@ -5,9 +5,9 @@
 \title{Function to compare estimated survey abundance by year among several models}
 \usage{
 compareResults.Surveys.Abundance(objs, category = "index", cast = "x",
-  years = "all", facet_grid = NULL, facet_wrap = NULL, scales = "fixed",
-  dodge = 0.2, mxy = 15, nrow = 5, lnscale = FALSE, showPlot = FALSE,
-  pdf = NULL, verbose = FALSE)
+  years = "all", facet_grid = NULL, facet_wrap = NULL,
+  scales = "fixed", dodge = 0.2, mxy = 15, nrow = 5,
+  lnscale = FALSE, showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

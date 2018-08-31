@@ -51,8 +51,8 @@ The following tables list the parameters for each model case that ended up near 
 
 ```{r printParametersAtBounds,results='asis'}
   mdfr<-rCompTCMs::extractMDFR.Results.ParametersAtBounds(Models);
-  rCompTCMs::printResults.ParametersAtBounds(mdfr=mdfr,fontsize="tiny");
   write.csv(mdfr,file="ModelParametersAtBounds.csv",row.names=FALSE);
+  rCompTCMs::printResults.ParametersAtBounds(mdfr=mdfr,fontsize="tiny");
   rm(mdfr);
 ```
 
@@ -64,8 +64,8 @@ Estimated parameter values and associated standard deviations (from the ADMB std
 
 ```{r printParamsTable, results="asis"}
   mdfr<-rCompTCMs::extractMDFR.Results.ParameterValues(Models);
-  rCompTCMs::printResults.ParameterValues(mdfr=mdfr,fontsize="tiny");
   write.csv(mdfr,file="ModelParameterValues.csv",row.names=FALSE);
+  rCompTCMs::printResults.ParameterValues(mdfr=mdfr,fontsize="tiny");
   rm(mdfr);
 ```
 

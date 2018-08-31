@@ -6,9 +6,9 @@
 \usage{
 compareResults.Fisheries.CatchBiomass(objs, category = c("captured",
   "discarded", "retained", "discard mortality", "index"), cast = NULL,
-  facet_grid = NULL, facet_wrap = NULL, scales = "free_y", dodge = 0.2,
-  years = "all", mxy = 15, nrow = 5, showPlot = FALSE, pdf = NULL,
-  verbose = FALSE)
+  facet_grid = NULL, facet_wrap = NULL, scales = "free_y",
+  dodge = 0.2, years = "all", mxy = 15, nrow = 5,
+  showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

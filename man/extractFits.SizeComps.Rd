@@ -5,8 +5,8 @@
 \title{Extract fits to size comps by fleet from several model runs}
 \usage{
 extractFits.SizeComps(objs = NULL, fleet.type = c("survey", "fishery"),
-  catch.type = c("index", "retained", "discard", "total"), years = "all",
-  plot1stObs = TRUE, verbose = FALSE)
+  catch.type = c("index", "retained", "discard", "total"),
+  years = "all", plot1stObs = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
