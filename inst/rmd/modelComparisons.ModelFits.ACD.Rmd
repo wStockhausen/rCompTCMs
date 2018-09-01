@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Tanner Crab Assessment Model/nFits to Aggregated Catch Data" 
+    title: "Tanner Crab Assessment Model:/nFits to Aggregated Catch Data" 
     plot1stObs: TRUE
     numRecent: 30
     doc_type: "pdf"

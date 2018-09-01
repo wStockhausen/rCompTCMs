@@ -1,0 +1,150 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Tanner Crab Model Fits to Survey Size Composition Data" 
+    plot1stObs: TRUE
+    doc_type: "pdf"
+output: 
+    word_document: 
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
+    pdf_document: 
+        toc: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        includes:
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setupModelFits.SurveyZCs, include=FALSE}
+    ##input model list
+    Models<-params$Models;
+    doc_type<-params$doc_type;
+    plot1stObs<-params$plot1stObs;
+    
+    ##set appendix letter
+    app="A";
+    ##set knitr options for subsequent chunks
+    knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=7.0, dpi=300)
+    
+    ##set caption numbering
+    if (!exists("fig")){
+      fig<-1;#figures
+      tbl<-0;#tables
+    }
+    
+    cases<-names(Models);
+    nCases<-length(cases);
+```
+
+\section{Introduction}
+Fits to survey size composition data available to the model(s) are presented in this section. Included are plots of mean fits to size compositions, Pearson's residuals as bubble plots, and effective sample sizes. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
+
+\section{Mean survey size compositions}
+
+```{r plotFits.SurveyMeanSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleet.type="survey",
+                                             catch.type="index",
+                                             facet_grid="x+m+s~.",
+                                             plot1stObs=plot1stObs,
+                                             showPlot=FALSE,
+                                             verbose=FALSE);
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+  rm(plt,plts);
+```
+
+\FloatBarrier
+
+\begin{landscape}
+
+\section{Residuals to survey size composition data}
+
+```{r extractFits.Pearsons,results="hide"}
+  mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              verbose=FALSE);
+```
+
+```{r plotFits.SurveyZCsBubblePlotsIM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  #idx<-(mdfr$x=="male")&(mdfr$m=="immature");
+  idx<-(mdfr$x=="male");
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              showPlot=FALSE,verbose=FALSE);
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  for (plt in plts) {print(plt); fig<-fig+1;}
+```
+
+```{r plotFits.SurveyZCsBubblePlotsMM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             verbose=FALSE);
+  # idx<-(mdfr$x=="male")&(mdfr$m=="mature");
+  # plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             showPlot=FALSE,
+  #                                             verbose=FALSE);
+  # captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  # for (plt in plts) {print(plt); fig<-fig+1;}
+```
+
+```{r plotFits.SurveyZCsBubblePlotsIF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  #idx<-(mdfr$x=="female")&(mdfr$m=="immature");
+  idx<-(mdfr$x=="female");
+  plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+                                              fleet.type="survey",
+                                              catch.type="index",
+                                              residuals.type='pearsons',
+                                              showPlot=FALSE,
+                                              verbose=FALSE);
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+for (plt in plts) {print(plt); fig<-fig+1;}
+```
+
+```{r plotFits.SurveyZCsBubblePlotsMF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             verbose=FALSE);
+  # idx<-(mdfr$x=="female")&(mdfr$m=="mature");
+  # plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
+  #                                             fleet.type="survey",
+  #                                             catch.type="index",
+  #                                             residuals.type='pearsons',
+  #                                             showPlot=FALSE,
+  #                                             verbose=FALSE);
+  # captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  # for (plt in plts) {print(plt); fig<-fig+1;}
+```
+
+\section{Effective sample sizes for survey size compositions}
+
+```{r plotFits.SurveyEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleet.type="survey",
+                                           category="index",
+                                           showPlot=FALSE,
+                                           verbose=FALSE)
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+  for (i in 1:length(captions)) {captions[i]<-
+      paste0("Input and effective sample sizes from retained catch size compositions from the ",captions[i],".");}
+  for (plt in plts) {print(plt); fig<-fig+1;}
+```
+
+\end{landscape}

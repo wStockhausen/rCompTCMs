@@ -41,11 +41,11 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Population processes
+#Introduction
 
 Figures and tables in this section present comparisons between alternative model scenarios for estimated rates (e.g., natural mortality) or other attributes (e.g., molt increments) describing inferred Tanner crab population processes.
 
-##Natural mortality
+#Natural mortality
 
 ```{r plotPopProcessNM,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Pop.NaturalMortality(Models,dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -58,7 +58,7 @@ Figures and tables in this section present comparisons between alternative model
 
 \FloatBarrier
 
-##Probability of terminal molt
+#Probability of terminal molt
 
 ```{r plotPopProcessPrM2M,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Pop.PrM2M(Models,dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -74,7 +74,7 @@ Figures and tables in this section present comparisons between alternative model
 
 \FloatBarrier
 
-##Mean growth
+#Mean growth
 
 ```{r plotPopProcessMnGr,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Pop.MeanGrowth(Models,dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -92,7 +92,7 @@ Figures and tables in this section present comparisons between alternative model
 
 \clearpage
 
-##Growth matrices
+#Growth matrices
 Growth matrices for each model case are compared as bubble plots in the following figure.
 
 ```{r plotPopProcessGMs1,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
@@ -119,7 +119,7 @@ The same growth matrices are compared in the following figure(s) as line plots f
 
 \clearpage
 
-##Size distribution for recruits
+#Size distribution for recruits
 
 ```{r plotPopProcessRecZ,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Pop.RecSizeDistribution(Models,dodge=0,showPlot=FALSE,verbose=FALSE);

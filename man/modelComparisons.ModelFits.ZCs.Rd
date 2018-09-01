@@ -4,17 +4,17 @@
 \alias{modelComparisons.ModelFits.ZCs}
 \title{Render a document of comparison plots for model fits to size composition data}
 \usage{
-modelComparisons.ModelFits.ZCs(models, plot1stObs = TRUE,
-  output_format = c("word_document", "pdf_document"),
-  output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.ModelFits.ZCs.Rmd", package =
-  "rCompTCMs"), docx_styles = system.file("rmd/StylesForRmdDocs.docx",
-  package = "wtsUtilities"),
-  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package =
-  "wtsUtilities"), clean = FALSE)
+modelComparisons.ModelFits.ZCs(models, type = c("All", "Surveys",
+  "Fisheries"), plot1stObs = TRUE, output_format = c("word_document",
+  "pdf_document"), output_dir = getwd(), rmd = NULL,
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
+  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
+  package = "wtsUtilities"), clean = FALSE)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
+
+\item{type}{- "All", "Surveys", "Fisheries" (indicating, but not determining,  what types of size compositions will be included)}
 
 \item{plot1stObs}{- flag to plot observed data only from first model}
 
@@ -22,7 +22,7 @@ modelComparisons.ModelFits.ZCs(models, plot1stObs = TRUE,
 
 \item{output_dir}{- path to folder to use for output}
 
-\item{rmd}{- Rmd file to process (defalut="modelComparisons.Rmd")}
+\item{rmd}{- Rmd file to process (defalut="modelComparisons.ModelFits.ZCs.Rmd")}
 
 \item{docx_styles}{- full path to Word (docx) style template for Word documents}
 
@@ -37,6 +37,8 @@ Function to render a document of comparison plots for model fits to
 size composition data.
 }
 \details{
-Resulting document title will be of the form "ModelComparisons.ModelFits.ZCs.mmm.ext",
-where "ext" is the appropriate file extension and "mmm" is a dash-separated string of model names.
+Resulting document title will be of the form "ModelComparisons.ModelFits.ZCs.type.mmm.ext",
+where "type" is the parameter \code{type}, ext" is the appropriate file extension,
+and "mmm" is a dash-separated string of model names. The actual type of size compositions included
+is determined by the R Markdown file specified by \code{rmd}.
 }

@@ -78,12 +78,12 @@ title: '`r params$title`'
 
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.SurveyCharacteristics.Rmd",package="rCompTCMs")}
+```{r child=system.file("rmd/modelComparisons.Characteristics.Surveys.Rmd",package="rCompTCMs")}
 ```
 
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.FisheryCharacteristics.Rmd",package="rCompTCMs")}
+```{r child=system.file("rmd/modelComparisons.Characteristics.FisheriesRmd",package="rCompTCMs")}
 ```
 
 \newpage

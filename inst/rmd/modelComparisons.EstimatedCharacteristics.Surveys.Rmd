@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Survey Characteristics as inferred by the Tanner Crab Model" 
+    title: "Tanner Crab Assessment Model:\nEstimated Survey Characteristics" 
     plot1stObs: TRUE
     doc_type: "pdf"
 output: 
@@ -40,30 +40,59 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Survey characteristics
+#Introduction
+Model-estimated survey characteristics such as catchability, selectivity functions, and capture probability are presented in this section.
 
-##Survey catchability
+\clearpage
+
+#Survey catchability
+"Catchability" here refers to the catchability of crab in a "fully-selected" size bin.
 
 ```{r plot10.SurveyCatchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,dodge=0,showPlot=FALSE,verbose=FALSE)
+  plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,
+                                                       dodge=0,
+                                                       showPlot=FALSE,
+                                                       verbose=FALSE)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```
 
-##Survey selectivity functions
+\FloatBarrier
+
+\clearpage 
+
+#Survey selectivity functions
+Survey selectivity functions reflect size-specific catchability relative to a "fully-selected" size class.
 
 ```{r plot11.SurveySelectivity,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,cast="y+x",facet_grid="y~x",mxy=5,years=c(1975,1982,1988),dodge=0,verbose=FALSE);
+  plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,
+                                                  cast="y+x",
+                                                  facet_grid="y~x",
+                                                  mxy=5,
+                                                  years=c(1975,1982,1988),
+                                                  dodge=0,
+                                                  verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```
 
-##Survey capture probability functions
+\FloatBarrier
+
+\clearpage 
+
+#Survey capture probability functions
+Survey capture probability functions incorporate both catchability and size-specific selectivity.
 
 ```{r plot12.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,cast="y+x",facet_grid="y~x",mxy=5,years=c(1975,1982,1988),dodge=0,verbose=FALSE);
+  plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,
+                                                       cast="y+x",
+                                                       facet_grid="y~x",
+                                                       mxy=5,
+                                                       years=c(1975,1982,1988),
+                                                       dodge=0,
+                                                       verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
