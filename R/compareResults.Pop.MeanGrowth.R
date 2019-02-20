@@ -30,24 +30,14 @@ compareResults.Pop.MeanGrowth<-function(objs,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
+
     cases<-names(objs);
 
     mdfr<-extractMDFR.Pop.MeanGrowth(objs,verbose)
-    
-    #-------------------------------------------#
-    #plot mean growth
-    #-------------------------------------------#
-    pd<-position_dodge(width=dodge);
-    p <- ggplot(mdfr,aes_string(x='z',y='val',colour='case'));
-    p <- p + geom_line(position=pd);
-    p <- p + geom_point(position=pd);
-    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    p <- p + geom_abline(slope=1,linetype=2);
-    p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
-    p <- p + ggtitle("Mean Growth");
-    p <- p + facet_grid(x~.);
-    if (showPlot) print(p);
 
+    p<-plotPop.MeanGrowth(mdfr,
+                          dodge=dodge,
+                          showPlot=showPlot,
+                          verbose=verbose);
     return(p);
 }

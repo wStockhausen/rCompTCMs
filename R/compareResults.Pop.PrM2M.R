@@ -32,21 +32,13 @@ compareResults.Pop.PrM2M<-function(objs,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
+
     mdfr<-extractMDFR.Pop.PrM2M(objs,verbose);
-    
-    #----------------------------------
-    # plot probability of molt-to-maturity
-    #----------------------------------
-    pd<-position_dodge(width=dodge);
-    p <- ggplot(mdfr,aes_string(x='z',y='val',colour='case'));
-    p <- p + geom_line(position=pd);
-    p <- p + geom_point(position=pd);
-    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    p <- p + labs(x='size (mm CW)',y="pr(molt-to-maturity)");
-    p <- p + ggtitle("pr(Molt-to-Maturity)");
-    p <- p + facet_grid(x~.);
-    if (showPlot) print(p);
+
+    p<- plotPop.PrM2M(mdfr,
+                      dodge=dodge,
+                      showPlot=showPlot,
+                      verbose=verbose);
 
     return(p);
 }
