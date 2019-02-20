@@ -5,7 +5,7 @@
 \title{Function to compare cohort progression by year among several models}
 \usage{
 compareResults.Pop.CohortProgression(objs, cast = "x+m+s+z",
-  facet_grid = NULL, facet_wrap = NULL, dodge = 0.2, years = "all",
+  facet_grid = NULL, facet_wrap = NULL, dodge = 0.2, years = NULL,
   mxy = 4, nrow = 2, lnscale = FALSE, scales = "fixed",
   showPlot = FALSE, pdf = NULL, verbose = FALSE)
 }
@@ -20,7 +20,7 @@ compareResults.Pop.CohortProgression(objs, cast = "x+m+s+z",
 
 \item{dodge}{- width to dodge overlapping series}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{- numeric vector of years to include (or NULL for all)}
 
 \item{mxy}{- max number of years per page}
 
@@ -32,7 +32,7 @@ compareResults.Pop.CohortProgression(objs, cast = "x+m+s+z",
 
 \item{showPlot}{- flag (T/F) to show plot}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{- filename for pdf output (or NULL for no pdf)}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
@@ -45,7 +45,6 @@ This function compares cohort progression by year
 }
 \details{
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
-\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
-cast to aggregate. This differs from \code{compareResults.Pop.Abundance1}.
+a set of time series plots are produced. Results are extracted using \code{rTCSAM02::extractMDFR.Pop.CohortProgression},
+for TCSAM02 model results (only). Plots are made using \code{plotPop.CohortProgression}.
 }
