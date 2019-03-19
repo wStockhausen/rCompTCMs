@@ -28,10 +28,11 @@ plotPop.MeanGrowth<-function(mdfr,
     p <- ggplot(mdfr,aes_string(x='z',y='val',colour='case'));
     p <- p + geom_line(position=pd);
     p <- p + geom_point(position=pd);
-    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+    if ((!is.null(mdfr$lci))&&any(!is.na(mdfr$lci)))
+        p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
     p <- p + geom_abline(slope=1,linetype=2);
     p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
-    p <- p + ggtitle("Mean Growth");
+#    p <- p + ggtitle("Mean Growth");
     p <- p + facet_grid(x~.);
     if (showPlot) print(p);
 

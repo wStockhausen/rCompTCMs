@@ -104,6 +104,6 @@ plotPop.CohortProgression<-function(mdfr,
                     }#pg
         }#uX
     }
-    if (verbose) cat("finished rCompTCMs::compareResults.Pop.CohortProgression().\n");
+    if (verbose) cat("finished rCompTCMs::plotPop.CohortProgression().\n");
     return(plots)
 }

@@ -1,7 +1,7 @@
 #'
-#'@title Function to plot probability of molt-to-maturity for several model runs
+#'@title Function to plot annual molt probability for immature crab from several model runs
 #'
-#'@description Function to plot probability of molt-to-maturity for several model runs.
+#'@description Function to plot annual molt probability for immature crab from several model runs.
 #'
 #'@param mdfr - melted dataframe
 #'@param dodge - width to dodge overlapping series
@@ -17,13 +17,13 @@
 #'
 #'@export
 #'
-plotPop.PrM2M<-function(mdfr,
+plotPop.PrMolt<-function(mdfr,
                         dodge=0.2,
                         xbnds=NULL,
                         showPlot=TRUE,
                         verbose=FALSE){
     #----------------------------------
-    # plot probability of molt-to-maturity
+    # plot annual molt probability for immature crab from
     #----------------------------------
     mdfr$z<-as.numeric(mdfr$z);#make sure z is numeric
     pd<-position_dodge(width=dodge);
@@ -31,9 +31,9 @@ plotPop.PrM2M<-function(mdfr,
     p <- p + geom_line(position=pd);
     p <- p + geom_point(position=pd);
     if (!is.null(mdfr$lci)&&any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    if (!is.null(xbnds)) p <- p + coord_cartesian(xlim=xbnds);
-    p <- p + labs(x='size (mm CW)',y="pr(molt-to-maturity)");
-    p <- p + ggtitle("pr(Molt-to-Maturity)");
+    p <- p + coord_cartesian(xlim=xbnds,ylim=c(0,1));
+    p <- p + labs(x='size (mm CW)',y="pr(annual molt)");
+    p <- p + ggtitle("pr(Annual Molt)");
     p <- p + facet_grid(x~.);
     if (showPlot) print(p);
 
