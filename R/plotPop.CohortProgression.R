@@ -16,7 +16,7 @@
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return a list of ggplot2 objects
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
 #'a set of time series plots are produced.

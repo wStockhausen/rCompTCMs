@@ -33,7 +33,7 @@ plotPop.CohortProgression(mdfr, facet_grid = NULL, facet_wrap = NULL,
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+a list of ggplot2 objects
 }
 \description{
 This function plots cohort progression by year

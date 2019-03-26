@@ -89,9 +89,9 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
                     }
                     p <- p + theme(legend.box='horizontal')
                     if (residuals.type=='pearsons')
-                        cap<-paste0("  \n  \nFigure &&fno. Pearson's residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
+                        cap<-paste0("  \n  \nFigure &&fno. Pearson's residuals for ",uX," proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
                     if (residuals.type=='nlls')
-                        cap<-paste0("  \n  \nFigure &&fno. NLL residuals for proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
+                        cap<-paste0("  \n  \nFigure &&fno. NLL residuals for ",uX," proportions-at-size from the ",uF," for scenario ",case,".  \n  \n");
                     if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
                     plots[[cap]]<-p; p<-NULL;
                 } #--case
