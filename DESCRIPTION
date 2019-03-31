@@ -1,8 +1,8 @@
 Package: rCompTCMs
 Type: Package
 Title: Package to compare TCSAM02, rsimTCSAM, and TCSAM2013 model runs
-Version: 2019.03.27
-Date: 2019-03-27
+Version: 2019.03.31
+Date: 2019-03-31
 Author: William Stockhausen (NOAA/NMFS/AFSC)
 Maintainer: William Stockhausen <william.stockhausen@noaa.gov>
 Description: Contains functions to to compare TCSAM02, rsimTCSAM, and TCSAM2013 model runs

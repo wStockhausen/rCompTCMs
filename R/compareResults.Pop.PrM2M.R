@@ -33,7 +33,7 @@ compareResults.Pop.PrM2M<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Pop.PrM2M(objs,verbose);
+    mdfr<-extractMDFR.Pop.PrM2M(objs,verbose=verbose);
 
     p<- plotPop.PrM2M(mdfr,
                       dodge=dodge,
