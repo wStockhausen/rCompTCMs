@@ -17,22 +17,22 @@ extractMDFR.Pop.GrowthMatrices<-function(objs,
 
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Pop.GrowthMatrices().\n")
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
-    
+
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.GrowthMatrices(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.GrowthMatrices(obj,verbose);
+        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.GrowthMatrices(obj,verbose=verbose);
+        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.GrowthMatrices(obj,verbose=verbose);
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Pop.GrowthMatrices(obj,verbose=verbose);
         mdfr1$case<-case;
         mdfr<-rbind(mdfr,mdfr1);
     }
     mdfr$z<-as.numeric(mdfr$z);
     mdfr$zp<-as.numeric(mdfr$zp);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
 
     if (verbose) cat("Finished rCompTCMs::extractMDFR.Pop.GrowthMatrices().\n")
     return(mdfr);

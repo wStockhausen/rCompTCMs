@@ -34,7 +34,7 @@ compareResults.Pop.GrowthMatrices<-function(objs,
 
     cases<-names(objs);
 
-    mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose);
+    mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose=verbose);
 
     #----------------------------------
     # plot growth transition matrices

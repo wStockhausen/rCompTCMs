@@ -33,7 +33,7 @@ compareResults.Pop.MeanGrowth<-function(objs,
 
     cases<-names(objs);
 
-    mdfr<-extractMDFR.Pop.MeanGrowth(objs,verbose)
+    mdfr<-extractMDFR.Pop.MeanGrowth(objs,verbose=verbose)
 
     p<-plotPop.MeanGrowth(mdfr,
                           dodge=dodge,
