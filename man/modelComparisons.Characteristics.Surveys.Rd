@@ -4,7 +4,8 @@
 \alias{modelComparisons.Characteristics.Surveys}
 \title{Render a document of comparison plots of estimated survey characteristics from several models}
 \usage{
-modelComparisons.Characteristics.Surveys(models,
+modelComparisons.Characteristics.Surveys(models, selYears = c(1975, 1982,
+  1988), avlYears = NULL, capYears = c(1975, 1982, 1988), mxy = 5,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",
@@ -15,6 +16,14 @@ modelComparisons.Characteristics.Surveys(models,
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
+
+\item{selYears}{- vector of years for which to plot selectivity functions ("all"=all years; NULL=don't plot)}
+
+\item{avlYears}{- vector of years for which to plot availability functions ("all"=all years; NULL=don't plot)}
+
+\item{capYears}{- vector of years for which to plot capture probability functions ("all"=all years; NULL=don't plot)}
+
+\item{mxy}{- number of functions to plot per page, when plotting selectivity, availability, or capture probability functions}
 
 \item{output_format}{- "word_document" or "pdf_document"}
 

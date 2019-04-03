@@ -5,6 +5,10 @@ params:
     Models: none
     title: "Tanner Crab Assessment Model:\nEstimated Survey Characteristics" 
     plot1stObs: TRUE
+    selYears: "all"
+    avlYears: "all"
+    capYears: "all"
+    mxy: 5
     doc_type: "pdf"
 output: 
     word_document: 
@@ -41,21 +45,26 @@ title: '`r params$title`'
 ```
 
 #Introduction
-Model-estimated survey characteristics such as catchability, selectivity functions, and capture probability are presented in this section.
+A comparison of model-estimated survey characteristics such as catchability and size-specific selectivity functions, 
+availability and size-specific availabilty functions, and size-specific capture probability functions is presented here.
 
 \clearpage
 
 #Survey catchability
-"Catchability" here refers to the catchability of crab in a "fully-selected" size bin.
+"Catchability" here refers to the catchability of crab in a fully-selected size bin.
 
 ```{r plot10.SurveyCatchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,
-                                                       dodge=0,
-                                                       showPlot=FALSE,
-                                                       verbose=FALSE)
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+  if (!is.null(params$selYears)){
+      plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,
+                                                           dodge=0,
+                                                           showPlot=FALSE,
+                                                           verbose=FALSE)
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+      cat(" Catchability plots are not provided for these model comparisons.\n\n");
+  }
 ```
 
 \FloatBarrier
@@ -63,19 +72,70 @@ Model-estimated survey characteristics such as catchability, selectivity functio
 \clearpage 
 
 #Survey selectivity functions
-Survey selectivity functions reflect size-specific catchability relative to a "fully-selected" size class.
+Survey selectivity functions reflect size-specific catchability relative to a fully-selected size class.
 
 ```{r plot11.SurveySelectivity,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,
-                                                  cast="y+x",
-                                                  facet_grid="y~x",
-                                                  mxy=5,
-                                                  years=c(1975,1982,1988),
-                                                  dodge=0,
-                                                  verbose=FALSE);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+  if (!is.null(params$selYears)){
+      plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,
+                                                      cast="y+x",
+                                                      facet_grid="y~x",
+                                                      mxy=params$mxy,
+                                                      years=params$selYears,
+                                                      dodge=0,
+                                                      verbose=FALSE);
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+      cat(" Selectivity plots are not provided for these model comparisons.\n\n");
+  }
+```
+
+\FloatBarrier
+
+\clearpage 
+
+#Survey availability
+"Availability" here represents an overall multiplier on the size-specific availabilty functions described in the next section. 
+
+```{r plot12.SurveyAvailability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (!is.null(params$avlYears)){
+      plts<-rCompTCMs::compareResults.Surveys.Availability(Models,
+                                                           dodge=0,
+                                                           showPlot=FALSE,
+                                                           verbose=FALSE)
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+      cat(" Availability plots are not provided for these model comparisons.\n\n");
+  }
+```
+
+\FloatBarrier
+
+\clearpage 
+
+#Survey availability functions
+Survey availability functions reflect size-specific availabilty of crab to the survey gear over the entire survey area, 
+possibly relative to the "most-available" size class (see the previous section for the availability multipliers when the 
+size-specific availability functions are noramlized to the most-available size class).
+
+```{r plot13.SurveyAvlFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (!is.null(params$avlYears)){
+      plts<-rCompTCMs::compareResults.Surveys.AvlFcns(Models,
+                                                      cast="y+x",
+                                                      facet_grid="y~x",
+                                                      mxy=params$mxy,
+                                                      years=params$avlYears,
+                                                      dodge=0,
+                                                      verbose=FALSE);
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+      cat(" Availability function plots are not provided for these model comparisons.\n\n");
+  }
 ```
 
 \FloatBarrier
@@ -83,18 +143,25 @@ Survey selectivity functions reflect size-specific catchability relative to a "f
 \clearpage 
 
 #Survey capture probability functions
-Survey capture probability functions incorporate both catchability and size-specific selectivity.
+Survey capture probability functions incorporate both catchability and size-specific selectivity, 
+as well as availability and size-specific availability. These represent the proportion of survey-estimated 
+crab abundance at size *z* after expansion to the survey area relative to the abundance of crab at size *z*
+within the population.
 
-```{r plot12.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,
-                                                       cast="y+x",
-                                                       facet_grid="y~x",
-                                                       mxy=5,
-                                                       years=c(1975,1982,1988),
-                                                       dodge=0,
-                                                       verbose=FALSE);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+```{r plot14.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (!is.null(params$capYears)){
+      plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,
+                                                           cast="y+x",
+                                                           facet_grid="y~x",
+                                                           mxy=params$mxy,
+                                                           years=params$capYears,
+                                                           dodge=0,
+                                                           verbose=FALSE);
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  } else {
+      cat(" Capture probability plots are not provided for these model comparisons.\n\n");
+  }
 ```
 

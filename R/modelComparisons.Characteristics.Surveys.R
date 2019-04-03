@@ -5,6 +5,10 @@
 #' characteristics from several models.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
+#' @param selYears - vector of years for which to plot selectivity functions ("all"=all years; NULL=don't plot)
+#' @param avlYears - vector of years for which to plot availability functions ("all"=all years; NULL=don't plot)
+#' @param capYears - vector of years for which to plot capture probability functions ("all"=all years; NULL=don't plot)
+#' @param mxy - number of functions to plot per page, when plotting selectivity, availability, or capture probability functions
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
 #' @param rmd_dir - folder enclosing rmd file
@@ -20,6 +24,10 @@
 #'
 modelComparisons.Characteristics.Surveys<-function(
                                          models,
+                                         selYears=c(1975,1982,1988),
+                                         avlYears=NULL,
+                                         capYears=c(1975,1982,1988),
+                                         mxy=5,
                                          output_format=c("word_document","pdf_document"),
                                          output_dir=getwd(),
                                          rmd=system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",package="rCompTCMs"),
@@ -57,7 +65,13 @@ modelComparisons.Characteristics.Surveys<-function(
                     output_dir=output_dir,
                     intermediates_dir=output_dir,
                     output_options=output_options,
-                    params=list(title=title,Models=models,doc_type=doc_type),
+                    params=list(title=title,
+                                Models=models,
+                                doc_type=doc_type,
+                                mxy=mxy,
+                                selYears=selYears,
+                                avlYears=avlYears,
+                                capYears=capYears),
                     clean=clean);
 }
 
