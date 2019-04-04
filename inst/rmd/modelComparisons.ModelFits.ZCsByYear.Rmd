@@ -6,6 +6,7 @@ params:
     title: "Tanner Crab Model Fits to Survey Size Compositions" 
     plot1stObs: TRUE
     doc_type: "pdf"
+    verbose: FALSE
 output: 
     word_document: 
         reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
@@ -53,7 +54,7 @@ Fits to the size composition data available to the model(s) are presented in thi
                                          catch.type="index",
                                          plot1stObs=plot1stObs,
                                          showPlot=FALSE,
-                                         verbose=FALSE);
+                                         verbose=params$verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
@@ -71,7 +72,7 @@ Fits to the size composition data available to the model(s) are presented in thi
                                          catch.type="retained",
                                          plot1stObs=plot1stObs,
                                          showPlot=FALSE,
-                                         verbose=FALSE);
+                                         verbose=params$verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
@@ -92,7 +93,7 @@ Fits to the size composition data available to the model(s) are presented in thi
                                          catch.type="total",
                                          plot1stObs=plot1stObs,
                                          showPlot=FALSE,
-                                         verbose=FALSE);
+                                         verbose=params$verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);

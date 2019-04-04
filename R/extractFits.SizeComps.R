@@ -1,7 +1,7 @@
 #'
 #'@title Extract fits to size comps by fleet from several model runs
 #'
-#'@description Function to extract fits to size comps by fleet from 
+#'@description Function to extract fits to size comps by fleet from
 #'several model runs.
 #'
 #' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -24,13 +24,13 @@ extractFits.SizeComps<-function(objs=NULL,
                                   years='all',
                                   plot1stObs=TRUE,
                                   verbose=FALSE){
-    
+
     if (verbose) {
         cat("Starting rCompTCMs::extractFits.SizeComps().\n");
         cat("Extracting fleet.type = ",fleet.type,", catch.type = ",catch.type,"\n");
     }
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -41,7 +41,7 @@ extractFits.SizeComps<-function(objs=NULL,
     if (catch.type=='index')    type<-'prNatZ_yxmz';
     if (catch.type=='retained') type<-'prNatZ.ret';
     if (catch.type=='total')    type<-'prNatZ.tot';
-    
+
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
@@ -77,13 +77,30 @@ extractFits.SizeComps<-function(objs=NULL,
     mdfr$x[mdfr$x=='all']<-'all sex';
     mdfr$m[mdfr$m=='all']<-'all maturity';
     mdfr$s[mdfr$s=='all']<-'all shell';
-    
+
     if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
-    
+
     if (plot1stObs){
-        #drop observations from all cases except the first
-        idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
-        mdfr<-mdfr[idx,];
+        #drop observations from all cases except the first available by fleet
+        # idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
+        # mdfr<-mdfr[idx,];
+        #keep all predicted
+        mdfrp<-mdfr[mdfr$type=="predicted",];
+        #by fleet, get first case with observations
+        mdfro<-mdfr[mdfr$type=="observed",];
+        fleets<-unique(mdfr$fleet);
+        for (fleet in fleets) {
+            if (verbose) cat("Checking",fleet,"for model case with first observations.\n")
+            mdfrof<-mdfro[(mdfro$fleet==fleet),];
+            uCs<-unique(mdfrof$case);
+            if (verbose) cat("--These cases were found to include observations for this fleet:",paste(uCs,collapse=", "),"\n");
+            if (length(uCs)>0) {
+                idc<-mdfrof$case==uCs[1];
+                if (verbose) cat("--Using model case",uCs[1],"for first observations; found",sum(idc,na.rm=TRUE),"\n");
+                mdfrp<-rbind(mdfrp,mdfrof[idc,]);
+            }
+        }
+        mdfr<-mdfrp;
     }
 
     if (verbose) cat("Finished rCompTCMs::extractFits.SizeComps().\n");

@@ -25,7 +25,7 @@ extractFits.SizeComps(objs = NULL, fleet.type = c("survey", "fishery"),
 dataframe in canonical format
 }
 \description{
-Function to extract fits to size comps by fleet from 
+Function to extract fits to size comps by fleet from
 several model runs.
 }
 \details{

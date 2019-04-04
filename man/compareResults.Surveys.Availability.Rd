@@ -9,7 +9,7 @@ compareResults.Surveys.Availability(objs, years = "all", cast = "x",
   showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Availability}}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

@@ -3,8 +3,8 @@
 #'
 #'@description This function compares survey selectivity functions by year
 #'   among several models.
-#'   
-#'@param objs - list of resLst objects
+#'
+#'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.SelFcns}
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
@@ -35,8 +35,6 @@ compareResults.Surveys.SelFcns<-function(objs,
                                          verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.SelFcns().\n");
     options(stringsAsFactors=FALSE);
-    
-    cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -45,24 +43,13 @@ compareResults.Surveys.SelFcns<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        mdfr1<-NULL;
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,type="selSrv_yxz",verbose=verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.SelFcns(obj,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Surveys.SelFcns(objs,cast=cast,years=years,verbose=verbose);
+        if (is.null(mdfr)) return(list()); #empty list
     }
-    mdfr$z<-as.numeric(mdfr$z)
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    
-    if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
-    
+
     #----------------------------------
     #selectivity functions
     #----------------------------------

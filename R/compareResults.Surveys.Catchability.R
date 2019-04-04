@@ -3,8 +3,8 @@
 #'
 #'@description This function plots survey catchability estimates by year,
 #'   sex and maturity state.
-#'   
-#'@param objs - list of resLst objects
+#'
+#'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Catchablity}
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param dodge - width to dodge overlapping series
@@ -33,8 +33,6 @@ compareResults.Surveys.Catchability<-function(objs,
                                               verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Catchability().\n");
     options(stringsAsFactors=FALSE);
-    
-    cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -43,8 +41,13 @@ compareResults.Surveys.Catchability<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Surveys.Catchability(objs,years=years,cast=cast,verbose=verbose);
-    
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Surveys.Catchability(objs,years=years,cast=cast,verbose=verbose);
+        if (is.null(mdfr)) return(list());#empty list
+    }
+
     #----------------------------------
     # plot survey catchability by year
     #----------------------------------

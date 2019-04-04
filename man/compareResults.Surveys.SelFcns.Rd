@@ -9,7 +9,7 @@ compareResults.Surveys.SelFcns(objs, cast = "y+x", years = "all",
   pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.SelFcns}}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 

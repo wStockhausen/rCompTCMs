@@ -9,7 +9,7 @@ compareResults.Surveys.CaptureProbs(objs, cast = "y+x", years = "all",
   pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.CaptureProbs}}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 

@@ -46,8 +46,6 @@ compareFits.SizeComps<-function(objs=NULL,
 
     if (fleet.type=='survey') catch.type<-'index';
 
-    cases<-names(objs);
-
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -98,6 +96,7 @@ compareFits.SizeComps<-function(objs=NULL,
 
     mxp<-nrow*ncol;
     xlab<-'size (mm CW)';
+    if (verbose) cat(paste0("names(mdfr)= '",names(mdfr),"'.\n"));
     for (fleet in unique(mdfr$fleet)){
         if (verbose) cat("Plotting fleet '",fleet,"'.\n",sep='');
         idf<-mdfr$fleet==fleet;
@@ -112,7 +111,7 @@ compareFits.SizeComps<-function(objs=NULL,
                         ids<-mdfr$s==s;
                         if (verbose) cat("Checking",x,m,s,"\n");
                         pgs<-list();
-                        if (sum(idf&idx&idm&ids)==0){
+                        if (sum(idf&idx&idm&ids,na.rm=TRUE)==0){
                             if (verbose) cat("--Dropping",x,m,s,"\n");
                         } else {
                             if (verbose) cat("--Plotting",x,m,s,"size comps\n");

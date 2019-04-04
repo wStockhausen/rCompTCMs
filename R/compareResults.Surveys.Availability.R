@@ -4,7 +4,7 @@
 #'@description This function plots survey availability estimates by year,
 #'   sex and maturity state.
 #'
-#'@param objs - list of resLst objects
+#'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Availability}
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param dodge - width to dodge overlapping series
@@ -34,8 +34,6 @@ compareResults.Surveys.Availability<-function(objs,
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Availability().\n");
     options(stringsAsFactors=FALSE);
 
-    cases<-names(objs);
-
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -43,7 +41,12 @@ compareResults.Surveys.Availability<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Surveys.Availability(objs,years=years,cast=cast,verbose=verbose);
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Surveys.Availability(objs,years=years,cast=cast,verbose=verbose);
+        if (is.null(mdfr)) return(list());#return empty list
+    }
 
     #----------------------------------
     # plot survey availability by year
