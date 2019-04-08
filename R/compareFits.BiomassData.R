@@ -4,7 +4,7 @@
 #'@description Function to compare fits to biomass time series by fleet among
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects, OR a melted dataframe
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained',  or 'total')
 #'@param ci - confidence interval for plots
@@ -13,8 +13,9 @@
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
+#'@details If \code{objs} is a list, then \code{extractMDFR.Fits.BiomassData} is used to extract a melted dataframe
+#'in canonical format with the biomass observations and predictions to be plotted. \code{objs} can also be a melted
+#'dataframe from a previous call to \code{extractMDFR.Fits.BiomassData}.
 #'Also uses \code{wtsUtilities::printGGList}.
 #'
 #'@return Non-nested list of ggplot2 objects, with captions as names, or NULL.
@@ -43,8 +44,6 @@ compareFits.BiomassData<-function(objs=NULL,
 
     if (fleet.type=='survey') catch.type<-'index';
 
-    cases<-names(objs);
-
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -57,46 +56,19 @@ compareFits.BiomassData<-function(objs=NULL,
     if (catch.type=='total')    type<-'bio.totm';
 
     mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        mdfr1<-NULL;
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
-                                                                                      fleet.type=fleet.type,
-                                                                                      data.type='biomass',
-                                                                                      catch.type=catch.type,
-                                                                                      ci=ci,
-                                                                                      verbose=verbose);
-        if (fleet.type=='survey'){
-            if (inherits(obj,"tcsam2013.resLst"))
-            mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-                                                        type='MB_yx',
-                                                        pdfType='lognormal',
-                                                        ci=ci,
-                                                        verbose=verbose);
-        }
-        if (fleet.type=='fishery'){
-            if (inherits(obj,"tcsam2013.resLst"))
-                mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-                                                             type=type,
-                                                             pdfType=fishery.pdfType,
-                                                             ci=ci,
-                                                             verbose=verbose);
-        }
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Fits.BiomassData(objs=objs,
+                                           fleet.type=fleet.type,
+                                           catch.type=catch.type,
+                                           ci=ci,
+                                           fishery.pdfType=fishery.pdfType,
+                                           verbose=verbose);
     }
 
     plots<-NULL;
     if (!is.null(mdfr)){
-        mdfr$case<-factor(mdfr$case,levels=cases);
-        mdfr$y<-as.numeric(mdfr$y);
-        mdfr$x[mdfr$x=='all']<-'all sex';
-        mdfr$m[mdfr$m=='all']<-'all maturity';
-        mdfr$s[mdfr$s=='all']<-'all shell';
         mdfr$facets<-paste0(mdfr$x,"\n",mdfr$m,"\n",mdfr$s)
 
         #----------------------------------

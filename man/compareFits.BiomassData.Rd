@@ -25,7 +25,7 @@ compareFits.BiomassData(objs = NULL, fleet.type = c("survey",
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects, OR a melted dataframe}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names, or NULL.
@@ -35,7 +35,8 @@ Function to compare fits to biomass time series by fleet among
 several model runs.
 }
 \details{
-Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
+If \code{objs} is a list, then \code{extractMDFR.Fits.BiomassData} is used to extract a melted dataframe
+in canonical format with the biomass observations and predictions to be plotted. \code{objs} can also be a melted
+dataframe from a previous call to \code{extractMDFR.Fits.BiomassData}.
 Also uses \code{wtsUtilities::printGGList}.
 }

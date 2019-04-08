@@ -5,8 +5,8 @@
 \title{Plot fits to size comps by fleet among several model runs from a dataframe}
 \usage{
 plotMDFR.Fits.SizeComps(mdfr = NULL, ylab = "", cap1 = "1",
-  plotObsAsBars = TRUE, nrow = 5, ncol = 3, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+  plotObs = TRUE, plotMod = TRUE, plotObsAsBars = TRUE, nrow = 5,
+  ncol = 3, pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{mdfr}{- dataframe from call to \code{rCompTCMs::extractFits.SizeComps}}
@@ -14,6 +14,10 @@ plotMDFR.Fits.SizeComps(mdfr = NULL, ylab = "", cap1 = "1",
 \item{ylab}{- y axis label}
 
 \item{cap1}{- template for caption}
+
+\item{plotObs}{- flag to plot observations}
+
+\item{plotMod}{- flag to plot model predictions}
 
 \item{plotObsAsBars}{- flag (T/F) to plot observations/predictions as bars/lines (T) or lines/bars (F)}
 
@@ -31,7 +35,7 @@ plotMDFR.Fits.SizeComps(mdfr = NULL, ylab = "", cap1 = "1",
 Non-nested list of ggplot2 objects, with captions as names
 }
 \description{
-Function to plot fits to size comps by fleet among 
+Function to plot fits to size comps by fleet among
 several model runs from a dataframe.
 }
 \details{

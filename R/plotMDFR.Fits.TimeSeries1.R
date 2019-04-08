@@ -31,6 +31,8 @@
 #'
 #'@import ggplot2
 #'
+#'@export
+#'
 plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     plot1stObs=TRUE,
                                     x="y",

@@ -1,12 +1,14 @@
 #'
 #'@title Plot fits to size comps by fleet among several model runs from a dataframe
 #'
-#'@description Function to plot fits to size comps by fleet among 
+#'@description Function to plot fits to size comps by fleet among
 #'several model runs from a dataframe.
 #'
 #' @param mdfr - dataframe from call to \code{rCompTCMs::extractFits.SizeComps}
 #' @param ylab - y axis label
 #' @param cap1 - template for caption
+#' @param plotObs - flag to plot observations
+#' @param plotMod - flag to plot model predictions
 #' @param plotObsAsBars - flag (T/F) to plot observations/predictions as bars/lines (T) or lines/bars (F)
 #' @param nrow - number of rows per page for output plots
 #' @param ncol - number of columns per page for output plots
@@ -25,16 +27,18 @@
 plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
                                   ylab="",
                                   cap1="1",
+                                  plotObs=TRUE,
+                                  plotMod=TRUE,
                                   plotObsAsBars=TRUE,
                                   nrow=5,
                                   ncol=3,
                                   pdf=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::plotMDFR.Fits.SizeComps().\n");
     options(stringsAsFactors=FALSE);
-    
+
     #create pdf, if necessary
     if(!is.null(pdf)){
         cat("Creating pdf:",pdf,"\n");
@@ -42,25 +46,31 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
         on.exit(dev.off());
         showPlot<-TRUE;
     }
-    
+
     #----------------------------------
     # define output list of plots
     #----------------------------------
     plots<-list();
     figno<-1;
-    
+
     idx<-mdfr$x=="all"; mdfr$x[idx]<-"all sex";
     idm<-mdfr$m=="all"; mdfr$m[idm]<-"all maturity";
     ids<-mdfr$s=="all"; mdfr$s[ids]<-"all shell";
+
+    mdfrp<-NULL;
+    if (plotObs) mdfrp<-rbind(mdfrp,mdfr[mdfr$type=="observed",]);
+    if (plotMod) mdfrp<-rbind(mdfrp,mdfr[mdfr$type=="predicted",]);
+    mdfr<-mdfrp;
+
     #----------------------------------
-    # plot fits to size comps 
+    # plot fits to size comps
     #----------------------------------
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     xs<-c("male","female","all sex");
     ms<-c("immature","mature","all maturity");
     ss<-c("new shell","old shell","all shell");
     zs<-sort(unique(mdfr$z));
-    
+
     mxp<-nrow*ncol;
     xlab<-'size (mm CW)';
     for (fleet in unique(mdfr$fleet)){
@@ -83,7 +93,7 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
                             if (verbose) cat("--Plotting",x,m,s,"size comps\n");
                             mdfrp<-mdfr[idf&idx&idm&ids,];#select results for fleet, sex, maturity state, and shell condition
                             if (verbose) cat("--Plotting",nrow(mdfrp),"rows.\n")
-                            
+
                             #add in missing years as size comps with 0's
                             ys<-sort(unique(mdfrp$y));
                             mny<-5*floor(min(ys)/5);
@@ -108,14 +118,14 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
                             for (y in ys){
                                 if (!any(mdfrp$y==y)) {
                                     #year y is missing, so add in zero size comp for year y
-                                    mdfrpp$y<-y; 
+                                    mdfrpp$y<-y;
                                     mdfrp<-rbind(mdfrp,mdfrpp);
                                 }
                             }
-                            
+
                             rng<-range(mdfrp$val,na.rm=TRUE,finite=TRUE);
                             if (verbose) cat("rng = ",rng,'\n')
-                            
+
                             for (pg in 1:npg){ #loop over pages
                                 dfrp<-mdfrp[(mdfrp$y %in% ys[(pg-1)*mxp+1:mxp]),]
                                 #do plot
@@ -133,7 +143,7 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
                                 p <- p + ylim(0,rng[2])
                                 p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
                                 p <- p + labs(x=xlab,y=ylab)
-                                p <- p + facet_wrap(~y,ncol=ncol,dir='v') 
+                                p <- p + facet_wrap(~y,ncol=ncol,dir='v')
                                 ttl<-paste0(fleet,': ',x,", ",m,", ",s);
                                 if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
                                 p <- p + ggtitle(ttl)
