@@ -21,7 +21,7 @@ fontsize: 11pt
 title: '`r params$title`'
 ---
 
-```{r setupPopulationQuantities,results='hide'}
+```{r setupPopulationQuantities,include=FALSE}
   ##input model list
   Models<-params$Models;
   doc_type<-params$doc_type;
