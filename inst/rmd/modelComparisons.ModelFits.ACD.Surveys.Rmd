@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Tanner Crab Assessment Model:/nFits to Aggregated Survey Catch Data" 
+    title: 'Tanner Crab Assessment Model:/nFits to Aggregated Survey Catch Data' 
     plot1stObs: TRUE
     numRecent: 30
     doc_type: "pdf"
@@ -44,14 +44,14 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Model fits to aggregated survey catch data
+# Model fits to aggregated survey catch data
 Fits to the aggregated survey catch data available to the model(s) are presented in this section. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
 \blandscape
 
-#Survey biomass
+# Survey biomass
 
-##Fits
+## Fits
 
 ```{r plotFits.SurveyBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.BiomassData(Models,
@@ -72,7 +72,7 @@ Fits to the aggregated survey catch data available to the model(s) are presented
 
 \elandscape
 
-##Z-scores
+## Z-scores
 
 ```{r plotFits.ZScores.SurveyBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
@@ -91,9 +91,9 @@ Fits to the aggregated survey catch data available to the model(s) are presented
 
 \blandscape
 
-#Survey abundance
+# Survey abundance
 
-##Fits
+## Fits
 
 ```{r plotFits.SurveyAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.AbundanceData(Models,
@@ -114,7 +114,7 @@ Fits to the aggregated survey catch data available to the model(s) are presented
 
 \elandscape
 
-##Z-scores
+## Z-scores
 
 ```{r plotFits.ZScores.SurveyAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,

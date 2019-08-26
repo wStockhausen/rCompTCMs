@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Tanner Crab Assessment Model:\nEstimated Fishery Characteristics" 
+    title: "Tanner Crab Assessment Model: Estimated Fishery Characteristics" 
     plot1stObs: TRUE
     doc_type: "pdf"
 output: 
@@ -40,12 +40,12 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Introduction
+# Introduction
 Model-estimated fishery characteristics such as catchability and selectivity and retention functions are presented in this section.
 
 \clearpage
 
-#Fishery catchability
+# Fishery catchability
 
 ```{r EFCs01.Catchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Fisheries.Catchability(Models,
@@ -61,7 +61,7 @@ Model-estimated fishery characteristics such as catchability and selectivity and
 
 \clearpage 
 
-#Total selectivity functions
+# Total selectivity functions
 
 ```{r EFCs02.SelFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Fisheries.SelFcns(Models,
@@ -85,7 +85,7 @@ Model-estimated fishery characteristics such as catchability and selectivity and
 
 \clearpage 
 
-#Retention functions
+# Retention functions
 
 ```{r EFCs03.RetFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Fisheries.RetFcns(Models,

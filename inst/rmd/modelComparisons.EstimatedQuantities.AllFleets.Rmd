@@ -42,9 +42,9 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Model Estimates
+# Model Estimates
 
-##Survey abundance
+## Survey abundance
 
 ```{r plot12.SurveyAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Surveys.Abundance(Models,category='index',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -53,7 +53,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Survey biomass
+## Survey biomass
 
 ```{r plot13.SurveyBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Surveys.Biomass(  Models,category='index',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE)
@@ -62,7 +62,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Survey size compositions
+## Survey size compositions
 
 ```{r plot14.SurveySizeCompositions,results='asis',fig.height=8,fig.width=6.5}
   plts<-rCompTCMs::compareResults.Surveys.Abundance(Models,category='index',cast="x+z",facet_wrap=~y,showPlot=FALSE,verbose=FALSE);
@@ -71,7 +71,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Retained catch abundance
+## Retained catch abundance
 
 ```{r plot20.FisheryRetainedCatchAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Fisheries.CatchAbundance(Models,category='retained',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -80,7 +80,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Retained catch biomass
+## Retained catch biomass
 
 ```{r plot21.FisheryRetainedCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Fisheries.CatchBiomass(  Models,category='retained',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -89,7 +89,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Total catch abundance
+## Total catch abundance
 
 ```{r plot18.FisheryTotalCatchAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Fisheries.CatchAbundance(Models,category='captured',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -98,7 +98,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Total catch biomass
+## Total catch biomass
 
 ```{r plot19.FisheryTotalCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in"}
   plts<-rCompTCMs::compareResults.Fisheries.CatchBiomass(  Models,category='captured',cast="x",facet_grid=x~.,scales="free_y",dodge=0,showPlot=FALSE,verbose=FALSE)
@@ -107,7 +107,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Retained catch size compositions
+## Retained catch size compositions
 
 ```{r plot23.FisheryRetainedCatchSizeComps,results='asis',fig.height=8,fig.width=6.5}
   plts<-rCompTCMs::compareResults.Fisheries.CatchAbundance(Models,category='retained',cast="x+z",facet_wrap=~y,dodge=0,showPlot=FALSE,verbose=FALSE);
@@ -116,7 +116,7 @@ title: '`r params$title`'
   rm(plts,res);
 ```
 
-##Total catch size compositions
+## Total catch size compositions
 
 ```{r plot22.FisheryTotalCatchSizeComps,results='asis',fig.height=8,fig.width=6.5}
   plts<-rCompTCMs::compareResults.Fisheries.CatchAbundance(Models,category='captured',cast="x+z",facet_wrap=~y,dodge=0,showPlot=FALSE,verbose=FALSE);

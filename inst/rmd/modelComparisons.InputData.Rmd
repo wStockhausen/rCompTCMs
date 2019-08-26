@@ -43,9 +43,9 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Survey data
+# Survey data
 
-##Survey biomass
+## Survey biomass
 
 ```{r plotData.SurveyBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
@@ -72,7 +72,7 @@ title: '`r params$title`'
 
 \clearpage
 
-##Survey abundance
+## Survey abundance
 
 ```{r plotFits.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='survey',catch.type='index',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
@@ -100,7 +100,7 @@ title: '`r params$title`'
 
 \clearpage
 
-##Fishery retained catch biomass
+## Fishery retained catch biomass
 
 ```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
@@ -128,7 +128,7 @@ title: '`r params$title`'
 
 \clearpage
 
-##Fishery retained catch abundance
+## Fishery retained catch abundance
 
 ```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='retained',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
@@ -156,7 +156,7 @@ title: '`r params$title`'
 
 \clearpage
 
-##Fishery total catch biomass
+## Fishery total catch biomass
 
 ```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.BiomassData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);
@@ -184,7 +184,7 @@ title: '`r params$title`'
 
 \clearpage
 
-##Fishery total catch abundance
+## Fishery total catch abundance
 
 ```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.AbundanceData(Models,fleet.type='fishery',catch.type='total',plot1stObs=plot1stObs,verbose=FALSE,numRecent=numRecent);

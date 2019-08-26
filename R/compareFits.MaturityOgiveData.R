@@ -1,7 +1,7 @@
 #'
-#' @title Compare fits to maturity data among several model runs
+#' @title Compare fits to maturity ogive data among several model runs
 #'
-#' @description Function to compare fits to maturity data among several model runs.
+#' @description Function to compare fits to maturity ogive data among several model runs.
 #'
 #' @param objs - list of resLst objects
 #' @param nyrs - number of years/plot
@@ -21,15 +21,15 @@
 #'
 #' @export
 #'
-compareFits.MaturityData<-function(objs,
-                                   nyrs=5,
-                                   types=c("fits","nlls","zscores"),
-                                   minSize=0,
-                                   dodge=0.2,
-                                   plot1stObs=FALSE,
-                                   pdf=NULL,
-                                   showPlot=FALSE,
-                                   verbose=FALSE){
+compareFits.MaturityOgiveData<-function(objs,
+                                        nyrs=5,
+                                        types=c("fits","nlls","zscores"),
+                                        minSize=0,
+                                        dodge=0.2,
+                                        plot1stObs=FALSE,
+                                        pdf=NULL,
+                                        showPlot=FALSE,
+                                        verbose=FALSE){
     options(stringsAsFactors=FALSE);
 
     #create pdf, if necessary
@@ -47,7 +47,7 @@ compareFits.MaturityData<-function(objs,
         obj<-objs[[case]];
         #if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Pop.MeanMaturity(obj,verbose);
         #if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Pop.MeanMaturity(obj,verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.MaturityData(obj,verbose);
+        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.MaturityOgiveData(obj,verbose);
         if (!is.null(mdfr1)){
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);

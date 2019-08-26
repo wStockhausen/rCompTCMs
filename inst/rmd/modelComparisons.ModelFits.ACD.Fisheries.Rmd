@@ -1,9 +1,9 @@
 ---
 author: "William Stockhausen"
-date: '`r format(Sys.Date(),"%d %B, %Y")`'
+date: "`r format(Sys.Date(),'%d %B, %Y')`"
 params: 
     Models: none
-    title: "Tanner Crab Assessment Model:/nFits to Aggregated Fisheries Catch Data" 
+    title: 'Tanner Crab Assessment Model:/nFits to Aggregated Fisheries Catch Data' 
     plot1stObs: TRUE
     numRecent: 30
     doc_type: "pdf"
@@ -44,14 +44,14 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-#Model fits to aggregated fisheries catch data
+# Model fits to aggregated fisheries catch data
 Fits to the aggregated fisheries catch data available to the model(s) are presented in this section. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
 \blandscape
 
-#Fishery retained catch biomass
+# Fishery retained catch biomass
 
-##Fits
+## Fits
 
 ```{r plotFits.FisheryRetainedCatchBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.BiomassData(Models,
@@ -72,7 +72,7 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \elandscape
 
-##Z-scores
+## Z-scores
 
 ```{r plotFits.ZScores.FisheryRetainedCatchBiomass,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
@@ -92,9 +92,9 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \blandscape
 
-#Fishery retained catch abundance
+# Fishery retained catch abundance
 
-##Fits
+## Fits
 
 ```{r plotFits.FisheryRetainedCatchAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.AbundanceData(Models,
@@ -116,7 +116,7 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \elandscape
 
-##Z-scores
+## Z-scores
 
 ```{r plotFits.ZScores.FisheryRetainedCatchAbundances,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,
@@ -136,9 +136,9 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \blandscape
 
-#Fishery total catch biomass
+# Fishery total catch biomass
 
-##Fits
+## Fits
 
 ```{r plotFits.FisheryTotalCatchBiomass,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.BiomassData(Models,
@@ -160,7 +160,7 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \elandscape
 
-##Z-scores
+## Z-scores
 ```{r plotFits.ZScores.FisheryTotalCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.ZScores.Biomass(Models,
                                                  fleet.type='fishery',
@@ -179,9 +179,9 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \blandscape
 
-#Fishery total catch abundance
+# Fishery total catch abundance
 
-##Fits
+## Fits
 
 ```{r plotFits.FisheryTotalCatchAbundance,results='asis',fig.height=5.5,fig.width=9.0,out.width="9.0in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.AbundanceData(Models,
@@ -203,7 +203,7 @@ Fits to the aggregated fisheries catch data available to the model(s) are presen
 
 \elandscape
 
-##Z-scores
+## Z-scores
 
 ```{r plotFits.ZScores.FisheryTotalCatchAbundance,results='asis',fig.height=7.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
     plts<-rCompTCMs::compareFits.ZScores.Abundance(Models,

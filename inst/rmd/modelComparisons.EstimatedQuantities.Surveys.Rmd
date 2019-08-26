@@ -3,7 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    title: "Tanner Crab Assessment Model:\nEstimated Survey Quantities" 
+    title: 'Tanner Crab Assessment Model:\nEstimated Survey Quantities' 
     plot1stObs: TRUE
     doc_type: "pdf"
 output: 
