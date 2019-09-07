@@ -49,7 +49,7 @@ Figures and tables in this section present comparisons between alternative model
 
 # Recruitment
 
-```{r plotPopRecruitment,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotPopRecruitment,results='asis',fig.height=6.5,fig.width=8.5,out.width="8.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Pop.Recruitment(Models,dodge=0,showPlot=FALSE,verbose=FALSE);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);

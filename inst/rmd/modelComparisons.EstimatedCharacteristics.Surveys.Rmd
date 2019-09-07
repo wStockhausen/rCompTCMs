@@ -5,6 +5,7 @@ params:
     Models: none
     title: 'Tanner Crab Assessment Model:\nEstimated Survey Characteristics' 
     plot1stObs: TRUE
+    surveys: "all"
     selYears: "all"
     avlYears: "all"
     capYears: "all"
@@ -56,6 +57,7 @@ availability and size-specific availabilty functions, and size-specific capture 
 ```{r plot10.SurveyCatchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   if (!is.null(params$selYears)){
       plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,
+                                                           surveys=params$surveys,
                                                            dodge=0,
                                                            showPlot=FALSE,
                                                            verbose=FALSE)
@@ -77,6 +79,7 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 ```{r plot11.SurveySelectivity,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   if (!is.null(params$selYears)){
       plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,
+                                                      surveys=params$surveys,
                                                       cast="y+x",
                                                       facet_grid="y~x",
                                                       mxy=params$mxy,
@@ -101,6 +104,7 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 ```{r plot12.SurveyAvailability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   if (!is.null(params$avlYears)){
       plts<-rCompTCMs::compareResults.Surveys.Availability(Models,
+                                                           surveys=params$surveys,
                                                            dodge=0,
                                                            showPlot=FALSE,
                                                            verbose=FALSE)
@@ -124,6 +128,7 @@ size-specific availability functions are noramlized to the most-available size c
 ```{r plot13.SurveyAvlFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   if (!is.null(params$avlYears)){
       plts<-rCompTCMs::compareResults.Surveys.AvlFcns(Models,
+                                                      surveys=params$surveys,
                                                       cast="y+x",
                                                       facet_grid="y~x",
                                                       mxy=params$mxy,
@@ -151,6 +156,7 @@ within the population.
 ```{r plot14.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   if (!is.null(params$capYears)){
       plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,
+                                                           surveys=params$surveys,
                                                            cast="y+x",
                                                            facet_grid="y~x",
                                                            mxy=params$mxy,

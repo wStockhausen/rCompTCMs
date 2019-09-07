@@ -47,7 +47,7 @@ modelComparisons.ModelFits.ZCsByYear<-function(models,
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.ModelFits.ZCsByYear.",mmm,".",ext);
-  title<-paste0("Model Comparisons: Fits to Size Composition Data\n",mmv);
+  title<-paste0("Model Comparisons: Fits to Size Composition Data -- ",mmv);
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");

@@ -4,14 +4,17 @@
 \alias{compareResults.Surveys.AvlFcns}
 \title{Function to compare survey availability functions by year among several models}
 \usage{
-compareResults.Surveys.AvlFcns(objs, cast = "y+x", years = "all",
-  dodge = 0.2, mxy = 15, facet_wrap = NULL, facet_grid = "y~x",
-  pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareResults.Surveys.AvlFcns(objs, cast = "y+x", surveys = "all",
+  years = "all", dodge = 0.2, mxy = 15, facet_wrap = NULL,
+  facet_grid = "y~x", pdf = NULL, showPlot = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.AvlFcns}}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
+
+\item{surveys}{- vector of surveys to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 
@@ -30,7 +33,7 @@ compareResults.Surveys.AvlFcns(objs, cast = "y+x", years = "all",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+ggplot2 object, or null
 }
 \description{
 This function compares survey availability functions by year

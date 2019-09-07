@@ -4,12 +4,14 @@
 \alias{compareResults.Surveys.Catchability}
 \title{Function to plot survey catchabilities by year using ggplot2}
 \usage{
-compareResults.Surveys.Catchability(objs, years = "all", cast = "x",
-  dodge = 0.2, facet_grid = "x~.", scales = "free_y", pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareResults.Surveys.Catchability(objs, surveys = "all",
+  years = "all", cast = "x", dodge = 0.2, facet_grid = "x~.",
+  scales = "free_y", pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Catchablity}}
+
+\item{surveys}{- vector of names of surveys to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

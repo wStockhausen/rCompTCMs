@@ -3,9 +3,10 @@
 #'
 #'@description This function compares fishery selectivity functions by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param cast - formula to exclude factors from "averaging" over
+#'@param fisheries - vector of fisheries to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
@@ -15,7 +16,7 @@
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return lists ofggplot2 objects, nested by fishery
+#'@return lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
 #'
 #'@details None.
 #'
@@ -25,6 +26,7 @@
 #'
 compareResults.Fisheries.SelFcns<-function(objs,
                                          cast='y+x',
+                                         fisheries="all",
                                          years='all',
                                          dodge=0.2,
                                          mxy=15,
@@ -35,7 +37,9 @@ compareResults.Fisheries.SelFcns<-function(objs,
                                          verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Fisheries.SelFcns().\n");
     options(stringsAsFactors=FALSE);
-    
+
+    if (is.null(years)) return(list());
+
     cases<-names(objs);
 
     #create pdf, if necessary
@@ -59,14 +63,15 @@ compareResults.Fisheries.SelFcns<-function(objs,
     }
     mdfr$z<-as.numeric(mdfr$z)
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
-    
+
     #----------------------------------
     #selectivity functions
     #----------------------------------
     plots<-list();
     uF<-unique(mdfr$fleet);
+    if (fisheries[1]!="all") uF<-fisheries;
     for (f in uF){
         if (verbose) cat("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];

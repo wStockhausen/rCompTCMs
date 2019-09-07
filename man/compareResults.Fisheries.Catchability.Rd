@@ -4,12 +4,14 @@
 \alias{compareResults.Fisheries.Catchability}
 \title{Function to plot fishery catchabilities by year using ggplot2}
 \usage{
-compareResults.Fisheries.Catchability(objs, years = "all", cast = "x",
-  dodge = 0.2, facet_grid = "x~.", scales = "free_y", pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareResults.Fisheries.Catchability(objs, fisheries = "all",
+  years = "all", cast = "x", dodge = 0.2, facet_grid = "x~.",
+  scales = "free_y", pdf = NULL, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fisheries}{- vector of fisheries to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 
@@ -28,7 +30,7 @@ compareResults.Fisheries.Catchability(objs, years = "all", cast = "x",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-list of ggplot2 objects
+lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
 }
 \description{
 This function plots fishery catchability estimates by year,

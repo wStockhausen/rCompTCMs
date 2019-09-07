@@ -5,6 +5,7 @@
 #' characteristics from several models.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
+#' @param surveys - vector of names of surveys to plot, or "all"
 #' @param selYears - vector of years for which to plot selectivity functions ("all"=all years; NULL=don't plot)
 #' @param avlYears - vector of years for which to plot availability functions ("all"=all years; NULL=don't plot)
 #' @param capYears - vector of years for which to plot capture probability functions ("all"=all years; NULL=don't plot)
@@ -24,6 +25,7 @@
 #'
 modelComparisons.Characteristics.Surveys<-function(
                                          models,
+                                         surveys="all",
                                          selYears=c(1975,1982,1988),
                                          avlYears=NULL,
                                          capYears=c(1975,1982,1988),
@@ -54,7 +56,7 @@ modelComparisons.Characteristics.Surveys<-function(
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.SurveyCharacteristics.",mmm,".",ext);
-  title<-paste0("Model Comparisons: Survey Characteristics\n",mmv);
+  title<-paste0("Model Comparisons: Survey Characteristics -- ",mmv);
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");
@@ -69,6 +71,7 @@ modelComparisons.Characteristics.Surveys<-function(
                                 Models=models,
                                 doc_type=doc_type,
                                 mxy=mxy,
+                                surveys=surveys,
                                 selYears=selYears,
                                 avlYears=avlYears,
                                 capYears=capYears),

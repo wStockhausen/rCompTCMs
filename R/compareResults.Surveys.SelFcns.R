@@ -6,6 +6,7 @@
 #'
 #'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.SelFcns}
 #'@param cast - formula to exclude factors from "averaging" over
+#'@param surveys - vector of surveys to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
@@ -25,6 +26,7 @@
 #'
 compareResults.Surveys.SelFcns<-function(objs,
                                          cast='y+x',
+                                         surveys="all",
                                          years='all',
                                          dodge=0.2,
                                          mxy=15,
@@ -35,6 +37,8 @@ compareResults.Surveys.SelFcns<-function(objs,
                                          verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.SelFcns().\n");
     options(stringsAsFactors=FALSE);
+
+    if (is.null(years)) return(list());
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -55,6 +59,7 @@ compareResults.Surveys.SelFcns<-function(objs,
     #----------------------------------
     plots<-list();
     uF<-unique(mdfr$fleet);
+    if (surveys[1]!="all") uF<-surveys;
     for (f in uF){
         if (verbose) cat("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
@@ -69,7 +74,8 @@ compareResults.Surveys.SelFcns<-function(objs,
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            plots[[paste(f,pg,sep=".")]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+            plots[[cap]]<-p;
         }#pg
     }#uF
 

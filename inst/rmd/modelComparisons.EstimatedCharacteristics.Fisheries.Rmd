@@ -5,6 +5,9 @@ params:
     Models: none
     title: "Tanner Crab Assessment Model: Estimated Fishery Characteristics" 
     plot1stObs: TRUE
+    fisheries: "all"
+    selyears: "all"
+    retyears: "all"
     doc_type: "pdf"
 output: 
     word_document: 
@@ -49,6 +52,7 @@ Model-estimated fishery characteristics such as catchability and selectivity and
 
 ```{r EFCs01.Catchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareResults.Fisheries.Catchability(Models,
+                                                         fisheries=params$fisheries,
                                                          dodge=0,
                                                          showPlot=FALSE,
                                                          verbose=FALSE)
@@ -68,7 +72,8 @@ Model-estimated fishery characteristics such as catchability and selectivity and
                                                     cast="y+x",
                                                     facet_grid="y~x",
                                                     mxy=5,
-                                                    years=1986:2015,
+                                                    fisheries=params$fisheries,
+                                                    years=params$selyears,
                                                     dodge=0,
                                                     showPlot=FALSE,verbose=FALSE);
   captions<-vector(mode="character",length=0);
@@ -92,7 +97,8 @@ Model-estimated fishery characteristics such as catchability and selectivity and
                                                     cast="y+x",
                                                     facet_grid="y~x",
                                                     mxy=5,
-                                                    years=1986:2015,
+                                                    fisheries=params$fisheries,
+                                                    years=params$retyears,
                                                     dodge=0,
                                                     showPlot=FALSE,
                                                     verbose=FALSE);

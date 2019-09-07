@@ -4,14 +4,17 @@
 \alias{compareResults.Fisheries.RetFcns}
 \title{Function to compare fishery retention functions by year among several models}
 \usage{
-compareResults.Fisheries.RetFcns(objs, cast = "y+x", years = "all",
-  dodge = 0.2, mxy = 15, facet_wrap = NULL, facet_grid = "y~x",
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareResults.Fisheries.RetFcns(objs, cast = "y+x", fisheries = "all",
+  years = "all", dodge = 0.2, mxy = 15, facet_wrap = NULL,
+  facet_grid = "y~x", showPlot = FALSE, pdf = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
+
+\item{fisheries}{- vector of fisheries to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 
@@ -30,7 +33,7 @@ compareResults.Fisheries.RetFcns(objs, cast = "y+x", years = "all",
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-lists ofggplot2 objects, nested by fishery
+lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
 }
 \description{
 This function compares fishery retention functions by year

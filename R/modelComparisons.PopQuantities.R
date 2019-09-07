@@ -45,7 +45,7 @@ modelComparisons.PopQuantities<-function(models,
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.PopQuantities.",mmm,".",ext);
-  title<-paste0("Model Comparisons: Population Quantities\n",mmv);
+  title<-paste0("Model Comparisons: Population Quantities -- ",mmv);
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");

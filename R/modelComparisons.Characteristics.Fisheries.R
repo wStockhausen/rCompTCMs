@@ -5,6 +5,9 @@
 #' characteristics from several models.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
+#' @param fisheries - vector of fisheries to plot, or "all"
+#' @param selyears - vector of years to show selectivity functions for, or 'all' to show all years
+#' @param retyears - vector of years to show retention functions for, or 'all' to show all years
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
 #' @param rmd_dir - folder enclosing rmd file
@@ -18,8 +21,11 @@
 #'
 #' @export
 #'
-modelComparisons.Characteristics.Fisheries.<-function(
+modelComparisons.Characteristics.Fisheries<-function(
                                          models,
+                                         fisheries="all",
+                                         selyears="all",
+                                         retyears="all",
                                          output_format=c("word_document","pdf_document"),
                                          output_dir=getwd(),
                                          rmd=system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs"),
@@ -46,7 +52,7 @@ modelComparisons.Characteristics.Fisheries.<-function(
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.FisheryCharacteristics.",mmm,".",ext);
-  title<-paste0("Model Comparisons: Fishery Characteristics\n",mmv);
+  title<-paste0("Model Comparisons: Fishery Characteristics -- ",mmv);
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");
@@ -57,7 +63,12 @@ modelComparisons.Characteristics.Fisheries.<-function(
                     output_dir=output_dir,
                     intermediates_dir=output_dir,
                     output_options=output_options,
-                    params=list(title=title,Models=models,doc_type=doc_type),
+                    params=list(title=title,
+                                Models=models,
+                                fisheries=fisheries,
+                                selyears=selyears,
+                                retyears=retyears,
+                                doc_type=doc_type),
                     clean=clean);
 }
 

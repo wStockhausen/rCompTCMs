@@ -3,8 +3,9 @@
 #'
 #'@description This function plots fishery catchability estimates by year,
 #'   sex and maturity state.
-#'   
+#'
 #' @param objs - list of resLst objects
+#' @param fisheries - vector of fisheries to plot, or "all"
 #' @param years - vector of years to show, or 'all' to show all years
 #' @param cast - formula to exclude factors from "averaging" over
 #' @param dodge - width to dodge overlapping series
@@ -14,7 +15,7 @@
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return list of ggplot2 objects
+#'@return lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
 #'
 #'@details None.
 #'
@@ -23,6 +24,7 @@
 #'@export
 #'
 compareResults.Fisheries.Catchability<-function(objs,
+                                                fisheries="all",
                                                 years='all',
                                                 cast='x',
                                                 dodge=0.2,
@@ -33,7 +35,9 @@ compareResults.Fisheries.Catchability<-function(objs,
                                                 verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Fisheries.Catchability().\n");
     options(stringsAsFactors=FALSE);
-    
+
+    if (is.null(years)) return(list());
+
     cases<-names(objs);
 
     #create pdf, if necessary
@@ -49,6 +53,7 @@ compareResults.Fisheries.Catchability<-function(objs,
     # plot fishery catchability by year
     #----------------------------------
     uF<-unique(mdfr$fleet);
+    if (fisheries[1]!="all") uF<-fisheries;
     plots<-list();
     pd<-position_dodge(width=dodge);
     for (f in uF){
@@ -66,7 +71,7 @@ compareResults.Fisheries.Catchability<-function(objs,
         cap<-paste0("\n  \nFigure &&figno. Fishery catchabilities for ",f,".\n   \n");
         plots[[cap]]<-p;
     }
-    
+
     # p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));
     # p <- p + geom_line(position=pd);
     # p <- p + geom_point(position=pd);

@@ -1,13 +1,15 @@
 #'
-#'@title Compare time series data by fleet among several model scenarios
+#'@title Compare time series of abundance or biommass data by fleet among several model scenarios
 #'
-#'@description Function to compare biomass time series data by fleet among
+#'@description Function to compare abundance or biomass time series data by fleet among
 #'several model scenarios.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard' or 'total')
 #'@param data.type - data type ('abundance' or 'biomass')
+#'@param fleets - vector of names of fleets to plot (or 'all')
+#'@param sexs - vector of sexes to plot (or 'all')
 #'@param ci - confidence interval for plots
 #'@param numRecent - number of years for 'recent' plot
 #'@param facets - grid faceting formula
@@ -22,10 +24,12 @@
 #'
 #'@export
 #'
-compareData.FleetTimeSeries<-function(objs=NULL,
+compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                       fleet.type=c('survey','fishery'),
                                       catch.type=c('index','retained','discard','total'),
                                       data.type=c('abundance','biomass'),
+                                      fleets="all",
+                                      sexs="all",
                                       ci=0.80,
                                       numRecent=15,
                                       facets="fleet~x",
@@ -60,6 +64,8 @@ compareData.FleetTimeSeries<-function(objs=NULL,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
+    mdfr<-mdfr[mdfr$f %in% fleets,];
+    mdfr<-mdfr[mdfr$x %in% sexs,];
     mdfr$case<-factor(mdfr$case,levels=cases);
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$x[mdfr$x=='all']<-'all sex';

@@ -5,6 +5,7 @@
 #'   sex and maturity state.
 #'
 #'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Catchablity}
+#'@param surveys - vector of names of surveys to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param dodge - width to dodge overlapping series
@@ -23,6 +24,7 @@
 #'@export
 #'
 compareResults.Surveys.Catchability<-function(objs,
+                                              surveys="all",
                                               years='all',
                                               cast='x',
                                               dodge=0.2,
@@ -52,6 +54,7 @@ compareResults.Surveys.Catchability<-function(objs,
     # plot survey catchability by year
     #----------------------------------
     uF<-unique(mdfr$fleet);
+    if (surveys[1]!="all") uF<-surveys;
     plots<-list();
     pd<-position_dodge(width=dodge);
     for (f in uF){
@@ -69,16 +72,5 @@ compareResults.Surveys.Catchability<-function(objs,
         cap<-paste0("\n  \nFigure &&figno. Survey catchabilities for ",f,".\n   \n");
         plots[[cap]]<-p;
     }
-    # p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));
-    # p <- p + geom_line(position=pd);
-    # p <- p + geom_point(position=pd);
-    # if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-    # p <- p + labs(x='year',y="survey catchability");
-    # p <- p + facet_grid(facet_grid);
-    # p <- p + ylim(c(0,max(1.0,1.05*max(mdfr$val,mdfr$uci,rm.na=TRUE))));
-    # if (showPlot) print(p);
-    # cap<-paste0("\n  \nFig. &&figno. Survey catchabilities.\n   \n");
-    # plots[[cap]]<-p;
-
     return(plots)
 }
