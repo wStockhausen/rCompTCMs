@@ -4,8 +4,12 @@
 \alias{extractMDFR.Surveys.Availability}
 \title{Function to extract survey availabilities}
 \usage{
-extractMDFR.Surveys.Availability(objs, years = "all", cast = "x",
-  verbose = FALSE)
+extractMDFR.Surveys.Availability(
+  objs,
+  years = "all",
+  cast = "x",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

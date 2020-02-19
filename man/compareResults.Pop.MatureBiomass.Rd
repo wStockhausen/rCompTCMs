@@ -4,8 +4,14 @@
 \alias{compareResults.Pop.MatureBiomass}
 \title{Function to compare mature biomass-at-mating estimates by year among several models}
 \usage{
-compareResults.Pop.MatureBiomass(objs, numRecent = 15, dodge = 0.2,
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareResults.Pop.MatureBiomass(
+  objs,
+  numRecent = 15,
+  dodge = 0.2,
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

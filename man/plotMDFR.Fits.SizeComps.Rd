@@ -4,9 +4,19 @@
 \alias{plotMDFR.Fits.SizeComps}
 \title{Plot fits to size comps by fleet among several model runs from a dataframe}
 \usage{
-plotMDFR.Fits.SizeComps(mdfr = NULL, ylab = "", cap1 = "1",
-  plotObs = TRUE, plotMod = TRUE, plotObsAsBars = TRUE, nrow = 5,
-  ncol = 3, pdf = NULL, showPlot = FALSE, verbose = FALSE)
+plotMDFR.Fits.SizeComps(
+  mdfr = NULL,
+  ylab = "",
+  cap1 = "1",
+  plotObs = TRUE,
+  plotMod = TRUE,
+  plotObsAsBars = TRUE,
+  nrow = 5,
+  ncol = 3,
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- dataframe from call to \code{rCompTCMs::extractFits.SizeComps}}

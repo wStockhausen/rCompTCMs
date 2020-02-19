@@ -4,8 +4,13 @@
 \alias{extractMDFR.Surveys.Abundance}
 \title{Function to extract estimated survey abundance by year among several models as a dataframe}
 \usage{
-extractMDFR.Surveys.Abundance(objs, category = "index", cast = "x",
-  years = "all", verbose = FALSE)
+extractMDFR.Surveys.Abundance(
+  objs,
+  category = "index",
+  cast = "x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

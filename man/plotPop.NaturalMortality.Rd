@@ -4,8 +4,13 @@
 \alias{plotPop.NaturalMortality}
 \title{Function to plot natural mortality rates by year using ggplot2}
 \usage{
-plotPop.NaturalMortality(mdfr, dodge = 0.2, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+plotPop.NaturalMortality(
+  mdfr,
+  dodge = 0.2,
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

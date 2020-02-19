@@ -4,9 +4,14 @@
 \alias{printResults.ParameterValues}
 \title{Function to print a table of parameters from several models}
 \usage{
-printResults.ParameterValues(objs = NULL, mdfr = NULL,
-  format = c("latex", "docx"), landscape = FALSE, fontsize = "11pt",
-  verbose = FALSE)
+printResults.ParameterValues(
+  objs = NULL,
+  mdfr = NULL,
+  format = c("latex", "docx"),
+  landscape = FALSE,
+  fontsize = "11pt",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

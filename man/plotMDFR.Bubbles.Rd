@@ -4,11 +4,26 @@
 \alias{plotMDFR.Bubbles}
 \title{Create or add to a circle plot of age or size comp.s.}
 \usage{
-plotMDFR.Bubbles(mdfr, x = NULL, y = NULL, value.var = "val",
-  agg.formula = NULL, agg.function = sum, ..., colour = NULL,
-  facet_grid = NULL, units = "", xlab = "", ylab = "",
-  title = "", alpha = 0.5, maxBubbleSize = 6,
-  useColourGradient = FALSE, guideTitleColour = "", showPlot = FALSE)
+plotMDFR.Bubbles(
+  mdfr,
+  x = NULL,
+  y = NULL,
+  value.var = "val",
+  agg.formula = NULL,
+  agg.function = sum,
+  ...,
+  colour = NULL,
+  facet_grid = NULL,
+  units = "",
+  xlab = "",
+  ylab = "",
+  title = "",
+  alpha = 0.5,
+  maxBubbleSize = 6,
+  useColourGradient = FALSE,
+  guideTitleColour = "",
+  showPlot = FALSE
+)
 }
 \arguments{
 \item{x}{- column name for x-axis values}

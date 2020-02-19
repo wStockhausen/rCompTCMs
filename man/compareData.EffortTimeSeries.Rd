@@ -4,8 +4,7 @@
 \alias{compareData.EffortTimeSeries}
 \title{Compare effort time series data by fleet among several model scenarios}
 \usage{
-compareData.EffortTimeSeries(objs = NULL, scales = "free_y",
-  verbose = FALSE)
+compareData.EffortTimeSeries(objs = NULL, scales = "free_y", verbose = FALSE)
 }
 \arguments{
 \item{scales}{- ggplot2 scales option for facet_grid}

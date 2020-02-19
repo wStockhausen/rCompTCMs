@@ -4,8 +4,13 @@
 \alias{compareResults.Pop.NaturalMortality}
 \title{Function to plot natural mortality rates by year using ggplot2}
 \usage{
-compareResults.Pop.NaturalMortality(objs, dodge = 0.2, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareResults.Pop.NaturalMortality(
+  objs,
+  dodge = 0.2,
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

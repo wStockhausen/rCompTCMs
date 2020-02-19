@@ -4,8 +4,12 @@
 \alias{extractMDFR.Surveys.CaptureProbs}
 \title{Function to extract survey capture probability functions by year among several models}
 \usage{
-extractMDFR.Surveys.CaptureProbs(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Surveys.CaptureProbs(
+  objs,
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

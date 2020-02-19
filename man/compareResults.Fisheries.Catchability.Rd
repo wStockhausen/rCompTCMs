@@ -4,9 +4,18 @@
 \alias{compareResults.Fisheries.Catchability}
 \title{Function to plot fishery catchabilities by year using ggplot2}
 \usage{
-compareResults.Fisheries.Catchability(objs, fisheries = "all",
-  years = "all", cast = "x", dodge = 0.2, facet_grid = "x~.",
-  scales = "free_y", pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareResults.Fisheries.Catchability(
+  objs,
+  fisheries = "all",
+  years = "all",
+  cast = "x",
+  dodge = 0.2,
+  facet_grid = "x~.",
+  scales = "free_y",
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -4,9 +4,16 @@
 \alias{compareResults.Pop.NatZ.LinePlots}
 \title{Function to compare population numbers-at-size estimates by year among several models}
 \usage{
-compareResults.Pop.NatZ.LinePlots(objs, type = c("N_yxmsz", "N_yxmz",
-  "N_yxz", "iN_xmsz", "fN_xmsz"), dodge = 0.2, ncol = 3, nrow = 5,
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareResults.Pop.NatZ.LinePlots(
+  objs,
+  type = c("N_yxmsz", "N_yxmz", "N_yxz", "iN_xmsz", "fN_xmsz"),
+  dodge = 0.2,
+  ncol = 3,
+  nrow = 5,
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

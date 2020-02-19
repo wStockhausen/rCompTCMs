@@ -4,8 +4,12 @@
 \alias{compareResults.Pop.GrowthMatrices}
 \title{Compare growth matrices among several model runs using bubble plots}
 \usage{
-compareResults.Pop.GrowthMatrices(objs, showPlot = FALSE, pdf = NULL,
-  verbose = FALSE)
+compareResults.Pop.GrowthMatrices(
+  objs,
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

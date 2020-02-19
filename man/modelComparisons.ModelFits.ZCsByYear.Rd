@@ -4,14 +4,17 @@
 \alias{modelComparisons.ModelFits.ZCsByYear}
 \title{Render a document of comparison plots for model fits to size composition data by year}
 \usage{
-modelComparisons.ModelFits.ZCsByYear(models, plot1stObs = TRUE,
+modelComparisons.ModelFits.ZCsByYear(
+  models,
+  plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.ModelFits.ZCsByYear.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+  rmd = system.file("rmd/modelComparisons.ModelFits.ZCsByYear.Rmd", package =
+    "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

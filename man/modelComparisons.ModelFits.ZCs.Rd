@@ -4,12 +4,17 @@
 \alias{modelComparisons.ModelFits.ZCs}
 \title{Render a document of comparison plots for model fits to size composition data}
 \usage{
-modelComparisons.ModelFits.ZCs(models, type = c("All", "Surveys",
-  "Fisheries"), plot1stObs = TRUE, output_format = c("word_document",
-  "pdf_document"), output_dir = getwd(), rmd = NULL,
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+modelComparisons.ModelFits.ZCs(
+  models,
+  type = c("All", "Surveys", "Fisheries"),
+  plot1stObs = TRUE,
+  output_format = c("word_document", "pdf_document"),
+  output_dir = getwd(),
+  rmd = NULL,
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

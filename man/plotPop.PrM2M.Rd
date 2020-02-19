@@ -4,8 +4,13 @@
 \alias{plotPop.PrM2M}
 \title{Function to plot probability of molt-to-maturity for several model runs}
 \usage{
-plotPop.PrM2M(mdfr, dodge = 0.2, xbnds = NULL, showPlot = TRUE,
-  verbose = FALSE)
+plotPop.PrM2M(
+  mdfr,
+  dodge = 0.2,
+  xbnds = NULL,
+  showPlot = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

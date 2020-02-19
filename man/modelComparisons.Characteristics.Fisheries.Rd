@@ -4,15 +4,19 @@
 \alias{modelComparisons.Characteristics.Fisheries}
 \title{Render a document of comparison plots of estimated fishery characteristics from several models}
 \usage{
-modelComparisons.Characteristics.Fisheries(models, fisheries = "all",
-  selyears = "all", retyears = "all",
+modelComparisons.Characteristics.Fisheries(
+  models,
+  fisheries = "all",
+  selyears = "all",
+  retyears = "all",
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+    package = "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

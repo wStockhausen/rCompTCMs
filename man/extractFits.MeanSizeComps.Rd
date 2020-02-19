@@ -4,9 +4,15 @@
 \alias{extractFits.MeanSizeComps}
 \title{Extract fits to mean size comps by fleet among several model runs}
 \usage{
-extractFits.MeanSizeComps(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  years = "all", ci = 0.8, plot1stObs = TRUE, verbose = FALSE)
+extractFits.MeanSizeComps(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "discard", "total"),
+  years = "all",
+  ci = 0.8,
+  plot1stObs = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

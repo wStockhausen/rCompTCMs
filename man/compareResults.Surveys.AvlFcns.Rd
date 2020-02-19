@@ -4,10 +4,19 @@
 \alias{compareResults.Surveys.AvlFcns}
 \title{Function to compare survey availability functions by year among several models}
 \usage{
-compareResults.Surveys.AvlFcns(objs, cast = "y+x", surveys = "all",
-  years = "all", dodge = 0.2, mxy = 15, facet_wrap = NULL,
-  facet_grid = "y~x", pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareResults.Surveys.AvlFcns(
+  objs,
+  cast = "y+x",
+  surveys = "all",
+  years = "all",
+  dodge = 0.2,
+  mxy = 15,
+  facet_wrap = NULL,
+  facet_grid = "y~x",
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.AvlFcns}}

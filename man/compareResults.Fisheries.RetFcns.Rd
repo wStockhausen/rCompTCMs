@@ -4,10 +4,19 @@
 \alias{compareResults.Fisheries.RetFcns}
 \title{Function to compare fishery retention functions by year among several models}
 \usage{
-compareResults.Fisheries.RetFcns(objs, cast = "y+x", fisheries = "all",
-  years = "all", dodge = 0.2, mxy = 15, facet_wrap = NULL,
-  facet_grid = "y~x", showPlot = FALSE, pdf = NULL,
-  verbose = FALSE)
+compareResults.Fisheries.RetFcns(
+  objs,
+  cast = "y+x",
+  fisheries = "all",
+  years = "all",
+  dodge = 0.2,
+  mxy = 15,
+  facet_wrap = NULL,
+  facet_grid = "y~x",
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -4,8 +4,13 @@
 \alias{extractMDFR.Surveys.Biomass}
 \title{Function to compare estimated survey biomass by year among several models}
 \usage{
-extractMDFR.Surveys.Biomass(objs, category = "index", cast = "y+x",
-  years = "all", verbose = FALSE)
+extractMDFR.Surveys.Biomass(
+  objs,
+  category = "index",
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

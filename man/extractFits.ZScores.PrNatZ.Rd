@@ -4,10 +4,14 @@
 \alias{extractFits.ZScores.PrNatZ}
 \title{Extract Pearson's or nll residuals from size comps by fleet among several model runs as dataframe}
 \usage{
-extractFits.ZScores.PrNatZ(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "total"),
+extractFits.ZScores.PrNatZ(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "total"),
   residuals.type = c("pearsons", "nlls"),
-  tcsam2013.type = c("PRs_yxmz", "PRs_yxz"), verbose = FALSE)
+  tcsam2013.type = c("PRs_yxmz", "PRs_yxz"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

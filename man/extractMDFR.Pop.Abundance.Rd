@@ -4,8 +4,7 @@
 \alias{extractMDFR.Pop.Abundance}
 \title{Function to extract estimated population abundance by year among several models as a dataframe}
 \usage{
-extractMDFR.Pop.Abundance(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Pop.Abundance(objs, cast = "y+x", years = "all", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

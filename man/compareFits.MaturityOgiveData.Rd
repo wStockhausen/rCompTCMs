@@ -4,9 +4,17 @@
 \alias{compareFits.MaturityOgiveData}
 \title{Compare fits to maturity ogive data among several model runs}
 \usage{
-compareFits.MaturityOgiveData(objs, nyrs = 5, types = c("fits", "nlls",
-  "zscores"), minSize = 0, dodge = 0.2, plot1stObs = FALSE,
-  pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareFits.MaturityOgiveData(
+  objs,
+  nyrs = 5,
+  types = c("fits", "nlls", "zscores"),
+  minSize = 0,
+  dodge = 0.2,
+  plot1stObs = FALSE,
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

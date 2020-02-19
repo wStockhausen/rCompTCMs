@@ -4,9 +4,16 @@
 \alias{plotPop.MeanGrowthPlusProbs}
 \title{Plot mean and probability of post-molt size for several model runs}
 \usage{
-plotPop.MeanGrowthPlusProbs(mdfrMnG, mdfrPrG, scale = 10, xbnds = NULL,
-  ybnds = NULL, zbnds = c(25, 185), showPlot = FALSE,
-  verbose = FALSE)
+plotPop.MeanGrowthPlusProbs(
+  mdfrMnG,
+  mdfrPrG,
+  scale = 10,
+  xbnds = NULL,
+  ybnds = NULL,
+  zbnds = c(25, 185),
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfrMnG}{- melted dataframe for mean growth (from calling \code{rTCSAM02::getMDFR.Pop.MeanGrowth})}

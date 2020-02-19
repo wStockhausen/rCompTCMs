@@ -4,11 +4,21 @@
 \alias{compareResults.Pop.Abundance1}
 \title{Function to compare population abundance estimates by year among several models}
 \usage{
-compareResults.Pop.Abundance1(objs, type = c("N_yxmsz", "N_yxmz",
-  "N_yxz", "N_yxms", "N_yxm", "N_yx"), years = "all", numRecent = 15,
-  facet_grid = NULL, facet_wrap = NULL, scales = "fixed",
-  dodge = 0.2, mxy = 15, nrow = 5, showPlot = FALSE, pdf = NULL,
-  verbose = FALSE)
+compareResults.Pop.Abundance1(
+  objs,
+  type = c("N_yxmsz", "N_yxmz", "N_yxz", "N_yxms", "N_yxm", "N_yx"),
+  years = "all",
+  numRecent = 15,
+  facet_grid = NULL,
+  facet_wrap = NULL,
+  scales = "fixed",
+  dodge = 0.2,
+  mxy = 15,
+  nrow = 5,
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

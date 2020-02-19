@@ -4,9 +4,14 @@
 \alias{compareFits.ZScores.Abundance}
 \title{Compare z-scores from fitting abundance time series by fleet among several model runs}
 \usage{
-compareFits.ZScores.Abundance(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareFits.ZScores.Abundance(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "discard", "total"),
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}

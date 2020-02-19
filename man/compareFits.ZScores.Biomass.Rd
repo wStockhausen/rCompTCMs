@@ -4,9 +4,14 @@
 \alias{compareFits.ZScores.Biomass}
 \title{Compare z-scores from fitting biomass time series by fleet among several model runs}
 \usage{
-compareFits.ZScores.Biomass(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  pdf = NULL, showPlot = FALSE, verbose = FALSE)
+compareFits.ZScores.Biomass(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "discard", "total"),
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

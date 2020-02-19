@@ -4,9 +4,12 @@
 \alias{extractMDFR.Fits.EffectiveNs}
 \title{Function to extract effective Ns from size comps by year among several models}
 \usage{
-extractMDFR.Fits.EffectiveNs(objs, fleet.type = c("survey", "fishery"),
-  category = c("index", "captured", "discarded", "retained",
-  "discard mortality"), verbose = FALSE)
+extractMDFR.Fits.EffectiveNs(
+  objs,
+  fleet.type = c("survey", "fishery"),
+  category = c("index", "captured", "discarded", "retained", "discard mortality"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

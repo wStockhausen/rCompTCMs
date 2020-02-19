@@ -4,11 +4,19 @@
 \alias{compareData.FleetTimeSeriesABs}
 \title{Compare time series of abundance or biommass data by fleet among several model scenarios}
 \usage{
-compareData.FleetTimeSeriesABs(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  data.type = c("abundance", "biomass"), fleets = "all",
-  sexs = "all", ci = 0.8, numRecent = 15, facets = "fleet~x",
-  scales = "free_y", verbose = FALSE)
+compareData.FleetTimeSeriesABs(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "discard", "total"),
+  data.type = c("abundance", "biomass"),
+  fleets = "all",
+  sexs = "all",
+  ci = 0.8,
+  numRecent = 15,
+  facets = "fleet~x",
+  scales = "free_y",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

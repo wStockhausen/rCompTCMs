@@ -4,8 +4,7 @@
 \alias{extractMDFR.Surveys.AvlFcns}
 \title{Function to extract survey availability functions by year among several models}
 \usage{
-extractMDFR.Surveys.AvlFcns(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Surveys.AvlFcns(objs, cast = "y+x", years = "all", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

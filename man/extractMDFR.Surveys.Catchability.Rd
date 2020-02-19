@@ -4,8 +4,12 @@
 \alias{extractMDFR.Surveys.Catchability}
 \title{Function to extract survey catchabilities}
 \usage{
-extractMDFR.Surveys.Catchability(objs, years = "all", cast = "x",
-  verbose = FALSE)
+extractMDFR.Surveys.Catchability(
+  objs,
+  years = "all",
+  cast = "x",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

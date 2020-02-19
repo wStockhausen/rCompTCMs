@@ -4,9 +4,13 @@
 \alias{extractMDFR.Fisheries.CatchAbundance}
 \title{Function to extract estimated fishery catch abundance by year among several models as a dataframe}
 \usage{
-extractMDFR.Fisheries.CatchAbundance(objs, category = c("captured",
-  "discarded", "retained", "discard mortality", "index"), cast = NULL,
-  years = "all", verbose = FALSE)
+extractMDFR.Fisheries.CatchAbundance(
+  objs,
+  category = c("captured", "discarded", "retained", "discard mortality", "index"),
+  cast = NULL,
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

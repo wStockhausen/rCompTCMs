@@ -4,8 +4,14 @@
 \alias{compareResults.Pop.Quantities}
 \title{Compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs}
 \usage{
-compareResults.Pop.Quantities(objs, showPlot = TRUE, pdf = NULL,
-  width = 8, height = 6, verbose = FALSE)
+compareResults.Pop.Quantities(
+  objs,
+  showPlot = TRUE,
+  pdf = NULL,
+  width = 8,
+  height = 6,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{-  (named list of objects)}

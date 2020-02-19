@@ -4,11 +4,24 @@
 \alias{compareDiffs}
 \title{Function to compare differences of a quantity among several models}
 \usage{
-compareDiffs(dfr, base = 1, diff.type = c("percent", "absolute"),
-  diff.min = 0.001, cast = NULL, facet_grid = NULL,
-  facet_wrap = NULL, nrow = NULL, ncol = NULL, scales = "fixed",
-  dodge = 0.2, title = "", years = "all", showPlot = FALSE,
-  pdf = NULL, verbose = FALSE)
+compareDiffs(
+  dfr,
+  base = 1,
+  diff.type = c("percent", "absolute"),
+  diff.min = 0.001,
+  cast = NULL,
+  facet_grid = NULL,
+  facet_wrap = NULL,
+  nrow = NULL,
+  ncol = NULL,
+  scales = "fixed",
+  dodge = 0.2,
+  title = "",
+  years = "all",
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{dfr}{- dataframe in canonical format}

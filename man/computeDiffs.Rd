@@ -4,8 +4,13 @@
 \alias{computeDiffs}
 \title{Compute diiferences between model cases}
 \usage{
-computeDiffs(x, cast = "type+x+m+s+z+y", base = 1, fun = sum,
-  type = c("percent", "absolute"))
+computeDiffs(
+  x,
+  cast = "type+x+m+s+z+y",
+  base = 1,
+  fun = sum,
+  type = c("percent", "absolute")
+)
 }
 \arguments{
 \item{x}{- dataframe to cast for differences}

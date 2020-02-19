@@ -4,10 +4,14 @@
 \alias{extractMDFR.Fits.BiomassData}
 \title{Extract fits to biomass time series by fleet among several model runs}
 \usage{
-extractMDFR.Fits.BiomassData(objs = NULL, fleet.type = c("survey",
-  "fishery"), catch.type = c("index", "retained", "discard", "total"),
-  ci = 0.8, fishery.pdfType = c("norm2", "normal", "lognormal"),
-  verbose = FALSE)
+extractMDFR.Fits.BiomassData(
+  objs = NULL,
+  fleet.type = c("survey", "fishery"),
+  catch.type = c("index", "retained", "discard", "total"),
+  ci = 0.8,
+  fishery.pdfType = c("norm2", "normal", "lognormal"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}

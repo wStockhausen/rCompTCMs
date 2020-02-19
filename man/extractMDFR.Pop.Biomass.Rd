@@ -4,8 +4,7 @@
 \alias{extractMDFR.Pop.Biomass}
 \title{Function to extract estimated population biomass by year among several models as a dataframe}
 \usage{
-extractMDFR.Pop.Biomass(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Pop.Biomass(objs, cast = "y+x", years = "all", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

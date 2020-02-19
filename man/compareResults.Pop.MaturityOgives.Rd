@@ -4,8 +4,13 @@
 \alias{compareResults.Pop.MaturityOgives}
 \title{Compare predicted maturity ogives among several model runs}
 \usage{
-compareResults.Pop.MaturityOgives(objs, nyrs = 10, pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareResults.Pop.MaturityOgives(
+  objs,
+  nyrs = 10,
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -4,14 +4,17 @@
 \alias{modelComparisons.ModelFits.ACD.Fisheries}
 \title{Render a document of comparison plots for model fits to aggregated fishery abundance/biomass data}
 \usage{
-modelComparisons.ModelFits.ACD.Fisheries(models, plot1stObs = TRUE,
+modelComparisons.ModelFits.ACD.Fisheries(
+  models,
+  plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.ModelFits.ACD.Fisheries.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+  rmd = system.file("rmd/modelComparisons.ModelFits.ACD.Fisheries.Rmd", package =
+    "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

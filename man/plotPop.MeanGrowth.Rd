@@ -4,8 +4,7 @@
 \alias{plotPop.MeanGrowth}
 \title{Plot mean post-molt size for several model runs}
 \usage{
-plotPop.MeanGrowth(mdfr, dodge = 0.2, showPlot = FALSE,
-  verbose = FALSE)
+plotPop.MeanGrowth(mdfr, dodge = 0.2, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

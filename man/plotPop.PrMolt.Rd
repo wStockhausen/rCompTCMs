@@ -4,8 +4,13 @@
 \alias{plotPop.PrMolt}
 \title{Function to plot annual molt probability for immature crab from several model runs}
 \usage{
-plotPop.PrMolt(mdfr, dodge = 0.2, xbnds = NULL, showPlot = TRUE,
-  verbose = FALSE)
+plotPop.PrMolt(
+  mdfr,
+  dodge = 0.2,
+  xbnds = NULL,
+  showPlot = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

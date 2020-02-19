@@ -4,8 +4,14 @@
 \alias{plotPop.RecSizeDistribution}
 \title{Plot recruitment size distributions among several model runs}
 \usage{
-plotPop.RecSizeDistribution(mdfr, dodge = 0.2, xbnds = NULL,
-  showPlot = TRUE, pdf = NULL, verbose = FALSE)
+plotPop.RecSizeDistribution(
+  mdfr,
+  dodge = 0.2,
+  xbnds = NULL,
+  showPlot = TRUE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- melted dataframe}

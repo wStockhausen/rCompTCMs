@@ -4,10 +4,21 @@
 \alias{compareResults.Pop.Biomass}
 \title{Function to compare estimated population biomass by year among several models}
 \usage{
-compareResults.Pop.Biomass(objs, cast = "x", facet_grid = "x~.",
-  facet_wrap = NULL, dodge = 0.2, years = "all", mxy = 15,
-  nrow = 5, lnscale = FALSE, scales = "fixed", showPlot = FALSE,
-  pdf = NULL, verbose = FALSE)
+compareResults.Pop.Biomass(
+  objs,
+  cast = "x",
+  facet_grid = "x~.",
+  facet_wrap = NULL,
+  dodge = 0.2,
+  years = "all",
+  mxy = 15,
+  nrow = 5,
+  lnscale = FALSE,
+  scales = "fixed",
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

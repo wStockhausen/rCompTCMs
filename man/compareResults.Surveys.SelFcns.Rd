@@ -4,10 +4,19 @@
 \alias{compareResults.Surveys.SelFcns}
 \title{Function to compare survey selectivity functions by year among several models}
 \usage{
-compareResults.Surveys.SelFcns(objs, cast = "y+x", surveys = "all",
-  years = "all", dodge = 0.2, mxy = 15, facet_wrap = NULL,
-  facet_grid = "y~x", pdf = NULL, showPlot = FALSE,
-  verbose = FALSE)
+compareResults.Surveys.SelFcns(
+  objs,
+  cast = "y+x",
+  surveys = "all",
+  years = "all",
+  dodge = 0.2,
+  mxy = 15,
+  facet_wrap = NULL,
+  facet_grid = "y~x",
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.SelFcns}}

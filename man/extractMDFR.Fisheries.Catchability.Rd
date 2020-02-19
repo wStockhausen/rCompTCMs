@@ -4,8 +4,12 @@
 \alias{extractMDFR.Fisheries.Catchability}
 \title{Function to extract fishery catchabilities by year using ggplot2}
 \usage{
-extractMDFR.Fisheries.Catchability(objs, years = "all", cast = "x",
-  verbose = FALSE)
+extractMDFR.Fisheries.Catchability(
+  objs,
+  years = "all",
+  cast = "x",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -4,8 +4,12 @@
 \alias{extractMDFR.Fisheries.RetFcns}
 \title{Function to extract fishery retention functions by year among several models}
 \usage{
-extractMDFR.Fisheries.RetFcns(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Fisheries.RetFcns(
+  objs,
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

@@ -4,10 +4,20 @@
 \alias{plotPop.CohortProgression}
 \title{Function to plot cohort progression by year among several models}
 \usage{
-plotPop.CohortProgression(mdfr, facet_grid = NULL, facet_wrap = NULL,
-  dodge = 0.2, years = NULL, mxy = 4, nrow = 2, lnscale = FALSE,
-  scales = "fixed", types = c("progression", "byyear"),
-  showPlot = FALSE, verbose = FALSE)
+plotPop.CohortProgression(
+  mdfr,
+  facet_grid = NULL,
+  facet_wrap = NULL,
+  dodge = 0.2,
+  years = NULL,
+  mxy = 4,
+  nrow = 2,
+  lnscale = FALSE,
+  scales = "fixed",
+  types = c("progression", "byyear"),
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{mdfr}{- melted data.frame with cohort progressions}

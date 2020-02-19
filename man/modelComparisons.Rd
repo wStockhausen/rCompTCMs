@@ -5,21 +5,27 @@
 \alias{modelComparisons}
 \title{Render a document of model comparison plots}
 \usage{
-modelComparisons(models, plot1stObs = TRUE,
+modelComparisons(
+  models,
+  plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
-  output_dir = getwd(), rmd = system.file("rmd/modelComparisons.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+  output_dir = getwd(),
+  rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 
-modelComparisons(models, plot1stObs = TRUE,
+modelComparisons(
+  models,
+  plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
-  output_dir = getwd(), rmd = system.file("rmd/modelComparisons.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+  output_dir = getwd(),
+  rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
@@ -39,24 +45,6 @@ modelComparisons(models, plot1stObs = TRUE,
 \item{clean}{- T/F to delete intermediate files}
 
 \item{rmd_dir}{- folder enclosing rmd file}
-
-\item{models}{- named list of model results (as resLst objects) to compare}
-
-\item{plot1stObs}{- flag to plot observed data only from first model}
-
-\item{output_format}{- "word_document" or "pdf_document"}
-
-\item{output_dir}{- path to folder to use for output}
-
-\item{rmd_dir}{- folder enclosing rmd file}
-
-\item{rmd}{- Rmd file to process (defalut="modelComparisons.Rmd")}
-
-\item{docx_styles}{- full path to Word (docx) style template for Word documents}
-
-\item{pdf_styles}{- full path to style template for pdf documents}
-
-\item{clean}{- T/F to delete intermediate files}
 }
 \description{
 Function to render a document of model comparison plots

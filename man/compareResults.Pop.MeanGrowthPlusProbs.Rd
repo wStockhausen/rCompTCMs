@@ -4,8 +4,14 @@
 \alias{compareResults.Pop.MeanGrowthPlusProbs}
 \title{Compare mean and probability of post-molt size among several model runs}
 \usage{
-compareResults.Pop.MeanGrowthPlusProbs(objs, scale = 10, zbnds = c(25,
-  185), showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareResults.Pop.MeanGrowthPlusProbs(
+  objs,
+  scale = 10,
+  zbnds = c(25, 185),
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

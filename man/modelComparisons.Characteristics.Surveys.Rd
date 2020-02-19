@@ -4,15 +4,21 @@
 \alias{modelComparisons.Characteristics.Surveys}
 \title{Render a document of comparison plots of estimated survey characteristics from several models}
 \usage{
-modelComparisons.Characteristics.Surveys(models, surveys = "all",
-  selYears = c(1975, 1982, 1988), avlYears = NULL, capYears = c(1975,
-  1982, 1988), mxy = 5, output_format = c("word_document",
-  "pdf_document"), output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",
-  package = "rCompTCMs"),
-  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package =
-  "wtsUtilities"), pdf_styles = system.file("rmd/StylesForRmdPDFs.sty",
-  package = "wtsUtilities"), clean = FALSE)
+modelComparisons.Characteristics.Surveys(
+  models,
+  surveys = "all",
+  selYears = c(1975, 1982, 1988),
+  avlYears = NULL,
+  capYears = c(1975, 1982, 1988),
+  mxy = 5,
+  output_format = c("word_document", "pdf_document"),
+  output_dir = getwd(),
+  rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd", package
+    = "rCompTCMs"),
+  docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
+  pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}

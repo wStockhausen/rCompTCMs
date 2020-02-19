@@ -4,8 +4,12 @@
 \alias{extractMDFR.Fisheries.SelFcns}
 \title{Function to compare fishery selectivity functions by year among several models}
 \usage{
-extractMDFR.Fisheries.SelFcns(objs, cast = "y+x", years = "all",
-  verbose = FALSE)
+extractMDFR.Fisheries.SelFcns(
+  objs,
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

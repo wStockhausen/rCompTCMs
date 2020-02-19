@@ -4,10 +4,21 @@
 \alias{compareResults.Pop.CohortProgression}
 \title{Function to compare cohort progression by year among several models}
 \usage{
-compareResults.Pop.CohortProgression(objs, cast = "x+m+s+z",
-  facet_grid = NULL, facet_wrap = NULL, dodge = 0.2, years = NULL,
-  mxy = 4, nrow = 2, lnscale = FALSE, scales = "fixed",
-  showPlot = FALSE, pdf = NULL, verbose = FALSE)
+compareResults.Pop.CohortProgression(
+  objs,
+  cast = "x+m+s+z",
+  facet_grid = NULL,
+  facet_wrap = NULL,
+  dodge = 0.2,
+  years = NULL,
+  mxy = 4,
+  nrow = 2,
+  lnscale = FALSE,
+  scales = "fixed",
+  showPlot = FALSE,
+  pdf = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}

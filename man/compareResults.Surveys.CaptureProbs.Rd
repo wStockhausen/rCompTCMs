@@ -4,10 +4,19 @@
 \alias{compareResults.Surveys.CaptureProbs}
 \title{Function to compare survey capture probability functions (Q_vyxmsz) by year among several models}
 \usage{
-compareResults.Surveys.CaptureProbs(objs, cast = "y+x",
-  surveys = "all", years = "all", dodge = 0.2, mxy = 15,
-  facet_wrap = NULL, facet_grid = "y~x", pdf = NULL,
-  showPlot = FALSE, verbose = FALSE)
+compareResults.Surveys.CaptureProbs(
+  objs,
+  cast = "y+x",
+  surveys = "all",
+  years = "all",
+  dodge = 0.2,
+  mxy = 15,
+  facet_wrap = NULL,
+  facet_grid = "y~x",
+  pdf = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.CaptureProbs}}
