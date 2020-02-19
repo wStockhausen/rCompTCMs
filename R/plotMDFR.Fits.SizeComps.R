@@ -43,7 +43,7 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
     if(!is.null(pdf)){
         cat("Creating pdf:",pdf,"\n");
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 

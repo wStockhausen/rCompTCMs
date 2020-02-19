@@ -29,7 +29,7 @@ compareFits.GrowthData<-function(objs,
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
@@ -47,12 +47,12 @@ compareFits.GrowthData<-function(objs,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
-    
+
     if (is.null(mdfr)) {
         cat("\n \nNo fits to growth data.\n \n")
         return(NULL);
     }
-    
+
     mdfr$z<-as.numeric(mdfr$z)
     mdfr$case<-factor(mdfr$case,levels=cases);
     mdfr$y<-as.character(mdfr$y);

@@ -3,7 +3,7 @@
 #'
 #'@description This function compares differences of a quantity
 #'   among several models.
-#'   
+#'
 #'@param dfr - dataframe in canonical format
 #'@param diff.type - "percent" or "absolute"
 #'@param diff.min - minimum difference to show
@@ -14,15 +14,15 @@
 #'@param dodge - width to dodge overlapping series
 #'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
-#'@param ncol - number of columns per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
+#'@param ncol - number of columns per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return list of ggplot2 objects
 #'
-#'@details If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced. 
+#'@details If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
 #'If 'z' is a cast'ing factor but not 'y', 'z' will be used as the x axis. Otherwise,
 #'a set of time series plots are produced.
 #'
@@ -48,22 +48,22 @@ compareDiffs<-function(dfr,
                        verbose=FALSE){
     if (verbose) cat("--starting rCompTCMs::compareDiffs().\n");
     options(stringsAsFactors=FALSE);
-    
+
     diff.type<-diff.type[1];
-    
+
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareDiffs()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");
         return(NULL);
     }
-    
+
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
-    
+
     if (is.numeric(years)) dfr<-dfr[dfr$y %in% years,];
 
     cases<-unique(as.character(dfr$case));

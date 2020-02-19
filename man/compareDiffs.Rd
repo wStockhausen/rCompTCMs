@@ -62,7 +62,7 @@ This function compares differences of a quantity
   among several models.
 }
 \details{
-If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced. 
+If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
 If 'z' is a cast'ing factor but not 'y', 'z' will be used as the x axis. Otherwise,
 a set of time series plots are produced.
 }

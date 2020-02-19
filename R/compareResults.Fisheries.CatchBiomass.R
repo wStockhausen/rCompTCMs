@@ -3,7 +3,7 @@
 #'
 #'@description This function compares estimated fishery catch biomass by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param category - 'captured','discarded','retained','discard mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (x,m,s,z)
@@ -13,7 +13,7 @@
 #'@param dodge - width to dodge overlapping series
 #'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -42,26 +42,26 @@ compareResults.Fisheries.CatchBiomass<-function(objs,
                                            verbose=FALSE){
     if (verbose) cat("--starting rCompTCMs::compareResults.Fisheries.CatchBiomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Fisheries.CatchBiomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");
         return(NULL);
     }
-    
+
     category<-category[1];
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
     mdfr<-extractMDFR.Fisheries.CatchBiomass(objs,category=category,cast=cast,years=years,verbose=verbose)
-    
+
     #----------------------------------
     #fishery catch biomass
     #----------------------------------

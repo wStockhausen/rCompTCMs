@@ -41,7 +41,7 @@ compareFits.EffectiveNs<-function(objs=NULL,
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 

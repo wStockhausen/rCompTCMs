@@ -20,6 +20,8 @@ computeDiffs(
 \item{base}{- name (or number) of case to use as base}
 
 \item{fun}{- aggregation function}
+
+\item{type}{- type of difference ("absolute" or "percent")}
 }
 \value{
 dataframe

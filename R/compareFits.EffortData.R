@@ -27,10 +27,10 @@ compareFits.EffortData<-function(objs,
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
@@ -45,14 +45,14 @@ compareFits.EffortData<-function(objs,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
-    
+
     if (is.null(mdfr)) {
         cat("\n \nNo fits to effort data.\n \n")
         return(NULL);
     }
-    
+
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     pd<-position_dodge(width=dodge);
     pcs<-unique(mdfr$pc);
     plots<-list();
@@ -103,6 +103,6 @@ compareFits.EffortData<-function(objs,
     if (showPlot) print(p);
     cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to effort in the ",fsh,".\n   \n")
     plots[[cap]]<-p;
-        
+
     return(plots);
 }

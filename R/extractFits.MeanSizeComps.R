@@ -1,7 +1,7 @@
 #'
 #'@title Extract fits to mean size comps by fleet among several model runs
 #'
-#'@description Function to extract fits to mean size comps by fleet among 
+#'@description Function to extract fits to mean size comps by fleet among
 #'several model runs.
 #'
 #' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -30,10 +30,10 @@ extractFits.MeanSizeComps<-function(objs=NULL,
                                     ci=0.80,
                                     plot1stObs=TRUE,
                                     verbose=FALSE){
-    
+
     if (verbose) cat("Starting rCompTCMs::extractFits.MeanSizeComps().\n");
     options(stringsAsFactors=FALSE);
-    
+
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
@@ -44,7 +44,7 @@ extractFits.MeanSizeComps<-function(objs=NULL,
     if (catch.type=='index')    type<-'prNatZ_yxmz';
     if (catch.type=='retained') type<-'prNatZ.ret';
     if (catch.type=='total')    type<-'prNatZ.tot';
-    
+
     #get annual size comps
     mdfr<-rCompTCMs::extractFits.SizeComps(objs,
                                            fleet.type=fleet.type,
@@ -54,8 +54,8 @@ extractFits.MeanSizeComps<-function(objs=NULL,
                                            verbose=verbose);
 
     #compute averages over years
-    dfr1<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=mean,  na.rm=TRUE,value.var="val")
-    dfr2<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=sd,    na.rm=TRUE,value.var="val");
+    dfr1<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=mean,     na.rm=TRUE,value.var="val")
+    dfr2<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=stats::sd,na.rm=TRUE,value.var="val");
     dfr3<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=length,value.var="val");
     names(dfr1)[10]<-'val';
     names(dfr2)[10]<-'sd';

@@ -25,18 +25,18 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
 
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
-    
+
     mdfr<-extractMDFR.Pop.RecSizeDistribution(objs,verbose)
-    
+
     #-------------------------------------------#
     #plot recruitment size distribution
     #-------------------------------------------#
@@ -46,9 +46,9 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
     p <- p + geom_point(position=pd);
     p <- p + ylim(c(0,NA));
     p <- p + labs(x="size (mm CW)",y="recruitment size distribution");
-    
+
     if (showPlot) print(p);
-    
+
     if (verbose) cat("--finished rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     return(p);
 }

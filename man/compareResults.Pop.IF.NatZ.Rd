@@ -34,7 +34,7 @@ This function compares initial/final population abundance estimates
   among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+uses \code{rTCSAM2013::getMDFR.PopQuantities},
+\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and
 \code{plotMDFR.XY}.
 }

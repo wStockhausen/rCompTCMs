@@ -3,7 +3,7 @@
 #'
 #'@description This function compares initial/final population abundance estimates
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param type - type of abuundance ("iN_xmsz","fN_xmsz")
 #'@param dodge - width to dodge overlapping series
@@ -13,8 +13,8 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+#'@details uses \code{rTCSAM2013::getMDFR.PopQuantities},
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and
 #'\code{plotMDFR.XY}.
 #'
 #'@import ggplot2
@@ -29,20 +29,20 @@ compareResults.Pop.IF.NatZ<-function(objs,
                                      verbose=FALSE){
     if (verbose) cat("Strating rCompTCMs::compareResults.Pop.IF.NatZ().\n");
     options(stringsAsFactors=FALSE);
-    
+
     type<-type[1];
     types<-c("iN_xmsz","fN_xmsz");
     if (!(type %in% types)){
         cat("rCompTCMs::compareResults.Pop.IF.NatZ: Unknown type requested: '",type[1],"'.\n",sep='');
         return(NULL);
     }
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
@@ -59,7 +59,7 @@ compareResults.Pop.IF.NatZ<-function(objs,
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$z<-as.numeric(mdfr$z);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
         #plot size comps by year
         if (verbose) cat("Plotting size comps\n")
     if (type=='iN_xmsz') ylab<-'Initial Population Abundance\n';

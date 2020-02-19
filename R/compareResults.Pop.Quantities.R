@@ -25,15 +25,16 @@ compareResults.Pop.Quantities<-function(objs,
                                         height=6,
                                         verbose=FALSE){
     options(stringsAsFactors=FALSE);
-  
+
     #set up pdf device, if requested
     if (!is.null(pdf)){
         pdf(file=pdf,width=width,height=height);
-        on.exit(dev.close())
+        on.exit(grDevices::dev.off());
+        showPlot<-TRUE;
     }
-  
+
     cases<-names(objs);
-    
+
     plots<-list();
 
     #----------------------------------
@@ -61,7 +62,7 @@ compareResults.Pop.Quantities<-function(objs,
     p<-compareResults.Pop.IF.NatZ(objs,type="iN_xmsz",verbose=verbose);
     if (showPlot||!is.null(pdf)) print(p);
     plots$iN_xmsz<-p;
-    
+
     #----------------------------------
     #final size distribution
     #----------------------------------
@@ -69,6 +70,6 @@ compareResults.Pop.Quantities<-function(objs,
     p<-compareResults.Pop.IF.NatZ(objs,type="fN_xmsz",verbose=verbose);
     if (showPlot||!is.null(pdf)) print(p);
     plots$fN_xmsz<-p;
-    
+
     return(plots);
 }

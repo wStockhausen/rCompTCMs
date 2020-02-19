@@ -40,7 +40,7 @@ This function compares population numbers-at-size estimates by year
   using line plots among several models.
 }
 \details{
-uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and
 \code{plotMDFR.XY}.
 }

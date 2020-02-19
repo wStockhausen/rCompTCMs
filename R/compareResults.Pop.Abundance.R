@@ -3,7 +3,7 @@
 #'
 #'@description This function compares estimated population abundance by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param cast - casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
 #'@param facet_grid - formula for faceting using facet_grid
@@ -11,7 +11,7 @@
 #'@param dodge - width to dodge overlapping series
 #'@param years - 'all' or vector of years to include
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param lnscale - use log scale on y axis
 #'@param scales - scales parameter for facet_grid/facet_wrap
 #'@param showPlot - flag (T/F) to show plot
@@ -22,7 +22,7 @@
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
 #'a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
-#'\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
+#'\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and
 #'cast to aggregate. This differs from \code{compareResults.Pop.Abundance1}.
 #'
 #'@import ggplot2
@@ -44,24 +44,24 @@ compareResults.Pop.Abundance<-function(objs,
                                        verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.Pop.Abundance().\n");
     options(stringsAsFactors=FALSE);
-    
+
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Pop.Abundance()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");
         return(NULL);
     }
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
     mdfr<-extractMDFR.Pop.Abundance(objs,cast=cast,years=years,verbose=verbose);
-    
+
     #----------------------------------
     #population abundance
     #----------------------------------

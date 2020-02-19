@@ -1,22 +1,28 @@
 Package: rCompTCMs
 Type: Package
 Title: Package to compare TCSAM02, rsimTCSAM, and TCSAM2013 model runs
-Version: 2019.09.06
-Date: 2019-09-06
+Version: 2020.02.19
+Date: 2020-02-19
 Author: William Stockhausen (NOAA/NMFS/AFSC)
 Maintainer: William Stockhausen <william.stockhausen@noaa.gov>
-Description: Contains functions to to compare TCSAM02, rsimTCSAM, and TCSAM2013 model runs
-License: MIT
+Description: Contains functions to to compare TCSAM02, rsimTCSAM, and TCSAM2013 model runs.
+License: MIT + file LICENSE
 Suggests:
     rTCSAM2013 (>= 2017.07.18)
-Requires:
-    rTCSAM02 (>= 2019.04.03),
-    ggplot2 (>= 2.0.0),
-    reshape2 (>= 1.4.1),
-    tables,
-    wtsUtilities (>=2018.03.13)
+Depends:
+    R (>= 3.1.2)
 Imports:
     ggplot2 (>= 2.0.0),
+    grDevices,
+    Hmisc,
     reshape2 (>= 1.4.1),
-    tables
+    rmarkdown,
+    rTCSAM02 (>= 2019.04.03),
+    sqldf,
+    stats,
+    stringr,
+    tables,
+    utils,
+    wtsPlots,
+    wtsUtilities (>= 2018.03.13)
 RoxygenNote: 7.0.2

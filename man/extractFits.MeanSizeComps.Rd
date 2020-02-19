@@ -39,7 +39,7 @@ extractFits.MeanSizeComps(
 dataframe in canonical format
 }
 \description{
-Function to extract fits to mean size comps by fleet among 
+Function to extract fits to mean size comps by fleet among
 several model runs.
 }
 \details{

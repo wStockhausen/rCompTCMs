@@ -3,7 +3,7 @@
 #'
 #'@description This function compares estimated survey biomass by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param cast - cast'ing formula for aggregating by factors (y,x,m,s,z)
 #'@param years - 'all' or vector of years to include
@@ -12,7 +12,7 @@
 #'@param scales - parameter passed to ggplot2::facet_grid()
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
-#'@param nrow - number of rows per page, when facet_wrap'ing 
+#'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -41,26 +41,26 @@ compareResults.Surveys.Biomass<-function(objs,
                                          verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Biomass().\n");
     options(stringsAsFactors=FALSE);
-    
+
     if (is.null(cast)){
         cat("Error in rCompTCMs::compareResults.Surveys.Biomass()\n");
         cat("Must supply a 'cast' formula!\nReturning NULL.\n");
         return(NULL);
     }
-    
+
     category<-"index";
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
     mdfr<-extractMDFR.Surveys.Biomass(objs,category=category,cast=cast,years=years,verbose=verbose);
-    
+
     #----------------------------------
     #survey biomass
     #----------------------------------
@@ -91,7 +91,7 @@ compareResults.Surveys.Biomass<-function(objs,
                                 mdfrpp$y<-as.character(mdfrpp$y);
                                 p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
                                                facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
-                                               xlab='size (mm CW)',ylab='Survey Biomass',units="1000's t",lnscale=lnscale,
+                                               xlab='size (mm CW)',ylab='Survey Biomass',units="1000's t",lnscale=FALSE,
                                                title=f,
                                                colour='case',guideTitleColor='',
                                                shape='case',guideTitleShape='',

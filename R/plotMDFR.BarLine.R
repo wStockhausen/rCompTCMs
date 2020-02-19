@@ -66,7 +66,7 @@ plotMDFR.BarLine<-function(mdfr,
         nms[nms==value.var]<-'.';
         colnames(mdfr)<-nms;
     }
-    
+
     #setp up labels
     ylb<-ylab;
     if (units!='') ylb<-paste(ylab," (",units,")",sep='')
@@ -75,11 +75,12 @@ plotMDFR.BarLine<-function(mdfr,
         ylb<-paste(ylab," (ln-scale)",sep='')
         if (units!='') ylb<-paste(ylab," (",units,", ln-scale)",sep='')
     }
-    
+
     #plot resulting dataframe
+    ms_sc<-"ms_sc";
     p <- ggplot(aes_string(x=x,y='.',colour=colour,fill=fill,linetype=linetype,shape=shape),data=mdfr);
-    p <- p + geom_bar(aes(x=x,y='.',fill=ms_sc),data=mdfr[mdfr$modeltype=='rsim'],stat="identity",position='identity',alpha=0.5);
-    p <- p + geom_line(aes(x=x,y='.',colour=ms_sc),data=dfrp[(dfrp$modeltype=='tcsam'),],size=1);
+    p <- p + geom_bar(aes_string(x=x,y='.',fill=ms_sc),data=mdfr[mdfr$modeltype=='rsim'],stat="identity",position='identity',alpha=0.5);
+    p <- p + geom_line(aes_string(x=x,y='.',colour=ms_sc),data=mdfr[(mdfr$modeltype=='tcsam'),],size=1);
     print(p);
     if (!is.null(xlab))     p <- p + xlab(xlab);
     if (!is.null(ylb))      p <- p + ylab(ylb);
@@ -88,7 +89,7 @@ plotMDFR.BarLine<-function(mdfr,
     if (!is.null(guideTitleColour))   p <- p + guides(colour=guide_legend(title=guideTitleColour,  override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleFill))     p <- p + guides(fill=guide_legend(title=guideTitleFill,      override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleLineType)) p <- p + guides(linetype=guide_legend(title=guideTitleLineType,override.aes=list(alpha=1.0,size=6,order=1)));
-    if (!is.null(guideTitleShape))    p <- p + guides(shape=guide_legend(title=guideTitleShape,   override.aes=list(alpha=1.0,size=6,order=1)));
+    if (!is.null(guideTitleShape))    p <- p + guides(shape=guide_legend(title=guideTitleShape,      override.aes=list(alpha=1.0,size=6,order=1)));
     if (showPlot) print(p);
     return(p)
 }

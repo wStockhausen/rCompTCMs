@@ -25,25 +25,19 @@ compareResults.Pop.Processes<-function(objs,
                                        height=6,
                                        verbose=FALSE){
     options(stringsAsFactors=FALSE);
-  
+
     #set up pdf device, if requested
     if (!is.null(pdf)){
         pdf(file=pdf,width=width,height=height);
-        on.exit(dev.close());
-    }
-    
-    cases<-names(objs);
-    
-    #create pdf, if necessary
-    if(!is.null(pdf)){
-        pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
-    
+
+    cases<-names(objs);
+
     plots<-list();#output list
     figno<-1;
-    
+
     #-------------------------------------------#
     #plot natural mortality
     #-------------------------------------------#
@@ -83,6 +77,6 @@ compareResults.Pop.Processes<-function(objs,
     cap<-paste0("  \n  \nFigure &&fno. Estimated/assumed size distribution at recruitment to the model.  \n  \n");
     if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
     plots[[cap]]<-p; p<-NULL;
-    
+
     return(invisible(plots));
 }

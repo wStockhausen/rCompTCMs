@@ -59,7 +59,7 @@ compareResults.Pop.Biomass1<-function(objs,
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
@@ -82,7 +82,7 @@ compareResults.Pop.Biomass1<-function(objs,
 
     if (sum(grep('z',type,fixed=TRUE))==0){
         if (is.null(facet_grid)) facet_grid <- fgs[types == type];
-        facet_grid <- as.formula(facet_grid);
+        facet_grid <- stats::as.formula(facet_grid);
         #----------------------------------
         #biomass by year
         #----------------------------------

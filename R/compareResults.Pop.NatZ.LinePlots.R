@@ -3,7 +3,7 @@
 #'
 #'@description This function compares population numbers-at-size estimates by year
 #'   using line plots among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param type - type of abuundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz","fN_xmsz")
 #'@param dodge - width to dodge overlapping series
@@ -15,8 +15,8 @@
 #'
 #'@return ggplot2 object
 #'
-#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities}, 
-#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and 
+#'@details uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+#'\code{rsimTCSAM::getMDFR.Pop.Quantities}, \code{rsimTCSAM::getMDFR.Pop.Quantities}, and
 #'\code{plotMDFR.XY}.
 #'
 #'@import ggplot2
@@ -27,19 +27,19 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
                                             type=c("N_yxmsz","N_yxmz","N_yxz",
                                                    "iN_xmsz","fN_xmsz"),
                                             dodge=0.2,
-                                            ncol=3,nrow=5, 
+                                            ncol=3,nrow=5,
                                             showPlot=FALSE,
                                             pdf=NULL,
                                             verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.NatZ.LinePlots().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
@@ -48,7 +48,7 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
         cat("rCompTCMs::compareResults.Pop.NatZ.LinePlots: Unknown type requested: '",type[1],"'.\n",sep='');
         return(NULL);
     }
-    
+
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
@@ -65,7 +65,7 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
     mdfr$s<-as.character(mdfr$s);
     mdfr$z<-as.numeric(mdfr$z);
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     #----------------------------------
     #abundance by year
     #----------------------------------
@@ -138,7 +138,7 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
         plots$lnA<-p;
     }
 
-    
+
     if (verbose) cat("rCompTCMs::compareResults.Pop.NatZ.LinePlots: Done!\n");
     return(plots)
 }

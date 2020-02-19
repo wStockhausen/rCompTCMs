@@ -3,7 +3,7 @@
 #'
 #'@description This function compares recruitment estimates by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param numRecent - number of "recent" years to plot
 #'@param dodge - width to dodge overlapping series
@@ -27,20 +27,20 @@ compareResults.Pop.Recruitment<-function(objs,
                                           verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.Recruitment().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
     mdfr<-extractMDFR.Pop.Recruitment(objs,verbose=verbose);
-    
+
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
-    
+
     #----------------------------------
     #recruitment
     #----------------------------------
@@ -61,7 +61,7 @@ compareResults.Pop.Recruitment<-function(objs,
     if (showPlot||!is.null(pdf)) print(p);
     cap1<-"  \n  \nFigure &&figno. Estimated recent recruitment.  \n  \n";
     plots[[cap1]]<-p;
-    
+
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
                    dodge=dodge,

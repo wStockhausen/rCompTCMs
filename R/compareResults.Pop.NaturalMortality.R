@@ -3,7 +3,7 @@
 #'
 #'@description This function plots natural mortality estimates by year,
 #'   sex and maturity state.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
 #'@param pdf - creates pdf, if not NULL
@@ -24,18 +24,18 @@ compareResults.Pop.NaturalMortality<-function(objs,
                                               showPlot=FALSE,
                                               verbose=FALSE){
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
     mdfr<-extractMDFR.Pop.NaturalMortality(objs,verbose=verbose);
-    
+
     #----------------------------------
     # plot natural mortality rates by year
     #----------------------------------
@@ -50,7 +50,7 @@ compareResults.Pop.NaturalMortality<-function(objs,
     p <- p + facet_grid(m+s~x);
     p <- p + ylim(c(0,NA));
     if (showPlot) print(p);
-    
+
     plots<-list();
     cap1<-"  \n  \nFigure &&figno. Estimated natural mortality rates, by year.  \n  \n";
     plots[[cap1]]<-p;

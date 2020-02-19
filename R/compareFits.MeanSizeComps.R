@@ -53,7 +53,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
 
@@ -110,7 +110,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
         p <- p + geom_errorbar(aes(x=z,ymin=lci,ymax=uci,colour=case),data=dfrp[dfrp$type=='predicted',],position='identity')
         p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
         p <- p + labs(x=xlab,y=ylab)
-        p <- p + facet_grid(as.formula(facet_grid),scales=scales)
+        p <- p + facet_grid(stats::as.formula(facet_grid),scales=scales)
         ttl<-paste0(fleet);
         if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
         p <- p + ggtitle(ttl)

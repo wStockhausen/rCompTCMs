@@ -23,7 +23,7 @@
 #'
 compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
                                                       dodge=0.2,
-                                                      ncol=3,nrow=5, 
+                                                      ncol=3,nrow=5,
                                                       showPlot=FALSE,
                                                       pdf=NULL,
                                                       verbose=FALSE){
@@ -32,16 +32,16 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
     #create pdf, if necessary
     if (!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
-        on.exit(dev.off());
+        on.exit(grDevices::dev.off());
         showPlot<-TRUE;
     }
-    
+
     cases<-names(objs);
-    
+
     mdfr<-extractMDFR.Pop.GrowthMatrices(objs,verbose);
     mdfr$z<-floor(mdfr$z);
     mdfr$z<-factor(mdfr$z,levels=as.character(sort(unique(mdfr$z))));
-    
+
     #----------------------------------
     # plot growth transition matrices
     #----------------------------------
@@ -96,7 +96,7 @@ compareResults.Pop.GrowthMatrices.LinePlots<-function(objs,
             }#pg
         }#y
     }
-    
+
     if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices.LinePlots().\n")
     return(plots);
 }
