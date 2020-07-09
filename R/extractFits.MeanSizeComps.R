@@ -5,6 +5,7 @@
 #'several model runs.
 #'
 #' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
 #' @param  years - years to plot, as numerical vector (or "all" to plot all years)
@@ -24,6 +25,7 @@
 #'@export
 #'
 extractFits.MeanSizeComps<-function(objs=NULL,
+                                    fleets="all",
                                     fleet.type=c('survey','fishery'),
                                     catch.type=c('index','retained','discard','total'),
                                     years='all',
@@ -47,6 +49,7 @@ extractFits.MeanSizeComps<-function(objs=NULL,
 
     #get annual size comps
     mdfr<-rCompTCMs::extractFits.SizeComps(objs,
+                                           fleets=fleets,
                                            fleet.type=fleet.type,
                                            catch.type=catch.type,
                                            years=years,

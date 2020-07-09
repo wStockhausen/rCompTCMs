@@ -19,6 +19,7 @@
 #'@export
 #'
 extractFits.SizeComps<-function(objs=NULL,
+                                 fleets="all",
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
                                   years='all',
@@ -27,7 +28,7 @@ extractFits.SizeComps<-function(objs=NULL,
 
     if (verbose) {
         cat("Starting rCompTCMs::extractFits.SizeComps().\n");
-        cat("Extracting fleet.type = ",fleet.type,", catch.type = ",catch.type,"\n");
+        cat("Extracting fleet.type = ",fleet.type,", catch.type = ",catch.type,"for",fleets,"\n");
     }
     options(stringsAsFactors=FALSE);
 
@@ -68,8 +69,11 @@ extractFits.SizeComps<-function(objs=NULL,
             mdfr1$z<-mdfr1$z+0.5;
         }
         if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+            if (fleets!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if (nrow(mdfr1)>0){
+                mdfr1$case<-case;
+                mdfr<-rbind(mdfr,mdfr1);
+            }
         }
     }
     mdfr$case<-factor(mdfr$case,levels=cases);

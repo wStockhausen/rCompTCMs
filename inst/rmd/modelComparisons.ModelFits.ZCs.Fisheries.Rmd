@@ -3,6 +3,7 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
+    fleets: "all"
     title: "Tanner Crab Model Fits to Fishery Size Composition Data" 
     plot1stObs: TRUE
     doc_type: "pdf"
@@ -24,6 +25,7 @@ title: '`r params$title`'
 ```{r setupModelFits.FisheryZCs, include=FALSE}
     ##input model list
     Models<-params$Models;
+    fleets<-params$fleets;
     doc_type<-params$doc_type;
     plot1stObs<-params$plot1stObs;
     
@@ -49,6 +51,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.MeanFisheryRetainedCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleets=fleets,
                                              fleet.type="fishery",
                                              catch.type="retained",
                                              facet_grid="x+m+s~.",
@@ -68,6 +71,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.FisheryMeanTotalCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
+                                             fleets=fleets,
                                              fleet.type="fishery",
                                              catch.type="total",
                                              plot1stObs=plot1stObs,
@@ -85,6 +89,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.FisheryRetainedCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
+                                              fleets=fleets,
                                               fleet.type="fishery",
                                               catch.type="retained",
                                               residuals.type='pearsons',
@@ -99,6 +104,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleets=fleets,
                                            fleet.type="fishery",
                                            category="retained",
                                            showPlot=FALSE,
@@ -112,6 +118,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.FisheryTotalCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
+                                              fleets=fleets,
                                               fleet.type="fishery",
                                               catch.type="total",
                                               residuals.type='pearsons',
@@ -126,6 +133,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 ```{r plotFits.TotalCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
+                                           fleets=fleets,
                                            fleet.type="fishery",
                                            category="total",
                                            showPlot=FALSE,

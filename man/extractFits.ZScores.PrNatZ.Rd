@@ -6,6 +6,7 @@
 \usage{
 extractFits.ZScores.PrNatZ(
   objs = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "total"),
   residuals.type = c("pearsons", "nlls"),
@@ -14,6 +15,10 @@ extractFits.ZScores.PrNatZ(
 )
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
+
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 
 \item{catch.type}{- catch type ('index','retained',or 'total')}
@@ -23,8 +28,6 @@ extractFits.ZScores.PrNatZ(
 \item{tcsam2013.type}{- pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 dataframe in format for \code{compareFits.ZScores.PrNatZ}.

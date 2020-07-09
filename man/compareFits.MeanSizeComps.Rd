@@ -7,6 +7,7 @@
 compareFits.MeanSizeComps(
   objs = NULL,
   mdfr = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "discard", "total"),
   years = "all",
@@ -23,6 +24,8 @@ compareFits.MeanSizeComps(
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 
 \item{mdfr}{- melted dataframe from call to \code{extractFits.MeanSizeComps} (as alternative to objs)}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 

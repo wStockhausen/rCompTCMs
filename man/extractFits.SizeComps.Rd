@@ -6,6 +6,7 @@
 \usage{
 extractFits.SizeComps(
   objs = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "discard", "total"),
   years = "all",

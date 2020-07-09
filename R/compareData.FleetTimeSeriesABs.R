@@ -10,8 +10,11 @@
 #'@param data.type - data type ('abundance' or 'biomass')
 #'@param fleets - vector of names of fleets to plot (or 'all')
 #'@param sexs - vector of sexes to plot (or 'all')
+#'@param maturity_states - vector of maturity states to plot (or 'all')
+#'@param shell_conditions - vector of shell conditions to plot (or 'all')
 #'@param ci - confidence interval for plots
 #'@param numRecent - number of years for 'recent' plot
+#'@param ylims - limits for y axis (default is NULL)
 #'@param facets - grid faceting formula
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -30,8 +33,11 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                       data.type=c('abundance','biomass'),
                                       fleets="all",
                                       sexs="all",
+                                      maturity_states="all",
+                                      shell_conditions="all",
                                       ci=0.80,
                                       numRecent=15,
+                                      ylims=NULL,
                                       facets="fleet~x",
                                       scales="free_y",
                                       verbose=FALSE){
@@ -64,8 +70,14 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
+    if (fleets[1]          =="all") fleets          <-unique(mdfr$f);
+    if (sexs[1]            =="all") sexs            <-unique(mdfr$x);
+    if (maturity_states[1] =="all") maturity_states <-unique(mdfr$m);
+    if (shell_conditions[1]=="all") shell_conditions<-unique(mdfr$s);
     mdfr<-mdfr[mdfr$f %in% fleets,];
     mdfr<-mdfr[mdfr$x %in% sexs,];
+    mdfr<-mdfr[mdfr$m %in% maturity_states,];
+    mdfr<-mdfr[mdfr$s %in% shell_conditions,];
     mdfr$case<-factor(mdfr$case,levels=cases);
     mdfr$y<-as.numeric(mdfr$y);
     mdfr$x[mdfr$x=='all']<-'all sex';
@@ -83,14 +95,14 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
     if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1"; cap2<-"2";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
-        ylab<-"Survey biomass (&&data)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey &&data by fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted survey &&data by fleet. Recent time period.  \n  \n";
+        ylab<-"Survey &&type (&&data)";
+        cap1<-"  \n  \nFigure &&fno. Comparison of observed survey &&data by fleet.  \n  \n";
+        cap2<-"  \n  \nFigure &&fno. Comparison of observed survey &&data by fleet. Recent time period.  \n  \n";
     }
     if ((catch.type=="index")&&(fleet.type=="fishery")) {
         ylab<-"Fishery CPUE (&&data)";
-        cap1<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch &&data (CPUE)  by fleet.  \n  \n";
-        cap2<-"  \n  \nFigure &&fno. Comparison of observed and predicted index catch &&data (CPUE)  by fleet. Recent time period.  \n  \n";
+        cap1<-"  \n  \nFigure &&fno. Comparison of observed index catch &&data (CPUE)  by fleet.  \n  \n";
+        cap2<-"  \n  \nFigure &&fno. Comparison of observed index catch &&data (CPUE)  by fleet. Recent time period.  \n  \n";
     }
     if ((catch.type=="retained")) {
         ylab<-"Retained catch (&&data)";
@@ -108,6 +120,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
         cap2<-"  \n  \nFigure &&figno. Comparison of observed total catch &&data by fleet. Recent time period.  \n  \n";
     }
 
+    ylab<-gsub(pattern="&&type",replacement=data.type,x=ylab,fixed=TRUE);
     if (data.type=='abundance'){
         ylab<-gsub(pattern="&&data",replacement="millions",x=ylab,fixed=TRUE);
     } else {
@@ -127,7 +140,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                  ylab=ylab,
                                  title=NULL,
                                  xlims=NULL,
-                                 ylims=NULL,
+                                 ylims=ylims,
                                  showPlot=FALSE);
     plots[[cap1]]<-ps[[1]];
     plots[[cap2]]<-ps[[2]];

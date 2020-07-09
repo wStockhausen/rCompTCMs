@@ -7,6 +7,7 @@
 modelComparisons.ModelFits.ZCs(
   models,
   type = c("All", "Surveys", "Fisheries"),
+  fleets = NULL,
   plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),

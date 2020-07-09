@@ -24,6 +24,7 @@
 #'
 modelComparisons.ModelFits.ZCs<-function(models,
                                          type=c("All","Surveys","Fisheries"),
+                                         fleets=NULL,
                                          plot1stObs=TRUE,
                                          output_format=c("word_document","pdf_document"),
                                          output_dir=getwd(),
@@ -72,7 +73,7 @@ modelComparisons.ModelFits.ZCs<-function(models,
                      output_dir=output_dir,
                      intermediates_dir=output_dir,
                      output_options=output_options,
-                     params=list(title=title,Models=models,plot1stObs=plot1stObs,doc_type=doc_type),
+                     params=list(title=title,Models=models,fleets=fleets,plot1stObs=plot1stObs,doc_type=doc_type),
                      clean=clean);
 }
 

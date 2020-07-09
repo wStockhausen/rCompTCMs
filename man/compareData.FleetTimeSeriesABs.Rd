@@ -11,8 +11,11 @@ compareData.FleetTimeSeriesABs(
   data.type = c("abundance", "biomass"),
   fleets = "all",
   sexs = "all",
+  maturity_states = "all",
+  shell_conditions = "all",
   ci = 0.8,
   numRecent = 15,
+  ylims = NULL,
   facets = "fleet~x",
   scales = "free_y",
   verbose = FALSE
@@ -29,9 +32,15 @@ compareData.FleetTimeSeriesABs(
 
 \item{sexs}{- vector of sexes to plot (or 'all')}
 
+\item{maturity_states}{- vector of maturity states to plot (or 'all')}
+
+\item{shell_conditions}{- vector of shell conditions to plot (or 'all')}
+
 \item{ci}{- confidence interval for plots}
 
 \item{numRecent}{- number of years for 'recent' plot}
+
+\item{ylims}{- limits for y axis (default is NULL)}
 
 \item{facets}{- grid faceting formula}
 

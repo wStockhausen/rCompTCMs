@@ -4,12 +4,13 @@
 #'@description Function to extract Pearson's or nll residuals from size comps by fleet among
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
-#'@param tcsam2013.type - pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
-#'@param fleet.type - fleet type ('fishery' or 'survey')
-#'@param catch.type - catch type ('index','retained',or 'total')
-#'@param residuals.type - residual type for tcsam02 models ('pearsons' or 'nlls')
-#'@param verbose - flag (T/F) to print diagnostic information
+#' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param fleets - names of fleets to include (or "all")
+#' @param tcsam2013.type - pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
+#' @param fleet.type - fleet type ('fishery' or 'survey')
+#' @param catch.type - catch type ('index','retained',or 'total')
+#' @param residuals.type - residual type for tcsam02 models ('pearsons' or 'nlls')
+#' @param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
 #'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.PrNatZ()}.
@@ -20,6 +21,7 @@
 #'@export
 #'
 extractFits.ZScores.PrNatZ<-function(objs=NULL,
+                                     fleets="all",
                                      fleet.type=c('survey','fishery'),
                                      catch.type=c('index','retained','total'),
                                      residuals.type=c('pearsons','nlls'),
