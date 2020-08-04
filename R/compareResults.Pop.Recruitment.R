@@ -4,25 +4,23 @@
 #'@description This function compares recruitment estimates by year
 #'   among several models.
 #'
-#'@param objs - list of resLst objects
+#'@param objs - list of resLst objects or dataframe from \code{extractMDFR.Pop.Recruitment}
 #'@param numRecent - number of "recent" years to plot
 #'@param dodge - width to dodge overlapping series
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return ggplot2 object
+#'@return list of ggplot2 objects
 #'
 #'@details None.
-#'
-#'@import ggplot2
 #'
 #'@export
 #'
 compareResults.Pop.Recruitment<-function(objs,
                                          numRecent=15,
                                           dodge=0.2,
-                                          showPlot=TRUE,
+                                          showPlot=FALSE,
                                           pdf=NULL,
                                           verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.Recruitment().\n");
@@ -37,7 +35,15 @@ compareResults.Pop.Recruitment<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Pop.Recruitment(objs,verbose=verbose);
+    if (inherits(objs,"data.frame")){
+        mdfr<-objs;
+    } else if (class(objs)=="list"){
+        mdfr<-extractMDFR.Pop.Recruitment(objs,verbose=verbose);
+    } else {
+        msg <- paste0("Error in compareResults.Pop.Recruitment: 'objs' should be a list or inherit from data.frame, \n",
+                      "but it was of class ",class(objs),"\n");
+        stop(msg);
+    }
 
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
 

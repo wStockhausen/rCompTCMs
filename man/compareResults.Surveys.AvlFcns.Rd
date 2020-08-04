@@ -7,12 +7,13 @@
 compareResults.Surveys.AvlFcns(
   objs,
   cast = "y+x",
-  surveys = "all",
+  fleets = "all",
   years = "all",
   dodge = 0.2,
+  singlePlot = FALSE,
   mxy = 15,
   facet_wrap = NULL,
-  facet_grid = "y~x",
+  facet_grid = ifelse(singlePlot, "x~case", "y~x"),
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -23,11 +24,13 @@ compareResults.Surveys.AvlFcns(
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 
-\item{surveys}{- vector of surveys to plot, or "all"}
+\item{fleets}{- vector of fleets to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 
 \item{dodge}{- width to dodge overlapping series}
+
+\item{singlePlot}{- flag to plot all years on single plot (be sure to adjust facet_grid)}
 
 \item{mxy}{- max number of years per page}
 

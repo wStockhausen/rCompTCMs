@@ -8,13 +8,13 @@ compareResults.Pop.Recruitment(
   objs,
   numRecent = 15,
   dodge = 0.2,
-  showPlot = TRUE,
+  showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{- list of resLst objects or dataframe from \code{extractMDFR.Pop.Recruitment}}
 
 \item{numRecent}{- number of "recent" years to plot}
 
@@ -27,7 +27,7 @@ compareResults.Pop.Recruitment(
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-ggplot2 object
+list of ggplot2 objects
 }
 \description{
 This function compares recruitment estimates by year

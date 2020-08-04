@@ -31,9 +31,12 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
     fleet.type<-fleet.type[1];
     catch.type<-catch.type[1];
 
+    if (verbose) cat("fleet.type=",fleet.type,"\n","catch.type=",catch.type,"\n",sep="");
+
     if (fleet.type=='survey') catch.type<-'index';
 
     cases<-names(objs);
+    if (verbose) cat("cases:",cases,"\n");
 
     if (catch.type=='retained') type<-'bio.retm';
     if (catch.type=='discard')  type<-'bio.dscm';
@@ -78,7 +81,10 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
     mdfr$m[mdfr$m=='all']<-'all maturity';
     mdfr$s[mdfr$s=='all']<-'all shell';
 
+    print(str(mdfr));
 
+    if (verbose) if(is.null(mdfr)) cat("mdfr is NULL\n");
+    if (verbose) cat("nrow(mdfr) =",nrow(mdfr),"\n");
     if (verbose) cat("Finished rCompTCMs::extractMDFR.Fits.BiomassData().\n");
     return(mdfr);
 }

@@ -7,12 +7,13 @@
 compareResults.Fisheries.RetFcns(
   objs,
   cast = "y+x",
-  fisheries = "all",
+  fleets = "all",
   years = "all",
   dodge = 0.2,
   mxy = 15,
+  singlePlot = FALSE,
   facet_wrap = NULL,
-  facet_grid = "y~x",
+  facet_grid = ifelse(singlePlot, "x~case", "y~x"),
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -23,13 +24,15 @@ compareResults.Fisheries.RetFcns(
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 
-\item{fisheries}{- vector of fisheries to plot, or "all"}
+\item{fleets}{- vector of feets to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 
 \item{dodge}{- width to dodge overlapping series}
 
 \item{mxy}{- max number of years per page}
+
+\item{singlePlot}{- flag to plot all years on single plot (be sure to adjust facet_grid)}
 
 \item{facet_wrap}{- ggplot2 formula to produce figure with wrapped facets}
 

@@ -5,9 +5,10 @@
 #'several model runs.
 #'
 #' @param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
-#' @param  years - years to plot, as numerical vector (or "all" to plot all years)
+#' @param years - years to plot, as numerical vector (or "all" to plot all years)
 #' @param plot1stObs - flag (T/F) to plot observations only from first case
 #' @param verbose - flag (T/F) to print diagnostic information
 #'
@@ -19,12 +20,12 @@
 #'@export
 #'
 extractFits.SizeComps<-function(objs=NULL,
-                                 fleets="all",
-                                  fleet.type=c('survey','fishery'),
-                                  catch.type=c('index','retained','discard','total'),
-                                  years='all',
-                                  plot1stObs=TRUE,
-                                  verbose=FALSE){
+                                fleets="all",
+                                fleet.type=c('survey','fishery'),
+                                catch.type=c('index','retained','discard','total'),
+                                years='all',
+                                plot1stObs=TRUE,
+                                verbose=FALSE){
 
     if (verbose) {
         cat("Starting rCompTCMs::extractFits.SizeComps().\n");

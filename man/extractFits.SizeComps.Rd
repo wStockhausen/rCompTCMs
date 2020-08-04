@@ -15,6 +15,8 @@ extractFits.SizeComps(
 )
 }
 \arguments{
+\item{fleets}{- names of fleets to include (or "all")}
+
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 
 \item{catch.type}{- catch type ('index','retained',  or 'total')}

@@ -6,10 +6,11 @@
 #'
 #'@param objs - list of resLst objects
 #'@param cast - formula to exclude factors from "averaging" over
-#'@param fisheries - vector of fisheries to plot, or "all"
+#'@param fleets - vector of feets to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
+#'@param singlePlot - flag to plot all years on single plot (be sure to adjust facet_grid)
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
 #'@param facet_grid - ggplot2 formula to produce figure with gridded facets
 #'@param showPlot - flag (T/F) to show plot
@@ -26,12 +27,13 @@
 #'
 compareResults.Fisheries.RetFcns<-function(objs,
                                            cast='y+x',
-                                           fisheries="all",
+                                           fleets="all",
                                            years='all',
                                            dodge=0.2,
                                            mxy=15,
+                                           singlePlot=FALSE,
                                            facet_wrap=NULL,
-                                           facet_grid="y~x",
+                                           facet_grid=ifelse(singlePlot,"x~case","y~x"),
                                            showPlot=FALSE,
                                            pdf=NULL,
                                            verbose=FALSE){
@@ -71,25 +73,38 @@ compareResults.Fisheries.RetFcns<-function(objs,
     #----------------------------------
     plots<-list();
     uF<-unique(mdfr$fleet);
-    if (fisheries[1]!="all") uF<-fisheries;
+    if (fleets[1]!="all") uF<-fleets;
     for (f in uF){
         if (verbose) cat("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
         uY<-unique(mdfrp$y);
         subPlots<-list();
-        for (pg in 1:ceiling(length(uY)/mxy)){
-            mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
-            p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+        if(!singlePlot){
+            for (pg in 1:ceiling(length(uY)/mxy)){
+                mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
+                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
+                               xlab='size (mm CW)',ylab='retention',units='',lnscale=FALSE,
+                               title=f,
+                               colour='case',guideTitleColor='',
+                               shape='case',guideTitleShape='',
+                               showPlot=FALSE);
+                if (showPlot||!is.null(pdf)) print(p);
+                cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+                subPlots[[cap]]<-p;
+            }#pg
+        } else {
+            p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
                            facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
                            xlab='size (mm CW)',ylab='retention',units='',lnscale=FALSE,
                            title=f,
-                           colour='case',guideTitleColor='',
-                           shape='case',guideTitleShape='',
+                           colour='y',guideTitleColour='year',
+                           shape='y',guideTitleShape='year',
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
-            cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+            cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,".  \n  \n")
             subPlots[[cap]]<-p;
-        }#pg
+        }
         plots[[f]]<-subPlots;
     }#uF
 
