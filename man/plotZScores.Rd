@@ -10,6 +10,7 @@ plotZScores(
   y = "zscore",
   color = NULL,
   shape = NULL,
+  size = 2,
   position = "identity",
   dodge = 0.2,
   facets = NULL,
@@ -20,6 +21,9 @@ plotZScores(
   legend = NULL,
   xlims = NULL,
   ylims = NULL,
+  alpha = 1,
+  colour_scale = ggplot2::scale_color_hue,
+  showSmooths = TRUE,
   showPlot = FALSE
 )
 }
@@ -33,6 +37,8 @@ plotZScores(
 \item{color}{- column name for color levels (or NULL)}
 
 \item{shape}{- column name for shape levels (or NULL)}
+
+\item{size}{- size for shapes}
 
 \item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
 
@@ -50,6 +56,10 @@ plotZScores(
 
 \item{ylims}{- limits for y axis}
 
+\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)}
+
+\item{showSmooths}{- flag (T/F) to show smooth fits to z-scores}
+
 \item{showPlot}{- flag (T/F) to show plot immediately}
 }
 \value{
@@ -59,5 +69,5 @@ ggplot2 object
 Function to plot z-scores from a set of model runs.
 }
 \details{
-None.
+Smooth fits are grouped by 'color'.
 }

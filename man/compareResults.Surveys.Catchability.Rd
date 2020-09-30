@@ -6,7 +6,7 @@
 \usage{
 compareResults.Surveys.Catchability(
   objs,
-  surveys = "all",
+  fleets = "all",
   years = "all",
   cast = "x",
   dodge = 0.2,
@@ -20,7 +20,7 @@ compareResults.Surveys.Catchability(
 \arguments{
 \item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Catchablity}}
 
-\item{surveys}{- vector of names of surveys to plot, or "all"}
+\item{fleets}{- vector of names of surveys to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

@@ -5,6 +5,7 @@
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard', or 'total')
 #'@param pdf - name for output pdf file
@@ -22,6 +23,7 @@
 #'@export
 #'
 compareFits.ZScores.Biomass<-function(objs=NULL,
+                                      fleets="all",
                                      fleet.type=c('survey','fishery'),
                                      catch.type=c('index','retained','discard','total'),
                                      pdf=NULL,
@@ -77,6 +79,7 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
                                                          verbose=verbose);
         }
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }

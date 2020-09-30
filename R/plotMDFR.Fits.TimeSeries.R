@@ -21,7 +21,8 @@
 #'@param title -
 #'@param xlims -
 #'@param ylims -
-#'@param showPlot -
+#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
+#'@param showPlot - flag (T/F) to print plot
 #'
 #'@details numRecent provides the "zoom" for a second set of faceted plots including
 #'only the most recent years. Calls \code{plotMDFR.Fits.TimeSeries1}.
@@ -48,6 +49,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                   title=NULL,
                                   xlims=NULL,
                                   ylims=NULL,
+                                  colour_scale=ggplot2::scale_color_hue(),
                                   showPlot=FALSE){
     plots<-list();
 
@@ -70,6 +72,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xlims,
                                       ylims=ylims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p1<-p1;
 
@@ -105,6 +108,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xplims,
                                       ylims=yplims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p2<-p2;
 
@@ -140,6 +144,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xplims,
                                       ylims=yplims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p3<-p3;
     }
@@ -163,6 +168,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xlims,
                                       ylims=ylims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p1<-p1;
         #plot in recent years only
@@ -197,6 +203,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xplims,
                                       ylims=yplims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p2<-p2;
     }
@@ -221,6 +228,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xlims,
                                       ylims=ylims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p1<-p1;
         #plot in recent years only
@@ -255,6 +263,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       title=title,
                                       xlims=xplims,
                                       ylims=yplims,
+                                      colour_scale=colour_scale,
                                       showPlot=showPlot);
         plots$p2<-p2;
     }

@@ -6,7 +6,7 @@
 \usage{
 compareResults.Fisheries.Catchability(
   objs,
-  fisheries = "all",
+  fleets = "all",
   years = "all",
   cast = "x",
   dodge = 0.2,
@@ -20,7 +20,7 @@ compareResults.Fisheries.Catchability(
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{fisheries}{- vector of fisheries to plot, or "all"}
+\item{fleets}{- vector of fisheries to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

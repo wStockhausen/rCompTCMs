@@ -5,6 +5,7 @@
 #'several model runs.
 #'
 #'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard', or 'total')
 #'@param pdf - name for output pdf file
@@ -22,6 +23,7 @@
 #'@export
 #'
 compareFits.ZScores.Abundance<-function(objs=NULL,
+                                        fleets="all",
                                         fleet.type=c('survey','fishery'),
                                         catch.type=c('index','retained','discard','total'),
                                         pdf=NULL,
@@ -60,29 +62,8 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
                                                      fleet.type=fleet.type,
                                                      catch.type=catch.type,
                                                      verbose=verbose);
-        # if (fleet.type=='survey'){
-        #     if (inherits(obj,"tcsam2013.resLst"))
-        #         mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-        #                                                     type='zscores',
-        #                                                     verbose=verbose);
-        #     if (inherits(obj,"tcsam02.resLst"))
-        #         mdfr1<-rTCSAM02::getMDFR.ZScores.Abundance(obj,
-        #                                                  fleet.type=fleet.type,
-        #                                                  catch.type='index',
-        #                                                  verbose=verbose);
-        # }
-        # if (fleet.type=='fishery'){
-        #     if (inherits(obj,"tcsam2013.resLst"))
-        #         mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-        #                                                      type=type,
-        #                                                      verbose=verbose);
-        #     if (inherits(obj,"tcsam02.resLst"))
-        #         mdfr1<-rTCSAM02::getMDFR.ZScores.Abundance(obj,
-        #                                                  fleet.type=fleet.type,
-        #                                                  catch.type=catch.type,
-        #                                                  verbose=verbose);
-        # }
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }

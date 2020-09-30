@@ -1,7 +1,7 @@
 #'
-#'@title Extract fits to biomass time series by fleet among several model runs
+#'@title Extract fits to abundance time series by fleet among several model runs
 #'
-#'@description Function to extract fits to biomass time series by fleet among
+#'@description Function to extract fits to abundance time series by fleet among
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
@@ -52,7 +52,7 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
                                                                                       fleet.type=fleet.type,
-                                                                                      data.type='biomass',
+                                                                                      data.type='abundance',
                                                                                       catch.type=catch.type,
                                                                                       ci=ci,
                                                                                       verbose=verbose);

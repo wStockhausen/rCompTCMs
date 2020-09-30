@@ -17,7 +17,7 @@ extractFits.ZScores.PrNatZ(
 \arguments{
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
 
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 

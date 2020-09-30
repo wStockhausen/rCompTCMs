@@ -6,6 +6,7 @@
 \usage{
 compareResults.Fisheries.CatchBiomass(
   objs,
+  fleets = "all",
   category = c("captured", "discarded", "retained", "discard mortality", "index"),
   cast = NULL,
   facet_grid = NULL,
@@ -22,6 +23,8 @@ compareResults.Fisheries.CatchBiomass(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
 

@@ -158,6 +158,7 @@ compareFits.MaturityOgiveData<-function(objs,
                 if (verbose) cat("ylims = ",ylims,"\n");
                 p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
                 p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                p <- p + geom_smooth(mapping=aes(group=case,fill=case,colour=case),alpha=0.5);
                 p <- p + geom_point(position=pd);
                 p <- p + geom_abline(slope=0,linetype=2);
                 p <- p + labs(x='size (mm CW)',y="z-scores");

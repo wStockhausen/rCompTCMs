@@ -6,6 +6,7 @@
 \usage{
 extractMDFR.Surveys.Catchability(
   objs,
+  fleets = "all",
   years = "all",
   cast = "x",
   verbose = FALSE
@@ -13,6 +14,8 @@ extractMDFR.Surveys.Catchability(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

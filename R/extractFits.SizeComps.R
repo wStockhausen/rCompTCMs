@@ -70,7 +70,7 @@ extractFits.SizeComps<-function(objs=NULL,
             mdfr1$z<-mdfr1$z+0.5;
         }
         if (!is.null(mdfr1)){
-            if (fleets!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             if (nrow(mdfr1)>0){
                 mdfr1$case<-case;
                 mdfr<-rbind(mdfr,mdfr1);

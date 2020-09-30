@@ -66,6 +66,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                                           ci=ci,
                                                           verbose=verbose);
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }

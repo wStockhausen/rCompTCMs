@@ -52,7 +52,7 @@ compareResults.Surveys.AvlFcns<-function(objs,
     if (is.data.frame(objs)) {
         mdfr<-objs;
     } else {
-        mdfr<-extractMDFR.Surveys.AvlFcns(objs,cast=cast,years=years,verbose=verbose);
+        mdfr<-extractMDFR.Surveys.AvlFcns(objs,fleets=fleets,cast=cast,years=years,verbose=verbose);
         if (is.null(mdfr)) return(list()); #empty list
     }
 

@@ -6,7 +6,7 @@
 \usage{
 modelComparisons.Characteristics.Surveys(
   models,
-  surveys = "all",
+  fleets = "all",
   selYears = c(1975, 1982, 1988),
   avlYears = NULL,
   capYears = c(1975, 1982, 1988),
@@ -23,7 +23,7 @@ modelComparisons.Characteristics.Surveys(
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
 
-\item{surveys}{- vector of names of surveys to plot, or "all"}
+\item{fleets}{- vector of names of survey fleets to plot, or "all"}
 
 \item{selYears}{- vector of years for which to plot selectivity functions ("all"=all years; NULL=don't plot)}
 

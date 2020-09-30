@@ -5,6 +5,7 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param category - 'captured','discarded','retained','discard mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (x,m,s,z)
 #'@param facet_grid - formula (or string version of formula) for faceting using facet_grid
@@ -29,6 +30,7 @@
 #'@export
 #'
 compareResults.Fisheries.CatchAbundance<-function(objs,
+                                                  fleets="all",
                                            category=c('captured','discarded','retained','discard mortality','index'),
                                            cast=NULL,
                                            facet_grid=NULL,
@@ -62,7 +64,7 @@ compareResults.Fisheries.CatchAbundance<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Fisheries.CatchAbundance(objs,category=category,cast=cast,years=years,verbose=verbose);
+    mdfr<-extractMDFR.Fisheries.CatchAbundance(objs,fleets=fleets,category=category,cast=cast,years=years,verbose=verbose);
 
     #----------------------------------
     #fishery catch abundance

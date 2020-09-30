@@ -5,6 +5,7 @@
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects, OR a melted dataframe
+#'@param fleets - names of fleets to include (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained',  or 'total')
 #'@param ci - confidence interval for plots
@@ -25,6 +26,7 @@
 #'@export
 #'
 compareFits.BiomassData<-function(objs=NULL,
+                                  fleets="all",
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
                                   ci=0.80,
@@ -60,6 +62,7 @@ compareFits.BiomassData<-function(objs=NULL,
         mdfr<-objs;
     } else {
         mdfr<-extractMDFR.Fits.BiomassData(objs=objs,
+                                           fleets=fleets,
                                            fleet.type=fleet.type,
                                            catch.type=catch.type,
                                            ci=ci,

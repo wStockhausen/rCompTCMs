@@ -6,6 +6,7 @@
 \usage{
 compareResults.Pop.NaturalMortality.BarPlot(
   objs,
+  colour_scale = ggplot2::scale_color_hue(),
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -13,6 +14,8 @@ compareResults.Pop.NaturalMortality.BarPlot(
 }
 \arguments{
 \item{objs}{- list of resLst objects from TCSAM02}
+
+\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())}
 
 \item{pdf}{- creates pdf, if not NULL}
 

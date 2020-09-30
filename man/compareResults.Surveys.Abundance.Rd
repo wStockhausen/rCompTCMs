@@ -6,7 +6,7 @@
 \usage{
 compareResults.Surveys.Abundance(
   objs,
-  category = "index",
+  fleets = "all",
   cast = "x",
   years = "all",
   facet_grid = NULL,
@@ -23,6 +23,8 @@ compareResults.Surveys.Abundance(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- vector of fleets to plot, or "all"}
 
 \item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
 

@@ -21,10 +21,11 @@
 #'@return ggplot2 object
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-#'a set of time series plots are produced. Results are extracted using \code{rTCSAM02::extractMDFR.Pop.CohortProgression},
+#'a set of time series plots are produced. Results are extracted using \code{rTCSAM02::getMDFR.Pop.CohortProgression},
 #'for TCSAM02 model results (only). Plots are made using \code{plotPop.CohortProgression}.
 #'
 #'@import ggplot2
+#'@import rTCSAM02
 #'
 #'@export
 #'
@@ -59,20 +60,20 @@ compareResults.Pop.CohortProgression<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-rTCAM02::extractMDFR.Pop.CohortProgression(objs,cast=cast,years=years,verbose=verbose);
+    mdfr<-rTCSAM02::getMDFR.Pop.CohortProgression(objs,cast=cast,years=years,verbose=verbose);
 
     plots<-plotPop.CohortProgression(mdfr,
-                                    facet_grid=facet_grid,
-                                    facet_wrap=facet_wrap,
-                                    dodge=dodge,
-                                    years=years,
-                                    mxy=mxy,
-                                    nrow=nrow,
-                                    lnscale=lnscale,
-                                    scales=scales,
-                                    types=c("progression","byyear"),
-                                    showPlot=showPlot,
-                                    verbose=verbose);
+                                     facet_grid=facet_grid,
+                                     facet_wrap=facet_wrap,
+                                     dodge=dodge,
+                                     years=years,
+                                     mxy=mxy,
+                                     nrow=nrow,
+                                     lnscale=lnscale,
+                                     scales=scales,
+                                     types=c("progression","byyear"),
+                                     showPlot=showPlot,
+                                     verbose=verbose);
 
     if (verbose) cat("finished rCompTCMs::compareResults.Pop.CohortProgression().\n");
     return(plots)

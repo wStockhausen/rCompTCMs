@@ -7,6 +7,7 @@
 compareFits.EffectiveNs(
   objs = NULL,
   mdfr = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   category = c("index", "captured", "discarded", "retained", "discard mortality"),
   years = "all",
@@ -20,6 +21,10 @@ compareFits.EffectiveNs(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{mdfr}{- dataframe}
+
+\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
 
 \item{fleet.type}{- 'survey','fishery'}
 

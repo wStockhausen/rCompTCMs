@@ -5,6 +5,7 @@
 #'   sex and maturity state using barplots.
 #'
 #'@param objs - list of resLst objects from TCSAM02
+#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -21,6 +22,7 @@
 #'
 compareResults.Pop.NaturalMortality.BarPlot<-function(
                                               objs,
+                                              colour_scale=ggplot2::scale_color_hue(),
                                               pdf=NULL,
                                               showPlot=FALSE,
                                               verbose=FALSE){
@@ -46,14 +48,15 @@ compareResults.Pop.NaturalMortality.BarPlot<-function(
     uMs<-unique(tolower(dfrNMs$m));
     plots<-list();
     for (uM in uMs){
-    tmp<-dfrNMs[tolower(dfrNMs$m)==uM,];
-    p <- ggplot(tmp,aes_string(x="x",y="val",fill="case"))+geom_bar(stat="identity",position=position_dodge());
-    p <- p + facet_grid(y~m);
-    p <- p + ylim(0,mxNM);
-    p <- p + labs(x="",y="natural mortality",fill="scenario");
-    pl<- p; #--save plot w/ legend
-    p <- p + theme(legend.position="none",);
-    plots[[uM]]<-p;
+        tmp<-dfrNMs[tolower(dfrNMs$m)==uM,];
+        p <- ggplot(tmp,aes_string(x="x",y="val",fill="case"))+geom_bar(stat="identity",position=position_dodge());
+        p <- p + colour_scale;
+        p <- p + facet_grid(y~m);
+        p <- p + ylim(0,mxNM);
+        p <- p + labs(x="",y="natural mortality",fill="scenario");
+        pl<- p; #--save plot w/ legend
+        p <- p + theme(legend.position="none",);
+        plots[[uM]]<-p;
     }
     prows<-cowplot::plot_grid(plotlist=plots,nrow=2,rel_heights=c(1,2));
     legend<-cowplot::get_legend(pl);

@@ -23,7 +23,9 @@
 #'@param title -
 #'@param xlims -
 #'@param ylims -
-#'@param showPlot -
+#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
+#'@param showPlot - flag (T/F) to print plot
+#'@param verbose - flag (T/F) to print debugging info
 #'
 #'@return ggplot object
 #'
@@ -51,6 +53,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     title=NULL,
                                     xlims=NULL,
                                     ylims=NULL,
+                                    colour_scale=ggplot2::scale_color_hue(),
                                     showPlot=FALSE,
                                     verbose=FALSE){
     idx<-dfr[[type]]!='observed';
@@ -59,38 +62,45 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
         cat("Plotting",sum(idx),"model predictions.\n")
         cat("Plotting",sum(!idx),"observations.\n")
     }
+    levels<-NULL;
+    if (is.factor(dfr$case)) {
+        levels<-levels(dfr$case);
+    } else {
+        levels<-unique(as.character(dfr$case));
+    }
+    dfr$case<-as.character(dfr$case); #strip factor levels
     dfrp<-dfr[idx,];#predicted values
     if (plot1stObs){
         #remove observations from all but first case
-        dfr$case<-as.character(dfr$case);
-        cases<-as.character(unique(dfr$case));
-        dfro<-dfr[(dfr$case==cases[1])&(!idx),];
+        dfro<-dfr[(dfr$case==unique(dfr$case)[1])&(!idx),];
         if (!is.null(dfro)&&(nrow(dfro)>0)){
           dfro$case<-'observed';
           dfr<-rbind(dfro,dfrp);
+          if (!"observed" %in% levels) levels<-c(levels,"observed");
         }
     } else {
         dfro<-dfr[!idx,];
     }
-    cases<-unique(dfr$case);
-    dfr$case <-factor(dfr$case, levels=cases);
-    dfrp$case<-factor(dfrp$case,levels=cases);
-    dfro$case<-factor(dfro$case,levels=cases);
-    if (verbose)  cat("Cases: ",paste0(cases,collapse=", "),".\n")
+    dfr$case <-factor(dfr$case, levels=levels);
+    dfrp$case<-factor(dfrp$case,levels=levels);
+    dfro$case<-factor(dfro$case,levels=levels);
+    if (verbose)  cat("Levels: ",paste0(levels,collapse=", "),".\n")
 
     p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
-    p <- p + scale_color_hue(breaks=cases);#default color scheme
+    p <- p + colour_scale;
     if (plotObs){
-        p <- p + geom_point(aes_string(shape=case),data=dfro,size=2,alpha=0.7,position=position);
+        p <- p + geom_point(aes_string(shape=case),data=dfro,
+                            size=2,alpha=0.7,position=position);
         if (!is.null(dfro$lci)&&!all(is.na(dfro$lci))){
             if (verbose) cat("Plotting cis\n")
-            p <- p + geom_errorbar(aes_string(ymin=lci,ymax=uci),data=dfro,position=position);
+            p <- p + geom_linerange(aes_string(ymin=lci,ymax=uci),data=dfro,
+                                    position=position,show.legend=FALSE);
         }
     }
     if (plotMod) p <- p + geom_line(data=dfrp,position=position);
     p <- p + coord_cartesian(xlim=xlims,ylim=ylims)
     p <- p + labs(x=xlab,y=ylab);
-    p <- p + ggtitle(title);
+    if (!is.null(title))  p <- p + ggtitle(title);
     if (!is.null(facets)) p <- p + facet_grid(facets,scales=scales);
     if (showPlot) print(p);
 

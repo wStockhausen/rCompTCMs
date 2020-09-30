@@ -5,6 +5,7 @@
 #'several model runs.
 #'
 #'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param fleets - names of fleets to plot (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained',  or 'total')
 #'@param ci - confidence interval for plots
@@ -24,6 +25,7 @@
 #'@export
 #'
 compareFits.AbundanceData<-function(objs=NULL,
+                                    fleets="all",
                                   fleet.type=c('survey','fishery'),
                                   catch.type=c('index','retained','discard','total'),
                                   ci=0.80,
@@ -57,37 +59,16 @@ compareFits.AbundanceData<-function(objs=NULL,
     if (catch.type=='total')    type<-'bio.totm';
 
     mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        mdfr1<-NULL;
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fits.FleetData(obj,
-                                                                                      fleet.type=fleet.type,
-                                                                                      data.type='abundance',
-                                                                                      catch.type=catch.type,
-                                                                                      ci=ci,
-                                                                                      verbose=verbose);
-        if (fleet.type=='survey'){
-            if (inherits(obj,"tcsam2013.resLst"))
-                mdfr1<-rTCSAM2013::getMDFR.SurveyQuantities(obj,
-                                                            type='N_yxm',
-                                                            pdfType='lognormal',
-                                                            ci=ci,
-                                                            verbose=verbose);
-        }
-        # if (fleet.type=='fishery'){
-        #     if (inherits(obj,"tcsam2013.resLst"))
-        #         mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,
-        #                                                      type=type,
-        #                                                      pdfType=fishery.pdfType,
-        #                                                      ci=ci,
-        #                                                      verbose=verbose);
-        # }
-        if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Fits.AbundanceData(objs=objs,
+                                           fleets=fleets,
+                                           fleet.type=fleet.type,
+                                           catch.type=catch.type,
+                                           ci=ci,
+                                           fishery.pdfType=fishery.pdfType,
+                                           verbose=verbose);
     }
 
     plots<-NULL;

@@ -5,7 +5,7 @@
 #'   sex and maturity state.
 #'
 #'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.Availability}
-#'@param surveys - vector of names of surveys to plot, or "all"
+#'@param fleets - vector of names of surveys to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param dodge - width to dodge overlapping series
@@ -24,7 +24,7 @@
 #'@export
 #'
 compareResults.Surveys.Availability<-function(objs,
-                                              surveys="all",
+                                              fleets="all",
                                               years='all',
                                               cast='x',
                                               dodge=0.2,
@@ -46,7 +46,7 @@ compareResults.Surveys.Availability<-function(objs,
     if (is.data.frame(objs)) {
         mdfr<-objs;
     } else {
-        mdfr<-extractMDFR.Surveys.Availability(objs,years=years,cast=cast,verbose=verbose);
+        mdfr<-extractMDFR.Surveys.Availability(objs,fleets=fleets,years=years,cast=cast,verbose=verbose);
         if (is.null(mdfr)) return(list());#return empty list
     }
 
@@ -54,7 +54,7 @@ compareResults.Surveys.Availability<-function(objs,
     # plot survey availability by year
     #----------------------------------
     uF<-unique(mdfr$fleet);
-    if (surveys[1]!="all") uF<-surveys;
+    if (fleets[1]!="all") uF<-fleets;
     plots<-list();
     pd<-position_dodge(width=dodge);
     for (f in uF){

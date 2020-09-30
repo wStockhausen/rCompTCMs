@@ -6,6 +6,7 @@
 #'
 #' @param models - named list of model results (as resLst objects) to compare
 #' @param type - "All", "Surveys", "Fisheries" (indicating, but not determining,  what types of size compositions will be included)
+#' @param fleets - vector of fleet names to include (or "all" or NULL for all fleets)
 #' @param plot1stObs - flag to plot observed data only from first model
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
@@ -24,7 +25,7 @@
 #'
 modelComparisons.ModelFits.ZCs<-function(models,
                                          type=c("All","Surveys","Fisheries"),
-                                         fleets=NULL,
+                                         fleets="all",
                                          plot1stObs=TRUE,
                                          output_format=c("word_document","pdf_document"),
                                          output_dir=getwd(),

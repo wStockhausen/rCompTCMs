@@ -6,6 +6,7 @@
 \usage{
 extractMDFR.Fisheries.RetFcns(
   objs,
+  fleets = "all",
   cast = "y+x",
   years = "all",
   verbose = FALSE
@@ -13,6 +14,8 @@ extractMDFR.Fisheries.RetFcns(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 

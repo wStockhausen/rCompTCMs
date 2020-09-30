@@ -101,13 +101,14 @@ compareFits.GrowthData<-function(objs,
         #-------------------------------------------#
         mdfrpz<-mdfrp[mdfrp$type == 'zscores',];
         p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
+        p <- p + geom_smooth(mapping=aes(group=case,fill=case,colour=case),alpha=0.5);
         p <- p + geom_point(position=pd);
         p <- p + geom_abline(slope=0,linetype=2);
         p <- p + labs(x='pre-molt size (mm CW)',y="z-scores");
         p <- p + ggtitle(d);
         p <- p + facet_grid(x~.);
         if (showPlot) print(p);
-        cap<-paste0("Figure &&figno. \n  \nZ-scores for fits to ",d,".\n   \n")
+        cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d,".\n   \n")
         plots[[cap]]<-p;
     }#d
 

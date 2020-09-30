@@ -5,6 +5,7 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - vector of fleets to plot, or "all"
 #'@param cast - casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
 #'@param years - 'all' or vector of years to include
 #'@param facet_grid - formula for faceting using facet_grid
@@ -28,7 +29,7 @@
 #'@export
 #'
 compareResults.Surveys.Abundance<-function(objs,
-                                           category='index',
+                                           fleets="all",
                                            cast="x",
                                            years='all',
                                            facet_grid=NULL,
@@ -61,7 +62,7 @@ compareResults.Surveys.Abundance<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Surveys.Abundance(objs,category=category,cast=cast,years=years,verbose=verbose);
+    mdfr<-extractMDFR.Surveys.Abundance(objs,fleets=fleets,cast=cast,years=years,verbose=verbose);
 
     #----------------------------------
     #survey abundance

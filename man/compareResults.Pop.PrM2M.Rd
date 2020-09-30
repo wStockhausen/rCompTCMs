@@ -7,6 +7,7 @@
 compareResults.Pop.PrM2M(
   objs,
   dodge = 0.2,
+  colour_scale = ggplot2::scale_color_hue,
   showPlot = TRUE,
   pdf = NULL,
   verbose = FALSE
@@ -14,6 +15,8 @@ compareResults.Pop.PrM2M(
 }
 \arguments{
 \item{dodge}{- width to dodge overlapping series}
+
+\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)}
 
 \item{showPlot}{- flag to print plot to current device}
 

@@ -6,6 +6,7 @@
 \usage{
 compareFits.ZScores.Biomass(
   objs = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "discard", "total"),
   pdf = NULL,
@@ -14,6 +15,8 @@ compareFits.ZScores.Biomass(
 )
 }
 \arguments{
+\item{fleets}{- names of fleets to include (or "all")}
+
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 
 \item{catch.type}{- catch type ('index','retained', 'discard', or 'total')}

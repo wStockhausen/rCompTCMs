@@ -23,6 +23,7 @@ plotMDFR.Fits.TimeSeries(
   title = NULL,
   xlims = NULL,
   ylims = NULL,
+  colour_scale = ggplot2::scale_color_hue(),
   showPlot = FALSE
 )
 }
@@ -63,7 +64,9 @@ plotMDFR.Fits.TimeSeries(
 
 \item{ylims}{-}
 
-\item{showPlot}{-}
+\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())}
+
+\item{showPlot}{- flag (T/F) to print plot}
 }
 \value{
 list with requested ggplot objects

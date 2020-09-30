@@ -4,14 +4,16 @@
 \alias{retroGetMDFR}
 \title{Get a melted dataframe of model estimates from a list of retrospective model results}
 \usage{
-retroGetMDFR(modRetro, FUN, yadj = 0)
+retroGetMDFR(modsRetro, FUN, yadj = 0, ...)
 }
 \arguments{
-\item{modRetro}{- named list of resLst objects, with names corresponding to retrospective peels}
+\item{modsRetro}{- named list of resLst objects, with names corresponding to retrospective peels}
 
-\item{FUN}{- rCompTCMs function used to extract the desired estimates}
+\item{FUN}{- rCompTCMs function used to extract the desired estimates (i.e., an extractMDFR function)}
 
 \item{yadj}{- adjustment to make to model years}
+
+\item{...}{- additional arguments passed to FUN}
 }
 \value{
 dataframe

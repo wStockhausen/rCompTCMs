@@ -52,7 +52,7 @@ compareResults.Surveys.CaptureProbs<-function(objs,
     if (is.data.frame(objs)) {
         mdfr<-objs;
     } else {
-        mdfr<-extractMDFR.Surveys.CaptureProbs(objs,years=years,cast=cast,verbose=verbose);
+        mdfr<-extractMDFR.Surveys.CaptureProbs(objs,fleets=fleets,years=years,cast=cast,verbose=verbose);
         if (is.null(mdfr)) return(list());#empty list
     }
 

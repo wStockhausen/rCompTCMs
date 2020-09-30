@@ -24,7 +24,7 @@ compareResults.Surveys.SelFcns(
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 
-\item{fleets}{- vector of fleets to plot, or "all"}
+\item{fleets}{- vector of survey fleets to plot, or "all"}
 
 \item{years}{- vector of years to show, or 'all' to show all years}
 

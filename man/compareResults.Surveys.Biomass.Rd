@@ -6,7 +6,7 @@
 \usage{
 compareResults.Surveys.Biomass(
   objs,
-  category = "index",
+  fleets = "all",
   cast = "y+x",
   years = "all",
   facet_grid = "x~.",
@@ -22,6 +22,8 @@ compareResults.Surveys.Biomass(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- vector of fleets to plot, or "all"}
 
 \item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
 

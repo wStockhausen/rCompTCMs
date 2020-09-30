@@ -5,6 +5,7 @@
 #'
 #'@param obj - list of resLst objects
 #'@param dodge - width to dodge overlapping series
+#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -19,6 +20,7 @@
 #'
 compareResults.Pop.PrM2M<-function(objs,
                                    dodge=0.2,
+                                   colour_scale=ggplot2::scale_color_hue,
                                    showPlot=TRUE,
                                    pdf=NULL,
                                    verbose=FALSE){
@@ -39,6 +41,6 @@ compareResults.Pop.PrM2M<-function(objs,
                       dodge=dodge,
                       showPlot=showPlot,
                       verbose=verbose);
-
+    p<-p+colour_scale;
     return(p);
 }

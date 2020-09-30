@@ -56,6 +56,6 @@ This function compares cohort progression by year
 }
 \details{
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced. Results are extracted using \code{rTCSAM02::extractMDFR.Pop.CohortProgression},
+a set of time series plots are produced. Results are extracted using \code{rTCSAM02::getMDFR.Pop.CohortProgression},
 for TCSAM02 model results (only). Plots are made using \code{plotPop.CohortProgression}.
 }

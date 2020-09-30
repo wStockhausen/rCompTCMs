@@ -7,7 +7,7 @@
 modelComparisons.ModelFits.ZCs(
   models,
   type = c("All", "Surveys", "Fisheries"),
-  fleets = NULL,
+  fleets = "all",
   plot1stObs = TRUE,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
@@ -21,6 +21,8 @@ modelComparisons.ModelFits.ZCs(
 \item{models}{- named list of model results (as resLst objects) to compare}
 
 \item{type}{- "All", "Surveys", "Fisheries" (indicating, but not determining,  what types of size compositions will be included)}
+
+\item{fleets}{- vector of fleet names to include (or "all" or NULL for all fleets)}
 
 \item{plot1stObs}{- flag to plot observed data only from first model}
 

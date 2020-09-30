@@ -4,10 +4,18 @@
 \alias{extractMDFR.Surveys.SelFcns}
 \title{Function to extract survey selectivity functions by year among several models}
 \usage{
-extractMDFR.Surveys.SelFcns(objs, cast = "y+x", years = "all", verbose = FALSE)
+extractMDFR.Surveys.SelFcns(
+  objs,
+  fleets = "all",
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of survey fleets to include (or "all" or NULL to include all)}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 

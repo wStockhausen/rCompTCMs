@@ -6,7 +6,7 @@
 \usage{
 extractMDFR.Surveys.Abundance(
   objs,
-  category = "index",
+  fleets = "all",
   cast = "x",
   years = "all",
   verbose = FALSE
@@ -14,6 +14,8 @@ extractMDFR.Surveys.Abundance(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
 

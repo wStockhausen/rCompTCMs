@@ -5,6 +5,7 @@
 #'   among several models as a dataframe.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param category - 'captured','discarded','retained','discard mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (y,x,m,s,z)
 #'@param years - 'all' or vector of years to include
@@ -17,10 +18,11 @@
 #'@export
 #'
 extractMDFR.Fisheries.CatchAbundance<-function(objs,
-                                           category=c('captured','discarded','retained','discard mortality','index'),
-                                           cast=NULL,
-                                           years='all',
-                                           verbose=FALSE){
+                                               fleets="all",
+                                               category=c('captured','discarded','retained','discard mortality','index'),
+                                               cast=NULL,
+                                               years='all',
+                                               verbose=FALSE){
     if (verbose) cat("--starting rCompTCMs::extractMDFR.Fisheries.CatchAbundance().\n");
     options(stringsAsFactors=FALSE);
 
@@ -43,6 +45,7 @@ extractMDFR.Fisheries.CatchAbundance<-function(objs,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.CatchAbundance(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.CatchAbundance(obj,category=category,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }

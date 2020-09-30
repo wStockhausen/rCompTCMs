@@ -6,7 +6,7 @@
 #'
 #'@param objs - list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.SelFcns}
 #'@param cast - formula to exclude factors from "averaging" over
-#'@param fleets - vector of fleets to plot, or "all"
+#'@param fleets - vector of survey fleets to plot, or "all"
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param singlePlot - flag to plot all years on single plot (be sure to adjust facet_grid)
@@ -52,7 +52,7 @@ compareResults.Surveys.SelFcns<-function(objs,
     if (is.data.frame(objs)) {
         mdfr<-objs;
     } else {
-        mdfr<-extractMDFR.Surveys.SelFcns(objs,cast=cast,years=years,verbose=verbose);
+        mdfr<-extractMDFR.Surveys.SelFcns(objs,fleets=fleets,cast=cast,years=years,verbose=verbose);
         if (is.null(mdfr)) return(list()); #empty list
     }
 

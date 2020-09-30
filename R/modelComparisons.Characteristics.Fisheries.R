@@ -5,15 +5,16 @@
 #' characteristics from several models.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
-#' @param fisheries - vector of fisheries to plot, or "all"
+#' @param fleets - vector of fisheries to plot, or "all"
 #' @param selyears - vector of years to show selectivity functions for, or 'all' to show all years
 #' @param retyears - vector of years to show retention functions for, or 'all' to show all years
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
 #' @param rmd_dir - folder enclosing rmd file
-#' @param rmd - Rmd file to process (defalut="modelComparisons.Rmd")
+#' @param rmd - Rmd file to process (defalut=system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs"))
 #' @param docx_styles - full path to Word (docx) style template for Word documents
 #' @param pdf_styles - full path to style template for pdf documents
+#' @param verbose - flag to print debugging info
 #' @param clean - T/F to delete intermediate files
 #'
 #' @details The default resulting document title will be of the form "ModelComparisons.EstimatedCharacteristics.Fisheries.mmm.ext",
@@ -23,7 +24,7 @@
 #'
 modelComparisons.Characteristics.Fisheries<-function(
                                          models,
-                                         fisheries="all",
+                                         fleets="all",
                                          selyears="all",
                                          retyears="all",
                                          output_format=c("word_document","pdf_document"),
@@ -31,6 +32,7 @@ modelComparisons.Characteristics.Fisheries<-function(
                                          rmd=system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs"),
                                          docx_styles=system.file("rmd/StylesForRmdDocs.docx",package="wtsUtilities"),
                                          pdf_styles=system.file("rmd/StylesForRmdPDFs.sty",package="wtsUtilities"),
+                                         verbose=FALSE,
                                          clean=FALSE){
   nms<-names(models);
   mmm<-paste0(nms,collapse="-");
@@ -65,9 +67,10 @@ modelComparisons.Characteristics.Fisheries<-function(
                     output_options=output_options,
                     params=list(title=title,
                                 Models=models,
-                                fisheries=fisheries,
+                                fleets=fleets,
                                 selyears=selyears,
                                 retyears=retyears,
+                                verbose=verbose,
                                 doc_type=doc_type),
                     clean=clean);
 }

@@ -5,7 +5,7 @@
 #' characteristics from several models.
 #'
 #' @param models - named list of model results (as resLst objects) to compare
-#' @param surveys - vector of names of surveys to plot, or "all"
+#' @param fleets - vector of names of survey fleets to plot, or "all"
 #' @param selYears - vector of years for which to plot selectivity functions ("all"=all years; NULL=don't plot)
 #' @param avlYears - vector of years for which to plot availability functions ("all"=all years; NULL=don't plot)
 #' @param capYears - vector of years for which to plot capture probability functions ("all"=all years; NULL=don't plot)
@@ -25,7 +25,7 @@
 #'
 modelComparisons.Characteristics.Surveys<-function(
                                          models,
-                                         surveys="all",
+                                         fleets="all",
                                          selYears=c(1975,1982,1988),
                                          avlYears=NULL,
                                          capYears=c(1975,1982,1988),
@@ -71,7 +71,7 @@ modelComparisons.Characteristics.Surveys<-function(
                                 Models=models,
                                 doc_type=doc_type,
                                 mxy=mxy,
-                                surveys=surveys,
+                                fleets=fleets,
                                 selYears=selYears,
                                 avlYears=avlYears,
                                 capYears=capYears),

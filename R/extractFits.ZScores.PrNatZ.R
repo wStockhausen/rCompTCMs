@@ -5,7 +5,7 @@
 #'several model runs.
 #'
 #' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
-#' @param fleets - names of fleets to include (or "all")
+#' @param fleets - names of fleets to include (or "all" or NULL to include all)
 #' @param tcsam2013.type - pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',or 'total')
@@ -72,6 +72,7 @@ extractFits.ZScores.PrNatZ<-function(objs=NULL,
                                                         verbose=verbose);
         }
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }
@@ -86,6 +87,7 @@ extractFits.ZScores.PrNatZ<-function(objs=NULL,
     mdfr$x[mdfr$x=='all']<-'all sex';
     mdfr$m[mdfr$m=='all']<-'all maturity';
     mdfr$s[mdfr$s=='all']<-'all shell';
+
 
     if (verbose) cat("Finished rCompTCMs::extractFits.ZScores.PrNatZ().\n");
     return(mdfr);

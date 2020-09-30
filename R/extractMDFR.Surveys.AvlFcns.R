@@ -5,6 +5,7 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -16,6 +17,7 @@
 #'@export
 #'
 extractMDFR.Surveys.AvlFcns<-function(objs,
+                                      fleets="all",
                                       cast='y+x',
                                       years='all',
                                       verbose=FALSE){
@@ -33,8 +35,11 @@ extractMDFR.Surveys.AvlFcns<-function(objs,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;#rsimTCSAM::getMDFR.Surveys.AvlFcns(obj,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.AvlFcns(obj,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if (nrow(mdfr1)>0){
+                mdfr1$case<-case;
+                mdfr<-rbind(mdfr,mdfr1);
+            }
         }
     }
     if (is.null(mdfr)) return(NULL);

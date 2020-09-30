@@ -8,6 +8,7 @@
 #'@param y - column name for y axis (default='z-score')
 #'@param color - column name for color levels (or NULL)
 #'@param shape - column name for shape levels (or NULL)
+#'@param size - size for shapes
 #'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 #'@param facets - string giving faceting formula for facet_grid
 #'@param facet.scales - ggplot2 scales option for facet_grid
@@ -16,11 +17,13 @@
 #'@param title - title for plot
 #'@param xlims - limits for x axis
 #'@param ylims - limits for y axis
+#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)
+#'@param showSmooths - flag (T/F) to show smooth fits to z-scores
 #'@param showPlot - flag (T/F) to show plot immediately
 #'
 #'@return ggplot2 object
 #'
-#'@details None.
+#'@details Smooth fits are grouped by 'color'.
 #'
 #'@import ggplot2
 #'
@@ -31,6 +34,7 @@ plotZScores<-function(dfr,
                       y='zscore',
                       color=NULL,
                       shape=NULL,
+                      size=2,
                       position='identity',
                       dodge=0.2,
                       facets=NULL,
@@ -41,22 +45,27 @@ plotZScores<-function(dfr,
                       legend=NULL,
                       xlims=NULL,
                       ylims=NULL,
+                      alpha=1,
+                      colour_scale=ggplot2::scale_color_hue,
+                      showSmooths=TRUE,
                       showPlot=FALSE){
     p <- ggplot(dfr,aes_string(x=x,y=y));
     p <- p + geom_hline(yintercept=0.0,color='black',size=1);
+    if (showSmooths) p<-p+geom_smooth(mapping=aes_string(group=color,fill=color,colour=color),alpha=0.25);
     if (position=='dodge'){
-        p <- p + geom_point(aes_string(shape=shape,color=color),size=4,alpha=0.5,
+        p <- p + geom_point(aes_string(shape=shape,color=color),size=size,alpha=alpha,
                             position=position_dodge(width=dodge));
     } else {
-        p <- p + geom_point(aes_string(shape=shape,color=color),size=4,alpha=0.5,
+        p <- p + geom_point(aes_string(shape=shape,color=color),size=size,alpha=alpha,
                             position=position);
     }
     p <- p + coord_cartesian(xlim=xlims,ylim=ylims)
     p <- p + labs(x=xlab,y=ylab);
     p <- p + ggtitle(title);
+    p <- p + colour_scale;
     if (!is.null(legend)) p <- p + guides(color=guide_legend(legend),shape=guide_legend(legend))
     if (!is.null(facets)) p <- p + facet_grid(facets,scales=facet.scales);
     if (showPlot) print(p);
-    
+
     return(p);
 }

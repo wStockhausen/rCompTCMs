@@ -5,6 +5,7 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - vector of fleets to plot, or "all"
 #'@param cast - cast'ing formula for aggregating by factors (y,x,m,s,z)
 #'@param years - 'all' or vector of years to include
 #'@param facet_grid - formula for faceting using facet_grid
@@ -27,7 +28,7 @@
 #'@export
 #'
 compareResults.Surveys.Biomass<-function(objs,
-                                         category='index',
+                                         fleets="all",
                                          cast="y+x",
                                          years='all',
                                          facet_grid="x~.",
@@ -59,7 +60,7 @@ compareResults.Surveys.Biomass<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Surveys.Biomass(objs,category=category,cast=cast,years=years,verbose=verbose);
+    mdfr<-extractMDFR.Surveys.Biomass(objs,fleets=fleets,category=category,cast=cast,years=years,verbose=verbose);
 
     #----------------------------------
     #survey biomass

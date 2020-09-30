@@ -7,6 +7,7 @@
 compareFits.ZScores.PrNatZ(
   objs = NULL,
   mdfr = NULL,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "total"),
   residuals.type = c("pearsons", "nlls"),
@@ -20,6 +21,8 @@ compareFits.ZScores.PrNatZ(
 \item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 
 \item{mdfr}{- dataframe from call to \code{extractFits.ZScores.PrNatZ}  (as alternative to objs)}
+
+\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
 
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
 

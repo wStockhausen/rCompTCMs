@@ -3,9 +3,10 @@
 #'
 #'@description This function extracts a melted dataframe from a list of retrospective model results.
 #'
-#'@param modRetro - named list of resLst objects, with names corresponding to retrospective peels
-#'@param FUN - rCompTCMs function used to extract the desired estimates
+#'@param modsRetro - named list of resLst objects, with names corresponding to retrospective peels
+#'@param FUN - rCompTCMs function used to extract the desired estimates (i.e., an extractMDFR function)
 #'@param yadj - adjustment to make to model years
+#'@param ... - additional arguments passed to FUN
 #'
 #'@return dataframe
 #'
@@ -13,12 +14,30 @@
 #'
 #'@export
 #'
-retroGetMDFR<-function(modRetro,
+retroGetMDFR<-function(modsRetro,
                        FUN,
-                       yadj=0){
-  dfrp<-FUN(modRetro);
-  dfrp$y<-dfrp$y+yadj;
-  dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
+                       yadj=0,
+                       ...){
+  if (...length()>0){
+    dfrp<-FUN(modsRetro,...);
+  } else {
+    dfrp<-FUN(modsRetro);
+  }
+  if (is.factor(dfrp$y)){
+    lvls<-levels(dfrp$y);
+    dfrp$y<-as.numeric(as.character(dfrp$y));
+    dfrp$y<-dfrp$y+yadj;
+    dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
+    dfrp$y<-factor(dfrp$y,levels=lvls);
+  } else if (mode(dfrp$y)=="numeric"){
+    dfrp$y<-dfrp$y+yadj;
+    dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
+  } else if (mode(dfrp$y)=="character"){
+    dfrp$y<-as.numeric(dfrp$y);
+    dfrp$y<-dfrp$y+yadj;
+    dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
+    dfrp$y<-as.character(dfrp$y);
+  }
   return(dfrp);
 }
 

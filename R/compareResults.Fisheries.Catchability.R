@@ -5,7 +5,7 @@
 #'   sex and maturity state.
 #'
 #' @param objs - list of resLst objects
-#' @param fisheries - vector of fisheries to plot, or "all"
+#' @param fleets - vector of fisheries to plot, or "all"
 #' @param years - vector of years to show, or 'all' to show all years
 #' @param cast - formula to exclude factors from "averaging" over
 #' @param dodge - width to dodge overlapping series
@@ -24,7 +24,7 @@
 #'@export
 #'
 compareResults.Fisheries.Catchability<-function(objs,
-                                                fisheries="all",
+                                                fleets="all",
                                                 years='all',
                                                 cast='x',
                                                 dodge=0.2,
@@ -47,13 +47,13 @@ compareResults.Fisheries.Catchability<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Fisheries.Catchability(objs,years=years,cast=cast,verbose=verbose);
+    mdfr<-extractMDFR.Fisheries.Catchability(objs,fleets=fleets,years=years,cast=cast,verbose=verbose);
 
     #----------------------------------
     # plot fishery catchability by year
     #----------------------------------
     uF<-unique(mdfr$fleet);
-    if (fisheries[1]!="all") uF<-fisheries;
+    if (fleets[1]!="all") uF<-fleets;
     plots<-list();
     pd<-position_dodge(width=dodge);
     for (f in uF){

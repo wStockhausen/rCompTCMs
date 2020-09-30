@@ -23,6 +23,7 @@ plotMDFR.Fits.TimeSeries1(
   title = NULL,
   xlims = NULL,
   ylims = NULL,
+  colour_scale = ggplot2::scale_color_hue(),
   showPlot = FALSE,
   verbose = FALSE
 )
@@ -64,7 +65,11 @@ plotMDFR.Fits.TimeSeries1(
 
 \item{ylims}{-}
 
-\item{showPlot}{-}
+\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())}
+
+\item{showPlot}{- flag (T/F) to print plot}
+
+\item{verbose}{- flag (T/F) to print debugging info}
 
 \item{ci}{- confidence interval for error bars}
 

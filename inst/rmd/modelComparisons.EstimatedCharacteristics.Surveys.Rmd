@@ -5,7 +5,7 @@ params:
     Models: none
     title: 'Tanner Crab Assessment Model:\nEstimated Survey Characteristics' 
     plot1stObs: TRUE
-    surveys: "all"
+    fleets: "all"
     selYears: "all"
     avlYears: "all"
     capYears: "all"
@@ -47,7 +47,7 @@ title: '`r params$title`'
 
 # Introduction
 A comparison of model-estimated survey characteristics such as catchability and size-specific selectivity functions, 
-availability and size-specific availabilty functions, and size-specific capture probability functions is presented here.
+availability and size-specific availability functions, and size-specific capture probability functions is presented here.
 
 \clearpage
 
@@ -55,9 +55,10 @@ availability and size-specific availabilty functions, and size-specific capture 
 "Catchability" here refers to the catchability of crab in a fully-selected size bin.
 
 ```{r plot10.SurveyCatchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions<-NULL;
   if (!is.null(params$selYears)){
       plts<-rCompTCMs::compareResults.Surveys.Catchability(Models,
-                                                           surveys=params$surveys,
+                                                           fleets=params$fleets,
                                                            dodge=0,
                                                            showPlot=FALSE,
                                                            verbose=FALSE)
@@ -77,9 +78,10 @@ availability and size-specific availabilty functions, and size-specific capture 
 Survey selectivity functions reflect size-specific catchability relative to a fully-selected size class.
 
 ```{r plot11.SurveySelectivity,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions<-NULL;
   if (!is.null(params$selYears)){
       plts<-rCompTCMs::compareResults.Surveys.SelFcns(Models,
-                                                      surveys=params$surveys,
+                                                      fleets=params$fleets,
                                                       cast="y+x",
                                                       facet_grid="y~x",
                                                       mxy=params$mxy,
@@ -99,12 +101,14 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 \clearpage 
 
 # Survey availability
-"Availability" here represents an overall multiplier on the size-specific availabilty functions described in the next section. 
+"Availability" here represents an overall multiplier on the size-specific availability functions described in the next section. 
 
 ```{r plot12.SurveyAvailability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions<-NULL;
   if (!is.null(params$avlYears)){
       plts<-rCompTCMs::compareResults.Surveys.Availability(Models,
-                                                           surveys=params$surveys,
+                                                           fleets=params$fleets,
+                                                           years=params$avlYears,
                                                            dodge=0,
                                                            showPlot=FALSE,
                                                            verbose=FALSE)
@@ -121,14 +125,15 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 \clearpage 
 
 # Survey availability functions
-Survey availability functions reflect size-specific availabilty of crab to the survey gear over the entire survey area, 
+Survey availability functions reflect size-specific availability of crab to the survey gear over the entire survey area, 
 possibly relative to the "most-available" size class (see the previous section for the availability multipliers when the 
-size-specific availability functions are noramlized to the most-available size class).
+size-specific availability functions are normalized to the most-available size class).
 
 ```{r plot13.SurveyAvlFcns,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions<-NULL;
   if (!is.null(params$avlYears)){
       plts<-rCompTCMs::compareResults.Surveys.AvlFcns(Models,
-                                                      surveys=params$surveys,
+                                                      fleets=params$fleets,
                                                       cast="y+x",
                                                       facet_grid="y~x",
                                                       mxy=params$mxy,
@@ -154,9 +159,10 @@ crab abundance at size *z* after expansion to the survey area relative to the ab
 within the population.
 
 ```{r plot14.SurveyCaptureProbs,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions<-NULL;
   if (!is.null(params$capYears)){
       plts<-rCompTCMs::compareResults.Surveys.CaptureProbs(Models,
-                                                           surveys=params$surveys,
+                                                           fleets=params$fleets,
                                                            cast="y+x",
                                                            facet_grid="y~x",
                                                            mxy=params$mxy,

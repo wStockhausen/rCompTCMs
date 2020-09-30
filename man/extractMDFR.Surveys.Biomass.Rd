@@ -6,6 +6,7 @@
 \usage{
 extractMDFR.Surveys.Biomass(
   objs,
+  fleets = "all",
   category = "index",
   cast = "y+x",
   years = "all",
@@ -14,6 +15,8 @@ extractMDFR.Surveys.Biomass(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
 

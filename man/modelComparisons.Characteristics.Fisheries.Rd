@@ -6,7 +6,7 @@
 \usage{
 modelComparisons.Characteristics.Fisheries(
   models,
-  fisheries = "all",
+  fleets = "all",
   selyears = "all",
   retyears = "all",
   output_format = c("word_document", "pdf_document"),
@@ -15,13 +15,14 @@ modelComparisons.Characteristics.Fisheries(
     package = "rCompTCMs"),
   docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
   pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
+  verbose = FALSE,
   clean = FALSE
 )
 }
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
 
-\item{fisheries}{- vector of fisheries to plot, or "all"}
+\item{fleets}{- vector of fisheries to plot, or "all"}
 
 \item{selyears}{- vector of years to show selectivity functions for, or 'all' to show all years}
 
@@ -31,11 +32,13 @@ modelComparisons.Characteristics.Fisheries(
 
 \item{output_dir}{- path to folder to use for output}
 
-\item{rmd}{- Rmd file to process (defalut="modelComparisons.Rmd")}
+\item{rmd}{- Rmd file to process (defalut=system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs"))}
 
 \item{docx_styles}{- full path to Word (docx) style template for Word documents}
 
 \item{pdf_styles}{- full path to style template for pdf documents}
+
+\item{verbose}{- flag to print debugging info}
 
 \item{clean}{- T/F to delete intermediate files}
 

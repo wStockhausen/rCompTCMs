@@ -6,6 +6,7 @@
 \usage{
 extractMDFR.Fisheries.CatchAbundance(
   objs,
+  fleets = "all",
   category = c("captured", "discarded", "retained", "discard mortality", "index"),
   cast = NULL,
   years = "all",
@@ -14,6 +15,8 @@ extractMDFR.Fisheries.CatchAbundance(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
 

@@ -4,10 +4,18 @@
 \alias{extractMDFR.Surveys.AvlFcns}
 \title{Function to extract survey availability functions by year among several models}
 \usage{
-extractMDFR.Surveys.AvlFcns(objs, cast = "y+x", years = "all", verbose = FALSE)
+extractMDFR.Surveys.AvlFcns(
+  objs,
+  fleets = "all",
+  cast = "y+x",
+  years = "all",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all")}
 
 \item{cast}{- formula to exclude factors from "averaging" over}
 

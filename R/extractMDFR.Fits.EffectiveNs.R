@@ -5,6 +5,7 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all" or NULL to include all)
 #'@param fleet.type - 'survey','fishery'
 #'@param category - 'total','discard','retained','discard mortality', or 'index'
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -16,6 +17,7 @@
 #'@export
 #'
 extractMDFR.Fits.EffectiveNs<-function(objs,
+                                       fleets="all",
                                        fleet.type=c("survey","fishery"),
                                        category=c('index','captured','discarded','retained','discard mortality'),
                                        verbose=FALSE){
@@ -38,6 +40,14 @@ extractMDFR.Fits.EffectiveNs<-function(objs,
                                                                                         catch.type=category[1],
                                                                                         verbose=verbose);
         if (!is.null(mdfr1)){
+            if (verbose){
+                cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: names = ",paste(names(mdfr1),collapse=" "),"\n");
+                cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: fleets = ",paste(fleets,collapse=" "),"\n");
+            }
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") {
+                cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: Extracting fleets\n")
+                mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            }
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }

@@ -3,8 +3,9 @@
 #'
 #'@description This function compares fishery selectivity functions by year
 #'   among several models.
-#'   
+#'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param cast - formula to exclude factors from "averaging" over
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -18,12 +19,13 @@
 #'@export
 #'
 extractMDFR.Fisheries.SelFcns<-function(objs,
-                                         cast='y+x',
-                                         years='all',
-                                         verbose=FALSE){
+                                        fleets="all",
+                                        cast='y+x',
+                                        years='all',
+                                        verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::extractMDFR.Fisheries.SelFcns().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
@@ -34,15 +36,16 @@ extractMDFR.Fisheries.SelFcns<-function(objs,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
     mdfr$z<-as.numeric(mdfr$z)
     mdfr$case<-factor(mdfr$case,levels=cases);
-    
+
     if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
-    
+
     if (verbose) cat("rCompTCMs::extractMDFR.Fisheries.SelFcns: Done!\n");
     return(mdfr)
 }

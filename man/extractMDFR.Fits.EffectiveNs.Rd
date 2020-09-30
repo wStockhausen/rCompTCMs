@@ -6,6 +6,7 @@
 \usage{
 extractMDFR.Fits.EffectiveNs(
   objs,
+  fleets = "all",
   fleet.type = c("survey", "fishery"),
   category = c("index", "captured", "discarded", "retained", "discard mortality"),
   verbose = FALSE
@@ -13,6 +14,8 @@ extractMDFR.Fits.EffectiveNs(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
 
 \item{fleet.type}{- 'survey','fishery'}
 

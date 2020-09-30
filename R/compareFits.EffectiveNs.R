@@ -5,6 +5,8 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param mdfr - dataframe
+#'@param fleets - names of fleets to include (or "all" or NULL to include all)
 #'@param fleet.type - 'survey','fishery'
 #'@param category - 'total','discard','retained','discard mortality', or 'index'
 #'@param years - vector of years to show, or 'all' to show all years
@@ -25,6 +27,7 @@
 #'
 compareFits.EffectiveNs<-function(objs=NULL,
                                   mdfr=NULL,
+                                  fleets="all",
                                   fleet.type=c("survey","fishery"),
                                   category=c('index','captured','discarded','retained','discard mortality'),
                                   years='all',
@@ -49,6 +52,7 @@ compareFits.EffectiveNs<-function(objs=NULL,
 
     if (is.null(mdfr)) {
         mdfr<-rCompTCMs::extractMDFR.Fits.EffectiveNs(objs,
+                                                      fleets=fleets,
                                                       fleet.type=fleet.type[1],
                                                       category=category[1],
                                                       verbose=verbose);

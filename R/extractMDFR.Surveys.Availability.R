@@ -5,6 +5,7 @@
 #'   sex and maturity state.
 #'
 #'@param objs - list of resLst objects
+#'@param fleets - names of fleets to include (or "all")
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param cast - formula to exclude factors from "averaging" over (x,m,s)
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -16,6 +17,7 @@
 #'@export
 #'
 extractMDFR.Surveys.Availability<-function(objs,
+                                           fleets="all",
                                            years='all',
                                            cast='x',
                                            verbose=FALSE){
@@ -30,8 +32,13 @@ extractMDFR.Surveys.Availability<-function(objs,
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-NULL;
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL; #rsimTCSAM::getMDFR.SurveysAvailability(obj,verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.Availability(obj,cast=cast,verbose);
-        mdfr1$case<-case;
-        mdfr<-rbind(mdfr,mdfr1);
+        if (!is.null(mdfr1)){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if (nrow(mdfr1)>0){
+                mdfr1$case<-case;
+                mdfr<-rbind(mdfr,mdfr1);
+            }
+        }
     }
     if (is.null(mdfr)) return(NULL);
 
