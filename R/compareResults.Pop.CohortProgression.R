@@ -21,11 +21,8 @@
 #'@return ggplot2 object
 #'
 #'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-#'a set of time series plots are produced. Results are extracted using \code{rTCSAM02::getMDFR.Pop.CohortProgression},
+#'a set of time series plots are produced. Results are extracted using \code{extractMDFR.Pop.CohortProgression},
 #'for TCSAM02 model results (only). Plots are made using \code{plotPop.CohortProgression}.
-#'
-#'@import ggplot2
-#'@import rTCSAM02
 #'
 #'@export
 #'
@@ -60,7 +57,7 @@ compareResults.Pop.CohortProgression<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-rTCSAM02::getMDFR.Pop.CohortProgression(objs,cast=cast,years=years,verbose=verbose);
+    mdfr<-extractMDFR.Pop.CohortProgression(objs,cast=cast,years=years,verbose=verbose);
 
     plots<-plotPop.CohortProgression(mdfr,
                                      facet_grid=facet_grid,

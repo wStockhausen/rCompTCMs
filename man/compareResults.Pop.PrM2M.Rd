@@ -7,7 +7,7 @@
 compareResults.Pop.PrM2M(
   objs,
   dodge = 0.2,
-  colour_scale = ggplot2::scale_color_hue,
+  colour_scale = ggplot2::scale_color_hue(),
   showPlot = TRUE,
   pdf = NULL,
   verbose = FALSE

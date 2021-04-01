@@ -159,7 +159,8 @@ compareFits.SizeComps<-function(objs=NULL,
                                 pd<-position_identity();
                                 p <- ggplot(data=dfrp)
                                 p <- p + geom_bar(aes(x=z,y=val,fill=case),data=dfrp[dfrp$type=='observed',],stat="identity",position='identity',alpha=0.5)
-                                p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
+                                p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=1,alpha=0.5)
+                                p <- p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
                                 p <- p + ylim(0,rng[2])
                                 p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
                                 p <- p + labs(x=xlab,y=ylab)
@@ -167,7 +168,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 ttl<-paste0(fleet,': ',x,", ",m,", ",s);
                                 if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
                                 p <- p + ggtitle(ttl)
-                                p <- p + guides(fill=guide_legend('observed'),colour=guide_legend('predicted'))
+                                p <- p + guides(fill=guide_legend('observed'),colour=guide_legend('predicted'),shape=guide_legend('predicted'))
                                 xms<-paste0(x,", ",m,", ",s);
                                 cp1<-gsub("&&xms",xms,cap1,fixed=TRUE);
                                 cp1<-gsub("&&fleet",fleet,cp1,fixed=TRUE);
