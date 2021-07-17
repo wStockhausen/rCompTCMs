@@ -15,6 +15,7 @@ compareFits.MeanSizeComps(
   plot1stObs = TRUE,
   facet_grid = "m+s~x",
   scales = "free_y",
+  linesize = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -40,6 +41,8 @@ compareFits.MeanSizeComps(
 \item{facet_grid}{- faceting formula for ggplot2::facet_grid()}
 
 \item{scales}{- scales parameter for ggplot2::facet_grid()}
+
+\item{linesize}{- line width (in mm)}
 
 \item{pdf}{- name for output pdf file}
 

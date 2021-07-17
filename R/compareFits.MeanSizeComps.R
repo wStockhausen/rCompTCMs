@@ -14,6 +14,7 @@
 #' @param plot1stObs - flag (T/F) to plot observations only from first case
 #' @param facet_grid - faceting formula for ggplot2::facet_grid()
 #' @param scales - scales parameter for ggplot2::facet_grid()
+#' @param linesize - line width (in mm)
 #' @param pdf - name for output pdf file
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
@@ -38,6 +39,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
                                     plot1stObs=TRUE,
                                     facet_grid="m+s~x",
                                     scales="free_y",
+                                    linesize=1,
                                     pdf=NULL,
                                     showPlot=FALSE,
                                     verbose=FALSE){
@@ -106,10 +108,10 @@ compareFits.MeanSizeComps<-function(objs=NULL,
         #do plot
         pd<-position_identity();
         p <- ggplot(data=dfrp)
-        p <- p + geom_bar(aes(x=z,y=val,fill=case),data=dfrp[dfrp$type=='observed',],stat="identity",position='identity',alpha=0.5)
+        p <- p + geom_bar(aes(x=z,y=val,fill=case),data=dfrp[dfrp$type=='observed',],stat="identity",position=position_dodge(),alpha=0.5)
         p <- p + geom_errorbar(aes(x=z,ymin=lci,ymax=uci,colour=case),data=dfrp[dfrp$type=='observed',],linetype=2,position='identity',alpha=0.5)
-        p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
-        p <- p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
+        p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=linesize)
+        p <- p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=linesize)
         p <- p + geom_errorbar(aes(x=z,ymin=lci,ymax=uci,colour=case),data=dfrp[dfrp$type=='predicted',],position='identity')
         p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
         p <- p + labs(x=xlab,y=ylab)

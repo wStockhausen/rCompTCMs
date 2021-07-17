@@ -12,6 +12,7 @@
 #'@param sexs - vector of sexes to plot (or 'all')
 #'@param maturity_states - vector of maturity states to plot (or 'all')
 #'@param shell_conditions - vector of shell conditions to plot (or 'all')
+#'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 #'@param ci - confidence interval for plots
 #'@param numRecent - number of years for 'recent' plot
 #'@param ylims - limits for y axis (default is NULL)
@@ -35,6 +36,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                       sexs="all",
                                       maturity_states="all",
                                       shell_conditions="all",
+                                      position=ggplot2::position_dodge(0.2),
                                       ci=0.80,
                                       numRecent=15,
                                       ylims=NULL,
@@ -135,6 +137,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                  plot1stObs=FALSE,
                                  facets=facets,
                                  scales=scales,
+                                 position=position,
                                  plotObs=TRUE,
                                  plotMod=FALSE,
                                  xlab='year',

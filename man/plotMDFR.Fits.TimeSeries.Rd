@@ -16,6 +16,7 @@ plotMDFR.Fits.TimeSeries(
   type = "type",
   facets = NULL,
   scales = "fixed",
+  position = ggplot2::position_dodge(0.2),
   plotObs = TRUE,
   plotMod = TRUE,
   xlab = "year",
@@ -49,6 +50,8 @@ plotMDFR.Fits.TimeSeries(
 \item{facets}{- string giving faceting formula}
 
 \item{scales}{- ggplot2 scales option for facet_grid}
+
+\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
 
 \item{plotObs}{- plot observations}
 

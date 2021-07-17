@@ -10,6 +10,7 @@
 #'@param catch.type - catch type ('index','retained',  or 'total')
 #'@param ci - confidence interval for plots
 #'@param scales - ggplot2 scales option for facet_grid
+#'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 #'@param pdf - name for output pdf file
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -34,6 +35,7 @@ compareFits.BiomassData<-function(objs=NULL,
                                   numRecent=15,
                                   plot1stObs=TRUE,
                                   scales="free_y",
+                                  position=position_dodge(0.3),
                                   pdf=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
@@ -121,6 +123,7 @@ compareFits.BiomassData<-function(objs=NULL,
                                                  plot1stObs=plot1stObs,
                                                  facets='facets~.',
                                                  scales=scales,
+                                                 position=position,
                                                  plotObs=TRUE,
                                                  plotMod=TRUE,
                                                  xlab='year',

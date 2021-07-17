@@ -14,6 +14,7 @@ compareFits.BiomassData(
   numRecent = 15,
   plot1stObs = TRUE,
   scales = "free_y",
+  position = position_dodge(0.3),
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -29,6 +30,8 @@ compareFits.BiomassData(
 \item{ci}{- confidence interval for plots}
 
 \item{scales}{- ggplot2 scales option for facet_grid}
+
+\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
 
 \item{pdf}{- name for output pdf file}
 

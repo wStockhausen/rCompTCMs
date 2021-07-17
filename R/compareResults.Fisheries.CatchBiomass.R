@@ -30,18 +30,18 @@
 #'
 compareResults.Fisheries.CatchBiomass<-function(objs,
                                                 fleets="all",
-                                           category=c('captured','discarded','retained','discard mortality','index'),
-                                           cast=NULL,
-                                           facet_grid=NULL,
-                                           facet_wrap=NULL,
-                                           scales="free_y",
-                                           dodge=0.2,
-                                           years='all',
-                                           mxy=15,
-                                           nrow=5,
-                                           showPlot=FALSE,
-                                           pdf=NULL,
-                                           verbose=FALSE){
+                                               category=c('captured','discarded','retained','discard mortality','index'),
+                                               cast=NULL,
+                                               facet_grid=NULL,
+                                               facet_wrap=NULL,
+                                               scales="free_y",
+                                               dodge=0.2,
+                                               years='all',
+                                               mxy=15,
+                                               nrow=5,
+                                               showPlot=FALSE,
+                                               pdf=NULL,
+                                               verbose=FALSE){
     if (verbose) cat("--starting rCompTCMs::compareResults.Fisheries.CatchBiomass().\n");
     options(stringsAsFactors=FALSE);
 
@@ -62,7 +62,7 @@ compareResults.Fisheries.CatchBiomass<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Fisheries.CatchBiomass(objs,fleets="all",category=category,cast=cast,years=years,verbose=verbose)
+    mdfr<-extractMDFR.Fisheries.CatchBiomass(objs,fleets=fleets,category=category,cast=cast,years=years,verbose=verbose)
 
     #----------------------------------
     #fishery catch biomass

@@ -13,6 +13,7 @@ compareData.FleetTimeSeriesABs(
   sexs = "all",
   maturity_states = "all",
   shell_conditions = "all",
+  position = ggplot2::position_dodge(0.2),
   ci = 0.8,
   numRecent = 15,
   ylims = NULL,
@@ -35,6 +36,8 @@ compareData.FleetTimeSeriesABs(
 \item{maturity_states}{- vector of maturity states to plot (or 'all')}
 
 \item{shell_conditions}{- vector of shell conditions to plot (or 'all')}
+
+\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
 
 \item{ci}{- confidence interval for plots}
 
