@@ -4,14 +4,16 @@
 \alias{retroCalcMohnsRho}
 \title{Calculate Mohn's rho from a dataframe of retrospective estimates}
 \usage{
-retroCalcMohnsRho(dfr, ylab = "value", showPlot = FALSE)
+retroCalcMohnsRho(dfr, ylab = "value", yadj = 0, showPlot = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe of retrospective estimates for analysis}
 
 \item{ylab}{- y axis label for plot}
 
-\item{showPlot}{- flag (T/F) to show plot immmediately}
+\item{yadj}{- adjustment to \code{assessment year-1} for max year in dataframe}
+
+\item{showPlot}{- flag (T/F) to show plot immediately}
 }
 \value{
 Returns a list with rho, a dataframe of values, and a ggplot2 object, invisibly

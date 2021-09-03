@@ -69,6 +69,9 @@ Fits to survey size composition data available to the model(s) are presented in 
 
 \section{Residuals to survey size composition data}
 
+Pearson's residuals are plotted for fits to size composition data. Symbol areas reflect the size of each residual,
+Extreme values (residuals larger than 4 in scale) are indicated with a red "X" to facilitate identification.
+
 ```{r extractFits.Pearsons,results="hide"}
   mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
@@ -78,7 +81,7 @@ Fits to survey size composition data available to the model(s) are presented in 
                                               verbose=FALSE);
 ```
 
-```{r plotFits.SurveyZCsBubblePlotsIM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsIM,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   #idx<-(mdfr$x=="male")&(mdfr$m=="immature");
   idx<-(mdfr$x=="male");
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
@@ -91,7 +94,7 @@ Fits to survey size composition data available to the model(s) are presented in 
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-```{r plotFits.SurveyZCsBubblePlotsM,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsM,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
   #                                             fleet.type="survey",
   #                                             catch.type="index",
@@ -108,7 +111,7 @@ Fits to survey size composition data available to the model(s) are presented in 
   # for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-```{r plotFits.SurveyZCsBubblePlotsF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsF,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   #idx<-(mdfr$x=="female")&(mdfr$m=="immature");
   idx<-(mdfr$x=="female");
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(mdfr=mdfr[idx,],
@@ -122,7 +125,7 @@ Fits to survey size composition data available to the model(s) are presented in 
 for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-```{r plotFits.SurveyZCsBubblePlotsMF,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsMF,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
   #                                             fleet.type="survey",
   #                                             catch.type="index",
@@ -141,7 +144,7 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 
 \section{Effective sample sizes for survey size compositions}
 
-```{r plotFits.SurveyEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="survey",

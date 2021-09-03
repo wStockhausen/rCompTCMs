@@ -12,6 +12,7 @@ compareFits.ZScores.PrNatZ(
   catch.type = c("index", "retained", "total"),
   residuals.type = c("pearsons", "nlls"),
   tcsam2013.type = c("PRs_yxmz", "PRs_yxz"),
+  BRT = 4,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -31,6 +32,8 @@ compareFits.ZScores.PrNatZ(
 \item{residuals.type}{- residual type for tcsam02 models ('pearsons' or 'nlls')}
 
 \item{tcsam2013.type}{- pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")}
+
+\item{BRT}{- bad residual threshold (threshold to flag bad residuals, if residuals.type is 'pearsons')}
 
 \item{showPlot}{- flag (T/F) to show plot}
 

@@ -7,11 +7,11 @@
 retroGetMDFR(modsRetro, FUN, yadj = 0, ...)
 }
 \arguments{
-\item{modsRetro}{- named list of resLst objects, with names corresponding to retrospective peels}
+\item{modsRetro}{- named list of resLst objects, with names corresponding to assessment years representing peels}
 
 \item{FUN}{- rCompTCMs function used to extract the desired estimates (i.e., an extractMDFR function)}
 
-\item{yadj}{- adjustment to make to model years}
+\item{yadj}{- adjustment to extract correct max year in results, relative to \code{assessment year-1}}
 
 \item{...}{- additional arguments passed to FUN}
 }
@@ -23,4 +23,10 @@ This function extracts a melted dataframe from a list of retrospective model res
 }
 \details{
 Results are extracted using \code{FUN} for a retrospective series of tcsam02 model runs.
+}
+\note{
+The names of the resLst objects should correspond to the *assessment year* they represent.
+\code{yadj} should be 0 (the default) for results that end in the "max year" of the assessment,
+which is one less than the assessment year (e.g., recruitment, mature biomass). For results that end
+with the year of the assessment (e.g., survey biomass, numbers-at size), \code{yadj} should be 1.
 }

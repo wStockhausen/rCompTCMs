@@ -37,7 +37,11 @@ compareResults.Pop.NaturalMortality.BarPlot<-function(
         showPlot<-TRUE;
     }
 
-    dfrNMs<-rTCSAM02::getMDFR.Pop.NaturalMortality(objs,'M_cxm',verbose);
+    if (!inherits(objs,"data.frame")){
+      dfrNMs<-rTCSAM02::getMDFR.Pop.NaturalMortality(objs,'M_cxm',verbose);
+    } else {
+      dfrNMs = objs;
+    }
 
     #----------------------------------
     # plot natural mortality rates as bars
@@ -64,7 +68,7 @@ compareResults.Pop.NaturalMortality.BarPlot<-function(
     if (showPlot) print(p);
 
     plots1<-list();
-    cap1<-"  \n  \nFigure &&figno. Estimated natural mortality rates, by year.  \n  \n";
+    cap1<-"  \n  \nFigure &&figno. Estimated natural mortality rates, by time period.  \n  \n";
     plots1[[cap1]]<-p;
     return(plots1);
 }

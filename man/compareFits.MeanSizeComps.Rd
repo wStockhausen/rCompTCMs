@@ -15,7 +15,7 @@ compareFits.MeanSizeComps(
   plot1stObs = TRUE,
   facet_grid = "m+s~x",
   scales = "free_y",
-  linesize = NULL,
+  linesize = 1,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE

@@ -87,7 +87,10 @@ Fits to fishery retained catch and total catch size composition data available t
 
 \section{Fishery retained catch size composition residuals}
 
-```{r plotFits.FisheryRetainedCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+Pearson's residuals are plotted for fits to size composition data. Symbol areas reflect the size of each residual,
+Extreme values (residuals larger than 4 in scale) are indicated with a red "X" to facilitate identification.
+
+```{r plotFits.FisheryRetainedCatchZCsBubblePlots,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="fishery",
@@ -102,7 +105,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 \section{Effective Ns for retained catch size compositions}
 
-```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6,0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="fishery",
@@ -116,7 +119,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 \section{Total catch size composition residuals}
 
-```{r plotFits.FisheryTotalCatchZCsBubblePlots,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.FisheryTotalCatchZCsBubblePlots,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="fishery",
@@ -131,7 +134,7 @@ Fits to fishery retained catch and total catch size composition data available t
 
 \section{Effective Ns for total catch size compositions}
 
-```{r plotFits.TotalCatchEffectiveNs,results='asis',fig.height=6.5,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.TotalCatchEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="fishery",
