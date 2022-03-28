@@ -49,8 +49,8 @@ Function to compare fits to biomass time series by fleet among
 several model runs.
 }
 \details{
-If \code{objs} is a list, then \code{extractMDFR.Fits.BiomassData} is used to extract a melted dataframe
+If \code{objs} is a list, then [extractMDFR.Fits.BiomassData()] is used to extract a melted dataframe
 in canonical format with the biomass observations and predictions to be plotted. \code{objs} can also be a melted
-dataframe from a previous call to \code{extractMDFR.Fits.BiomassData}.
-Also uses \code{wtsUtilities::printGGList}.
+dataframe from a previous call to [extractMDFR.Fits.BiomassData()].
+Also uses [wtsUtilities::printGGList()].
 }

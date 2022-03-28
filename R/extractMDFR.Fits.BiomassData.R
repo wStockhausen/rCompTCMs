@@ -12,8 +12,8 @@
 #'@param fishery.pdfType - assumed distribution for fishery data
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
+#'@details Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
+#'[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.Fits.FleetData()].
 #'
 #'@return dataframe
 #'

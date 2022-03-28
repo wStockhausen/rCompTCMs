@@ -105,7 +105,7 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
 
 \section{Effective Ns for retained catch size compositions}
 
-```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6,0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="fishery",

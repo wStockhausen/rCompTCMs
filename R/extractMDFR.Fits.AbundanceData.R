@@ -12,14 +12,14 @@
 #'@param fishery.pdfType - assumed distribution for fishery data
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
+#'@details Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
+#'[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.Fits.FleetData()].
 #'
 #'@return dataframe
 #'
 #'@export
 #'
-extractMDFR.Fits.BiomassData<-function(objs=NULL,
+extractMDFR.Fits.AbundanceData<-function(objs=NULL,
                                        fleets="all",
                                        fleet.type=c('survey','fishery'),
                                        catch.type=c('index','retained','discard','total'),
@@ -27,7 +27,7 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
                                        fishery.pdfType=c("norm2","normal","lognormal"),
                                        verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::extractMDFR.Fits.BiomassData().\n");
+    if (verbose) cat("Starting rCompTCMs::extractMDFR.Fits.AbundanceData().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -88,6 +88,6 @@ extractMDFR.Fits.BiomassData<-function(objs=NULL,
 
     if (verbose) if(is.null(mdfr)) cat("mdfr is NULL\n");
     if (verbose) cat("nrow(mdfr) =",nrow(mdfr),"\n");
-    if (verbose) cat("Finished rCompTCMs::extractMDFR.Fits.BiomassData().\n");
+    if (verbose) cat("Finished rCompTCMs::extractMDFR.Fits.AbundanceData().\n");
     return(mdfr);
 }
