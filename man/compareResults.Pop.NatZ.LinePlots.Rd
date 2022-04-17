@@ -18,7 +18,7 @@ compareResults.Pop.NatZ.LinePlots(
 \arguments{
 \item{objs}{- list of resLst objects}
 
-\item{type}{- type of abuundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz","fN_xmsz")}
+\item{type}{- type of abundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz"-initial Ns,"fN_xmsz"-final Ns)}
 
 \item{dodge}{- width to dodge overlapping series}
 

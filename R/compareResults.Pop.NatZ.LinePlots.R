@@ -5,7 +5,7 @@
 #'   using line plots among several models.
 #'
 #'@param objs - list of resLst objects
-#'@param type - type of abuundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz","fN_xmsz")
+#'@param type - type of abundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz"-initial Ns,"fN_xmsz"-final Ns)
 #'@param dodge - width to dodge overlapping series
 #'@param ncol - number of columns per page for multi-year plots
 #'@param nrow - number of rows per page (nominal) for multi-year plots
@@ -107,14 +107,14 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
         plots<-list();
         p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,
                        xlab='size (mm CW)',ylab='Initial Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid=as.formula('m+s~x'),dodge=dodge,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$A<-p;
         p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,
                        xlab='size (mm CW)',ylab='Initial Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid=as.formula('m+s~x'),dodge=dodge,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -122,16 +122,16 @@ compareResults.Pop.NatZ.LinePlots<-function(objs,
     }
     if (substr(type,1,3)=="fN_"){
         plots<-list();
-        p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,
                        xlab='size (mm CW)',ylab='Final Abundance',units="millions",lnscale=FALSE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid=as.formula('m+s~x'),dodge=dodge,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
         plots$A<-p;
-        p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,faceting=NULL,
+        p<-plotMDFR.XY(mdfr,x='z',agg.formula=NULL,
                        xlab='size (mm CW)',ylab='Final Abundance',units="millions",lnscale=TRUE,
-                       facet_grid='m+s~x',dodge=dodge,
+                       facet_grid=as.formula('m+s~x'),dodge=dodge,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
