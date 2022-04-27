@@ -13,7 +13,6 @@
 #'@param scales - scales parameter for use with facet_grid/facet_wrap
 #'@param dodge - width to dodge overlapping series
 #'@param years - 'all' or vector of years to include
-#'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param ncol - number of columns per page, when facet_wrap'ing
 #'@param showPlot - flag (T/F) to show plot
@@ -46,7 +45,7 @@ compareDiffs<-function(dfr,
                        showPlot=FALSE,
                        pdf=NULL,
                        verbose=FALSE){
-    if (verbose) cat("--starting rCompTCMs::compareDiffs().\n");
+    if (verbose) message("--starting rCompTCMs::compareDiffs().\n");
     options(stringsAsFactors=FALSE);
 
     diff.type<-diff.type[1];
@@ -88,13 +87,13 @@ compareDiffs<-function(dfr,
     plots<-list();
     uF<-"";
     if (!is.null(mdfr$fleet)) uF<-unique(mdfr$fleet);
-    if (verbose) cat("Fleets = ",uF,"\n");
+    if (verbose) message("Fleets = ",uF,"\n");
     isZcast<-sum(grep('z',cast,fixed=TRUE))>0;
     isYcast<-sum(grep('y',cast,fixed=TRUE))>0;
     isYfacet<-sum(grep('y',facet_grid,fixed=TRUE),grep('y',facet_wrap,fixed=TRUE))>0;
     if (sum(grep('zp',cast,fixed=TRUE))>0){
         #plot growth matrices
-        if (verbose) cat("Plotting growth matrices\n")
+        if (verbose) message("Plotting growth matrices\n")
         mdfr$z <-as.numeric(mdfr$z);
         mdfr$zp<-as.numeric(mdfr$zp);
         mdfr$sign<-ifelse(mdfr$val>=0,">=0","<0");
@@ -118,13 +117,13 @@ compareDiffs<-function(dfr,
         }
     } else if (isZcast&&isYcast&&!isYfacet){
         #plot size comps by year as bubble plot
-        if (verbose) cat("Plotting size comps as bubble plot.\n")
+        if (verbose) message("Plotting size comps as bubble plot.\n")
         if (!is.null(mdfr$y))  mdfr$y<-as.numeric(mdfr$y);
         mdfr$z<-as.numeric(mdfr$z);
         mdfr$sign<-ifelse(mdfr$val>=0,">=0","<0");
         mdfr$val<-abs(mdfr$val);
         for (f in uF){
-            if (verbose) cat("Plotting fleet",f,"\n")
+            if (verbose) message("Plotting fleet",f,"\n")
             subPlots<-list();
             mdfrp<-mdfr;
             if (!is.null(mdfr$fleet)) mdfrp<-mdfr[mdfr$fleet==f,];
@@ -145,7 +144,7 @@ compareDiffs<-function(dfr,
                         if (!is.null(mdfrp[["s"]])) ids<-mdfrp[["s"]]==s;
                         mdfrpp<-mdfrp[idx&idm&ids,];
                         if (nrow(mdfrpp)>0){
-                            if (verbose) cat("Plotting ",nrow(mdfrpp)," rows for",x,m,s,".\n")
+                            if (verbose) message("Plotting ",nrow(mdfrpp)," rows for",x,m,s,".\n")
                             p<-plotMDFR.Bubbles(mdfrpp,x='y',y='z',colour="sign",
                                                 facet_grid=facet_grid,
                                                 title=paste(f,title,"\nfor",x,m,s),
@@ -154,7 +153,7 @@ compareDiffs<-function(dfr,
                             cap<-paste0("\n  \nFigure &&figno. Differences for ",f," ",title," for ",x," ",m," ",s,".  \n  \n")
                             subPlots[[cap]]<-p;
                         } else {
-                            if (verbose) cat("Skipping ",x,m,s,"\n");
+                            if (verbose) message("Skipping ",x,m,s,"\n");
                         }
                     }#uS
                 }#uM
@@ -163,12 +162,12 @@ compareDiffs<-function(dfr,
         }#uF
     } else if (isZcast){
         #plot with 'z' on x axis ('y' could be a faceting variable)
-        if (verbose) cat("Plotting function of size.\n")
+        if (verbose) message("Plotting function of size.\n")
         isXfacet<-sum(grep('x',facet_grid,fixed=TRUE),grep('x',facet_wrap,fixed=TRUE))>0;
-        if (verbose) cat("Faceting by sex is",isXfacet,"\n");
+        if (verbose) message("Faceting by sex is",isXfacet,"\n");
         mdfr$z<-as.numeric(mdfr$z);
         for (f in uF){
-            if (verbose) cat("Plotting fleet",f,"\n")
+            if (verbose) message("Plotting fleet",f,"\n")
             title1<-title;
             mdfrp<-mdfr;
             if (!is.null(mdfr$fleet)) {
@@ -209,10 +208,10 @@ compareDiffs<-function(dfr,
         }#uF
     } else {
         #plot time series
-        if (verbose) cat("Plotting time series.\n")
+        if (verbose) message("Plotting time series.\n")
         mdfr$y<-as.numeric(mdfr$y);
         for (f in uF){
-            if (verbose) cat("Plotting fleet",f,"\n")
+            if (verbose) message("Plotting fleet",f,"\n")
             title1<-title;
             mdfrp<-mdfr;
             if (!is.null(mdfr$fleet)) {
@@ -233,7 +232,7 @@ compareDiffs<-function(dfr,
         }#uF
     }
 
-    if (verbose) cat("rCompTCMs::compareDiffs: Done!\n");
+    if (verbose) message("rCompTCMs::compareDiffs: Done!\n");
     return(plots)
 }
 

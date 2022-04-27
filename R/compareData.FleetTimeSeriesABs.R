@@ -4,7 +4,7 @@
 #'@description Function to compare abundance or biomass time series data by fleet among
 #'several model scenarios.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects (or dataframe from call to [extractMDFR.Data.FleetTimeSeriesABs()])
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard' or 'total')
 #'@param data.type - data type ('abundance' or 'biomass')
@@ -20,72 +20,60 @@
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM02::getMDFR.Data.FleetTimeSeries()}.
+#'@details Uses [extractMDFR.Data.FleetTimeSeriesABs()] to extract the data (if objs is not a dataframe).
+#'Uses [plotMDFR.Fits.TimeSeries()] to make the plots, with \code{plotObs=TRUE} and \code{plotMod=FALSE}. Only time series with
+#'at least one non-zero value will be plotted (to eliminate lots of values along y=0).
 #'
 #'@return Non-nested list of ggplot2 objects, with captions as names
 #'
-#'@import ggplot2
+#'@import dplyr
+#'@import wtsUtilities
+#'
+#'@md
 #'
 #'@export
 #'
 compareData.FleetTimeSeriesABs<-function(objs=NULL,
-                                      fleet.type=c('survey','fishery'),
-                                      catch.type=c('index','retained','discard','total'),
-                                      data.type=c('abundance','biomass'),
-                                      fleets="all",
-                                      sexs="all",
-                                      maturity_states="all",
-                                      shell_conditions="all",
-                                      position=ggplot2::position_dodge(0.2),
-                                      ci=0.80,
-                                      numRecent=15,
-                                      ylims=NULL,
-                                      facets="fleet~x",
-                                      scales="free_y",
-                                      verbose=FALSE){
+                                          fleet.type=c('survey','fishery'),
+                                          catch.type=c('index','retained','discard','total'),
+                                          data.type=c('abundance','biomass'),
+                                          fleets="all",
+                                          sexs="all",
+                                          maturity_states="all",
+                                          shell_conditions="all",
+                                          position=ggplot2::position_dodge(0.2),
+                                          ci=0.80,
+                                          numRecent=15,
+                                          ylims=NULL,
+                                          facets="fleet~x",
+                                          scales="free_y",
+                                          verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareData.FleetTimeSeries().\n");
+    if (verbose) message("Starting rCompTCMs::compareData.FleetTimeSeriesABs().\n");
     options(stringsAsFactors=FALSE);
 
-    fleet.type<-fleet.type[1];
-    catch.type<-catch.type[1];
-
-    if (fleet.type=='survey') catch.type<-'index';
-
-    cases<-names(objs);
-
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        mdfr1<-NULL;
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
-        if (inherits(obj,"tcsam02.resLst"))
-            mdfr1<-rTCSAM02::getMDFR.Data.FleetTimeSeries(obj,
-                                                          fleet.type=fleet.type,
-                                                          data.type=data.type,
-                                                          catch.type=catch.type,
-                                                          ci=ci,
-                                                          verbose=verbose);
-        if (!is.null(mdfr1)){
-            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+    if (inherits(objs,"data.frame")){
+        mdfr = objs;
+    } else {
+        mdfr<-rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(objs=objs,
+                                                              fleet.type=fleet.type[1],
+                                                              catch.type=catch.type[1],
+                                                              data.type=data.type[1],
+                                                              fleets=fleets,
+                                                              sexs=sexs,
+                                                              maturity_states=maturity_states,
+                                                              shell_conditions=shell_conditions,
+                                                              ci=ci,
+                                                              verbose=verbose);
+        #--keep only factors with at least one non-zero value
+        tmp = mdfr %>%
+                dplyr::group_by(case,process,fleet,category,type,pc,x,m,s) %>%
+                dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+                dplyr::ungroup() %>%
+                dplyr::filter(tot>0) %>%
+                dplyr::select(!tot);
+        mdfr %<>% dplyr::inner_join(tmp,by=c("case","process","fleet","category","type","pc","x","m","s"));
     }
-    if (fleets[1]          =="all") fleets          <-unique(mdfr$f);
-    if (sexs[1]            =="all") sexs            <-unique(mdfr$x);
-    if (maturity_states[1] =="all") maturity_states <-unique(mdfr$m);
-    if (shell_conditions[1]=="all") shell_conditions<-unique(mdfr$s);
-    mdfr<-mdfr[mdfr$f %in% fleets,];
-    mdfr<-mdfr[mdfr$x %in% sexs,];
-    mdfr<-mdfr[mdfr$m %in% maturity_states,];
-    mdfr<-mdfr[mdfr$s %in% shell_conditions,];
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
-    mdfr$x[mdfr$x=='all']<-'all sex';
-    mdfr$m[mdfr$m=='all']<-'all maturity';
-    mdfr$s[mdfr$s=='all']<-'all shell';
 
     #----------------------------------
     # define output list of plots
@@ -95,7 +83,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
     #----------------------------------
     # plot fits to time series
     #----------------------------------
-    if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+    if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1"; cap2<-"2";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
         ylab<-"Survey &&type (&&data)";
@@ -149,6 +137,6 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
     plots[[cap1]]<-ps[[1]];
     plots[[cap2]]<-ps[[2]];
 
-    if (verbose) cat("Finished rCompTCMs::compareData.FleetTimeSeries().\n");
+    if (verbose) message("Finished rCompTCMs::compareData.FleetTimeSeries().\n");
     return(plots);
 }

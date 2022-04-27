@@ -4,11 +4,14 @@
 #'@description Function to compare fits to abundance time series by fleet among
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
 #'@param fleets - names of fleets to plot (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained',  or 'total')
 #'@param ci - confidence interval for plots
+#'@param fishery.pdfType - choice for fishery CIs ("norm2","normal","lognormal")
+#'@param numRecent - number of recent years to include in "recent years" plots
+#'@param plot1stObs - flag (T/F) to plot observations only from the first model
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 #'@param pdf - name for output pdf file
@@ -27,19 +30,19 @@
 #'
 compareFits.AbundanceData<-function(objs=NULL,
                                     fleets="all",
-                                  fleet.type=c('survey','fishery'),
-                                  catch.type=c('index','retained','discard','total'),
-                                  ci=0.80,
-                                  fishery.pdfType=c("norm2","normal","lognormal"),
-                                  numRecent=15,
-                                  plot1stObs=TRUE,
-                                  scales="free_y",
-                                  position=position_dodge(0.3),
-                                  pdf=NULL,
-                                  showPlot=FALSE,
-                                  verbose=FALSE){
+                                    fleet.type=c('survey','fishery'),
+                                    catch.type=c('index','retained','discard','total'),
+                                    ci=0.80,
+                                    fishery.pdfType=c("norm2","normal","lognormal"),
+                                    numRecent=15,
+                                    plot1stObs=TRUE,
+                                    scales="free_y",
+                                    position=position_dodge(0.3),
+                                    pdf=NULL,
+                                    showPlot=FALSE,
+                                    verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.AbundanceData().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.AbundanceData().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -91,7 +94,7 @@ compareFits.AbundanceData<-function(objs=NULL,
         #----------------------------------
         # plot fits to biomass time series
         #----------------------------------
-        if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+        if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
         ylab<-""; cap1<-"1"; cap2<-"2";
         if ((catch.type=="index")&&(fleet.type=="survey")) {
             ylab<-"Survey abundance (millions)";
@@ -151,6 +154,6 @@ compareFits.AbundanceData<-function(objs=NULL,
         }#uFs
     }
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.AbundanceData().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.AbundanceData().\n");
     return(plots);
 }

@@ -21,25 +21,57 @@ compareFits.BiomassData(
 )
 }
 \arguments{
-\item{fleets}{- names of fleets to include (or "all")}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects, OR a melted dataframe
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{ci}{- confidence interval for plots}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{scales}{- ggplot2 scales option for facet_grid}
+\item{ci}{\itemize{
+\item confidence interval for plots
+}}
 
-\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
+\item{fishery.pdfType}{\itemize{
+\item choice for fishery CIs ("norm2","normal","lognormal")
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{numRecent}{\itemize{
+\item number of recent years to include in "recent years" plots
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to plot observations only from the first model
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects, OR a melted dataframe}
+\item{position}{\itemize{
+\item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
+}}
+
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
+
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names, or NULL.
@@ -49,8 +81,8 @@ Function to compare fits to biomass time series by fleet among
 several model runs.
 }
 \details{
-If \code{objs} is a list, then [extractMDFR.Fits.BiomassData()] is used to extract a melted dataframe
+If \code{objs} is a list, then \code{\link[=extractMDFR.Fits.BiomassData]{extractMDFR.Fits.BiomassData()}} is used to extract a melted dataframe
 in canonical format with the biomass observations and predictions to be plotted. \code{objs} can also be a melted
-dataframe from a previous call to [extractMDFR.Fits.BiomassData()].
-Also uses [wtsUtilities::printGGList()].
+dataframe from a previous call to \code{\link[=extractMDFR.Fits.BiomassData]{extractMDFR.Fits.BiomassData()}}.
+Also uses \code{\link[wtsUtilities:printGGList]{wtsUtilities::printGGList()}}.
 }

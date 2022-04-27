@@ -10,10 +10,10 @@ createTable.PsAtBs(dfr)
 \item{dfr}{- dataframe with parameters at bounds}
 }
 \value{
-a package{tables} tabular object
+a \pkg{tables} tabular object
 }
 \description{
-Function to create a package{tables} tabular object for parameters at bound.
+Function to create a \pkg{tables} tabular object for parameters at bound.
 }
 \details{
 This function creates a tabular object

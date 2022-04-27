@@ -8,12 +8,18 @@ createTable.ParamVals(dfr, ctg = NULL, prc = NULL, devs = FALSE)
 }
 \arguments{
 \item{dfr}{- dataframe with parameters at bounds}
+
+\item{ctg}{- categories to include}
+
+\item{prc}{- processes to include}
+
+\item{devs}{- flag (T/F) to include devs}
 }
 \value{
-a package{tables} tabular object
+a \pkg{tables} tabular object
 }
 \description{
-Function to create a package{tables} tabular object for parameter values for a
+Function to create a \pkg{tables} tabular object for parameter values for a
 given set of categories, processes, labels, and names.
 }
 \details{

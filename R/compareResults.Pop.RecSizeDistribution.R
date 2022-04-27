@@ -3,7 +3,7 @@
 #'
 #'@description Function to compare recruitment size distributions among several model runs.
 #'
-#'@param obj - list of resLst objects
+#'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
@@ -23,7 +23,7 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
                                                  pdf=NULL,
                                                  verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
+    if (verbose) message("Starting rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     options(stringsAsFactors=FALSE);
 
     cases<-names(objs);
@@ -49,7 +49,7 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
 
     if (showPlot) print(p);
 
-    if (verbose) cat("--finished rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
+    if (verbose) message("--finished rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     return(p);
 }
 

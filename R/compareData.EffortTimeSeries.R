@@ -1,10 +1,10 @@
 #'
 #'@title Compare effort time series data by fleet among several model scenarios
 #'
-#'@description Function to compare effort time series data by fleet among 
+#'@description Function to compare effort time series data by fleet among
 #'several model scenarios.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
@@ -17,18 +17,18 @@
 #'@export
 #'
 compareData.EffortTimeSeries<-function(objs=NULL,
-                                  scales="free_y",
-                                  verbose=FALSE){
-    
-    if (verbose) cat("Starting rCompTCMs::compareData.EffortTimeSeries().\n");
+                                       scales="free_y",
+                                       verbose=FALSE){
+
+    if (verbose) message("Starting rCompTCMs::compareData.EffortTimeSeries().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        if (verbose) message("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         mdfr1<-NULL;
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Data.EffortData(obj,
@@ -47,9 +47,9 @@ compareData.EffortTimeSeries<-function(objs=NULL,
     plots<-list();
 
     #----------------------------------
-    # plot fits to biomass time series 
+    # plot fits to biomass time series
     #----------------------------------
-    if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+    if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
     ylab<-"Effort (1000's potlifts)";
     cap1<-"  \n  \nFigure &&fno. Comparison of effort data among fleets.  \n  \n";
 
@@ -58,9 +58,9 @@ compareData.EffortTimeSeries<-function(objs=NULL,
     p <- p + geom_point();
     p <- p + facet_grid('fleet~.',scales=scales);
     p <- p + labs(x="year",y=ylab);
-    
+
     plots[[cap1]]<-p;
-    
-    if (verbose) cat("Finished rCompTCMs::compareData.EffortTimeSeries().\n");
+
+    if (verbose) message("Finished rCompTCMs::compareData.EffortTimeSeries().\n");
     return(plots);
 }

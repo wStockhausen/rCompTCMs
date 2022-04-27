@@ -23,35 +23,65 @@ compareData.FleetTimeSeriesABs(
 )
 }
 \arguments{
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{catch.type}{- catch type ('index','retained', 'discard' or 'total')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{data.type}{- data type ('abundance' or 'biomass')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained', 'discard' or 'total')
+}}
 
-\item{fleets}{- vector of names of fleets to plot (or 'all')}
+\item{data.type}{\itemize{
+\item data type ('abundance' or 'biomass')
+}}
 
-\item{sexs}{- vector of sexes to plot (or 'all')}
+\item{fleets}{\itemize{
+\item vector of names of fleets to plot (or 'all')
+}}
 
-\item{maturity_states}{- vector of maturity states to plot (or 'all')}
+\item{sexs}{\itemize{
+\item vector of sexes to plot (or 'all')
+}}
 
-\item{shell_conditions}{- vector of shell conditions to plot (or 'all')}
+\item{maturity_states}{\itemize{
+\item vector of maturity states to plot (or 'all')
+}}
 
-\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
+\item{shell_conditions}{\itemize{
+\item vector of shell conditions to plot (or 'all')
+}}
 
-\item{ci}{- confidence interval for plots}
+\item{position}{\itemize{
+\item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
+}}
 
-\item{numRecent}{- number of years for 'recent' plot}
+\item{ci}{\itemize{
+\item confidence interval for plots
+}}
 
-\item{ylims}{- limits for y axis (default is NULL)}
+\item{numRecent}{\itemize{
+\item number of years for 'recent' plot
+}}
 
-\item{facets}{- grid faceting formula}
+\item{ylims}{\itemize{
+\item limits for y axis (default is NULL)
+}}
 
-\item{scales}{- ggplot2 scales option for facet_grid}
+\item{facets}{\itemize{
+\item grid faceting formula
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names
@@ -61,5 +91,5 @@ Function to compare abundance or biomass time series data by fleet among
 several model scenarios.
 }
 \details{
-Uses \code{rTCSAM02::getMDFR.Data.FleetTimeSeries()}.
+Uses \code{\link[rTCSAM02:getMDFR.Data.FleetTimeSeries]{rTCSAM02::getMDFR.Data.FleetTimeSeries()}}.
 }

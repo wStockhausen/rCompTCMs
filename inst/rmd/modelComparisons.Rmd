@@ -4,9 +4,77 @@ date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
     title: "Tanner Crab Model Comparisons" 
-    plot1stObs: TRUE
-    numRecent: 30
     doc_type: "pdf"
+    includeInputData: FALSE
+    InputData:
+      !r list(includeSurveyData=TRUE,
+              surveys=list(plotAbundance=TRUE,
+                           plotBiomass=TRUE,
+                           plotZCs=TRUE,
+                           plot1stObs=FALSE,
+                           fleets="all",
+                           ci=0.80,
+                           numRecent=30),
+              includeFisheryData=TRUE,
+              fisheries=list(fleets="all",
+                             retained=list(plotAbundance=TRUE,
+                                           plotBiomass=TRUE,
+                                           plotZCs=TRUE,
+                                           plot1stObs=FALSE,
+                                           ci=0.80,
+                                           numRecent=30),
+                             total=list(plotAbundance=TRUE,
+                                           plotBiomass=TRUE,
+                                           plotZCs=TRUE,
+                                           plot1stObs=FALSE,
+                                           ci=0.80,
+                                           numRecent=30),
+                             effort=list(plot=TRUE,
+                                         plot1stObs=FALSE,
+                                         numRecent=30)),
+              includeGrowthData=TRUE,
+              includeMaturityOgiveData=TRUE,                           
+              verbose=FALSE)
+    includePopProcesses: FALSE
+    PopProcesses:
+      !r list(verbose=FALSE)
+    includePopQuantities: FALSE
+    PopQuantities:
+      !r list(verbose=FALSE)
+    includeModelFitsToOtherData: FALSE
+    ModelFitsToOtherData:
+      !r list(plot1stObs=TRUE,
+             minSizeForMaturityData=60,
+             verbose=FALSE)
+    includeModelFitsACD: FALSE
+    ModelFitsACD:
+      !r list(plot1stObs=TRUE,
+             numRecent=30,
+             verbose=FALSE)
+    includeModelFitsZCs: FALSE
+    ModelFitsZCs:
+      !r list(plot1stObs=TRUE,
+             fleets="all",
+             verbose=FALSE)
+    includeCharacteristicsSurveys: TRUE
+    CharacteristicsSurveys:
+      !r list(plot1stObs=TRUE,
+             fleets="all",
+             selyears="all",
+             avlyears="all",
+             capyears="all",
+             mxy=5,
+             verbose=FALSE)
+    includeCharacteristicsFisheries: FALSE
+    CharacteristicsFisheries:
+      !r list(plot1stObs=TRUE,
+             fleets="all",
+             selyears="all",
+             retyears="all",
+             verbose=FALSE)
+    includeParameterTables: FALSE
+    ParameterTables:
+      !r list(verbose=FALSE)
 output: 
     word_document: 
         reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
@@ -26,8 +94,6 @@ title: '`r params$title`'
 ```{r setup,echo=FALSE,results='hide'}
   ##input model list
   Models<-params$Models;
-  plot1stObs<-params$plot1stObs;
-  numRecent<-params$numRecent;
   doc_type<-params$doc_type;
   
   ##set appendix letter
@@ -51,43 +117,131 @@ title: '`r params$title`'
 \addcontentsline{toc}{section}{List of Figures in Model Comparisons}
 \listoffigures
 
-<!-- \newpage -->
-
-<!-- ```{r child=system.file("rmd/"modelComparisons.ParameterTables.Rmd",package="rCompTCMs")} -->
-<!-- ``` -->
-
 \newpage
 
-```{r child=system.file("rmd/modelComparisons.PopProcesses.Rmd",package="rCompTCMs")}
+```{r modelComparisons_InputData,results='asis',echo=FALSE}
+  if (params$includeInputData){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.InputData.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_InputData")
+  }
 ```
 
-\newpage
-
-```{r child=system.file("rmd/modelComparisons.ModelFits.OtherData.Rmd",package="rCompTCMs")}
+```{r modelComparisons_PopProcesses,results="asis",echo=FALSE}
+  if (params$includePopProcesses){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.PopProcesses.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_PopProcesses")
+  }
 ```
 
-\newpage
-
-```{r child=system.file("rmd/modelComparisons.ModelFits.ACD.Rmd",package="rCompTCMs")}
+```{r modelComparisons_PopQuantities,results="asis",echo=FALSE}
+  if (params$includePopQuantities){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.PopQuantities.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_PopQuantities")
+  }
 ```
 
-\newpage
-
-```{r child=system.file("rmd/modelComparisons.ModelFits.ZCs.Rmd",package="rCompTCMs")}
+```{r modelComparisons_ModelFitsACD,results='asis',echo=FALSE}
+  if (params$includeModelFitsACD){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ModelFits.ACD.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ModelFitsACD")
+  }
 ```
 
-\newpage
-
-```{r child=system.file("rmd/modelComparisons.Characteristics.Surveys.Rmd",package="rCompTCMs")}
+```{r modelComparisons_ModelFitsZCs,results='asis',echo=FALSE}
+  if (params$includeModelFitsZCs){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ModelFits.ZCs.All.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ModelFitsZCs")
+  }
 ```
 
-\newpage
-
-```{r child=system.file("rmd/modelComparisons.Characteristics.FisheriesRmd",package="rCompTCMs")}
+```{r modelComparisons_ModelFitsToOtherData,results="asis",echo=FALSE}
+  if (params$includeModelFitsToOtherData){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ModelFits.OtherData.Rmd",package="rCompTCMs")
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ModelFitsToOtherData")
+  }
 ```
 
-\newpage
+```{r modelComparisons_CharacteristicsSurveys,results='asis',echo=FALSE}
+  if (params$includeCharacteristicsSurveys){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_CharacteristicsSurveys")
+  }
+```
 
-```{r child=system.file("rmd/modelComparisons.PopQuantities.Rmd",package="rCompTCMs")}
+```{r modelComparisons.Characteristics.Fisheries,results='asis',echo=FALSE}
+  if (params$includeCharacteristicsFisheries){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_CharacteristicsFisheries")
+  }
+```
+
+```{r modelComparisons_ParameterTables,results='asis',echo=FALSE}
+  if (params$includeParameterTables){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ParameterTables.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ParameterTables")
+  }
 ```
 

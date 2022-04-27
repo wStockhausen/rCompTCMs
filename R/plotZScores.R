@@ -17,7 +17,7 @@
 #'@param title - title for plot
 #'@param xlims - limits for x axis
 #'@param ylims - limits for y axis
-#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)
+#'@param colour_scale - ggplot2 scale_colour object (default is [ggplot2::scale_colour_hue()])
 #'@param showSmooths - flag (T/F) to show smooth fits to z-scores
 #'@param showPlot - flag (T/F) to show plot immediately
 #'
@@ -26,6 +26,8 @@
 #'@details Smooth fits are grouped by 'color'.
 #'
 #'@import ggplot2
+#'
+#'@md
 #'
 #'@export
 #'
@@ -46,7 +48,7 @@ plotZScores<-function(dfr,
                       xlims=NULL,
                       ylims=NULL,
                       alpha=1,
-                      colour_scale=ggplot2::scale_color_hue,
+                      colour_scale=ggplot2::scale_color_hue(),
                       showSmooths=TRUE,
                       showPlot=FALSE){
     p <- ggplot(dfr,aes_string(x=x,y=y));

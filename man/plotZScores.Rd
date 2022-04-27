@@ -22,45 +22,79 @@ plotZScores(
   xlims = NULL,
   ylims = NULL,
   alpha = 1,
-  colour_scale = ggplot2::scale_color_hue,
+  colour_scale = ggplot2::scale_color_hue(),
   showSmooths = TRUE,
   showPlot = FALSE
 )
 }
 \arguments{
-\item{dfr}{- dataframe}
+\item{dfr}{\itemize{
+\item dataframe
+}}
 
-\item{x}{- column name for x axis (default = 'year')}
+\item{x}{\itemize{
+\item column name for x axis (default = 'year')
+}}
 
-\item{y}{- column name for y axis (default='z-score')}
+\item{y}{\itemize{
+\item column name for y axis (default='z-score')
+}}
 
-\item{color}{- column name for color levels (or NULL)}
+\item{color}{\itemize{
+\item column name for color levels (or NULL)
+}}
 
-\item{shape}{- column name for shape levels (or NULL)}
+\item{shape}{\itemize{
+\item column name for shape levels (or NULL)
+}}
 
-\item{size}{- size for shapes}
+\item{size}{\itemize{
+\item size for shapes
+}}
 
-\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
+\item{position}{\itemize{
+\item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
+}}
 
-\item{facets}{- string giving faceting formula for facet_grid}
+\item{facets}{\itemize{
+\item string giving faceting formula for facet_grid
+}}
 
-\item{facet.scales}{- ggplot2 scales option for facet_grid}
+\item{facet.scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{xlab}{- label for x axis}
+\item{xlab}{\itemize{
+\item label for x axis
+}}
 
-\item{ylab}{- label for y axis}
+\item{ylab}{\itemize{
+\item label for y axis
+}}
 
-\item{title}{- title for plot}
+\item{title}{\itemize{
+\item title for plot
+}}
 
-\item{xlims}{- limits for x axis}
+\item{xlims}{\itemize{
+\item limits for x axis
+}}
 
-\item{ylims}{- limits for y axis}
+\item{ylims}{\itemize{
+\item limits for y axis
+}}
 
-\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)}
+\item{colour_scale}{\itemize{
+\item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
 
-\item{showSmooths}{- flag (T/F) to show smooth fits to z-scores}
+\item{showSmooths}{\itemize{
+\item flag (T/F) to show smooth fits to z-scores
+}}
 
-\item{showPlot}{- flag (T/F) to show plot immediately}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot immediately
+}}
 }
 \value{
 ggplot2 object

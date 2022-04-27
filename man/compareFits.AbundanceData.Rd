@@ -21,6 +21,8 @@ compareFits.AbundanceData(
 )
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
 \item{fleets}{- names of fleets to plot (or "all")}
 
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
@@ -28,6 +30,12 @@ compareFits.AbundanceData(
 \item{catch.type}{- catch type ('index','retained',  or 'total')}
 
 \item{ci}{- confidence interval for plots}
+
+\item{fishery.pdfType}{- choice for fishery CIs ("norm2","normal","lognormal")}
+
+\item{numRecent}{- number of recent years to include in "recent years" plots}
+
+\item{plot1stObs}{- flag (T/F) to plot observations only from the first model}
 
 \item{scales}{- ggplot2 scales option for facet_grid}
 
@@ -38,8 +46,6 @@ compareFits.AbundanceData(
 \item{showPlot}{- flag (T/F) to show plot}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names, or NULL.

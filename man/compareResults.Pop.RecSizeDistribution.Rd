@@ -13,6 +13,8 @@ compareResults.Pop.RecSizeDistribution(
 )
 }
 \arguments{
+\item{objs}{- list of resLst objects}
+
 \item{dodge}{- width to dodge overlapping series}
 
 \item{showPlot}{- flag to print plot to current device}
@@ -20,8 +22,6 @@ compareResults.Pop.RecSizeDistribution(
 \item{pdf}{- name for output pdf file}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- list of resLst objects}
 }
 \value{
 ggplot object

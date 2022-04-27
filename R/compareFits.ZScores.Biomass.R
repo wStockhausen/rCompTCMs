@@ -4,7 +4,7 @@
 #'@description Function to compare z-scores from fitting biomass time series by fleet among
 #'several model runs.
 #'
-#'@param obj - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+#'@param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
 #'@param fleets - names of fleets to include (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard', or 'total')
@@ -12,9 +12,9 @@
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.ABData()}.
-#'Also uses \code{wtsUtilities::printGGList}.
+#'@details Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
+#'[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.ZScores.ABData()].
+#'Also uses [wtsUtilities::printGGList].
 #'
 #'@return non-nested list of ggplot2 objects, with captions as names
 #'
@@ -24,13 +24,13 @@
 #'
 compareFits.ZScores.Biomass<-function(objs=NULL,
                                       fleets="all",
-                                     fleet.type=c('survey','fishery'),
-                                     catch.type=c('index','retained','discard','total'),
-                                     pdf=NULL,
-                                     showPlot=FALSE,
-                                     verbose=FALSE){
+                                      fleet.type=c('survey','fishery'),
+                                      catch.type=c('index','retained','discard','total'),
+                                      pdf=NULL,
+                                      showPlot=FALSE,
+                                      verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.Biomass().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.ZScores.Biomass().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -54,7 +54,7 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        if (verbose) message("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (fleet.type=='survey'){
             if (inherits(obj,"tcsam2013.resLst"))
@@ -115,6 +115,6 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
         plots[[cap]]<-p; p<-NULL;
     }
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.ZScores.Biomass().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.ZScores.Biomass().\n");
     return(plots);
 }

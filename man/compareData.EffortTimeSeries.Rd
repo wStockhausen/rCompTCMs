@@ -7,17 +7,17 @@
 compareData.EffortTimeSeries(objs = NULL, scales = "free_y", verbose = FALSE)
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
 \item{scales}{- ggplot2 scales option for facet_grid}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names
 }
 \description{
-Function to compare effort time series data by fleet among 
+Function to compare effort time series data by fleet among
 several model scenarios.
 }
 \details{

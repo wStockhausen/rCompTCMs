@@ -3,10 +3,12 @@ author: "William Stockhausen"
 date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
-    fleets: "all"
     title: "Tanner Crab Model Fits to Size Composition Data" 
-    plot1stObs: TRUE
     doc_type: "pdf"
+    ModelFitsZCs:
+      !r list(plot1stObs=TRUE,
+             fleets="all",
+             verbose=FALSE)
 output: 
     word_document: 
         reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
@@ -23,11 +25,12 @@ title: '`r params$title`'
 ---
 
 ```{r setupModelFits.ZCs, include=FALSE}
+    message(paste0("Starting modelComparisons.ModelFits.ZCs.All.Rmd. \n\tfleets=",params$ModelFitsZCs$fleets))
     ##input model list
     Models<-params$Models;
-    fleets<-params$fleets;
     doc_type<-params$doc_type;
-    plot1stObs<-params$plot1stObs;
+    fleets<-params$ModelFitsZCs$fleets;
+    plot1stObs<-params$ModelFitsZCs$plot1stObs;
     
     ##set appendix letter
     app="A";
@@ -44,14 +47,14 @@ title: '`r params$title`'
     nCases<-length(cases);
 ```
 
-\section{Model fits to size composition data}
+# Model fits to size composition data
 Fits to the size composition data available to the model(s) are presented in this section. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
-\section{Mean survey size compositions}
+## Mean survey size compositions
 
 ```{r plotFits.SurveyMeanSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.SurveyMeanSizeComps")
   plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
-                                             fleets=fleets,
                                              fleets=fleets,
                                              fleet.type="survey",
                                              catch.type="index",
@@ -66,9 +69,10 @@ Fits to the size composition data available to the model(s) are presented in thi
 
 \FloatBarrier
 
-\section{Fishery retained catch mean size compositions}
+## Fishery retained catch mean size compositions
 
 ```{r plotFits.MeanFisheryRetainedCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.MeanFisheryRetainedCatchSizeComps")
   plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
                                              fleets=fleets,
                                              fleet.type="fishery",
@@ -86,9 +90,10 @@ Fits to the size composition data available to the model(s) are presented in thi
 
 \clearpage
 
-\section{Fishery total catch mean size compositions}
+## Fishery total catch mean size compositions
 
 ```{r plotFits.FisheryMeanTotalCatchSizeComps,results='asis',fig.height=7.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.MeanFisheryRetainedCatchSizeComps")
   plts<-rCompTCMs::compareFits.MeanSizeComps(Models,
                                              fleets=fleets,
                                              fleet.type="fishery",
@@ -102,14 +107,15 @@ Fits to the size composition data available to the model(s) are presented in thi
   rm(plt,plts);
 ```
 
-\begin{landscape}
+\blandscape
 
-\section{Survey size composition residuals}
+## Survey size composition residuals
 
 Pearson's residuals are plotted for fits to size composition data. Symbol areas reflect the size of each residual,
 Extreme values (residuals larger than 4 in scale) are indicated with a red "X" to facilitate identification.
 
-```{r plotFits.SurveyZCsBubblePlotsIM,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsM,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.SurveyZCsBubblePlotsM")
   mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="survey",
@@ -129,6 +135,7 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
 ```
 
 ```{r plotFits.SurveyZCsBubblePlotsMM,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  # message("starting plotFits.SurveyZCsBubblePlotsMM")
   # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
   #                                             fleet.type="survey",
   #                                             catch.type="index",
@@ -145,7 +152,8 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
   # for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-```{r plotFits.SurveyZCsBubblePlotsIF,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+```{r plotFits.SurveyZCsBubblePlotsF,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.SurveyZCsBubblePlotsF")
   mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="survey",
@@ -166,6 +174,7 @@ for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
 ```{r plotFits.SurveyZCsBubblePlotsMF,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  # message("starting plotFits.SurveyZCsBubblePlotsMF")
   # mdfr<-rCompTCMs::extractFits.ZScores.PrNatZ(Models,
   #                                             fleet.type="survey",
   #                                             catch.type="index",
@@ -182,9 +191,10 @@ for (plt in plts) {print(plt); fig<-fig+1;}
   # for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-\section{Effective Ns for survey size compositions}
+## Effective Ns for survey size compositions
 
 ```{r plotFits.SurveyEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.SurveyEffectiveNs")
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="survey",
@@ -196,12 +206,13 @@ for (plt in plts) {print(plt); fig<-fig+1;}
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-\section{Fishery retained catch size composition residuals}
+## Fishery retained catch size composition residuals
 
 Pearsons residuals are plotted for fits to size composition data. Symbol areas reflect the size of each residual,
 Extreme values (residuals larger than 4 in scale) are indicated with a red "X" to facilitate identification.
 
 ```{r plotFits.FisheryRetainedCatchZCsBubblePlots,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.FisheryRetainedCatchZCsBubblePlots")
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="fishery",
@@ -214,9 +225,10 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
   rm(plt,plts);
 ```
 
-\section{Effective Ns for retained catch size compositions}
+## Effective Ns for retained catch size compositions
 
 ```{r plotFits.RetainedCatchEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.RetainedCatchEffectiveNs")
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="fishery",
@@ -228,9 +240,10 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-\section{Fishery total catch size composition residuals}
+## Fishery total catch size composition residuals
 
 ```{r plotFits.FisheryTotalCatchZCsBubblePlots,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.FisheryTotalCatchZCsBubblePlots")
   plts<-rCompTCMs::compareFits.ZScores.PrNatZ(Models,
                                               fleets=fleets,
                                               fleet.type="fishery",
@@ -243,9 +256,10 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
   rm(plt,plts);
 ```
 
-\section{Effective Ns for total catch size compositions}
+## Effective Ns for total catch size compositions
 
 ```{r plotFits.TotalCatchEffectiveNs,results='asis',fig.height=6.0,fig.width=9.0,out.width="9in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotFits.TotalCatchEffectiveNs")
   plts<-rCompTCMs::compareFits.EffectiveNs(Models,
                                            fleets=fleets,
                                            fleet.type="fishery",
@@ -257,4 +271,4 @@ Extreme values (residuals larger than 4 in scale) are indicated with a red "X" t
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 
-\end{landscape}
+\elandscape

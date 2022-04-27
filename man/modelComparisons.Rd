@@ -7,7 +7,33 @@
 \usage{
 modelComparisons(
   models,
-  plot1stObs = TRUE,
+  includeInputData = FALSE,
+  InputData = list(includeSurveyData = TRUE, surveys = list(plotAbundance = TRUE,
+    plotBiomass = TRUE, plotZCs = TRUE, fleets = "all", ci = 0.8, numRecent = 30),
+    includeFisheryData = TRUE, fisheries = list(fleets = "all", retained =
+    list(plotAbundance = TRUE, plotBiomass = TRUE, plotZCs = TRUE, ci = 0.8, numRecent =
+    30), total = list(plotAbundance = TRUE, plotBiomass = TRUE, plotZCs = TRUE, ci = 0.8,
+    numRecent = 30), effort = list(plot = TRUE, numRecent = 30)), includeGrowthData =
+    TRUE, includeMaturityOgiveData = TRUE,      verbose = FALSE),
+  includeParameterTables = FALSE,
+  ParameterTables = list(verbose = FALSE),
+  includePopProcesses = FALSE,
+  PopProcesses = list(verbose = FALSE),
+  includePopQuantities = FALSE,
+  PopQuantities = list(verbose = FALSE),
+  includeModelFitsToOtherData = FALSE,
+  ModelFitsToOtherData = list(plot1stObs = TRUE, minSizeForMaturityData = 60, verbose =
+    FALSE),
+  includeModelFitsACD = FALSE,
+  ModelFitsACD = list(plot1stObs = TRUE, numRecent = 30, verbose = FALSE),
+  includeModelFitsZCs = FALSE,
+  ModelFitsZCs = list(plot1stObs = TRUE, fleets = "all", verbose = FALSE),
+  includeCharacteristicsSurveys = FALSE,
+  CharacteristicsSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+    avlyears = "all", capyears = "all", mxy = 5, verbose = FALSE),
+  includeCharacteristicsFisheries = FALSE,
+  CharacteristicsFisheries = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+    retyears = "all", verbose = FALSE),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
@@ -18,7 +44,33 @@ modelComparisons(
 
 modelComparisons(
   models,
-  plot1stObs = TRUE,
+  includeInputData = FALSE,
+  InputData = list(includeSurveyData = TRUE, surveys = list(plotAbundance = TRUE,
+    plotBiomass = TRUE, plotZCs = TRUE, fleets = "all", ci = 0.8, numRecent = 30),
+    includeFisheryData = TRUE, fisheries = list(fleets = "all", retained =
+    list(plotAbundance = TRUE, plotBiomass = TRUE, plotZCs = TRUE, ci = 0.8, numRecent =
+    30), total = list(plotAbundance = TRUE, plotBiomass = TRUE, plotZCs = TRUE, ci = 0.8,
+    numRecent = 30), effort = list(plot = TRUE, numRecent = 30)), includeGrowthData =
+    TRUE, includeMaturityOgiveData = TRUE,      verbose = FALSE),
+  includeParameterTables = FALSE,
+  ParameterTables = list(verbose = FALSE),
+  includePopProcesses = FALSE,
+  PopProcesses = list(verbose = FALSE),
+  includePopQuantities = FALSE,
+  PopQuantities = list(verbose = FALSE),
+  includeModelFitsToOtherData = FALSE,
+  ModelFitsToOtherData = list(plot1stObs = TRUE, minSizeForMaturityData = 60, verbose =
+    FALSE),
+  includeModelFitsACD = FALSE,
+  ModelFitsACD = list(plot1stObs = TRUE, numRecent = 30, verbose = FALSE),
+  includeModelFitsZCs = FALSE,
+  ModelFitsZCs = list(plot1stObs = TRUE, fleets = "all", verbose = FALSE),
+  includeCharacteristicsSurveys = FALSE,
+  CharacteristicsSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+    avlyears = "all", capyears = "all", mxy = 5, verbose = FALSE),
+  includeCharacteristicsFisheries = FALSE,
+  CharacteristicsFisheries = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+    retyears = "all", verbose = FALSE),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
@@ -30,19 +82,55 @@ modelComparisons(
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
 
-\item{plot1stObs}{- flag to plot observed data only from first model}
+\item{includeInputData}{- flag (T/F) to include section}
+
+\item{InputData}{- list controlling what gets plotted}
+
+\item{includeParameterTables}{- flag (T/F) to include section}
+
+\item{ParameterTables}{- list(verbose=FALSE)}
+
+\item{includePopProcesses}{- flag (T/F) to include section}
+
+\item{PopProcesses}{- list(verbose=FALSE)}
+
+\item{includePopQuantities}{- flag (T/F) to include section}
+
+\item{PopQuantities}{- list(verbose=FALSE)}
+
+\item{includeModelFitsToOtherData}{- flag (T/F) to include section}
+
+\item{ModelFitsToOtherData}{- list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)}
+
+\item{includeModelFitsACD}{- flag (T/F) to include section}
+
+\item{ModelFitsACD}{- list(plot1stObs=TRUE,numRecent=30,verbose=FALSE)}
+
+\item{includeModelFitsZCs}{- flag (T/F) to include section}
+
+\item{ModelFitsZCs}{- list(plot1stObs=TRUE,fleets="all",verbose=FALSE)}
+
+\item{includeCharacteristicsSurveys}{- flag (T/F) to include section}
+
+\item{CharacteristicsSurveys}{- list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)}
+
+\item{includeCharacteristicsFisheries}{- flag (T/F) to include section}
+
+\item{CharacteristicsFisheries}{- list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE)}
 
 \item{output_format}{- "word_document" or "pdf_document"}
 
 \item{output_dir}{- path to folder to use for output}
 
-\item{rmd}{- Rmd file to process (defalut="modelComparisons.Rmd")}
+\item{rmd}{- Rmd file to process (defalut=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"))}
 
 \item{docx_styles}{- full path to Word (docx) style template for Word documents}
 
 \item{pdf_styles}{- full path to style template for pdf documents}
 
 \item{clean}{- T/F to delete intermediate files}
+
+\item{plot1stObs}{- flag to plot observed data only from first model}
 
 \item{rmd_dir}{- folder enclosing rmd file}
 }

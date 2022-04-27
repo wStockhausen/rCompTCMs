@@ -3,9 +3,9 @@
 #'
 #'@description Function to compare probability of molt-to-maturity among several model runs.
 #'
-#'@param obj - list of resLst objects
+#'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
-#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)
+#'@param colour_scale - ggplot2 scale_colour object (default is [ggplot2::scale_colour_hue()])
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -15,6 +15,8 @@
 #'@return ggplot object
 #'
 #'@import ggplot2
+#'
+#'@md
 #'
 #'@export
 #'

@@ -14,17 +14,29 @@ compareResults.Pop.PrM2M(
 )
 }
 \arguments{
-\item{dodge}{- width to dodge overlapping series}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue)}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{colour_scale}{\itemize{
+\item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{obj}{- list of resLst objects}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot object

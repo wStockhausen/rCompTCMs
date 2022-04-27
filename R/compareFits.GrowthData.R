@@ -62,54 +62,56 @@ compareFits.GrowthData<-function(objs,
     plots<-list();
     for (d in datasets){
         mdfrp<-mdfr[(mdfr$category==d),];
-        dcs<-unique(mdfrp$case);
-        #-------------------------------------------#
-        #plot growth data and fits
-        #-------------------------------------------#
-        if (plot1stObs) {
-            mdfrpo<-mdfrp[(mdfrp$type == 'observed')&(mdfrp$case==dcs[1]), ];
-        } else {
-            mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+        if (nrow(mdfrp)>0){
+            dcs<-unique(mdfrp$case);
+            #-------------------------------------------#
+            #plot growth data and fits
+            #-------------------------------------------#
+            if (plot1stObs) {
+                mdfrpo<-mdfrp[(mdfrp$type == 'observed')&(mdfrp$case==dcs[1]), ];
+            } else {
+                mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+            }
+            mdfrpp<-mdfrp[mdfrp$type == 'predicted',];
+            p <- ggplot(mdfrp,aes_string(x='z',y='val',colour='case',shape='case'));
+            p <- p + geom_point(data=mdfrpo,position=pd);
+            p <- p + geom_line(data=mdfrpp,position=pd);
+            if (any(is.finite(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+            p <- p + geom_abline(slope=1,linetype=2);
+            p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
+            p <- p + ggtitle(d);
+            p <- p + facet_grid(x~.);
+            if (showPlot) print(p);
+            cap<-paste0("\n  \nFigure &&figno. Model fits to ",d,".\n   \n")
+            plots[[cap]]<-p;
+            #-------------------------------------------#
+            #plot nll scores
+            #-------------------------------------------#
+            mdfrpn<-mdfrp[mdfrp$type == 'nlls',];
+            p <- ggplot(mdfrpn,aes_string(x='z',y='val',colour='case',shape='case'));
+            p <- p + geom_point(position=pd);
+            p <- p + geom_abline(slope=0,linetype=2);
+            p <- p + labs(x='pre-molt size (mm CW)',y="NLLs");
+            p <- p + ggtitle(d);
+            p <- p + facet_grid(x~.);
+            if (showPlot) print(p);
+            cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d,".\n   \n")
+            plots[[cap]]<-p;
+            #-------------------------------------------#
+            #plot zscores
+            #-------------------------------------------#
+            mdfrpz<-mdfrp[mdfrp$type == 'zscores',];
+            p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
+            p <- p + geom_smooth(mapping=aes(group=case,fill=case,colour=case),alpha=0.5);
+            p <- p + geom_point(position=pd);
+            p <- p + geom_abline(slope=0,linetype=2);
+            p <- p + labs(x='pre-molt size (mm CW)',y="z-scores");
+            p <- p + ggtitle(d);
+            p <- p + facet_grid(x~.);
+            if (showPlot) print(p);
+            cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d,".\n   \n")
+            plots[[cap]]<-p;
         }
-        mdfrpp<-mdfrp[mdfrp$type == 'predicted',];
-        p <- ggplot(mdfrp,aes_string(x='z',y='val',colour='case',shape='case'));
-        p <- p + geom_point(data=mdfrpo,position=pd);
-        p <- p + geom_line(data=mdfrpp,position=pd);
-        if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
-        p <- p + geom_abline(slope=1,linetype=2);
-        p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
-        p <- p + ggtitle(d);
-        p <- p + facet_grid(x~.);
-        if (showPlot) print(p);
-        cap<-paste0("\n  \nFigure &&figno. Model fits to ",d,".\n   \n")
-        plots[[cap]]<-p;
-        #-------------------------------------------#
-        #plot nll scores
-        #-------------------------------------------#
-        mdfrpn<-mdfrp[mdfrp$type == 'nlls',];
-        p <- ggplot(mdfrpn,aes_string(x='z',y='val',colour='case',shape='case'));
-        p <- p + geom_point(position=pd);
-        p <- p + geom_abline(slope=0,linetype=2);
-        p <- p + labs(x='pre-molt size (mm CW)',y="NLLs");
-        p <- p + ggtitle(d);
-        p <- p + facet_grid(x~.);
-        if (showPlot) print(p);
-        cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d,".\n   \n")
-        plots[[cap]]<-p;
-        #-------------------------------------------#
-        #plot zscores
-        #-------------------------------------------#
-        mdfrpz<-mdfrp[mdfrp$type == 'zscores',];
-        p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
-        p <- p + geom_smooth(mapping=aes(group=case,fill=case,colour=case),alpha=0.5);
-        p <- p + geom_point(position=pd);
-        p <- p + geom_abline(slope=0,linetype=2);
-        p <- p + labs(x='pre-molt size (mm CW)',y="z-scores");
-        p <- p + ggtitle(d);
-        p <- p + facet_grid(x~.);
-        if (showPlot) print(p);
-        cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d,".\n   \n")
-        plots[[cap]]<-p;
     }#d
 
     return(plots);

@@ -4,8 +4,9 @@ date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
     title: "Tanner Crab Model Population Quantities" 
-    plot1stObs: TRUE
     doc_type: "pdf"
+    PopQuantities:
+      !r list(verbose=FALSE)
 output: 
     word_document: 
         reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
@@ -25,6 +26,7 @@ title: '`r params$title`'
   ##input model list
   Models<-params$Models;
   doc_type<-params$doc_type;
+  verbose = params$PopQuantities$verbose;
   
   ##set appendix letter
   app="A";
@@ -47,13 +49,12 @@ Figures and tables in this section present comparisons between alternative model
 
 \blandscape
 
-# Recruitment
+## Recruitment
 
 ```{r plotPopRecruitment,results='asis',fig.height=6.5,fig.width=8.5,out.width="8.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Pop.Recruitment(Models,dodge=0,showPlot=FALSE,verbose=FALSE);
+  message("Starting plotPopRecruitment");
+  plts<-rCompTCMs::compareResults.Pop.Recruitment(Models,dodge=0,showPlot=FALSE,verbose=verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
-  #fig<-res$figno;
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```
@@ -62,10 +63,11 @@ Figures and tables in this section present comparisons between alternative model
 
 \elandscape
 
-# Mature biomass
+## Mature biomass
 
 ```{r plotPopMatureBiomass,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Pop.MatureBiomass(Models,dodge=0,showPlot=FALSE,verbose=FALSE)
+  message("Starting plotMatureBiomass");
+  plts<-rCompTCMs::compareResults.Pop.MatureBiomass(Models,dodge=0,showPlot=FALSE,verbose=verbose)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
   #fig<-res$figno;
@@ -77,13 +79,12 @@ Figures and tables in this section present comparisons between alternative model
 
 \clearpage
 
-# Population abundance
+## Population abundance
 
 ```{r plotPopAbundance,results='asis',fig.height=8.0,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Pop.Abundance1(Models,dodge=0,type="N_yxm",facet_grid=x+m~.,scales="free_y",showPlot=FALSE,verbose=FALSE)
+  message("Starting plotPopAbundance");
+  plts<-rCompTCMs::compareResults.Pop.Abundance1(Models,dodge=0,type="N_yxm",facet_grid=x+m~.,scales="free_y",showPlot=FALSE,verbose=verbose)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
-  #fig<-res$figno;
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```
@@ -92,13 +93,12 @@ Figures and tables in this section present comparisons between alternative model
 
 \clearpage
 
-# Population biomass
+## Population biomass
 
 ```{r plotPopBiomass,results='asis',fig.height=8.0,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareResults.Pop.Biomass1(Models,dodge=0,type="B_yxm",facet_grid=x+m~.,scales="free_y",showPlot=FALSE,verbose=FALSE)
+  message("Starting plotPopBiomass");
+  plts<-rCompTCMs::compareResults.Pop.Biomass1(Models,dodge=0,type="B_yxm",facet_grid=x+m~.,scales="free_y",showPlot=FALSE,verbose=verbose)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
-  #fig<-res$figno;
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```

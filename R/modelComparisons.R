@@ -4,11 +4,27 @@
 #' @description Function to render a document of model comparison plots
 #'
 #' @param models - named list of model results (as resLst objects) to compare
-#' @param plot1stObs - flag to plot observed data only from first model
+#' @param includeInputData - flag (T/F) to include section
+#' @param InputData - list controlling what gets plotted
+#' @param includeParameterTables - flag (T/F) to include section
+#' @param ParameterTables - list(verbose=FALSE)
+#' @param includePopProcesses - flag (T/F) to include section
+#' @param PopProcesses - list(verbose=FALSE)
+#' @param includePopQuantities - flag (T/F) to include section
+#' @param PopQuantities - list(verbose=FALSE)
+#' @param includeModelFitsToOtherData - flag (T/F) to include section
+#' @param ModelFitsToOtherData - list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)
+#' @param includeModelFitsACD - flag (T/F) to include section
+#' @param ModelFitsACD - list(plot1stObs=TRUE,numRecent=30,verbose=FALSE)
+#' @param includeModelFitsZCs - flag (T/F) to include section
+#' @param ModelFitsZCs - list(plot1stObs=TRUE,fleets="all",verbose=FALSE)
+#' @param includeCharacteristicsSurveys - flag (T/F) to include section
+#' @param CharacteristicsSurveys - list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)
+#' @param includeCharacteristicsFisheries - flag (T/F) to include section
+#' @param CharacteristicsFisheries - list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE)
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
-#' @param rmd_dir - folder enclosing rmd file
-#' @param rmd - Rmd file to process (defalut="modelComparisons.Rmd")
+#' @param rmd - Rmd file to process (defalut=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"))
 #' @param docx_styles - full path to Word (docx) style template for Word documents
 #' @param pdf_styles - full path to style template for pdf documents
 #' @param clean - T/F to delete intermediate files
@@ -19,7 +35,63 @@
 #' @export
 #'
 modelComparisons<-function(models,
-                            plot1stObs=TRUE,
+                            includeInputData=FALSE,
+                            InputData=list(includeSurveyData=TRUE,
+                                            surveys=list(plotAbundance=TRUE,
+                                                         plotBiomass=TRUE,
+                                                         plotZCs=TRUE,
+                                                         fleets="all",
+                                                         ci=0.80,
+                                                         numRecent=30),
+                                            includeFisheryData=TRUE,
+                                            fisheries=list(fleets="all",
+                                                           retained=list(plotAbundance=TRUE,
+                                                                         plotBiomass=TRUE,
+                                                                         plotZCs=TRUE,
+                                                                         ci=0.80,
+                                                                         numRecent=30),
+                                                           total=list(plotAbundance=TRUE,
+                                                                         plotBiomass=TRUE,
+                                                                         plotZCs=TRUE,
+                                                                         ci=0.80,
+                                                                         numRecent=30),
+                                                           effort=list(plot=TRUE,
+                                                                       numRecent=30)),
+                                            includeGrowthData=TRUE,
+                                            includeMaturityOgiveData=TRUE,
+                                           verbose=FALSE),
+                            includeParameterTables=FALSE,
+                            ParameterTables=list(verbose=FALSE),
+                            includePopProcesses=FALSE,
+                            PopProcesses=list(verbose=FALSE),
+                            includePopQuantities=FALSE,
+                            PopQuantities=list(verbose=FALSE),
+                            includeModelFitsToOtherData=FALSE,
+                            ModelFitsToOtherData=list(plot1stObs=TRUE,
+                                                      minSizeForMaturityData=60,
+                                                      verbose=FALSE),
+                            includeModelFitsACD=FALSE,
+                            ModelFitsACD=list(plot1stObs=TRUE,
+                                              numRecent=30,
+                                              verbose=FALSE),
+                            includeModelFitsZCs=FALSE,
+                            ModelFitsZCs=list(plot1stObs=TRUE,
+                                              fleets="all",
+                                              verbose=FALSE),
+                            includeCharacteristicsSurveys=FALSE,
+                            CharacteristicsSurveys=list(plot1stObs=TRUE,
+                                                       fleets="all",
+                                                       selyears="all",
+                                                       avlyears="all",
+                                                       capyears="all",
+                                                       mxy=5,
+                                                       verbose=FALSE),
+                            includeCharacteristicsFisheries=FALSE,
+                            CharacteristicsFisheries=list(plot1stObs=TRUE,
+                                                         fleets="all",
+                                                         selyears="all",
+                                                         retyears="all",
+                                                         verbose=FALSE),
                             output_format=c("word_document","pdf_document"),
                             output_dir=getwd(),
                             rmd=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"),
@@ -57,7 +129,25 @@ modelComparisons<-function(models,
                      output_dir=output_dir,
                      intermediates_dir=output_dir,
                      output_options=output_options,
-                     params=list(title=title,Models=models,plot1stObs=plot1stObs,doc_type=doc_type),
+                     params=list(Models=models,title=title,doc_type=doc_type,
+                                 includeInputData=includeInputData,
+                                 includeParameterTables=includeParameterTables,
+                                 includePopProcesses=includePopProcesses,
+                                 includePopQuantities=includePopQuantities,
+                                 includeModelFitsToOtherData=includeModelFitsToOtherData,
+                                 includeModelFitsACD=includeModelFitsACD,
+                                 includeModelFitsZCs=includeModelFitsZCs,
+                                 includeCharacteristicsSurveys=includeCharacteristicsSurveys,
+                                 includeCharacteristicsFisheries=includeCharacteristicsFisheries,
+                                 InputData=InputData,
+                                 ParameterTables=ParameterTables,
+                                 PopProcesses=PopProcesses,
+                                 PopQuantities=PopQuantities,
+                                 ModelFitsToOtherData=ModelFitsToOtherData,
+                                 ModelFitsACD=ModelFitsACD,
+                                 ModelFitsZCs=ModelFitsZCs,
+                                 CharacteristicsSurveys=CharacteristicsSurveys,
+                                 CharacteristicsFisheries=CharacteristicsFisheries),
                      clean=clean);
   #res<-file.remove("modelComparisons.knit.md","modelComparisons.utf8.md");
 }

@@ -15,6 +15,8 @@ compareFits.ZScores.Biomass(
 )
 }
 \arguments{
+\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+
 \item{fleets}{- names of fleets to include (or "all")}
 
 \item{fleet.type}{- fleet type ('fishery' or 'survey')}
@@ -26,8 +28,6 @@ compareFits.ZScores.Biomass(
 \item{showPlot}{- flag (T/F) to show plot}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
 }
 \value{
 non-nested list of ggplot2 objects, with captions as names
@@ -37,7 +37,7 @@ Function to compare z-scores from fitting biomass time series by fleet among
 several model runs.
 }
 \details{
-Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.ABData()}.
-Also uses \code{wtsUtilities::printGGList}.
+Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
+[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.ZScores.ABData()].
+Also uses [wtsUtilities::printGGList].
 }

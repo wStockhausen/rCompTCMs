@@ -51,8 +51,6 @@ compareDiffs(
 \item{pdf}{- creates pdf, if not NULL}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
-
-\item{mxy}{- max number of years per page}
 }
 \value{
 list of ggplot2 objects

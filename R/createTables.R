@@ -1,11 +1,11 @@
 #'
 #' @title Create a table for parameters at bounds
 #'
-#' @description Function to create a package{tables} tabular object for parameters at bound.
+#' @description Function to create a \pkg{tables} tabular object for parameters at bound.
 #'
 #' @param dfr - dataframe with parameters at bounds
 #'
-#' @return a package{tables} tabular object
+#' @return a \pkg{tables} tabular object
 #'
 #' @details This function creates a tabular object
 #'
@@ -30,12 +30,15 @@ createTable.PsAtBs<-function(dfr){
 #'
 #' @title Create a table for parameter values for a given set of categories, processes, labels, and names
 #'
-#' @description Function to create a package{tables} tabular object for parameter values for a
+#' @description Function to create a \pkg{tables} tabular object for parameter values for a
 #' given set of categories, processes, labels, and names.
 #'
 #' @param dfr - dataframe with parameters at bounds
+#' @param ctg - categories to include
+#' @param prc - processes to include
+#' @param devs - flag (T/F) to include devs
 #'
-#' @return a package{tables} tabular object
+#' @return a \pkg{tables} tabular object
 #'
 #' @details This function creates a tabular object parameter values for
 #' a given set of parameter categories, processes, labels, and names.
