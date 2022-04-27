@@ -4,6 +4,8 @@
 #' @description Function to render a document of model comparison plots
 #'
 #' @param models - named list of model results (as resLst objects) to compare
+#' @param includeManagementQuantities - flag to include comparison of management quantities
+#' @param ManagementQuantities - list controlling comparison of management quantities (see [modelComparisons.ManagementQuantities()])
 #' @param includeInputData - flag (T/F) to include section
 #' @param InputData - list controlling what gets plotted
 #' @param includeParameterTables - flag (T/F) to include section
@@ -32,9 +34,13 @@
 #' @details Resulting document title will be of the form "ModelComparisons.mmm.ext", where "ext" is the appropriate
 #' file extension and "mmm" is a dash-separated string of model names.
 #'
+#'@md
+#'
 #' @export
 #'
 modelComparisons<-function(models,
+                           includeManagementQuantities=FALSE,
+                           ManagementQuantities=list(base=1,verbose=FALSE),
                             includeInputData=FALSE,
                             InputData=list(includeSurveyData=TRUE,
                                             surveys=list(plotAbundance=TRUE,
@@ -118,7 +124,7 @@ modelComparisons<-function(models,
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.",mmm,".",ext);
-  title<-paste0("Model Comparisons:\n",mmv);
+  title<-paste0("Model Comparisons:\\n",mmv);#--NOTE: have to double-escape here?
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");
@@ -130,6 +136,8 @@ modelComparisons<-function(models,
                      intermediates_dir=output_dir,
                      output_options=output_options,
                      params=list(Models=models,title=title,doc_type=doc_type,
+                                 includeManagementQuantities=includeManagementQuantities,
+                                 ManagementQuantities=ManagementQuantities,
                                  includeInputData=includeInputData,
                                  includeParameterTables=includeParameterTables,
                                  includePopProcesses=includePopProcesses,

@@ -1,102 +1,66 @@
-#' 
-#' @title Compare management quantities among model scenarios
-#' 
-#' @description Function to compare management quantities among model scenarios.
-#' 
-#'@param objs - single model resLst object, or named list of them
-#'@param verbose - flag (T/F) to print diagnostic info
 #'
-#'@return a list of ggplot2 plot objects
+#' @title Render a document of model comparison plots for various management quantities
 #'
-#'@details Uses [rTCSAM02::getMDFR.ManagementQuantities()] to get the management quantities calculated
-#'in each model case. Uses [computeDiffs()] to compute differences with base case.
-#' 
-#' @importFrom cowplot get_legend plot_grid
-#' @importFrom dplyr filter mutate 
-#' @importFrom stringr str_replace
-#' @importFrom tibble tribble
-#' @importFrom tidyr pivot_longer
-#' @importFrom tidyselect matches 
-#' 
-#' @importFrom rTCSAM02 getMDFR.ManagementQuantities
-#' 
-#' @import ggplot2
-#' 
-#' @md
-#' 
-#'@export
+#' @description Function to render a document of model comparison plots for various management quantities
 #'
-modelComparisons.ManagementQuantities(objs,
-                                      verbose=FALSE){
-  plots = list();
-  cap1<-paste0("\n  \nFigure &&figno. Comparison of management quantities among model scenarios.  \n  \n");
-  cap2<-paste0("\n  \nFigure &&figno. Comparison of differences in management quantities among model scenarios.  \n  \n")
-  
-  mdfr = rTCSAM02::getMDFR.ManagementQuantities(objs,verbose=verbose);
-  
-  #--plot values
-  categories = tibble::tribble(~category,~label,
-                               "recruitment", "Millions",
-                               "biomass",     "1,000's t",
-                               "fishing rate",expression(yr^{-1}),
-                               "catch",       "1,000's t")
-  ps=list();
-  for (ic in 1:nrow(categories)){
-    dfr = mdfr %>% dplyr::filter(category==categories$category[ic]);
-    p = ggplot(dfr,aes(x=type,y=val,colour=case,fill=case))+
-                    geom_col(position="dodge") + 
-                    facet_grid(.~category,scales="free") +
-                    scale_colour_viridis_d(aesthetics=c("colour","fill"))+
-                    labs(y=categories$label[[ic]]);
-    if (ic==1) lgnd = cowplot::get_legend(p);
-    p = p + theme(panel.background=element_rect(colour="black",fill="white"),
-                  legend.position="none",
-                  axis.title.x=element_blank());
-    ps[[ic]] = p;
-    rm(dfr,p)
+#' @param models - named list of model results (as resLst objects) to compare
+#' @param base - name or index of base case for difference calculations
+#' @param output_format - "word_document" or "pdf_document"
+#' @param output_dir - path to folder to use for output
+#' @param rmd - Rmd file to process (defalut=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"))
+#' @param docx_styles - full path to Word (docx) style template for Word documents
+#' @param pdf_styles - full path to style template for pdf documents
+#' @param verbose - flag (T/F) to print diagnostic output
+#' @param clean - T/F to delete intermediate files
+#'
+#' @details Resulting document title will be of the form "ModelComparisons.ManagementQuantities.mmm.ext", where "ext" is the appropriate
+#' file extension and "mmm" is a dash-separated string of model names.
+#'
+#' @export
+#'
+modelComparisons<-function(models,
+                           base=1,
+                           output_format=c("word_document","pdf_document"),
+                           output_dir=getwd(),
+                           rmd=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"),
+                           docx_styles=system.file("rmd/StylesForRmdDocs.docx",package="wtsUtilities"),
+                           pdf_styles=system.file("rmd/StylesForRmdPDFs.sty",package="wtsUtilities"),
+                           verbose=FALSE,
+                           clean=FALSE){
+  nms<-names(models);
+  mmm<-paste0(nms,collapse="-");
+  mmv<-paste0(nms,collapse=" vs ");
+  output_format<-output_format[1];
+  output_options<-NULL;
+
+  #get base folder enclosing rmd file
+  rmd<-normalizePath(rmd);
+  bsf<-dirname(rmd);
+
+  if(output_format=="word_document") {
+    doc_type<-"word";
+    ext<-"docx";
+    output_options<-list(reference_docx=docx_styles);
+  } else if(output_format=="pdf_document")  {
+    doc_type<-"pdf";
+    ext<-"pdf";
+    output_options<-list(includes=list(in_header=pdf_styles));
   }
-  pg1 = cowplot::plot_grid(plotlist=ps,nrow=2,byrow=TRUE)
-  pg2 = cowplot::plot_grid(pg1,lgnd,nrow=1,rel_widths=c(4,1))
-  plots[[cap1]] = pg2;
-  rm(categories,ps,lgnd,pg1,pg2)
-  
-  #--calculate % differences relative to the base case,
-  #--pivot back to long form,
-  #--revert "case" names to original names
-  mdfr1 = computeDiffs(mdfr,
-                       base=1,
-                       cast="process+fleet+category+type",
-                       type="percent") %>%
-           tidyr::pivot_longer(cols=tidyselect::matches("^.*-"),names_to="case",values_to="val") %>%
-           dplyr::mutate(case=stringr::str_replace(case,pattern="^.*-",""));
-  
-  #--plot % differences relative to the base case
-  categories = tibble::tribble(~category,~label,
-                               "recruitment", "% difference from base",
-                               "biomass",     "% difference from base",
-                               "fishing rate","% difference from base",
-                               "catch",       "% difference from base")
-  ps=list();
-  for (ic in 1:nrow(categories)){
-    dfr = mdfr1 %>% dplyr::filter(category==categories$category[ic]);
-    p = ggplot(dfr,aes(x=type,y=val,colour=case,fill=case))+
-                    geom_col(position="dodge") + 
-                    facet_grid(.~category,scales="free") +
-                    scale_colour_viridis_d(aesthetics=c("colour","fill"))+
-                    labs(y=categories$label[[ic]]);
-    if (ic==1) lgnd = cowplot::get_legend(p);
-    p = p + theme(panel.background=element_rect(colour="black",fill="white"),
-                  legend.position="none",
-                  axis.title.x=element_blank());
-    print(p)
-    ps[[ic]] = p;
-  }
-  pg1 = cowplot::plot_grid(plotlist=ps,nrow=2,byrow=TRUE)
-  pg2 = cowplot::plot_grid(pg1,lgnd,nrow=1,rel_widths=c(4,1))
-  plots[[cap2]] = pg2;
-  
-  return(plots);
+  output_file<-paste0("ModelComparisons.ManagementQuantities",mmm,".",ext);
+  title<-paste0("Model Comparisons: Management Quantities -- ",mmv);
+  cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
+  cat("Title: '",title,"'\n",sep='')
+  cat("Base RMD folder \n\t'",bsf,"'\n",sep="");
+
+  rmarkdown::render(rmd,
+                     output_format=output_format,
+                     output_file=output_file,
+                     output_dir=output_dir,
+                     intermediates_dir=output_dir,
+                     output_options=output_options,
+                     params=list(title=title,Models=models,doc_type=doc_type,
+                                 ModelQuantities=list(base=base,
+                                                      verbose=verbose)),
+                     clean=clean);
+  #res<-file.remove("modelComparisons.knit.md","modelComparisons.utf8.md");
 }
-  
-  
-  

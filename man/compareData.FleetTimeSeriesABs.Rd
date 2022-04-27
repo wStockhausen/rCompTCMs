@@ -24,7 +24,7 @@ compareData.FleetTimeSeriesABs(
 }
 \arguments{
 \item{objs}{\itemize{
-\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects (or dataframe from call to \code{\link[=extractMDFR.Data.FleetTimeSeriesABs]{extractMDFR.Data.FleetTimeSeriesABs()}})
 }}
 
 \item{fleet.type}{\itemize{
@@ -91,5 +91,7 @@ Function to compare abundance or biomass time series data by fleet among
 several model scenarios.
 }
 \details{
-Uses \code{\link[rTCSAM02:getMDFR.Data.FleetTimeSeries]{rTCSAM02::getMDFR.Data.FleetTimeSeries()}}.
+Uses \code{\link[=extractMDFR.Data.FleetTimeSeriesABs]{extractMDFR.Data.FleetTimeSeriesABs()}} to extract the data (if objs is not a dataframe).
+Uses \code{\link[=plotMDFR.Fits.TimeSeries]{plotMDFR.Fits.TimeSeries()}} to make the plots, with \code{plotObs=TRUE} and \code{plotMod=FALSE}. Only time series with
+at least one non-zero value will be plotted (to eliminate lots of values along y=0).
 }

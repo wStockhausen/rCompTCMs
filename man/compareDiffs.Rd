@@ -24,43 +24,75 @@ compareDiffs(
 )
 }
 \arguments{
-\item{dfr}{- dataframe in canonical format}
+\item{dfr}{\itemize{
+\item dataframe in canonical format
+}}
 
-\item{diff.type}{- "percent" or "absolute"}
+\item{diff.type}{\itemize{
+\item "percent" or "absolute"
+}}
 
-\item{diff.min}{- minimum difference to show}
+\item{diff.min}{\itemize{
+\item minimum difference to show
+}}
 
-\item{cast}{- cast'ing formula for aggregating by factors before differencing (fleet,x,m,s,z,y)}
+\item{cast}{\itemize{
+\item cast'ing formula for aggregating by factors before differencing (default is:fleet+x+m+s+z+y)
+}}
 
-\item{facet_grid}{- formula (or string version of formula) for faceting using facet_grid}
+\item{facet_grid}{\itemize{
+\item formula (or string version of formula) for faceting using facet_grid
+}}
 
-\item{facet_wrap}{- one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap}
+\item{facet_wrap}{\itemize{
+\item one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{ncol}{- number of columns per page, when facet_wrap'ing}
+\item{ncol}{\itemize{
+\item number of columns per page, when facet_wrap'ing
+}}
 
-\item{scales}{- scales parameter for use with facet_grid/facet_wrap}
+\item{scales}{\itemize{
+\item scales parameter for use with facet_grid/facet_wrap
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplot2 objects
 }
 \description{
 This function compares differences of a quantity
-  among several models.
+among several models.
 }
 \details{
-If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
+The aggregating function \code{fun} aggregates values over the dataframe factors \emph{not} included in
+the casting formula. If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
 If 'z' is a cast'ing factor but not 'y', 'z' will be used as the x axis. Otherwise,
 a set of time series plots are produced.
+
+Uses \code{\link[=compteDiff]{compteDiff()}} to calculate the differences among
+model cases.
 }

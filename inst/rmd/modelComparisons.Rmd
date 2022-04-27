@@ -5,6 +5,10 @@ params:
     Models: none
     title: "Tanner Crab Model Comparisons" 
     doc_type: "pdf"
+    includeManagementQuantities: FALSE
+    ManagementQuantities:
+      !r list(base=1,                           
+              verbose=FALSE)
     includeInputData: FALSE
     InputData:
       !r list(includeSurveyData=TRUE,
@@ -117,7 +121,19 @@ title: '`r params$title`'
 \addcontentsline{toc}{section}{List of Figures in Model Comparisons}
 \listoffigures
 
-\newpage
+```{r modelComparisons_ManagementQuantities,results='asis',echo=FALSE}
+  if (params$includeManagementQuantities){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ManagementQuantities.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ManagementQuantities")
+  }
+```
 
 ```{r modelComparisons_InputData,results='asis',echo=FALSE}
   if (params$includeInputData){

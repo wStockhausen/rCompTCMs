@@ -2,33 +2,51 @@
 % Please edit documentation in R/computeDiffs.R
 \name{computeDiffs}
 \alias{computeDiffs}
-\title{Compute diiferences between model cases}
+\title{Compute differences between model cases}
 \usage{
 computeDiffs(
   x,
-  cast = "type+x+m+s+z+y",
   base = 1,
-  fun = sum,
+  cast = "process+fleet+category+type+pc+x+m+s+z+y",
+  fun = wtsUtilities::Sum,
   type = c("percent", "absolute")
 )
 }
 \arguments{
-\item{x}{- dataframe to cast for differences}
+\item{x}{\itemize{
+\item dataframe in canonical format to cast for differences
+}}
 
-\item{cast}{- cast'ing factors (left side of cast'ing equation)}
+\item{base}{\itemize{
+\item name (or number) of case to use as base
+}}
 
-\item{base}{- name (or number) of case to use as base}
+\item{cast}{\itemize{
+\item cast'ing factors (left side of \code{\link[reshape2:cast]{reshape2::dcast()}} cast'ing equation, with "case" on the righthand side)
+}}
 
-\item{fun}{- aggregation function}
+\item{fun}{\itemize{
+\item aggregation function (default is \code{\link[wtsUtilities:Sum]{wtsUtilities::Sum()}})
+}}
 
-\item{type}{- type of difference ("absolute" or "percent")}
+\item{type}{\itemize{
+\item type of difference ("absolute" or "percent")
+}}
 }
 \value{
-dataframe
+a dataframe (see details)
 }
 \description{
 Function to compute differences between model cases
 }
 \details{
-None.
+Uses \code{\link[reshape2:cast]{reshape2::dcast()}} to aggregate values within factor levels defined by the cast'ing formula prior to differencing.
+The default cast string is "process+fleet+category+type+pc+x+m+s+z+y",
+yielding the cast formula "process+fleet+category+type+pc+x+m+s+z+y~cast" (i.e., no aggregation, but possibly transformation
+if \code{fun} transforms values prior to aggregating them).
+
+The columns of the returned dataframe will include the factors included in the input cast'ing string \code{cast}, as well as
+columns of the form "absdiff.base-case" or "pctdiff.base-case", where "base" and "case" are the names of the base model and subsequent
+cases. Note that the latter column names can be returned to "case" by \code{colnames(xd) = gsub("^.*-","",colnames(xd))}, where
+\code{x} is the result of \code{computeDiffs}.
 }

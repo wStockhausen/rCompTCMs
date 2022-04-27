@@ -1,0 +1,64 @@
+---
+author: "William Stockhausen"
+date: '`r format(Sys.Date(),"%d %B, %Y")`'
+params: 
+    Models: none
+    title: "Comparisons of Management Quantities from the Tanner Crab Model" 
+    doc_type: "pdf"
+    ManagementQuantities:
+      !r list(base=1,                           
+              verbose=FALSE)
+output: 
+    word_document: 
+        reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
+    pdf_document: 
+        toc: TRUE
+        fig_width: 6.5
+        fig_height: 4.0
+        fig_crop: FALSE
+        fig_caption: TRUE
+        includes:
+          in_header: '`r system.file("rmd/StylesforRmdPDFs.sty",package="wtsUtilities")`'
+fontsize: 11pt
+title: '`r params$title`'
+---
+
+```{r setupMQs, include=FALSE}
+    ##input model list
+    Models<-params$Models;
+    doc_type<-params$doc_type;
+    verbose = params$ManagementQuantities$verbose;
+    
+    ##set appendix letter
+    app="A";
+    ##set knitr options for subsequent chunks
+    knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=7.0, dpi=300)
+    
+    ##set caption numbering
+    if (!exists("fig")){
+      fig<-1;#figures
+      tbl<-0;#tables
+    }
+    
+    cases<-names(Models);
+    nCases<-length(cases);
+```
+
+# Management quantities
+
+```{r plotMQs,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("starting plotMQs")
+  plts = compareResults.ManagementQuantities(Models,base=params$ManagementQuantities$base,verbose=verbose)
+  if (!is.null(plts)){
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+    for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,plts);
+  } else {
+      cat("\nManagement quantities were not calculated.\n\n")
+  }
+```
+
+\FloatBarrier
+
+\clearpage
+
