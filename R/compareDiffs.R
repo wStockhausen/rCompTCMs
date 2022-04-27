@@ -7,7 +7,7 @@
 #'@param dfr - dataframe in canonical format
 #'@param diff.type - "percent" or "absolute"
 #'@param diff.min - minimum difference to show
-#'@param cast - cast'ing formula for aggregating by factors before differencing (fleet,x,m,s,z,y)
+#'@param cast - cast'ing formula for aggregating by factors before differencing (default is:fleet+x+m+s+z+y)
 #'@param facet_grid - formula (or string version of formula) for faceting using facet_grid
 #'@param facet_wrap - one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap
 #'@param scales - scales parameter for use with facet_grid/facet_wrap
@@ -21,11 +21,17 @@
 #'
 #'@return list of ggplot2 objects
 #'
-#'@details If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
+#'@details The aggregating function \code{fun} aggregates values over the dataframe factors *not* included in
+#'the casting formula. If 'z' and 'y' are cast'ing factors, then a set of annual size composition plots are produced.
 #'If 'z' is a cast'ing factor but not 'y', 'z' will be used as the x axis. Otherwise,
 #'a set of time series plots are produced.
 #'
+#'Uses [rCompTCMs::compteDiff()] to calculate the differences among
+#'model cases.
+#'
 #'@import ggplot2
+#'
+#'@md
 #'
 #'@export
 #'
