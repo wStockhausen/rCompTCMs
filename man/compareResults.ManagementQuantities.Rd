@@ -27,5 +27,5 @@ Function to compare management quantities among model scenarios.
 }
 \details{
 Uses \code{\link[rTCSAM02:getMDFR.ManagementQuantities]{rTCSAM02::getMDFR.ManagementQuantities()}} to get the management quantities calculated
-in each model case. Uses \code{\link[=computeDiffs]{computeDiffs()}} to compute differences with base case.
+in each model case. Uses \code{\link[=computeDiffs]{computeDiffs()}} with \code{sense=1} to compute differences with base case.
 }

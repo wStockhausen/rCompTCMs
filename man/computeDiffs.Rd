@@ -9,6 +9,7 @@ computeDiffs(
   base = 1,
   cast = "process+fleet+category+type+pc+x+m+s+z+y",
   fun = wtsUtilities::Sum,
+  sense = 1,
   type = c("percent", "absolute")
 )
 }
@@ -29,24 +30,31 @@ computeDiffs(
 \item aggregation function (default is \code{\link[wtsUtilities:Sum]{wtsUtilities::Sum()}})
 }}
 
+\item{sense}{\itemize{
+\item multiplier on difference
+}}
+
 \item{type}{\itemize{
 \item type of difference ("absolute" or "percent")
 }}
 }
 \value{
-a dataframe (see details)
+a dataframe (see details) with attributes "base", "type", and "sense" (reflecting the input values).
 }
 \description{
 Function to compute differences between model cases
 }
 \details{
+The differences are calculated as \code{sense*(case-base)}. If differences in negative log-likelihoods are desired,
+it may be useful to set \code{sense} to \code{-1} so that improvements in fits from base to case are reflected as positive values.
+
 Uses \code{\link[reshape2:cast]{reshape2::dcast()}} to aggregate values within factor levels defined by the cast'ing formula prior to differencing.
 The default cast string is "process+fleet+category+type+pc+x+m+s+z+y",
 yielding the cast formula "process+fleet+category+type+pc+x+m+s+z+y~cast" (i.e., no aggregation, but possibly transformation
 if \code{fun} transforms values prior to aggregating them).
 
 The columns of the returned dataframe will include the factors included in the input cast'ing string \code{cast}, as well as
-columns of the form "absdiff.base-case" or "pctdiff.base-case", where "base" and "case" are the names of the base model and subsequent
+columns of the form "absdiff-case" or "pctdiff-case", where "case" are the names of the non-base
 cases. Note that the latter column names can be returned to "case" by \code{colnames(xd) = gsub("^.*-","",colnames(xd))}, where
 \code{x} is the result of \code{computeDiffs}.
 }

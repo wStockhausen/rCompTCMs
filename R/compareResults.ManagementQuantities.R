@@ -10,7 +10,7 @@
 #'@return a list of ggplot2 plot objects
 #'
 #'@details Uses [rTCSAM02::getMDFR.ManagementQuantities()] to get the management quantities calculated
-#'in each model case. Uses [computeDiffs()] to compute differences with base case.
+#'in each model case. Uses [computeDiffs()] with \code{sense=1} to compute differences with base case.
 #'
 #' @importFrom cowplot get_legend plot_grid
 #' @importFrom dplyr filter mutate
@@ -31,8 +31,6 @@ compareResults.ManagementQuantities<-function(objs,
                                               base=1,
                                               verbose=FALSE){
   plots = list();
-  cap1<-paste0("\n  \nFigure &&figno. Comparison of management quantities among model scenarios.  \n  \n");
-  cap2<-paste0("\n  \nFigure &&figno. Comparison of differences in management quantities among model scenarios.  \n  \n")
 
   mdfr = rTCSAM02::getMDFR.ManagementQuantities(objs,verbose=verbose);
 
@@ -59,6 +57,7 @@ compareResults.ManagementQuantities<-function(objs,
   }
   pg1 = cowplot::plot_grid(plotlist=ps,nrow=2,byrow=TRUE)
   pg2 = cowplot::plot_grid(pg1,lgnd,nrow=1,rel_widths=c(4,1))
+  cap1<-paste0("\n  \nFigure &&figno. Comparison of management quantities among model scenarios.  \n  \n");
   plots[[cap1]] = pg2;
   rm(categories,ps,lgnd,pg1,pg2)
 
@@ -68,10 +67,12 @@ compareResults.ManagementQuantities<-function(objs,
   mdfr1 = computeDiffs(mdfr,
                        base=base,
                        cast="process+fleet+category+type",
-                       type="percent") %>%
+                       type="percent",
+                       sense=1) %>%
            tidyr::pivot_longer(cols=tidyselect::matches("^.*-"),names_to="case",values_to="val") %>%
            dplyr::mutate(case=stringr::str_replace(case,pattern="^.*-",""));
 
+  base = attr(mdfr1,"base",exact=TRUE);#--name of base case
   #--plot % differences relative to the base case
   categories = tibble::tribble(~category,~label,
                                "recruitment", "% difference from base",
@@ -94,6 +95,7 @@ compareResults.ManagementQuantities<-function(objs,
   }
   pg1 = cowplot::plot_grid(plotlist=ps,nrow=2,byrow=TRUE)
   pg2 = cowplot::plot_grid(pg1,lgnd,nrow=1,rel_widths=c(4,1))
+  cap2<-paste0("\n  \nFigure &&figno. Comparison of differences in management quantities among model scenarios, relative to the base case (",base,").  \n  \n")
   plots[[cap2]] = pg2;
 
   return(plots);
