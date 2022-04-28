@@ -11,7 +11,7 @@
 #'@param uci - column name with y axis values
 #'@param case - column name with case names
 #'@param type - column name with type values (i.e., "observed","predicted")
-#'@param facets - string giving faceting formula
+#'@param facets - grid faceting formula (as an expresssion for multilevel faceting)
 #'@param position - indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param plotObs - plot observations
@@ -23,15 +23,18 @@
 #'@param title -
 #'@param xlims -
 #'@param ylims -
-#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
+#'@param colour_scale - ggplot2 scale_colour object (default is [ggplot2::scale_colour_hue()])
 #'@param showPlot - flag (T/F) to print plot
 #'@param verbose - flag (T/F) to print debugging info
 #'
 #'@return ggplot object
 #'
-#'@details None.
+#'@details  \code{facets} should be given as an expression, not as a character string, if you want multilevel faceting.
+
 #'
 #'@import ggplot2
+#'
+#' @md
 #'
 #'@export
 #'
@@ -58,9 +61,9 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     verbose=FALSE){
     idx<-dfr[[type]]!='observed';
     if (verbose) {
-        cat("Starting plotMDFR.Fits.TimeSeries1().\n")
-        cat("Plotting",sum(idx),"model predictions.\n")
-        cat("Plotting",sum(!idx),"observations.\n")
+        message("Starting plotMDFR.Fits.TimeSeries1().\n")
+        message("Plotting",sum(idx),"model predictions.\n")
+        message("Plotting",sum(!idx),"observations.\n")
     }
     levels<-NULL;
     if (is.factor(dfr$case)) {
@@ -84,7 +87,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     dfr$case <-factor(dfr$case, levels=levels);
     dfrp$case<-factor(dfrp$case,levels=levels);
     dfro$case<-factor(dfro$case,levels=levels);
-    if (verbose)  cat("Levels: ",paste0(levels,collapse=", "),".\n")
+    if (verbose)  message("Levels: ",paste0(levels,collapse=", "),".\n")
 
     p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
     p <- p + colour_scale;

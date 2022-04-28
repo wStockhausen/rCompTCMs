@@ -4,26 +4,26 @@
 #' @description Function to render a document of model comparison plots
 #'
 #' @param models - named list of model results (as resLst objects) to compare
-#' @param includeManagementQuantities - flag to include comparison of management quantities
-#' @param ManagementQuantities - list controlling comparison of management quantities (see [modelComparisons.ManagementQuantities()])
 #' @param includeInputData - flag (T/F) to include section
 #' @param InputData - list controlling what gets plotted
+#' @param includeManagementQuantities - flag to include comparison of management quantities
+#' @param ManagementQuantities - list controlling comparison of management quantities (see [modelComparisons.ManagementQuantities()])
 #' @param includeParameterTables - flag (T/F) to include section
-#' @param ParameterTables - list(verbose=FALSE)
+#' @param ParameterTables - list(verbose=FALSE)  (see [modelComparisons.ParameterTables()])
 #' @param includePopProcesses - flag (T/F) to include section
-#' @param PopProcesses - list(verbose=FALSE)
+#' @param PopProcesses - list(verbose=FALSE) (see [modelComparisons.PopProcesses()])
 #' @param includePopQuantities - flag (T/F) to include section
-#' @param PopQuantities - list(verbose=FALSE)
+#' @param PopQuantities - list(verbose=FALSE)  (see [modelComparisons.PopProcesses()])
 #' @param includeModelFitsToOtherData - flag (T/F) to include section
-#' @param ModelFitsToOtherData - list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)
+#' @param ModelFitsToOtherData - list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)  (see [modelComparisons.ModelFitsToOtherData()])
 #' @param includeModelFitsACD - flag (T/F) to include section
-#' @param ModelFitsACD - list(plot1stObs=TRUE,numRecent=30,verbose=FALSE)
+#' @param ModelFitsACD - list(plot1stObs=TRUE,numRecent=30,verbose=FALSE) (see [modelComparisons.ModelFitsACD()])
 #' @param includeModelFitsZCs - flag (T/F) to include section
-#' @param ModelFitsZCs - list(plot1stObs=TRUE,fleets="all",verbose=FALSE)
+#' @param ModelFitsZCs - list(plot1stObs=TRUE,fleets="all",verbose=FALSE) (see [modelComparisons.ModelFitsZCs()])
 #' @param includeCharacteristicsSurveys - flag (T/F) to include section
-#' @param CharacteristicsSurveys - list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)
+#' @param CharacteristicsSurveys - list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)  (see [modelComparisons.CharacteristicsSurveys()])
 #' @param includeCharacteristicsFisheries - flag (T/F) to include section
-#' @param CharacteristicsFisheries - list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE)
+#' @param CharacteristicsFisheries - list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE) (see [modelComparisons.CharacteristicsFisheries()])
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
 #' @param rmd - Rmd file to process (defalut=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"))
@@ -124,7 +124,7 @@ modelComparisons<-function(models,
     output_options<-list(includes=list(in_header=pdf_styles));
   }
   output_file<-paste0("ModelComparisons.",mmm,".",ext);
-  title<-paste0("Model Comparisons:\\n",mmv);#--NOTE: have to double-escape here?
+  title<-paste0("Model Comparisons for ",mmv);#--NOTE: have to double-escape here?
   cat("Rendering to '",file.path(output_dir,output_file),"'\n",sep="")
   cat("Title: '",title,"'\n",sep='')
   cat("Base RMD folder \n\t'",bsf,"'\n",sep="");

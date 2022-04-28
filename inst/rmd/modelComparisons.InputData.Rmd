@@ -64,6 +64,11 @@ title: '`r params$title`'
     
     cases<-names(Models);
     nCases<-length(cases);
+    
+    thm1 = theme(panel.background=element_rect(colour="black",fill="white"),
+                panel.border=element_rect(colour="black",fill=NA),
+                panel.spacing=unit(0.1,"cm")
+                )
 ```
 
 # Input data
@@ -78,24 +83,349 @@ title: '`r params$title`'
   if (params$InputData$surveys$plotBiomass){
     message("starting plotData.SurveyBiomass")
     cat("\n### Survey biomass\n\n")
-    plts<-rCompTCMs::compareData.FleetTimeSeriesABs(Models,fleet.type='survey',catch.type='index',data.type="biomass",
-                                                     fleets=params$InputData$surveys$fleets,
-                                                     ci=params$InputData$surveys$ci,
-                                                     numRecent=params$InputData$surveys$numRecent,
-                                                     verbose=verbose);
-    if (!is.null(plts)){
-      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-      rm(plt,plts);
-    } else {
-        cat("\nNo survey biomass data.\n\n")
-    }
-  } else {
-    cat("\nPlots of survey biomass data not included.\n\n")
-  }
+    fleets = params$InputData$surveys$fleets;
+    numRecent = params$InputData$surveys$numRecent;
+    ci = params$InputData$surveys$ci;
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type='survey',fleets=fleets,
+                                                         catch.type='index',data.type="biomass",ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,fleet.type='survey',
+                                                      catch.type='index',data.type="biomass",
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed biomass time series for the ",flt," survey.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed biomass time series for the ",flt," survey (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of survey biomass data were not included.\n\n")}
+```
+\FloatBarrier
+
+\clearpage
+
+```{r plotData.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (params$InputData$surveys$plotAbundance){
+    message("starting plotData.SurveyAbundance")
+    cat("\n### Survey abundance\n\n")
+    fleets = params$InputData$surveys$fleets;
+    numRecent = params$InputData$surveys$numRecent;
+    ci = params$InputData$surveys$ci;
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type='survey',fleets=fleets,
+                                                         catch.type='index',data.type="abundance",ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,fleet.type='survey',
+                                                      catch.type='index',data.type="abundance",
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed abundance time series for the ",flt," survey.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed abundance time series for the ",flt," survey (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of survey abundance data were not included.\n\n")}
 ```
 
 \FloatBarrier
 
 \clearpage
+
+```{r plotData.RetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (params$InputData$fisheries$retained$plotBiomass){
+    message("starting plotData.RetainedCatchBiomass")
+    cat("\n### Retained catch biomass\n\n")
+    fleets = params$InputData$fisheries$fleets;
+    numRecent = params$InputData$fisheries$retained$numRecent;
+    ci = params$InputData$fisheries$retained$ci;
+    fleet.type = "fishery";
+    catch.type = "retained";
+    data.type  = "biomass";
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type=fleet.type,fleets=fleets,
+                                                         catch.type=catch.type,data.type=data.type,ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,
+                                                      fleet.type=fleet.type,
+                                                      catch.type=catch.type,
+                                                      data.type=data.type,
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed retained catch biomass time series for the ",flt," fishery.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed retained catch biomass time series for the ",flt," fishery (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of retained catch biomass data were not included.\n\n")}
+```
+
+\FloatBarrier
+
+\clearpage
+
+```{r plotData.RetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (params$InputData$fisheries$retained$plotAbundance){
+    message("starting plotData.RetainedCatchAbundance")
+    cat("\n### Retained catch abundance\n\n")
+    fleets = params$InputData$fisheries$fleets;
+    numRecent = params$InputData$fisheries$retained$numRecent;
+    ci = params$InputData$surveys$fisheries$retained$ci;
+    fleet.type = "fishery";
+    catch.type = "retained";
+    data.type  = "abundance";
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type=fleet.type,fleets=fleets,
+                                                         catch.type=catch.type,data.type=data.type,ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,
+                                                      fleet.type=fleet.type,
+                                                      catch.type=catch.type,
+                                                      data.type=data.type,
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed retained catch abundance time series for the ",flt," fishery.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed retained catch abundance time series for the ",flt," fishery (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of retained catch abundance data were not included.\n\n")}
+```
+
+\FloatBarrier
+
+\clearpage
+
+```{r plotData.TotalCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (params$InputData$fisheries$total$plotBiomass){
+    message("starting plotData.TotalCatchBiomass")
+    cat("\n### Total catch biomass\n\n")
+    fleets = params$InputData$fisheries$fleets;
+    numRecent = params$InputData$fisheries$total$numRecent;
+    ci = params$InputData$fisheries$total$ci;
+    fleet.type = "fishery";
+    catch.type = "total";
+    data.type  = "biomass";
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type=fleet.type,fleets=fleets,
+                                                         catch.type=catch.type,data.type=data.type,ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,
+                                                      fleet.type=fleet.type,
+                                                      catch.type=catch.type,
+                                                      data.type=data.type,
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed total catch biomass time series for the ",flt," fishery.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed total catch biomass time series for the ",flt," fishery (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of total catch biomass data were not included.\n\n")}
+```
+
+\FloatBarrier
+
+\clearpage
+
+```{r plotData.TotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  if (params$InputData$fisheries$total$plotAbundance){
+    message("starting plotData.TotalCatchAbundance")
+    cat("\n### Total catch abundance\n\n")
+    fleets = params$InputData$fisheries$fleets;
+    numRecent = params$InputData$fisheries$total$numRecent;
+    ci = params$InputData$surveys$fisheries$total$ci;
+    fleet.type = "fishery";
+    catch.type = "total";
+    data.type  = "abundance";
+    ##--want to make comparisons between datasets used in different models, so
+    ##--plot by fleet, sex, maturity_state, shell_condition (if any data exists)
+    dfr = rCompTCMs::extractMDFR.Data.FleetTimeSeriesABs(Models,fleet.type=fleet.type,fleets=fleets,
+                                                         catch.type=catch.type,data.type=data.type,ci=ci);
+    flts = dfr$fleet %>% unique();
+    plots = list(); 
+    for (flt in flts){
+      #--testing: flt = flts[2];
+      dfrp = dfr %>% dplyr::filter(fleet==flt);#--filter for fleet
+      #--determine aggregated x,m,s factor levels and drop from plots as necessary
+      dfrpp = dfrp %>%
+              dplyr::group_by(x,m,s) %>% 
+              dplyr::summarize(tot=wtsUtilities::Sum(val)) %>%
+              dplyr::ungroup() %>%
+              dplyr::filter(tot>0) %>%
+              rCompTCMs::dropAggregatedDataLevels();
+      #--extract only x,m,s in dfrpp
+      dfrppp = dfrp %>% dplyr::inner_join(dfrpp,by=c("x","m","s")) %>%
+                        dplyr::mutate(x=as.character(x),
+                                      m=as.character(m),
+                                      s=as.character(s));
+      plts<-rCompTCMs::compareData.FleetTimeSeriesABs(dfrppp,
+                                                      fleet.type=fleet.type,
+                                                      catch.type=catch.type,
+                                                      data.type=data.type,
+                                                      fleets="all",
+                                                      sexs="all",
+                                                      maturity_states="all",
+                                                      shell_conditions="all",
+                                                      facets=x+m+s~fleet,
+                                                      ci=0.8,
+                                                      ylims=c(0,NA),
+                                                      numRecent=numRecent,
+                                                      verbose=FALSE);
+      cap1 = paste0("  \n  \nFigure &&fno. Comparison of observed total catch abundance time series for the ",flt," fishery.  \n  \n");
+      cap2 = paste0("  \n  \nFigure &&fno. Comparison of observed total catch abundance time series for the ",flt," fishery (recent period).  \n  \n");
+      plots[[cap1]] = plts[[1]] + thm1;
+      if (numRecent>0) plots[[cap2]] = plts[[2]] + thm1;
+      rm(plts,cap1,cap2,dfrp,dfrpp,dfrppp);
+    }#--flt
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plots);
+    for (plt in plots) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,fleets,numRecent,ci,dfr,flts,flt);
+  } #else {cat("\nPlots of total catch abundance data were not included.\n\n")}
+```
+
+\FloatBarrier
+
+\clearpage
+
 

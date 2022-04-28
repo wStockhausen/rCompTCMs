@@ -29,51 +29,97 @@ plotMDFR.Fits.TimeSeries1(
 )
 }
 \arguments{
-\item{dfr}{- dataframe}
+\item{dfr}{\itemize{
+\item dataframe
+}}
 
-\item{plot1stObs}{- flag to plot observations from first case only}
+\item{plot1stObs}{\itemize{
+\item flag to plot observations from first case only
+}}
 
-\item{x}{- column name with x axis values}
+\item{x}{\itemize{
+\item column name with x axis values
+}}
 
-\item{y}{- column name with y axis values}
+\item{y}{\itemize{
+\item column name with y axis values
+}}
 
-\item{lci}{- column name with y axis values}
+\item{lci}{\itemize{
+\item column name with y axis values
+}}
 
-\item{uci}{- column name with y axis values}
+\item{uci}{\itemize{
+\item column name with y axis values
+}}
 
-\item{case}{- column name with case names}
+\item{case}{\itemize{
+\item column name with case names
+}}
 
-\item{type}{- column name with type values (i.e., "observed","predicted")}
+\item{type}{\itemize{
+\item column name with type values (i.e., "observed","predicted")
+}}
 
-\item{facets}{- string giving faceting formula}
+\item{facets}{\itemize{
+\item grid faceting formula (as an expresssion for multilevel faceting)
+}}
 
-\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
+\item{position}{\itemize{
+\item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
+}}
 
-\item{scales}{- ggplot2 scales option for facet_grid}
+\item{scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{plotObs}{- plot observations}
+\item{plotObs}{\itemize{
+\item plot observations
+}}
 
-\item{plotMod}{- plot case fits/predictions}
+\item{plotMod}{\itemize{
+\item plot case fits/predictions
+}}
 
-\item{xlab}{-}
+\item{xlab}{\itemize{
+\item 
+}}
 
-\item{ylab}{-}
+\item{ylab}{\itemize{
+\item 
+}}
 
-\item{title}{-}
+\item{title}{\itemize{
+\item 
+}}
 
-\item{xlims}{-}
+\item{xlims}{\itemize{
+\item 
+}}
 
-\item{ylims}{-}
+\item{ylims}{\itemize{
+\item 
+}}
 
-\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())}
+\item{colour_scale}{\itemize{
+\item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
 
-\item{showPlot}{- flag (T/F) to print plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to print plot
+}}
 
-\item{verbose}{- flag (T/F) to print debugging info}
+\item{verbose}{\itemize{
+\item flag (T/F) to print debugging info
+}}
 
-\item{ci}{- confidence interval for error bars}
+\item{ci}{\itemize{
+\item confidence interval for error bars
+}}
 
-\item{pdfType}{- assumed error distribution for confidence intervals}
+\item{pdfType}{\itemize{
+\item assumed error distribution for confidence intervals
+}}
 }
 \value{
 ggplot object
@@ -82,5 +128,5 @@ ggplot object
 Function to plot a comparison of fits to time series from a set of model runs.
 }
 \details{
-None.
+\code{facets} should be given as an expression, not as a character string, if you want multilevel faceting.
 }

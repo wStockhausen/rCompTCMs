@@ -148,7 +148,7 @@ modelComparisons(
 }}
 
 \item{ParameterTables}{\itemize{
-\item list(verbose=FALSE)
+\item list(verbose=FALSE)  (see \code{\link[=modelComparisons.ParameterTables]{modelComparisons.ParameterTables()}})
 }}
 
 \item{includePopProcesses}{\itemize{
@@ -156,7 +156,7 @@ modelComparisons(
 }}
 
 \item{PopProcesses}{\itemize{
-\item list(verbose=FALSE)
+\item list(verbose=FALSE) (see \code{\link[=modelComparisons.PopProcesses]{modelComparisons.PopProcesses()}})
 }}
 
 \item{includePopQuantities}{\itemize{
@@ -164,7 +164,7 @@ modelComparisons(
 }}
 
 \item{PopQuantities}{\itemize{
-\item list(verbose=FALSE)
+\item list(verbose=FALSE)  (see \code{\link[=modelComparisons.PopProcesses]{modelComparisons.PopProcesses()}})
 }}
 
 \item{includeModelFitsToOtherData}{\itemize{
@@ -172,7 +172,7 @@ modelComparisons(
 }}
 
 \item{ModelFitsToOtherData}{\itemize{
-\item list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)
+\item list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)  (see \code{\link[=modelComparisons.ModelFitsToOtherData]{modelComparisons.ModelFitsToOtherData()}})
 }}
 
 \item{includeModelFitsACD}{\itemize{
@@ -180,7 +180,7 @@ modelComparisons(
 }}
 
 \item{ModelFitsACD}{\itemize{
-\item list(plot1stObs=TRUE,numRecent=30,verbose=FALSE)
+\item list(plot1stObs=TRUE,numRecent=30,verbose=FALSE) (see \code{\link[=modelComparisons.ModelFitsACD]{modelComparisons.ModelFitsACD()}})
 }}
 
 \item{includeModelFitsZCs}{\itemize{
@@ -188,7 +188,7 @@ modelComparisons(
 }}
 
 \item{ModelFitsZCs}{\itemize{
-\item list(plot1stObs=TRUE,fleets="all",verbose=FALSE)
+\item list(plot1stObs=TRUE,fleets="all",verbose=FALSE) (see \code{\link[=modelComparisons.ModelFitsZCs]{modelComparisons.ModelFitsZCs()}})
 }}
 
 \item{includeCharacteristicsSurveys}{\itemize{
@@ -196,7 +196,7 @@ modelComparisons(
 }}
 
 \item{CharacteristicsSurveys}{\itemize{
-\item list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)
+\item list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)  (see \code{\link[=modelComparisons.CharacteristicsSurveys]{modelComparisons.CharacteristicsSurveys()}})
 }}
 
 \item{includeCharacteristicsFisheries}{\itemize{
@@ -204,7 +204,7 @@ modelComparisons(
 }}
 
 \item{CharacteristicsFisheries}{\itemize{
-\item list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE)
+\item list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE) (see \code{\link[=modelComparisons.CharacteristicsFisheries]{modelComparisons.CharacteristicsFisheries()}})
 }}
 
 \item{output_format}{\itemize{

@@ -113,27 +113,13 @@ title: '`r params$title`'
   nCases<-length(cases);
 ```
 
-\setcounter{tocdepth}{3}
+<!-- \setcounter{tocdepth}{3} -->
 
-\addcontentsline{toc}{section}{List of Tables in Model Comparisons}
-\listoftables
+<!-- \addcontentsline{toc}{section}{List of Tables in Model Comparisons} -->
+<!-- \listoftables -->
 
-\addcontentsline{toc}{section}{List of Figures in Model Comparisons}
-\listoffigures
-
-```{r modelComparisons_ManagementQuantities,results='asis',echo=FALSE}
-  if (params$includeManagementQuantities){
-    cat("\n\\newpage\n")
-    path = system.file("rmd/modelComparisons.ManagementQuantities.Rmd",package="rCompTCMs");
-    fn   = basename(path);
-    message("child rmd file:",fn)
-    cat(
-      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
-    )
-  } else {
-    message("Skipping modelComparisons_ManagementQuantities")
-  }
-```
+<!-- \addcontentsline{toc}{section}{List of Figures in Model Comparisons} -->
+<!-- \listoffigures -->
 
 ```{r modelComparisons_InputData,results='asis',echo=FALSE}
   if (params$includeInputData){
@@ -146,6 +132,20 @@ title: '`r params$title`'
     )
   } else {
     message("Skipping modelComparisons_InputData")
+  }
+```
+
+```{r modelComparisons_ManagementQuantities,results='asis',echo=FALSE}
+  if (params$includeManagementQuantities){
+    cat("\n\\newpage\n")
+    path = system.file("rmd/modelComparisons.ManagementQuantities.Rmd",package="rCompTCMs");
+    fn   = basename(path);
+    message("child rmd file:",fn)
+    cat(
+      knitr::knit_child(fn,envir=environment(),quiet=TRUE)
+    )
+  } else {
+    message("Skipping modelComparisons_ManagementQuantities")
   }
 ```
 

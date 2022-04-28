@@ -72,7 +72,7 @@ compareData.FleetTimeSeriesABs(
 }}
 
 \item{facets}{\itemize{
-\item grid faceting formula
+\item grid faceting formula (as an expresssion for multilevel faceting)
 }}
 
 \item{scales}{\itemize{
@@ -94,4 +94,6 @@ several model scenarios.
 Uses \code{\link[=extractMDFR.Data.FleetTimeSeriesABs]{extractMDFR.Data.FleetTimeSeriesABs()}} to extract the data (if objs is not a dataframe).
 Uses \code{\link[=plotMDFR.Fits.TimeSeries]{plotMDFR.Fits.TimeSeries()}} to make the plots, with \code{plotObs=TRUE} and \code{plotMod=FALSE}. Only time series with
 at least one non-zero value will be plotted (to eliminate lots of values along y=0).
+
+Note that \code{facets} should be given as an expression, not as a character string, if you want multilevel faceting.
 }

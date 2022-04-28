@@ -16,13 +16,15 @@
 #'@param ci - confidence interval for plots
 #'@param numRecent - number of years for 'recent' plot
 #'@param ylims - limits for y axis (default is NULL)
-#'@param facets - grid faceting formula
+#'@param facets - grid faceting formula (as an expresssion for multilevel faceting)
 #'@param scales - ggplot2 scales option for facet_grid
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses [extractMDFR.Data.FleetTimeSeriesABs()] to extract the data (if objs is not a dataframe).
 #'Uses [plotMDFR.Fits.TimeSeries()] to make the plots, with \code{plotObs=TRUE} and \code{plotMod=FALSE}. Only time series with
 #'at least one non-zero value will be plotted (to eliminate lots of values along y=0).
+#'
+#'Note that \code{facets} should be given as an expression, not as a character string, if you want multilevel faceting.
 #'
 #'@return Non-nested list of ggplot2 objects, with captions as names
 #'
@@ -135,7 +137,7 @@ compareData.FleetTimeSeriesABs<-function(objs=NULL,
                                  ylims=ylims,
                                  showPlot=FALSE);
     plots[[cap1]]<-ps[[1]];
-    plots[[cap2]]<-ps[[2]];
+    if (numRecent>0) plots[[cap2]]<-ps[[2]];
 
     if (verbose) message("Finished rCompTCMs::compareData.FleetTimeSeries().\n");
     return(plots);
