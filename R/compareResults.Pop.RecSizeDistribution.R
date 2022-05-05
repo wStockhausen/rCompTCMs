@@ -14,6 +14,7 @@
 #'@return ggplot object
 #'
 #'@import ggplot2
+#'@import wtsPlots
 #'
 #'@export
 #'
@@ -25,6 +26,8 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
 
     if (verbose) message("Starting rCompTCMs::compareResults.Pop.RecSizeDistribution().\n");
     options(stringsAsFactors=FALSE);
+
+    std_theme = wtsPlots::getStdTheme();
 
     cases<-names(objs);
 
@@ -46,6 +49,7 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
     p <- p + geom_point(position=pd);
     p <- p + ylim(c(0,NA));
     p <- p + labs(x="size (mm CW)",y="recruitment size distribution");
+    p = p + std_theme;
 
     if (showPlot) print(p);
 

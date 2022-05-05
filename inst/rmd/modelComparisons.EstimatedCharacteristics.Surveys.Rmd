@@ -107,6 +107,7 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 \clearpage 
 
 ## Survey availability
+
 "Availability" here represents an overall multiplier on the size-specific availability functions described in the next section. 
 
 ```{r ESCs.Availability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
@@ -132,6 +133,7 @@ Survey selectivity functions reflect size-specific catchability relative to a fu
 \clearpage 
 
 ## Survey availability functions
+
 Survey availability functions reflect size-specific availability of crab to the survey gear over the entire survey area, 
 possibly relative to the "most-available" size class (see the previous section for the availability multipliers when the 
 size-specific availability functions are normalized to the most-available size class).
@@ -161,6 +163,7 @@ size-specific availability functions are normalized to the most-available size c
 \clearpage 
 
 ## Survey capture probability functions
+
 Survey capture probability functions incorporate both catchability and size-specific selectivity, 
 as well as availability and size-specific availability. These represent the proportion of survey-estimated 
 crab abundance at size *z* after expansion to the survey area relative to the abundance of crab at size *z*

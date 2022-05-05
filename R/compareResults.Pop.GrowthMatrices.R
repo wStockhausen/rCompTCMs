@@ -16,6 +16,7 @@
 #'@return list with a ggplot object
 #'
 #'@import ggplot2
+#'@import wtsPlots
 #'
 #'@export
 #'
@@ -24,7 +25,9 @@ compareResults.Pop.GrowthMatrices<-function(objs,
                                              pdf=NULL,
                                              verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
+    if (verbose) message("Starting rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
+    std_theme = wtsPlots::getStdTheme();
+
     #create pdf, if necessary
     if (!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -56,6 +59,7 @@ compareResults.Pop.GrowthMatrices<-function(objs,
             } else {
                 p <- p + facet_grid(x~case);
             }
+            p = p + std_theme;
             if (showPlot) print(p);
 
             cap<-paste("  \n  \nFigure &&figno. Estimated growth matrices, as bubble plots, for scenario ",case,". \n \n",sep='');
@@ -63,6 +67,6 @@ compareResults.Pop.GrowthMatrices<-function(objs,
         }
     }
 
-    if (verbose) cat("Finished rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
+    if (verbose) message("Finished rCompTCMs::compareResults.Pop.GrowthMatrices().\n")
     return(plots);
 }
