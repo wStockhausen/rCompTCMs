@@ -15,6 +15,7 @@
 #'@details None.
 #'
 #'@import ggplot2
+#'@import wtsPlots
 #'
 #'@export
 #'
@@ -24,6 +25,8 @@ compareResults.Pop.NaturalMortality<-function(objs,
                                               showPlot=FALSE,
                                               verbose=FALSE){
     options(stringsAsFactors=FALSE);
+
+    std_theme = wtsPlots::getStdTheme();
 
     cases<-names(objs);
 
@@ -49,6 +52,7 @@ compareResults.Pop.NaturalMortality<-function(objs,
     p <- p + ggtitle("Natural Mortality");
     p <- p + facet_grid(m+s~x);
     p <- p + ylim(c(0,NA));
+    p = p + std_theme;
     if (showPlot) print(p);
 
     plots<-list();

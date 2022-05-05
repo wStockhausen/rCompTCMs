@@ -40,6 +40,8 @@ compareResults.Surveys.AvlFcns<-function(objs,
     if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.AvlFcns().\n");
     options(stringsAsFactors=FALSE);
 
+    std_theme = wtsPlots::getStdTheme();
+
     if (is.null(years)) return(list());
 
     #create pdf, if necessary
@@ -105,7 +107,6 @@ compareResults.Surveys.AvlFcns<-function(objs,
         #     cap<-paste0("\n  \nFigure &&figno. Availability functions for ",f,".  \n  \n")
         #     plots[[cap]]<-p;
         # }
-        subPlots<-list();
         rws = mdfrp %>% dplyr::distinct(x,m,s);
         for (i in 1:nrow(rws)){
             rw = rws[i,];
@@ -118,13 +119,10 @@ compareResults.Surveys.AvlFcns<-function(objs,
                   geom_line() +
                   facets + ylim(0,1) +
                   xlab('size (mm CW)')+ylab('availability')+ggtitle(f)+
-                  theme(panel.background=element_rect(colour="black",fill="white"),
-                        panel.border=element_rect(colour="black",fill=NA),
-                        panel.spacing=unit(0.1,"cm"));
+                  std_theme;
             cap<-paste0("\n  \nFigure &&figno. Availability functions for ",str," crab in the ",f," survey.  \n  \n");
-            subPlots[[cap]]<-p;
+            plots[[cap]]<-p;
         }
-        plots[[f]]<-subPlots;
     }#--uF
 
     if (verbose) message("rCompTCMs::compareResults.Surveys.AvlFcns: Done!\n");
