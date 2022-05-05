@@ -5,7 +5,7 @@
 #'   sex and maturity state using barplots.
 #'
 #'@param objs - list of resLst objects from TCSAM02
-#'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
+#'@param colour_scale - ggplot2 scale_colour object (default is [ggplot2::scale_colour_hue()])
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -17,6 +17,9 @@
 #'@import cowplot
 #'@import ggplot2
 #'@import magrittr
+#'@import wtsPlots
+#'
+#'@md
 #'
 #'@export
 #'
@@ -27,6 +30,7 @@ compareResults.Pop.NaturalMortality.BarPlot<-function(
                                               showPlot=FALSE,
                                               verbose=FALSE){
     options(stringsAsFactors=FALSE);
+    std_theme = wtsPlots::getStdTheme();
 
     cases<-names(objs);
 
@@ -58,6 +62,7 @@ compareResults.Pop.NaturalMortality.BarPlot<-function(
         p <- p + facet_grid(y~m);
         p <- p + ylim(0,mxNM);
         p <- p + labs(x="",y="natural mortality",fill="scenario");
+        p = p + std_theme;
         pl<- p; #--save plot w/ legend
         p <- p + theme(legend.position="none",);
         plots[[uM]]<-p;

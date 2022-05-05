@@ -17,7 +17,9 @@
 #'
 #' @return ggplot object
 #'
-#' @import ggplot2
+#'@import ggplot2
+#'@import stringr
+#'@import wtsPlots
 #'
 #' @export
 #'
@@ -31,6 +33,8 @@ compareFits.MaturityOgiveData<-function(objs,
                                         showPlot=FALSE,
                                         verbose=FALSE){
     options(stringsAsFactors=FALSE);
+
+    std_theme = wtsPlots::getStdTheme();
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -68,6 +72,7 @@ compareFits.MaturityOgiveData<-function(objs,
     plots<-list();
     for (d in datasets){
         mdfrp<-mdfr[(mdfr$category==d),];
+        dp = stringr::str_replace_all(d,stringr::fixed("_")," ");
         if (nrow(mdfrp)>0){
             dcs<-unique(mdfrp$case);   #unique cases
             uys<-sort(unique(mdfrp$y)); #unique years
@@ -101,14 +106,14 @@ compareFits.MaturityOgiveData<-function(objs,
                     }
                     mdfrpp<-dfrp[dfrp$type == 'predicted',];
                     p <- ggplot(dfrp,aes_string(x='z',y='val',colour='case',shape='case'));
-                    p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                    p <- p + coord_cartesian(xlim=zlims,ylim=ylims);
                     p <- p + geom_point(data=mdfrpo,position=pd);
                     p <- p + geom_line(data=mdfrpp,position=pd);
                     if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
                     p <- p + labs(x='size (mm CW)',y="probability(mature)");
-                    p <- p + facet_grid(y~.);
+                    p <- p + facet_grid(y~.) + std_theme;
                     if (showPlot) print(p);
-                    cap<-paste0("\n  \nFigure &&figno. Model fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                    cap<-paste0("\n  \nFigure &&figno. Model fits to ",dp," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
                     plots[[cap]]<-p;
                 }
                 rm(mdfrpo,mdfrpp);
@@ -130,13 +135,13 @@ compareFits.MaturityOgiveData<-function(objs,
                     dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
                     mdfrpn<-dfrp[(dfrp$type == 'nlls')&(dfrp$z>=minSize),];
                     p <- ggplot(mdfrpn,aes_string(x='z',y='val',colour='case',shape='case'));
-                    p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                    p <- p + coord_cartesian(xlim=zlims,ylim=ylims);
                     p <- p + geom_point(position=pd);
                     p <- p + geom_abline(slope=0,linetype=2);
                     p <- p + labs(x='size (mm CW)',y="NLLs");
-                    p <- p + facet_grid(y~.);
+                    p <- p + facet_grid(y~.) + std_theme;
                     if (showPlot) print(p);
-                    cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                    cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",dp," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
                     plots[[cap]]<-p;
                 }
                 rm(mdfrpn);
@@ -158,14 +163,14 @@ compareFits.MaturityOgiveData<-function(objs,
                     ylims<-c(-1.01,1.01)*max(abs(mdfrpz$val));
                     if (verbose) cat("ylims = ",ylims,"\n");
                     p <- ggplot(mdfrpz,aes_string(x='z',y='val',colour='case',shape='case'));
-                    p <- p + scale_x_continuous(limits=zlims) + scale_y_continuous(limits=ylims);
+                    p <- p + coord_cartesian(xlim=zlims,ylim=ylims);
                     p <- p + geom_smooth(mapping=aes(group=case,fill=case,colour=case),alpha=0.5);
                     p <- p + geom_point(position=pd);
                     p <- p + geom_abline(slope=0,linetype=2);
                     p <- p + labs(x='size (mm CW)',y="z-scores");
-                    p <- p + facet_grid(y~.);
+                    p <- p + facet_grid(y~.) + std_theme;
                     if (showPlot) print(p);
-                    cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
+                    cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",dp," for ",uys[min(iys)]," to ",uys[max(iys)],".\n   \n")
                     plots[[cap]]<-p;
                 }
             }

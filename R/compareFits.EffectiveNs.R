@@ -22,6 +22,7 @@
 #'@details None.
 #'
 #'@import ggplot2
+#'@import wtsPlots
 #'
 #'@export
 #'
@@ -39,6 +40,8 @@ compareFits.EffectiveNs<-function(objs=NULL,
                                   verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareFits.EffectiveNs().\n");
     options(stringsAsFactors=FALSE);
+
+    std_theme = wtsPlots::getStdTheme();
 
 
     #create pdf, if necessary
@@ -78,7 +81,8 @@ compareFits.EffectiveNs<-function(objs=NULL,
                                  colour='case',guideTitleColour='',
                                  shape='type',guideTitleShape='',
                                  linetype='type',guideTitleLineType='',
-                                 showPlot=FALSE);
+                                 showPlot=FALSE) +
+            std_theme;
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Effective N's for ",f," ",category," catch size compositions.  \n  \n")
         plots[[f]]<-p;

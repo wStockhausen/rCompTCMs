@@ -13,22 +13,32 @@ compareResults.Pop.NaturalMortality.BarPlot(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects from TCSAM02}
+\item{objs}{\itemize{
+\item list of resLst objects from TCSAM02
+}}
 
-\item{colour_scale}{- ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())}
+\item{colour_scale}{\itemize{
+\item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object as list element
 }
 \description{
 This function compares natural mortality estimates by
-  sex and maturity state using barplots.
+sex and maturity state using barplots.
 }
 \details{
 None.

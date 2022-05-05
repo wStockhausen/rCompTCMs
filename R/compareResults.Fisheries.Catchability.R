@@ -52,6 +52,7 @@ compareResults.Fisheries.Catchability<-function(objs,
     #----------------------------------
     # plot fishery catchability by year
     #----------------------------------
+    std_theme = wtsPlots::getStdTheme();
     uF<-unique(mdfr$fleet);
     if (fleets[1]!="all") uF<-fleets;
     plots<-list();
@@ -69,7 +70,7 @@ compareResults.Fisheries.Catchability<-function(objs,
         p <- p + ylim(c(0,NA));
         if (showPlot) print(p);
         cap<-paste0("\n  \nFigure &&figno. Fishery catchabilities for ",f,".\n   \n");
-        plots[[cap]]<-p;
+        plots[[cap]]<-p+std_theme;
     }
 
     # p <- ggplot(mdfr,aes_string(x='y',y='val',colour='case'));

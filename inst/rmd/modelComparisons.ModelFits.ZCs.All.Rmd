@@ -202,7 +202,7 @@ for (plt in plts) {print(plt); fig<-fig+1;}
                                            showPlot=FALSE,
                                            verbose=FALSE)
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (i in 1:length(captions)) {captions[i]<-paste0("Input and effective sample sizes from retained catch size compositions from the ",captions[i],".");}
+  for (i in 1:length(captions)) {captions[i]<-paste0("Input and effective sample sizes from index catch size compositions from the ",captions[i],".");}
   for (plt in plts) {print(plt); fig<-fig+1;}
 ```
 

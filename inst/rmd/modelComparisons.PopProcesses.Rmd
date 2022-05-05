@@ -53,8 +53,14 @@ Figures and tables in this section present comparisons between alternative model
   message("Starting plotPopProcessNM");
   plts<-rCompTCMs::compareResults.Pop.NaturalMortality(Models,dodge=0,showPlot=FALSE,verbose=verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
-  #fig<-res$figno;
+  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+  rm(plt,plts);
+```
+
+```{r plotPopProcessNMbar,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  message("Starting plotPopProcessNMbar");
+  plts<-rCompTCMs::compareResults.Pop.NaturalMortality.BarPlot(Models,showPlot=FALSE,verbose=verbose);
+  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
   for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
   rm(plt,plts);
 ```
@@ -67,13 +73,8 @@ Figures and tables in this section present comparisons between alternative model
   message("Starting plotPopProcessPrM2M");
   plts<-rCompTCMs::compareResults.Pop.PrM2M(Models,dodge=0,showPlot=FALSE,verbose=verbose);
   captions<-paste("Probability of terminal molt.")
-  print(plts);
-  fig<-fig+1;
-  #cap<-paste("\n  \nFigure &&figno. Probability of terminal molt.\n  \n")
-  #plots<-list(); plots[[cap]]<-plts;
-  #res<-wtsUtilities::printGGList(plots=plots,figno=fig,show=TRUE);
-  #fig<-res$figno;
-  #rm(plts,cap,plots,res);
+  print(plts); fig<-fig+1;
+  rm(plts);
 ```
 
 \FloatBarrier
@@ -87,10 +88,6 @@ Figures and tables in this section present comparisons between alternative model
   print(plts);
   fig<-fig+1;
   cap<-paste("\n  \nFigure &&figno. Mean growth.\n  \n")
-  #plots<-list(); plots[[cap]]<-plts;
-  #res<-wtsUtilities::printGGList(plots=plots,figno=fig,show=TRUE);
-  #fig<-res$figno;
-  #rm(plts,cap,plots,res);
 ```
 
 \FloatBarrier
@@ -98,6 +95,7 @@ Figures and tables in this section present comparisons between alternative model
 \clearpage
 
 ## Growth matrices
+
 Growth matrices for each model case are compared as bubble plots in the following figure.
 
 ```{r plotPopProcessGMs1,results='asis',fig.height=6.5,fig.width=6.5,fig.cap=captions,eval.after="fig.cap",fig.pos="H"}

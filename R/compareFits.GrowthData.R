@@ -15,6 +15,8 @@
 #'@return ggplot object
 #'
 #'@import ggplot2
+#'@import stringr
+#'@import wtsPlots
 #'
 #'@export
 #'
@@ -25,6 +27,8 @@ compareFits.GrowthData<-function(objs,
                                  showPlot=FALSE,
                                  verbose=FALSE){
     options(stringsAsFactors=FALSE);
+
+    std_theme = wtsPlots::getStdTheme();
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -62,6 +66,7 @@ compareFits.GrowthData<-function(objs,
     plots<-list();
     for (d in datasets){
         mdfrp<-mdfr[(mdfr$category==d),];
+        dp = stringr::str_replace_all(d,stringr::fixed("_")," ");
         if (nrow(mdfrp)>0){
             dcs<-unique(mdfrp$case);
             #-------------------------------------------#
@@ -79,11 +84,11 @@ compareFits.GrowthData<-function(objs,
             if (any(is.finite(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
             p <- p + geom_abline(slope=1,linetype=2);
             p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
-            p <- p + ggtitle(d);
+            p <- p + ggtitle(dp);
             p <- p + facet_grid(x~.);
             if (showPlot) print(p);
-            cap<-paste0("\n  \nFigure &&figno. Model fits to ",d,".\n   \n")
-            plots[[cap]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Model fits to ",dp,".\n   \n")
+            plots[[cap]]<-p + std_theme;
             #-------------------------------------------#
             #plot nll scores
             #-------------------------------------------#
@@ -92,11 +97,11 @@ compareFits.GrowthData<-function(objs,
             p <- p + geom_point(position=pd);
             p <- p + geom_abline(slope=0,linetype=2);
             p <- p + labs(x='pre-molt size (mm CW)',y="NLLs");
-            p <- p + ggtitle(d);
+            p <- p + ggtitle(dp);
             p <- p + facet_grid(x~.);
             if (showPlot) print(p);
-            cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",d,".\n   \n")
-            plots[[cap]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Negative log-likelihood values for fits to ",dp,".\n   \n")
+            plots[[cap]]<-p + std_theme;
             #-------------------------------------------#
             #plot zscores
             #-------------------------------------------#
@@ -106,11 +111,11 @@ compareFits.GrowthData<-function(objs,
             p <- p + geom_point(position=pd);
             p <- p + geom_abline(slope=0,linetype=2);
             p <- p + labs(x='pre-molt size (mm CW)',y="z-scores");
-            p <- p + ggtitle(d);
+            p <- p + ggtitle(dp);
             p <- p + facet_grid(x~.);
             if (showPlot) print(p);
-            cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",d,".\n   \n")
-            plots[[cap]]<-p;
+            cap<-paste0("\n  \nFigure &&figno. Z-scores for fits to ",dp,".\n   \n")
+            plots[[cap]]<-p + std_theme;
         }
     }#d
 

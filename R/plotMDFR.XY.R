@@ -79,11 +79,7 @@ plotMDFR.XY<-function(mdfr,
                        abline=list(intercept=0,slope=1,colour='black',linetype=3,size=1,alpha=0.8),
                        showPlot=FALSE
                        ){
-    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
-                               panel.background=ggplot2::element_blank(),
-                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
-                               panel.grid      =ggplot2::element_blank(),
-                               panel.spacing   =unit(0,units="cm"));
+    std_theme = wtsPlots::getStdTheme();
     #cast melted dataframe
     if (!is.null(agg.formula)){
         #aggregate using formula
