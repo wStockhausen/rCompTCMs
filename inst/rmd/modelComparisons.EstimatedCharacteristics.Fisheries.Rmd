@@ -5,7 +5,7 @@ params:
     Models: none
     title: "Tanner Crab Assessment Model: Estimated Fishery Characteristics" 
     doc_type: "pdf"
-    CharacteristicsFisheries:
+    CharacteristicsForFisheries:
       !r list(plot1stObs=TRUE,
              fleets="all",
              selyears="all",
@@ -31,8 +31,8 @@ title: '`r params$title`'
     ##input model list
     Models<-params$Models;
     doc_type<-params$doc_type;
-    plot1stObs<-params$CharacteristicsFisheries$plot1stObs;
-    message(paste0("verbose = ",params$CharacteristicsFisheries$verbose,"\n"))
+    plot1stObs<-params$CharacteristicsForFisheries$plot1stObs;
+    message(paste0("verbose = ",params$CharacteristicsForFisheries$verbose,"\n"))
 
     ##set knitr options for subsequent chunks
     knitr::opts_chunk$set(echo=FALSE, error=FALSE, message=FALSE, warning=FALSE, concordance=TRUE, fig.width=6.5, fig.height=7.0, dpi=300)
@@ -57,13 +57,15 @@ Model-estimated fishery characteristics such as catchability and selectivity and
 ```{r EFCs01.Catchability,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
   message("Starting EFCs01.Catchability")
   plts<-rCompTCMs::compareResults.Fisheries.Catchability(Models,
-                                                         fleets=params$CharacteristicsFisheries$fleets,
+                                                         fleets=params$CharacteristicsForFisheries$fleets,
                                                          dodge=0,
                                                          showPlot=FALSE,
-                                                         verbose=params$CharacteristicsFisheries$verbose)
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+                                                         verbose=params$CharacteristicsForFisheries$verbose)
+  if ((!is.null(plts))&&(length(plts)>0)){
+      captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+      for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+      rm(plt,plts);
+  }
 ```
 
 \FloatBarrier
@@ -78,19 +80,21 @@ Model-estimated fishery characteristics such as catchability and selectivity and
                                                     cast="y+x",
                                                     facet_grid="y~x",
                                                     mxy=5,
-                                                    fleets=params$CharacteristicsFisheries$fleets,
-                                                    years=params$CharacteristicsFisheries$selyears,
+                                                    fleets=params$CharacteristicsForFisheries$fleets,
+                                                    years=params$CharacteristicsForFisheries$selyears,
                                                     dodge=0,
                                                     showPlot=FALSE,
-                                                    verbose=params$CharacteristicsFisheries$verbose);
-  captions<-vector(mode="character",length=0);
-  for (fplts in plts) {
-    captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
-    for (plt in fplts) {
-      print(plt); cat("\n\n"); fig<-fig+1;
-    }
+                                                    verbose=params$CharacteristicsForFisheries$verbose);
+  if ((!is.null(plts))&&(length(plts)>0)){
+      captions<-vector(mode="character",length=0);
+      for (fplts in plts) {
+        captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
+        for (plt in fplts) {
+          print(plt); cat("\n\n"); fig<-fig+1;
+        }
+      }
+      rm(plt,fplts,plts);
   }
-  rm(plt,fplts,plts);
 ```
 
 \FloatBarrier
@@ -105,18 +109,20 @@ Model-estimated fishery characteristics such as catchability and selectivity and
                                                     cast="y+x",
                                                     facet_grid="y~x",
                                                     mxy=5,
-                                                    fleets=params$CharacteristicsFisheries$fleets,
-                                                    years=params$CharacteristicsFisheries$retyears,
+                                                    fleets=params$CharacteristicsForFisheries$fleets,
+                                                    years=params$CharacteristicsForFisheries$retyears,
                                                     dodge=0,
                                                     showPlot=FALSE,
-                                                    verbose=params$CharacteristicsFisheries$verbose);
-  captions<-vector(mode="character",length=0);
-  for (fplts in plts) {
-    captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
-    for (plt in fplts) {
-      print(plt); cat("\n\n"); fig<-fig+1;
-    }
+                                                    verbose=params$CharacteristicsForFisheries$verbose);
+  if ((!is.null(plts))&&(length(plts)>0)){
+      captions<-vector(mode="character",length=0);
+      for (fplts in plts) {
+        captions<-c(captions,wtsUtilities::getCaptionsFromGGPlotList(fplts));
+        for (plt in fplts) {
+          print(plt); cat("\n\n"); fig<-fig+1;
+        }
+      }
+      rm(plt,fplts,plts);
   }
-  rm(plt,fplts,plts);
 ```
 

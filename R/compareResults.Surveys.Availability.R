@@ -33,7 +33,7 @@ compareResults.Surveys.Availability<-function(objs,
                                               pdf=NULL,
                                               showPlot=FALSE,
                                               verbose=FALSE){
-    if (verbose) cat("Starting rCompTCMs::compareResults.Surveys.Availability().\n");
+    if (verbose) message("Starting rCompTCMs::compareResults.Surveys.Availability().\n");
     options(stringsAsFactors=FALSE);
 
     #create pdf, if necessary
@@ -58,7 +58,7 @@ compareResults.Surveys.Availability<-function(objs,
     plots<-list();
     pd<-position_dodge(width=dodge);
     for (f in uF){
-        if (verbose) cat("Plotting fleet",f,"\n")
+        if (verbose) message("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
         p <- ggplot(mdfrp,aes_string(x='y',y='val',colour='case'));
         p <- p + geom_line(position=pd);

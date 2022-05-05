@@ -19,27 +19,49 @@ compareFits.ZScores.PrNatZ(
 )
 }
 \arguments{
-\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{mdfr}{- dataframe from call to \code{extractFits.ZScores.PrNatZ}  (as alternative to objs)}
+\item{mdfr}{\itemize{
+\item dataframe from call to \code{extractFits.ZScores.PrNatZ}  (as alternative to objs)
+}}
 
-\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all" or NULL to include all)
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',or 'total')
+}}
 
-\item{residuals.type}{- residual type for tcsam02 models ('pearsons' or 'nlls')}
+\item{residuals.type}{\itemize{
+\item residual type for tcsam02 models ('pearsons' or 'nlls')
+}}
 
-\item{tcsam2013.type}{- pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")}
+\item{tcsam2013.type}{\itemize{
+\item pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
+}}
 
-\item{BRT}{- bad residual threshold (threshold to flag bad residuals, if residuals.type is 'pearsons')}
+\item{BRT}{\itemize{
+\item bad residual threshold (threshold to flag bad residuals, if residuals.type is 'pearsons')
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 non-nested list of ggplot2 objects, with captions as names
@@ -49,7 +71,6 @@ Function to compare Pearson's residuals or nll residuals from size comps by flee
 several model runs.
 }
 \details{
-Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.PrNatZ()}.
-Also uses \code{wtsUtilities::printGGList}.
+Uses \code{\link[=extractFits.ZScores.PrNatZ]{extractFits.ZScores.PrNatZ()}} to extract data for plotting.
+Also uses \code{\link[wtsUtilities:printGGList]{wtsUtilities::printGGList()}}.
 }

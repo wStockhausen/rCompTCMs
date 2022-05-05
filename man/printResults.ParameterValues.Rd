@@ -7,6 +7,10 @@
 printResults.ParameterValues(
   objs = NULL,
   mdfr = NULL,
+  categories = "all",
+  processes = "all",
+  types = "all",
+  params = "all",
   format = c("latex", "docx"),
   landscape = FALSE,
   fontsize = "11pt",
@@ -14,17 +18,45 @@ printResults.ParameterValues(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{mdfr}{- dataframe from call to \code{extractMDFR.Results.ParameterValues} (as alternative to objs)}
+\item{mdfr}{\itemize{
+\item dataframe from call to \code{\link[=extractMDFR.Results.ParameterValues]{extractMDFR.Results.ParameterValues()}} (as alternative to objs)
+}}
 
-\item{format}{- 'latex' or 'docx'}
+\item{categories}{\itemize{
+\item default = "all"
+}}
 
-\item{landscape}{- flag indicating whether page orientation is landscape or portrait}
+\item{processes}{\itemize{
+\item default = "all"
+}}
 
-\item{fontsize}{- font size (can be 'small')}
+\item{types}{\itemize{
+\item default = "all"
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{params}{\itemize{
+\item selected parameter names (default = "all")
+}}
+
+\item{format}{\itemize{
+\item 'latex' or 'docx'
+}}
+
+\item{landscape}{\itemize{
+\item flag indicating whether page orientation is landscape or portrait
+}}
+
+\item{fontsize}{\itemize{
+\item font size (can be 'small')
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
@@ -33,7 +65,10 @@ ggplot2 object
 This function prints a table of parameters from several models.
 }
 \details{
-Uses \code{extractMDFR.Results.ParameterValues} to get a dataframe of parameters.
-If format="latex", the package \code{tables} is used to create and print a table
+Uses \code{\link[=extractMDFR.Results.ParameterValues]{extractMDFR.Results.ParameterValues()}} to get a dataframe of parameters.
+If format="latex", the package \pkg{tables} is used to create and print a table
 in latex format. Output format for values and standard deviations is 3 significant figures.
+
+Specific tables can be created/selected by specifying non-default values for categories,
+processes, types, and params.
 }

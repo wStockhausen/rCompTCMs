@@ -30,6 +30,11 @@ plotPop.MeanGrowthPlusProbs<-function(mdfrMnG,
                                       zbnds=c(25,185),
                                       showPlot=FALSE,
                                       verbose=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #--modify mean growth dataframe
     mdfr<-mdfrMnG;
     mdfr$z<-as.numeric(mdfr$z);#make sure z is numeric
@@ -82,6 +87,7 @@ plotPop.MeanGrowthPlusProbs<-function(mdfrMnG,
         p <- p + coord_cartesian(xlim=xbnds,ylim=ybnds);
 #        p <- p + ggtitle("Size transition probabilities");
         p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
+        p = p + std_theme;
         if (showPlot) print(p);
         plts[[x]]<-p;
     }

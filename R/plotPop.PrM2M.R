@@ -22,6 +22,11 @@ plotPop.PrM2M<-function(mdfr,
                         xbnds=NULL,
                         showPlot=TRUE,
                         verbose=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #----------------------------------
     # plot probability of molt-to-maturity
     #----------------------------------
@@ -34,7 +39,7 @@ plotPop.PrM2M<-function(mdfr,
     if (!is.null(xbnds)) p <- p + coord_cartesian(xlim=xbnds);
     p <- p + labs(x='size (mm CW)',y="pr(molt-to-maturity)");
     p <- p + ggtitle("pr(Molt-to-Maturity)");
-    p <- p + facet_grid(x~.);
+    p <- p + facet_grid(x~.) + std_theme;
     if (showPlot) print(p);
 
     return(p);

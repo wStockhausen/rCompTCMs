@@ -13,17 +13,17 @@
 #' @param includePopProcesses - flag (T/F) to include section
 #' @param PopProcesses - list(verbose=FALSE) (see [modelComparisons.PopProcesses()])
 #' @param includePopQuantities - flag (T/F) to include section
-#' @param PopQuantities - list(verbose=FALSE)  (see [modelComparisons.PopProcesses()])
+#' @param PopQuantities - list(verbose=FALSE)  (see [modelComparisons.PopQuantitiess()])
 #' @param includeModelFitsToOtherData - flag (T/F) to include section
 #' @param ModelFitsToOtherData - list(plot1stObs=TRUE,minSizeForMaturityData=60,verbose=FALSE)  (see [modelComparisons.ModelFitsToOtherData()])
 #' @param includeModelFitsACD - flag (T/F) to include section
 #' @param ModelFitsACD - list(plot1stObs=TRUE,numRecent=30,verbose=FALSE) (see [modelComparisons.ModelFitsACD()])
 #' @param includeModelFitsZCs - flag (T/F) to include section
 #' @param ModelFitsZCs - list(plot1stObs=TRUE,fleets="all",verbose=FALSE) (see [modelComparisons.ModelFitsZCs()])
-#' @param includeCharacteristicsSurveys - flag (T/F) to include section
-#' @param CharacteristicsSurveys - list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)  (see [modelComparisons.CharacteristicsSurveys()])
-#' @param includeCharacteristicsFisheries - flag (T/F) to include section
-#' @param CharacteristicsFisheries - list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE) (see [modelComparisons.CharacteristicsFisheries()])
+#' @param includeCharacteristicsForSurveys - flag (T/F) to include section
+#' @param CharacteristicsForSurveys - list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)  (see [modelComparisons.CharacteristicsSurveys()])
+#' @param includeCharacteristicsForFisheries - flag (T/F) to include section
+#' @param CharacteristicsForFisheries - list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE) (see [modelComparisons.CharacteristicsFisheries()])
 #' @param output_format - "word_document" or "pdf_document"
 #' @param output_dir - path to folder to use for output
 #' @param rmd - Rmd file to process (defalut=system.file("rmd/modelComparisons.Rmd",package="rCompTCMs"))
@@ -67,7 +67,11 @@ modelComparisons<-function(models,
                                             includeMaturityOgiveData=TRUE,
                                            verbose=FALSE),
                             includeParameterTables=FALSE,
-                            ParameterTables=list(verbose=FALSE),
+                            ParameterTables=list(categories="all",
+                                                 processes="all",
+                                                 types="all",
+                                                 params="all",
+                                                 verbose=FALSE),
                             includePopProcesses=FALSE,
                             PopProcesses=list(verbose=FALSE),
                             includePopQuantities=FALSE,
@@ -84,16 +88,16 @@ modelComparisons<-function(models,
                             ModelFitsZCs=list(plot1stObs=TRUE,
                                               fleets="all",
                                               verbose=FALSE),
-                            includeCharacteristicsSurveys=FALSE,
-                            CharacteristicsSurveys=list(plot1stObs=TRUE,
+                            includeCharacteristicsForSurveys=FALSE,
+                            CharacteristicsForSurveys=list(plot1stObs=TRUE,
                                                        fleets="all",
                                                        selyears="all",
                                                        avlyears="all",
                                                        capyears="all",
                                                        mxy=5,
                                                        verbose=FALSE),
-                            includeCharacteristicsFisheries=FALSE,
-                            CharacteristicsFisheries=list(plot1stObs=TRUE,
+                            includeCharacteristicsForFisheries=FALSE,
+                            CharacteristicsForFisheries=list(plot1stObs=TRUE,
                                                          fleets="all",
                                                          selyears="all",
                                                          retyears="all",
@@ -139,23 +143,23 @@ modelComparisons<-function(models,
                                  includeManagementQuantities=includeManagementQuantities,
                                  ManagementQuantities=ManagementQuantities,
                                  includeInputData=includeInputData,
-                                 includeParameterTables=includeParameterTables,
-                                 includePopProcesses=includePopProcesses,
-                                 includePopQuantities=includePopQuantities,
-                                 includeModelFitsToOtherData=includeModelFitsToOtherData,
-                                 includeModelFitsACD=includeModelFitsACD,
-                                 includeModelFitsZCs=includeModelFitsZCs,
-                                 includeCharacteristicsSurveys=includeCharacteristicsSurveys,
-                                 includeCharacteristicsFisheries=includeCharacteristicsFisheries,
                                  InputData=InputData,
+                                 includeParameterTables=includeParameterTables,
                                  ParameterTables=ParameterTables,
+                                 includePopProcesses=includePopProcesses,
                                  PopProcesses=PopProcesses,
+                                 includePopQuantities=includePopQuantities,
                                  PopQuantities=PopQuantities,
+                                 includeModelFitsToOtherData=includeModelFitsToOtherData,
                                  ModelFitsToOtherData=ModelFitsToOtherData,
+                                 includeModelFitsACD=includeModelFitsACD,
                                  ModelFitsACD=ModelFitsACD,
+                                 includeModelFitsZCs=includeModelFitsZCs,
                                  ModelFitsZCs=ModelFitsZCs,
-                                 CharacteristicsSurveys=CharacteristicsSurveys,
-                                 CharacteristicsFisheries=CharacteristicsFisheries),
+                                 includeCharacteristicsForSurveys=includeCharacteristicsForSurveys,
+                                 CharacteristicsForSurveys=CharacteristicsForSurveys,
+                                 includeCharacteristicsForFisheries=includeCharacteristicsForFisheries,
+                                 CharacteristicsForFisheries=CharacteristicsForFisheries),
                      clean=clean);
   #res<-file.remove("modelComparisons.knit.md","modelComparisons.utf8.md");
 }

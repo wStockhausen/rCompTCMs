@@ -45,7 +45,7 @@ compareResults.Fisheries.RetFcns(
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
+lists of ggplot2 objects, nested by fishery or an empty list if year is NULL
 }
 \description{
 This function compares fishery retention functions by year

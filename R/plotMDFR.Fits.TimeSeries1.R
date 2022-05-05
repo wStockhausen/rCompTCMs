@@ -59,6 +59,12 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     colour_scale=ggplot2::scale_color_hue(),
                                     showPlot=FALSE,
                                     verbose=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
+
     idx<-dfr[[type]]!='observed';
     if (verbose) {
         message("Starting plotMDFR.Fits.TimeSeries1().\n")
@@ -102,7 +108,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     }
     if (plotMod) p <- p + geom_line(data=dfrp,position=position);
     p <- p + coord_cartesian(xlim=xlims,ylim=ylims)
-    p <- p + labs(x=xlab,y=ylab);
+    p <- p + labs(x=xlab,y=ylab) + std_theme;
     if (!is.null(title))  p <- p + ggtitle(title);
     if (!is.null(facets)) p <- p + facet_grid(facets,scales=scales);
     if (showPlot) print(p);

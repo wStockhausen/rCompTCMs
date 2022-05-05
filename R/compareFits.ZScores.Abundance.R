@@ -13,12 +13,16 @@
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.ABData()}.
-#'Also uses \code{wtsUtilities::printGGList}.
+#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, [rTCSAM02::getMDFR.ZScores.Abundance()].
+#'Also uses [wtsUtilities::printGGList()].
 #'
 #'@return non-nested list of ggplot2 objects, with captions as names
 #'
+#'@import dplyr
 #'@import ggplot2
+#'@import magrittr
+#'
+#'@md
 #'
 #'@export
 #'
@@ -30,7 +34,7 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
                                         showPlot=FALSE,
                                         verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.Abundance().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.ZScores.Abundance().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -54,14 +58,14 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
+        if (verbose) message("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-NULL;
         if (inherits(obj,"tcsam02.resLst"))
             mdfr1<-rTCSAM02::getMDFR.ZScores.Abundance(obj,
-                                                     fleet.type=fleet.type,
-                                                     catch.type=catch.type,
-                                                     verbose=verbose);
+                                                       fleet.type=fleet.type,
+                                                       catch.type=catch.type,
+                                                       verbose=verbose);
         if (!is.null(mdfr1)){
             if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             mdfr1$case<-case;
@@ -79,6 +83,20 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
+
+    #----------------------------------
+    # drop factor combinations with zeros for all years
+    #----------------------------------
+    tmp = mdfr %>% dplyr::group_by(case,category,process,fleet,type,pc,x,m,s,z) %>%
+                   dplyr::summarize(tot=sum(abs(val),na.rm=TRUE)) %>%
+                   dplyr::ungroup() %>%
+                   dplyr::filter(tot>0);
+    mdfr %<>% dplyr::inner_join(tmp,by=c("case","category","process","fleet","type","pc","x","m","s","z"));
 
     #----------------------------------
     # plot zscores from fits to time series
@@ -86,6 +104,7 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
     uFs<-unique(mdfr$fleet);
     #print(uFs);
     for (uF in uFs){
+        #--testing uF = uFs[1];
         idx   <- (mdfr$fleet==uF);
         dfrpp <- mdfr[idx,];
         xmax  <- max(dfrpp$y,na.rm=TRUE);
@@ -96,9 +115,9 @@ compareFits.ZScores.Abundance<-function(objs=NULL,
                        showPlot=showPlot);
         cap<-paste0("  \n  \nFigure &&fno. Z-scores for ",catch.type," catch abundance in ",uF,".  \n  \n");
         if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;
-        plots[[cap]]<-p; p<-NULL;
+        plots[[cap]]<-p+std_theme; p<-NULL;
     }
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.ZScores.Abundance().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.ZScores.Abundance().\n");
     return(plots);
 }

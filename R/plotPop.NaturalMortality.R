@@ -23,6 +23,11 @@ plotPop.NaturalMortality<-function(mdfr,
                                   pdf=NULL,
                                   showPlot=FALSE,
                                   verbose=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #----------------------------------
     # plot natural mortality rates by year
     #----------------------------------
@@ -34,7 +39,7 @@ plotPop.NaturalMortality<-function(mdfr,
     p <- p + geom_abline(intercept=0.23,slope=0,linetype=2,colour='black')
     p <- p + labs(x='year',y="natural mortality");
     p <- p + ggtitle("Natural Mortality");
-    p <- p + facet_grid(m+s~x);
+    p <- p + facet_grid(m+s~x) + std_theme;
     p <- p + ylim(c(0,NA));
     if (showPlot) print(p);
 

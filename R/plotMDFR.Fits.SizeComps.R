@@ -52,6 +52,11 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
 
     idx<-mdfr$x=="all"; mdfr$x[idx]<-"all sex";
     idm<-mdfr$m=="all"; mdfr$m[idm]<-"all maturity";
@@ -152,7 +157,7 @@ plotMDFR.Fits.SizeComps<-function(mdfr=NULL,
                                 cp1<-gsub("&&fleet",fleet,cp1,fixed=TRUE);
                                 cp1<-gsub("&&pg",paste0("Page ",pg," of ",npg),cp1,fixed=TRUE);
                                 if (showPlot) figno<-wtsUtilities::printGGList(p,figno,cp1,showPlot)$figno;
-                                plots[[cp1]]<-p;
+                                plots[[cp1]]<-p+std_theme;
                             }#pg
                         }#if
                     }#ss

@@ -15,19 +15,33 @@ compareFits.ZScores.Biomass(
 )
 }
 \arguments{
-\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained', 'discard', or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained', 'discard', or 'total')
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 non-nested list of ggplot2 objects, with captions as names
@@ -37,7 +51,7 @@ Function to compare z-scores from fitting biomass time series by fleet among
 several model runs.
 }
 \details{
-Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
-[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.ZScores.ABData()].
-Also uses [wtsUtilities::printGGList].
+Uses \code{\link[rTCSAM2013:getMDFR.SurveyQuantities]{rTCSAM2013::getMDFR.SurveyQuantities()}},
+\code{\link[rTCSAM2013:getMDFR.FisheryQuantities]{rTCSAM2013::getMDFR.FisheryQuantities()}}, \code{\link[rTCSAM02:getMDFR.ZScores.ABData]{rTCSAM02::getMDFR.ZScores.ABData()}}.
+Also uses \link[wtsUtilities:printGGList]{wtsUtilities::printGGList}.
 }

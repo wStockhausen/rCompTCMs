@@ -37,9 +37,14 @@ plotPop.CohortProgression<-function(mdfr,
                                    types=c("progression","byyear"),
                                    showPlot=FALSE,
                                    verbose=FALSE){
-    if (verbose) cat("starting rCompTCMs::plotPop.CohortProgression().\n");
+    if (verbose) message("starting rCompTCMs::plotPop.CohortProgression().\n");
     options(stringsAsFactors=FALSE);
 
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #----------------------------------
     #cohort progression by year
     #----------------------------------
@@ -54,7 +59,7 @@ plotPop.CohortProgression<-function(mdfr,
     uX<-sort(unique(mdfrp$x));
 
     if ("progression" %in% types){
-        if (verbose) cat("Plotting progression\n");
+        if (verbose) message("Plotting progression\n");
         for (x in uX){
             idx<-mdfrp$x==x;
             mdfrpp<-mdfrp[idx,];
@@ -75,7 +80,7 @@ plotPop.CohortProgression<-function(mdfr,
     }
 
     if ("byyear" %in% types){
-        if (verbose) cat("Plotting progression by year\n")
+        if (verbose) message("Plotting progression by year\n")
         uM<-sort(unique(mdfrp$m));
         uS<-sort(unique(mdfrp$s));
         for (x in uX){
@@ -84,7 +89,7 @@ plotPop.CohortProgression<-function(mdfr,
                         idy<-as.numeric(mdfrp$y) %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)];
                         mdfrpp<-mdfrp[idx&idy,];
                         if (nrow(mdfrpp)>0){
-                            if (verbose) cat("Plotting ",x,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                            if (verbose) message("Plotting ",x,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
                             mdfrpp$y<-factor(as.character(mdfrpp$y),levels=as.character(uY));
                             p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
                                            facet_wrap=~y,nrow=nrow,scales=scales,
@@ -99,11 +104,11 @@ plotPop.CohortProgression<-function(mdfr,
                             cap<-paste0("\n  \nFigure &&figno. Cohort progression size comps for ",x,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
                             plots[[cap]]<-p;
                         } else {
-                            if (verbose) cat("Skipping ",x,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
+                            if (verbose) message("Skipping ",x,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
                         }
                     }#pg
         }#uX
     }
-    if (verbose) cat("finished rCompTCMs::plotPop.CohortProgression().\n");
+    if (verbose) message("finished rCompTCMs::plotPop.CohortProgression().\n");
     return(plots)
 }

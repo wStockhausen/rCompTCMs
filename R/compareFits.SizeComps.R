@@ -5,7 +5,7 @@
 #'several model runs.
 #'
 #' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
-#' @param mdfr - dataframe from call to \code{extractFits.SizeComps} (as alternative to objs)
+#' @param mdfr - dataframe from call to [rCompTCMs::extractFits.SizeComps()] (as alternative to objs)
 #' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
@@ -17,13 +17,14 @@
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
-#'Also uses \code{wtsUtilities::printGGList}.
+#'@details Uses [rCompTCMs::extractFits.SizeComps()] to extract results.
+#'Also uses [wtsUtilities::printGGList()].
 #'
 #'@return Non-nested list of ggplot2 objects, with captions as names
 #'
 #'@import ggplot2
+#'
+#'@md
 #'
 #'@export
 #'
@@ -35,12 +36,12 @@ compareFits.SizeComps<-function(objs=NULL,
                                 years='all',
                                 plot1stObs=TRUE,
                                 nrow=5,
-                                ncol=2,
+                                ncol=4,
                                 pdf=NULL,
                                 showPlot=FALSE,
                                 verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.SizeComps().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.SizeComps().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -70,11 +71,16 @@ compareFits.SizeComps<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
 
     #----------------------------------
     # plot fits to size comps
     #----------------------------------
-    if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+    if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
         ylab<-"survey size comps";
@@ -99,9 +105,9 @@ compareFits.SizeComps<-function(objs=NULL,
 
     mxp<-nrow*ncol;
     xlab<-'size (mm CW)';
-    if (verbose) cat(paste0("names(mdfr)= '",names(mdfr),"'.\n"));
+    if (verbose) message(paste0("names(mdfr)= '",names(mdfr),"'.\n"));
     for (fleet in unique(mdfr$fleet)){
-        if (verbose) cat("Plotting fleet '",fleet,"'.\n",sep='');
+        if (verbose) message("Plotting fleet '",fleet,"'.\n",sep='');
         idf<-mdfr$fleet==fleet;
             pxs<-list();
             for (x in xs){
@@ -112,14 +118,14 @@ compareFits.SizeComps<-function(objs=NULL,
                     pss<-list();
                     for (s in ss){
                         ids<-mdfr$s==s;
-                        if (verbose) cat("Checking",x,m,s,"\n");
+                        if (verbose) message("Checking",x,m,s,"\n");
                         pgs<-list();
                         if (sum(idf&idx&idm&ids,na.rm=TRUE)==0){
-                            if (verbose) cat("--Dropping",x,m,s,"\n");
+                            if (verbose) message("--Dropping",x,m,s,"\n");
                         } else {
-                            if (verbose) cat("--Plotting",x,m,s,"size comps\n");
+                            if (verbose) message("--Plotting",x,m,s,"size comps\n");
                             mdfrp<-mdfr[idf&idx&idm&ids,];#select results for fleet, sex, maturity state, and shell condition
-                            if (verbose) cat("--Plotting",nrow(mdfrp),"rows.\n")
+                            if (verbose) message("--Plotting",nrow(mdfrp),"rows.\n")
 
                             #add in missing years as size comps with 0's
                             ys<-sort(unique(mdfrp$y));
@@ -141,7 +147,7 @@ compareFits.SizeComps<-function(objs=NULL,
                             }
                             ys<-mny:mxy;
                             npg<-ceiling(length(ys)/mxp);
-                            if (verbose) cat("mny =",mny,",mxy =",mxy,", npg =",npg,'\n')
+                            if (verbose) message("mny =",mny,",mxy =",mxy,", npg =",npg,'\n')
                             for (y in ys){
                                 if (!any(mdfrp$y==y)) {
                                     #year y is missing, so add in zero size comp for year y
@@ -151,7 +157,7 @@ compareFits.SizeComps<-function(objs=NULL,
                             }
 
                             rng<-range(mdfrp$val,na.rm=TRUE,finite=TRUE);
-                            if (verbose) cat("rng = ",rng,'\n')
+                            if (verbose) message("rng = ",rng,'\n')
 
                             for (pg in 1:npg){ #loop over pages
                                 dfrp<-mdfrp[(mdfrp$y %in% ys[(pg-1)*mxp+1:mxp]),]
@@ -166,7 +172,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 p <- p + labs(x=xlab,y=ylab)
                                 p <- p + facet_wrap(~y,ncol=ncol,dir='v')
                                 ttl<-paste0(fleet,': ',x,", ",m,", ",s);
-                                if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
+                                if (verbose) message("Plotting '",ttl,"'.\n",sep='')
                                 p <- p + ggtitle(ttl)
                                 p <- p + guides(fill=guide_legend('observed'),colour=guide_legend('predicted'),shape=guide_legend('predicted'))
                                 xms<-paste0(x,", ",m,", ",s);
@@ -174,7 +180,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 cp1<-gsub("&&fleet",fleet,cp1,fixed=TRUE);
                                 cp1<-gsub("&&pg",paste0("Page ",pg," of ",npg),cp1,fixed=TRUE);
                                 if (showPlot) figno<-wtsUtilities::printGGList(p,figno,cp1,showPlot)$figno;
-                                plots[[cp1]]<-p;
+                                plots[[cp1]]<-p+std_theme;
                             }#pg
                         }#if
                     }#ss
@@ -182,6 +188,6 @@ compareFits.SizeComps<-function(objs=NULL,
             }#xs
     }#fleets
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.SizeComps().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.SizeComps().\n");
     return(plots);
 }

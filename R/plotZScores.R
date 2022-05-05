@@ -51,6 +51,11 @@ plotZScores<-function(dfr,
                       colour_scale=ggplot2::scale_color_hue(),
                       showSmooths=TRUE,
                       showPlot=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     p <- ggplot(dfr,aes_string(x=x,y=y));
     p <- p + geom_hline(yintercept=0.0,color='black',size=1);
     if (showSmooths) p<-p+geom_smooth(mapping=aes_string(group=color,fill=color,colour=color),alpha=0.25);
@@ -67,6 +72,7 @@ plotZScores<-function(dfr,
     p <- p + colour_scale;
     if (!is.null(legend)) p <- p + guides(color=guide_legend(legend),shape=guide_legend(legend))
     if (!is.null(facets)) p <- p + facet_grid(facets,scales=facet.scales);
+    p = p + std_theme;
     if (showPlot) print(p);
 
     return(p);

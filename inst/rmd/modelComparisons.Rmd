@@ -60,8 +60,8 @@ params:
       !r list(plot1stObs=TRUE,
              fleets="all",
              verbose=FALSE)
-    includeCharacteristicsSurveys: TRUE
-    CharacteristicsSurveys:
+    includeCharacteristicsForSurveys: TRUE
+    CharacteristicsForSurveys:
       !r list(plot1stObs=TRUE,
              fleets="all",
              selyears="all",
@@ -69,8 +69,8 @@ params:
              capyears="all",
              mxy=5,
              verbose=FALSE)
-    includeCharacteristicsFisheries: FALSE
-    CharacteristicsFisheries:
+    includeCharacteristicsForFisheries: FALSE
+    CharacteristicsForFisheries:
       !r list(plot1stObs=TRUE,
              fleets="all",
              selyears="all",
@@ -219,8 +219,8 @@ title: '`r params$title`'
   }
 ```
 
-```{r modelComparisons_CharacteristicsSurveys,results='asis',echo=FALSE}
-  if (params$includeCharacteristicsSurveys){
+```{r modelComparisons_CharacteristicsForSurveys,results='asis',echo=FALSE}
+  if (params$includeCharacteristicsForSurveys){
     cat("\n\\newpage\n")
     path = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",package="rCompTCMs");
     fn   = basename(path);
@@ -229,12 +229,12 @@ title: '`r params$title`'
       knitr::knit_child(fn,envir=environment(),quiet=TRUE)
     )
   } else {
-    message("Skipping modelComparisons_CharacteristicsSurveys")
+    message("Skipping modelComparisons_CharacteristicsForSurveys")
   }
 ```
 
-```{r modelComparisons.Characteristics.Fisheries,results='asis',echo=FALSE}
-  if (params$includeCharacteristicsFisheries){
+```{r modelComparisons_CharacteristicsForFisheries,results='asis',echo=FALSE}
+  if (params$includeCharacteristicsForFisheries){
     cat("\n\\newpage\n")
     path = system.file("rmd/modelComparisons.EstimatedCharacteristics.Fisheries.Rmd",package="rCompTCMs");
     fn   = basename(path);
@@ -243,7 +243,7 @@ title: '`r params$title`'
       knitr::knit_child(fn,envir=environment(),quiet=TRUE)
     )
   } else {
-    message("Skipping modelComparisons_CharacteristicsFisheries")
+    message("Skipping modelComparisons_CharacteristicsForFisheries")
   }
 ```
 

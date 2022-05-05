@@ -22,7 +22,12 @@ plotPop.PrMolt<-function(mdfr,
                         xbnds=NULL,
                         showPlot=TRUE,
                         verbose=FALSE){
-    #----------------------------------
+     std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
+   #----------------------------------
     # plot annual molt probability for immature crab from
     #----------------------------------
     mdfr$z<-as.numeric(mdfr$z);#make sure z is numeric
@@ -34,7 +39,7 @@ plotPop.PrMolt<-function(mdfr,
     p <- p + coord_cartesian(xlim=xbnds,ylim=c(0,1));
     p <- p + labs(x='size (mm CW)',y="pr(annual molt)");
     p <- p + ggtitle("pr(Annual Molt)");
-    p <- p + facet_grid(x~.);
+    p <- p + facet_grid(x~.) + std_theme;
     if (showPlot) print(p);
 
     return(p);

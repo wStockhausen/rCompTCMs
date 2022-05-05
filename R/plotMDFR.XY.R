@@ -79,6 +79,11 @@ plotMDFR.XY<-function(mdfr,
                        abline=list(intercept=0,slope=1,colour='black',linetype=3,size=1,alpha=0.8),
                        showPlot=FALSE
                        ){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #cast melted dataframe
     if (!is.null(agg.formula)){
         #aggregate using formula
@@ -90,7 +95,7 @@ plotMDFR.XY<-function(mdfr,
         nms[nms==value.var]<-'.';
         colnames(mdfr)<-nms;
     }
-    
+
     #setp up labels
     ylb<-ylab;
     if (units!='') ylb<-paste(ylab," (",units,")",sep='')
@@ -99,7 +104,7 @@ plotMDFR.XY<-function(mdfr,
         ylb<-paste(ylab," (ln-scale)",sep='')
         if (units!='') ylb<-paste(ylab," (",units,", ln-scale)",sep='')
     }
-    
+
     #plot resulting dataframe
     pd<-position_dodge(width=dodge);
     p <- ggplot(aes_string(x=x,y='.',colour=colour,fill=fill,linetype=linetype,shape=shape),data=mdfr);
@@ -121,6 +126,7 @@ plotMDFR.XY<-function(mdfr,
     if (!is.null(guideTitleFill))     p <- p + guides(fill    =guide_legend(title=guideTitleFill));
     if (!is.null(guideTitleLineType)) p <- p + guides(linetype=guide_legend(title=guideTitleLineType));
     if (!is.null(guideTitleShape))    p <- p + guides(shape   =guide_legend(title=guideTitleShape));
+    p = p+std_theme;
     if (showPlot) print(p);
     return(p)
 }

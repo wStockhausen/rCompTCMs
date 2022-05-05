@@ -18,7 +18,8 @@ modelComparisons(
     numRecent = 30), effort = list(plot = TRUE, numRecent = 30)), includeGrowthData =
     TRUE, includeMaturityOgiveData = TRUE,      verbose = FALSE),
   includeParameterTables = FALSE,
-  ParameterTables = list(verbose = FALSE),
+  ParameterTables = list(categories = "all", processes = "all", types = "all", params =
+    "all", verbose = FALSE),
   includePopProcesses = FALSE,
   PopProcesses = list(verbose = FALSE),
   includePopQuantities = FALSE,
@@ -30,12 +31,12 @@ modelComparisons(
   ModelFitsACD = list(plot1stObs = TRUE, numRecent = 30, verbose = FALSE),
   includeModelFitsZCs = FALSE,
   ModelFitsZCs = list(plot1stObs = TRUE, fleets = "all", verbose = FALSE),
-  includeCharacteristicsSurveys = FALSE,
-  CharacteristicsSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+  includeCharacteristicsForSurveys = FALSE,
+  CharacteristicsForSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
     avlyears = "all", capyears = "all", mxy = 5, verbose = FALSE),
-  includeCharacteristicsFisheries = FALSE,
-  CharacteristicsFisheries = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
-    retyears = "all", verbose = FALSE),
+  includeCharacteristicsForFisheries = FALSE,
+  CharacteristicsForFisheries = list(plot1stObs = TRUE, fleets = "all", selyears =
+    "all", retyears = "all", verbose = FALSE),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
@@ -57,7 +58,8 @@ modelComparisons(
     numRecent = 30), effort = list(plot = TRUE, numRecent = 30)), includeGrowthData =
     TRUE, includeMaturityOgiveData = TRUE,      verbose = FALSE),
   includeParameterTables = FALSE,
-  ParameterTables = list(verbose = FALSE),
+  ParameterTables = list(categories = "all", processes = "all", types = "all", params =
+    "all", verbose = FALSE),
   includePopProcesses = FALSE,
   PopProcesses = list(verbose = FALSE),
   includePopQuantities = FALSE,
@@ -69,12 +71,12 @@ modelComparisons(
   ModelFitsACD = list(plot1stObs = TRUE, numRecent = 30, verbose = FALSE),
   includeModelFitsZCs = FALSE,
   ModelFitsZCs = list(plot1stObs = TRUE, fleets = "all", verbose = FALSE),
-  includeCharacteristicsSurveys = FALSE,
-  CharacteristicsSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+  includeCharacteristicsForSurveys = FALSE,
+  CharacteristicsForSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
     avlyears = "all", capyears = "all", mxy = 5, verbose = FALSE),
-  includeCharacteristicsFisheries = FALSE,
-  CharacteristicsFisheries = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
-    retyears = "all", verbose = FALSE),
+  includeCharacteristicsForFisheries = FALSE,
+  CharacteristicsForFisheries = list(plot1stObs = TRUE, fleets = "all", selyears =
+    "all", retyears = "all", verbose = FALSE),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
@@ -96,7 +98,8 @@ modelComparisons(
     numRecent = 30), effort = list(plot = TRUE, numRecent = 30)), includeGrowthData =
     TRUE, includeMaturityOgiveData = TRUE,      verbose = FALSE),
   includeParameterTables = FALSE,
-  ParameterTables = list(verbose = FALSE),
+  ParameterTables = list(categories = "all", processes = "all", types = "all", params =
+    "all", verbose = FALSE),
   includePopProcesses = FALSE,
   PopProcesses = list(verbose = FALSE),
   includePopQuantities = FALSE,
@@ -108,12 +111,12 @@ modelComparisons(
   ModelFitsACD = list(plot1stObs = TRUE, numRecent = 30, verbose = FALSE),
   includeModelFitsZCs = FALSE,
   ModelFitsZCs = list(plot1stObs = TRUE, fleets = "all", verbose = FALSE),
-  includeCharacteristicsSurveys = FALSE,
-  CharacteristicsSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
+  includeCharacteristicsForSurveys = FALSE,
+  CharacteristicsForSurveys = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
     avlyears = "all", capyears = "all", mxy = 5, verbose = FALSE),
-  includeCharacteristicsFisheries = FALSE,
-  CharacteristicsFisheries = list(plot1stObs = TRUE, fleets = "all", selyears = "all",
-    retyears = "all", verbose = FALSE),
+  includeCharacteristicsForFisheries = FALSE,
+  CharacteristicsForFisheries = list(plot1stObs = TRUE, fleets = "all", selyears =
+    "all", retyears = "all", verbose = FALSE),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.Rmd", package = "rCompTCMs"),
@@ -164,7 +167,7 @@ modelComparisons(
 }}
 
 \item{PopQuantities}{\itemize{
-\item list(verbose=FALSE)  (see \code{\link[=modelComparisons.PopProcesses]{modelComparisons.PopProcesses()}})
+\item list(verbose=FALSE)  (see \code{\link[=modelComparisons.PopQuantitiess]{modelComparisons.PopQuantitiess()}})
 }}
 
 \item{includeModelFitsToOtherData}{\itemize{
@@ -191,19 +194,19 @@ modelComparisons(
 \item list(plot1stObs=TRUE,fleets="all",verbose=FALSE) (see \code{\link[=modelComparisons.ModelFitsZCs]{modelComparisons.ModelFitsZCs()}})
 }}
 
-\item{includeCharacteristicsSurveys}{\itemize{
+\item{includeCharacteristicsForSurveys}{\itemize{
 \item flag (T/F) to include section
 }}
 
-\item{CharacteristicsSurveys}{\itemize{
+\item{CharacteristicsForSurveys}{\itemize{
 \item list(plot1stObs=TRUE,fleets="all",selyears="all",avlyears="all",capyears="all",mxy=5,verbose=FALSE)  (see \code{\link[=modelComparisons.CharacteristicsSurveys]{modelComparisons.CharacteristicsSurveys()}})
 }}
 
-\item{includeCharacteristicsFisheries}{\itemize{
+\item{includeCharacteristicsForFisheries}{\itemize{
 \item flag (T/F) to include section
 }}
 
-\item{CharacteristicsFisheries}{\itemize{
+\item{CharacteristicsForFisheries}{\itemize{
 \item list(plot1stObs=TRUE,fleets="all",selyears="all",retyears="all",verbose=FALSE) (see \code{\link[=modelComparisons.CharacteristicsFisheries]{modelComparisons.CharacteristicsFisheries()}})
 }}
 

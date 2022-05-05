@@ -13,36 +13,60 @@ compareFits.SizeComps(
   years = "all",
   plot1stObs = TRUE,
   nrow = 5,
-  ncol = 2,
+  ncol = 4,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
 )
 }
 \arguments{
-\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{mdfr}{- dataframe from call to \code{extractFits.SizeComps} (as alternative to objs)}
+\item{mdfr}{\itemize{
+\item dataframe from call to \code{\link[=extractFits.SizeComps]{extractFits.SizeComps()}} (as alternative to objs)
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
+\item{years}{\itemize{
+\item years to plot, as numerical vector (or "all" to plot all years)
+}}
 
-\item{plot1stObs}{- flag (T/F) to plot observations only from first case}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to plot observations only from first case
+}}
 
-\item{nrow}{- number of rows per page for output plots}
+\item{nrow}{\itemize{
+\item number of rows per page for output plots
+}}
 
-\item{ncol}{- number of columns per page for output plots}
+\item{ncol}{\itemize{
+\item number of columns per page for output plots
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names
@@ -52,7 +76,6 @@ Function to compare fits to size comps by fleet among
 several model runs.
 }
 \details{
-Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
-Also uses \code{wtsUtilities::printGGList}.
+Uses \code{\link[=extractFits.SizeComps]{extractFits.SizeComps()}} to extract results.
+Also uses \code{\link[wtsUtilities:printGGList]{wtsUtilities::printGGList()}}.
 }

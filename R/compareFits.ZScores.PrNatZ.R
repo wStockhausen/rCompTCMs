@@ -16,14 +16,15 @@
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.ZScores.PrNatZ()}.
-#'Also uses \code{wtsUtilities::printGGList}.
+#'@details Uses [extractFits.ZScores.PrNatZ()] to extract data for plotting.
+#'Also uses [wtsUtilities::printGGList()].
 #'
 #'@return non-nested list of ggplot2 objects, with captions as names
 #'
 #'@import ggplot2
 #'@import magrittr
+#'
+#'@md
 #'
 #'@export
 #'
@@ -39,7 +40,7 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
                                      pdf=NULL,
                                      verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.ZScores.PrNatZ().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.ZScores.PrNatZ().\n");
     options(stringsAsFactors=FALSE);
 
     #create pdf, if necessary
@@ -79,13 +80,14 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
     # plot size comp residuals by fleet
     #----------------------------------
     uFs<-unique(mdfr$fleet);
+    mx<-max(mdfr$val,na.rm=TRUE);
+    if (residuals.type=="pearsons") mx=1.5*BRT;
     for (uF in uFs){
-        if (verbose) cat("Plotting residuals for",uF,"\n");
+        if (verbose) message("Plotting residuals for",uF,"\n");
         mdfrp0<-mdfr[mdfr$fleet==uF,];
         uXs<-unique(mdfrp0$x);
         for (uX in uXs){
             mdfrp<-mdfrp0[mdfrp0$x==uX,];
-            mx<-max(mdfrp$val,na.rm=TRUE);
             for (case in cases){
                 mdfrpp<-mdfrp[mdfrp$case==case,];
                 if (nrow(mdfrpp)>0){
@@ -95,6 +97,7 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
                            geom_point(alpha=0.8,shape=21,color='black') +
                            geom_point(alpha=1.0,shape=21,color='black',fill=NA);
                     if (is.finite(BRT)) {
+                        #--mark values > BRT
                         tmp = mdfrpp %>% dplyr::filter(val>=BRT);
                         if (nrow(tmp)>0) p = p + geom_point(data=tmp,aes(x=y,y=z,size=val),
                                                             shape=4,colour="#FF2C00",show.legend=FALSE);
@@ -119,6 +122,6 @@ compareFits.ZScores.PrNatZ<-function(objs=NULL,
         }#--uF
     }
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.ZScores.PrNatZ().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.ZScores.PrNatZ().\n");
     return(plots);
 }

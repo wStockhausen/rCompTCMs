@@ -37,7 +37,7 @@ compareResults.Fisheries.SelFcns<-function(objs,
                                          showPlot=FALSE,
                                          pdf=NULL,
                                          verbose=FALSE){
-    if (verbose) cat("Starting rCompTCMs::compareResults.Fisheries.SelFcns().\n");
+    if (verbose) message("Starting rCompTCMs::compareResults.Fisheries.SelFcns().\n");
     options(stringsAsFactors=FALSE);
 
     if (is.null(years)) return(list());
@@ -51,23 +51,25 @@ compareResults.Fisheries.SelFcns<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-NULL;
-    for (case in cases){
-        obj<-objs[[case]];
-        if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
-        if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,type='sel_yxz',verbose=verbose);
-        if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
-        if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.SelFcns(obj,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
-            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
-        }
+    if (is.data.frame(objs)) {
+        mdfr<-objs;
+    } else {
+        mdfr<-extractMDFR.Fisheries.SelFcns(objs,fleets=fleets,cast=cast,years=years,verbose=verbose);
+        if (is.null(mdfr)) return(list()); #empty list
     }
-    mdfr$z<-as.numeric(mdfr$z)
-    mdfr$case<-factor(mdfr$case,levels=cases);
 
-    if (is.numeric(years)) mdfr <- mdfr[as.numeric(mdfr$y) %in% years,];
+    #---------NEW CODE------------
+    #--identify stanzas
+    tmp = mdfr %>% tidyr::pivot_wider(names_from=z,values_from=val);
+    cols = stringr::str_subset(names(tmp ),stringr::fixed("y"),negate=TRUE);
+    mdfr = tmp %>% dplyr::group_by(dplyr::across(dplyr::all_of(cols))) %>%
+                   dplyr::summarize(ymn=min(y),
+                                    ymx=max(y)) %>%
+                   dplyr::ungroup() %>%
+                   tidyr::pivot_longer(cols=cols[10:length(cols)],names_to="z",values_to="val") %>%
+                   dplyr::mutate(z=as.numeric(z),
+                                 stanza=ifelse(ymn!=ymx,paste0(ymn,"-",ymx),ymn));
+    #--use stanza as faceting variable
 
     #----------------------------------
     #selectivity functions
@@ -76,39 +78,57 @@ compareResults.Fisheries.SelFcns<-function(objs,
     uF<-unique(mdfr$fleet);
     if (fleets[1]!="all") uF<-fleets;
     for (f in uF){
-        if (verbose) cat("Plotting fleet",f,"\n")
+        if (verbose) message("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
-        uY<-unique(mdfrp$y);
+        # uY<-unique(mdfrp$y);
         subPlots<-list();
-        if(!singlePlot){
-            for (pg in 1:ceiling(length(uY)/mxy)){
-                mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
-                p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
-                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
-                               xlab='size (mm CW)',ylab='Selectivity',units='',lnscale=FALSE,
-                               title=f,
-                               colour='case',guideTitleColor='',
-                               shape='case',guideTitleShape='',
-                               showPlot=FALSE);
-                if (showPlot||!is.null(pdf)) print(p);
-                cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
-                subPlots[[cap]]<-p;
-            }#pg
-        } else {
-                p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
-                               facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
-                               xlab='size (mm CW)',ylab='Selectivity',units='',lnscale=FALSE,
-                               title=f,
-                               colour='y',guideTitleColour='year',
-                               shape='y',guideTitleShape='year',
-                               showPlot=FALSE);
-                if (showPlot||!is.null(pdf)) print(p);
-                cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,".  \n  \n")
-                subPlots[[cap]]<-p;
+        # if(!singlePlot){
+        #     for (pg in 1:ceiling(length(uY)/mxy)){
+        #         mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
+        #         p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+        #                        facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
+        #                        xlab='size (mm CW)',ylab='Selectivity',units='',lnscale=FALSE,
+        #                        title=f,
+        #                        colour='case',guideTitleColor='',
+        #                        shape='case',guideTitleShape='',
+        #                        showPlot=FALSE);
+        #         if (showPlot||!is.null(pdf)) print(p);
+        #         cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
+        #         subPlots[[cap]]<-p;
+        #     }#pg
+        # } else {
+        #         p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
+        #                        facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
+        #                        xlab='size (mm CW)',ylab='Selectivity',units='',lnscale=FALSE,
+        #                        title=f,
+        #                        colour='y',guideTitleColour='year',
+        #                        shape='y',guideTitleShape='year',
+        #                        showPlot=FALSE);
+        #         if (showPlot||!is.null(pdf)) print(p);
+        #         cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",f,".  \n  \n")
+        #         subPlots[[cap]]<-p;
+        # }
+        rws = mdfrp %>% dplyr::distinct(x,m,s);
+        for (i in 1:nrow(rws)){
+            rw = rws[i,];
+            str = stringr::str_trim(stringr::str_remove_all(paste(rw$s,rw$m,rw$x),stringr::fixed("all")));
+            mdfrpp = mdfrp %>% dplyr::inner_join(rw,by=c("x","m","s"));
+            nStanzas = length(unique(mdfrpp$stanza));
+            facets = facet_wrap(~stanza,ncol=1);
+            if (nStanzas>3){facets = facet_wrap(~stanza,ncol=floor(sqrt(nStanzas)))}
+            p = ggplot(mdfrpp,aes(x=z,y=val,colour=case)) +
+                  geom_line() +
+                  facets + ylim(0,1) +
+                  xlab('size (mm CW)')+ylab('Selectivity')+ggtitle(f)+
+                  theme(panel.background=element_rect(colour="black",fill="white"),
+                        panel.border=element_rect(colour="black",fill=NA),
+                        panel.spacing=unit(0.1,"cm"));
+            cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",str," crab in ",f,".  \n  \n");
+            subPlots[[cap]]<-p;
         }
         plots[[f]]<-subPlots;
     }#uF
 
-    if (verbose) cat("rCompTCMs::compareResults.Fisheries.SelFcns: Done!\n");
+    if (verbose) message("rCompTCMs::compareResults.Fisheries.SelFcns: Done!\n");
     return(plots)
 }

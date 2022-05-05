@@ -6,7 +6,11 @@ params:
     title: "Tanner Crab  Model Parameters Comparison" 
     doc_type: "pdf"
     ParameterTables:
-      !r list(verbose=FALSE)
+      !r list(categories="all",
+              processes="all",
+              types="all",
+              params="all",
+              verbose=FALSE)
 output: 
     word_document: 
         reference_docx: '`r system.file("rmd/StylesforRmdDocs.docx",package="wtsUtilities")`'
@@ -52,9 +56,9 @@ The following tables list the parameters for each model case that ended up near 
 
 ```{r printParametersAtBounds,results='asis'}
   message("Starting printParametersAtBounds")
-  mdfr<-rCompTCMs::extractMDFR.Results.ParametersAtBounds(Models);
+  mdfr<-rCompTCMs::extractMDFR.Results.ParametersAtBounds(Models,verbose=params$ParameterTables$verbose);
   write.csv(mdfr,file="ModelParametersAtBounds.csv",row.names=FALSE);
-  rCompTCMs::printResults.ParametersAtBounds(mdfr=mdfr,fontsize="tiny");
+  rCompTCMs::printResults.ParametersAtBounds(mdfr=mdfr,fontsize="tiny",verbose=params$ParameterTables$verbose);
   rm(mdfr);
 ```
 
@@ -66,9 +70,22 @@ Estimated parameter values and associated standard deviations (from the ADMB std
 
 ```{r printParamsTable, results="asis"}
   message("Starting printParamsTable")
-  mdfr<-rCompTCMs::extractMDFR.Results.ParameterValues(Models);
+  mdfr<-rCompTCMs::extractMDFR.Results.ParameterValues(Models,verbose=params$ParameterTables$verbose);
   write.csv(mdfr,file="ModelParameterValues.csv",row.names=FALSE);
-  rCompTCMs::printResults.ParameterValues(mdfr=mdfr,fontsize="tiny");
+  categories = params$ParameterTables$categories;
+  if (is.null(categories)) categories = "all";
+  processes = params$ParameterTables$processes;
+  if (is.null(processes)) processes = "all";
+  types = params$ParameterTables$types;
+  if (is.null(types)) types = "all";
+  param_names = params$ParameterTables$params;
+  if (is.null(param_names)) param_names = "all";
+  rCompTCMs::printResults.ParameterValues(mdfr=mdfr,
+                                          categories=categories,
+                                          processes=processes,
+                                          types=types,
+                                          params=param_names,
+                                          fontsize="tiny",verbose=params$ParameterTables$verbose);
   rm(mdfr);
 ```
 

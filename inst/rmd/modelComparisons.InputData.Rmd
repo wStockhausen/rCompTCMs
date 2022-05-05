@@ -80,7 +80,7 @@ title: '`r params$title`'
 ```
 
 ```{r plotData.SurveyBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$surveys$plotBiomass){
+  if (params$InputData$includeSurveyData&params$InputData$surveys$plotBiomass){
     message("starting plotData.SurveyBiomass")
     cat("\n### Survey biomass\n\n")
     fleets = params$InputData$surveys$fleets;
@@ -134,7 +134,7 @@ title: '`r params$title`'
 \clearpage
 
 ```{r plotData.SurveyAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$surveys$plotAbundance){
+  if (params$InputData$includeSurveyData&params$InputData$surveys$plotAbundance){
     message("starting plotData.SurveyAbundance")
     cat("\n### Survey abundance\n\n")
     fleets = params$InputData$surveys$fleets;
@@ -188,8 +188,14 @@ title: '`r params$title`'
 
 \clearpage
 
+```{r plotData.FisheriesDataSection,results='asis'}
+  if (params$InputData$includeFisheryData){
+    cat("\n## Fishery data\n\n")
+  }
+```
+
 ```{r plotData.RetainedCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$fisheries$retained$plotBiomass){
+  if (params$InputData$includeFisheryData&params$InputData$fisheries$retained$plotBiomass){
     message("starting plotData.RetainedCatchBiomass")
     cat("\n### Retained catch biomass\n\n")
     fleets = params$InputData$fisheries$fleets;
@@ -249,7 +255,7 @@ title: '`r params$title`'
 \clearpage
 
 ```{r plotData.RetainedCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$fisheries$retained$plotAbundance){
+  if (params$InputData$includeFisheryData&params$InputData$fisheries$retained$plotAbundance){
     message("starting plotData.RetainedCatchAbundance")
     cat("\n### Retained catch abundance\n\n")
     fleets = params$InputData$fisheries$fleets;
@@ -309,7 +315,7 @@ title: '`r params$title`'
 \clearpage
 
 ```{r plotData.TotalCatchBiomass,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$fisheries$total$plotBiomass){
+  if (params$InputData$includeFisheryData&params$InputData$fisheries$total$plotBiomass){
     message("starting plotData.TotalCatchBiomass")
     cat("\n### Total catch biomass\n\n")
     fleets = params$InputData$fisheries$fleets;
@@ -369,7 +375,7 @@ title: '`r params$title`'
 \clearpage
 
 ```{r plotData.TotalCatchAbundance,results='asis',fig.height=8.0,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  if (params$InputData$fisheries$total$plotAbundance){
+  if (params$InputData$includeFisheryData&params$InputData$fisheries$total$plotAbundance){
     message("starting plotData.TotalCatchAbundance")
     cat("\n### Total catch abundance\n\n")
     fleets = params$InputData$fisheries$fleets;

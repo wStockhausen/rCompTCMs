@@ -18,7 +18,11 @@
 #'
 #'@return non-nested list of ggplot2 objects, with captions as names
 #'
+#'@import dplyr
 #'@import ggplot2
+#'@import magrittr
+#'
+#'@md
 #'
 #'@export
 #'
@@ -95,6 +99,21 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
+
+    #----------------------------------
+    # drop factor combinations with zeros for all years
+    #----------------------------------
+    tmp = mdfr %>% dplyr::group_by(case,category,process,fleet,type,pc,x,m,s,z) %>%
+                   dplyr::summarize(tot=sum(abs(val),na.rm=TRUE)) %>%
+                   dplyr::ungroup() %>%
+                   dplyr::filter(tot>0);
+    mdfr %<>% dplyr::inner_join(tmp,by=c("case","category","process","fleet","type","pc","x","m","s","z"));
+
 
     #----------------------------------
     # plot zscores from fits to time series

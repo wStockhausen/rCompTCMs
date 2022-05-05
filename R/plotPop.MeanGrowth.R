@@ -20,6 +20,11 @@ plotPop.MeanGrowth<-function(mdfr,
                             dodge=0.2,
                             showPlot=FALSE,
                             verbose=FALSE){
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
     #-------------------------------------------#
     #plot mean growth
     #-------------------------------------------#
@@ -33,7 +38,7 @@ plotPop.MeanGrowth<-function(mdfr,
     p <- p + geom_abline(slope=1,linetype=2);
     p <- p + labs(x='pre-molt size (mm CW)',y="post-molt size (mm CW)");
 #    p <- p + ggtitle("Mean Growth");
-    p <- p + facet_grid(x~.);
+    p <- p + facet_grid(x~.) + std_theme;
     if (showPlot) print(p);
 
     return(p);

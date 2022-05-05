@@ -5,27 +5,28 @@
 #'several model runs.
 #'
 #' @param objs - object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
-#' @param mdfr - melted dataframe from call to \code{extractFits.MeanSizeComps} (as alternative to objs)
+#' @param mdfr - melted dataframe from call to [extractFits.MeanSizeComps()] (as alternative to objs)
 #' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
 #' @param  years - years to plot, as numerical vector (or "all" to plot all years)
 #' @param ci - confidence interval
 #' @param plot1stObs - flag (T/F) to plot observations only from first case
-#' @param facet_grid - faceting formula for ggplot2::facet_grid()
-#' @param scales - scales parameter for ggplot2::facet_grid()
+#' @param facet_grid - faceting formula for [ggplot2::facet_grid()]
+#' @param scales - scales parameter for [ggplot2::facet_grid()]
 #' @param linesize - line width (in mm)
 #' @param pdf - name for output pdf file
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
 #'
-#'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
-#'\code{rTCSAM2013::getMDFR.FisheryQuantities()}, \code{rTCSAM02::getMDFR.Fits.FleetData()}.
-#'Also uses \code{reshape2::dcast}, \code{wtsUtilities::calcCIs}, \code{wtsUtilities::printGGList}.
+#'@details Uses [extractFits.MeanSizeComps()] to extract data.
+#'Also uses [reshape2::dcast()], [wtsUtilities::calcCIs()], [wtsUtilities::printGGList()].
 #'
 #'@return list of ggplot2 objects, with captions as names
 #'
 #'@import ggplot2
+#'
+#'@md
 #'
 #'@export
 #'
@@ -44,7 +45,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
                                     showPlot=FALSE,
                                     verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::compareFits.MeanSizeComps().\n");
+    if (verbose) message("Starting rCompTCMs::compareFits.MeanSizeComps().\n");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -77,11 +78,16 @@ compareFits.MeanSizeComps<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
+    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
+                               panel.background=ggplot2::element_blank(),
+                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
+                               panel.grid      =ggplot2::element_blank(),
+                               panel.spacing   =unit(0,units="cm"));
 
     #----------------------------------
     # plot fits to size comps
     #----------------------------------
-    if (verbose) cat("Plotting",nrow(mdfr),"rows.\n")
+    if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
     ylab<-""; cap1<-"1";
     if ((catch.type=="index")&&(fleet.type=="survey")) {
         ylab<-"mean survey size comps";
@@ -103,7 +109,7 @@ compareFits.MeanSizeComps<-function(objs=NULL,
 
     xlab<-'size (mm CW)';
     for (fleet in unique(mdfr$fleet)){
-        if (verbose) cat("Plotting fleet '",fleet,"'.\n",sep='');
+        if (verbose) message("Plotting fleet '",fleet,"'.\n",sep='');
         dfrp<-mdfr[mdfr$fleet==fleet,];
         #do plot
         pd<-position_identity();
@@ -117,14 +123,14 @@ compareFits.MeanSizeComps<-function(objs=NULL,
         p <- p + labs(x=xlab,y=ylab)
         p <- p + facet_grid(stats::as.formula(facet_grid),scales=scales)
         ttl<-paste0(fleet);
-        if (verbose) cat("Plotting '",ttl,"'.\n",sep='')
+        if (verbose) message("Plotting '",ttl,"'.\n",sep='')
         p <- p + ggtitle(ttl)
         p <- p + guides(fill=guide_legend('observed'),colour=guide_legend('predicted'),shape=guide_legend('predicted'),linetype=guide_legend('type'))
         cp1<-gsub("&&fleet",fleet,cap1,fixed=TRUE);
         if (showPlot) figno<-wtsUtilities::printGGList(p,figno,cp1,showPlot)$figno;
-        plots[[cp1]]<-p;
+        plots[[cp1]]<-p + std_theme;
     }#fleets
 
-    if (verbose) cat("Finished rCompTCMs::compareFits.MeanSizeComps().\n");
+    if (verbose) message("Finished rCompTCMs::compareFits.MeanSizeComps().\n");
     return(plots);
 }
