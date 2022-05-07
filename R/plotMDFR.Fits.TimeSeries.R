@@ -24,6 +24,7 @@
 #'@param ylims -
 #'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
 #'@param showPlot - flag (T/F) to print plot
+#'@param verbose - flag (T/F) to print diagnostic info
 #'
 #'@details Uses [plotMDFR.Fits.TimeSeries1()] to make the plots. \code{numRecent} provides the "zoom"
 #'for a second set of faceted plots including only the most recent years. If \code{numRecent} is 0,
@@ -57,11 +58,13 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                   xlims=NULL,
                                   ylims=NULL,
                                   colour_scale=ggplot2::scale_color_hue(),
-                                  showPlot=FALSE){
+                                  showPlot=FALSE,
+                                  verbose=FALSE){
     plots<-list();
 
     #plot with observations & case results
     if (plotObs&&plotMod){
+        if (verbose) message("plotMDFR.Fits.TimeSeries: plot with observations & case results");
         p1<-plotMDFR.Fits.TimeSeries1(dfr,
                                       plot1stObs=plot1stObs,
                                       x=x,
@@ -81,10 +84,12 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
-                                      showPlot=showPlot);
+                                      showPlot=showPlot,
+                                      verbose=verbose);
         plots$p1<-p1;
 
         #plot only over time period with observations
+        if (verbose) message("plotMDFR.Fits.TimeSeries: plot only over time period with only observations")
         idx<-dfr[[type]]=='observed';
         xplims<-range(dfr[[x]][idx],na.rm=TRUE);
         if (!is.null(xlims)){
@@ -118,10 +123,12 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xplims,
                                       ylims=yplims,
                                       colour_scale=colour_scale,
-                                      showPlot=showPlot);
+                                      showPlot=showPlot,
+                                      verbose=verbose);
         plots$p2<-p2;
 
         #plot in recent years only
+        if (verbose) message("plotMDFR.Fits.TimeSeries: plot in recent years only")
         if (numRecent>0){
             xmx<-max(dfr[[x]],na.rm=TRUE);
             xplims<-c(xmx-numRecent,xmx+1);
@@ -156,13 +163,15 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
-                                          showPlot=showPlot);
+                                          showPlot=showPlot,
+                                          verbose=verbose);
             plots$p3<-p3;
         } else {plots$p3=NA;}
     }
 
     #plot with observations only
     if (plotObs&&(!plotMod)){
+        if (verbose) message("plotMDFR.Fits.TimeSeries: plot with observations only")
         p1<-plotMDFR.Fits.TimeSeries1(dfr,
                                       plot1stObs=plot1stObs,
                                       x=x,
@@ -182,7 +191,8 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
-                                      showPlot=showPlot);
+                                      showPlot=showPlot,
+                                      verbose=verbose);
         plots$p1<-p1;
         #plot in recent years only
         if (numRecent>0){
@@ -219,13 +229,15 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
-                                          showPlot=showPlot);
+                                          showPlot=showPlot,
+                                          verbose=verbose);
             plots$p2<-p2;
         } else {plots$p2=NA;}
     }
 
     #plot with case results only
     if (plotMod&&(!plotObs)){
+        if (verbose) message("plotMDFR.Fits.TimeSeries: plot with case results only")
         #plot full time series
         p1<-plotMDFR.Fits.TimeSeries1(dfr,
                                       plot1stObs=plot1stObs,
@@ -246,7 +258,8 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
-                                      showPlot=showPlot);
+                                      showPlot=showPlot,
+                                      verbose=verbose);
         plots$p1<-p1;
         #plot in recent years only
         if (numRecent>0){
@@ -283,7 +296,8 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
-                                          showPlot=showPlot);
+                                          showPlot=showPlot,
+                                          verbose=verbose);
             plots$p2<-p2;
         } else {plots$p2=NA;}
     }

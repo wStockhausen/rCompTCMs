@@ -90,7 +90,7 @@ compareFits.BiomassData<-function(objs=NULL,
         #----------------------------------
         # plot fits to biomass time series
         #----------------------------------
-        if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
+        if (verbose) message("Plotting ",nrow(mdfr)," rows.\n")
         ylab<-""; cap1<-"1"; cap2<-"2";
         if ((catch.type=="index")&&(fleet.type=="survey")) {
             ylab<-"Survey biomass (1000's t)";
@@ -123,6 +123,7 @@ compareFits.BiomassData<-function(objs=NULL,
             for (uX in uXs){
                 mdfr1<-mdfr0[mdfr0$x==uX,];
                 if (nrow(mdfr1)>0){
+                    if (verbose) message("uF = ",uF," uX = ",uX," nrow = ",nrow(mdfr1))
                     ps<-plotMDFR.Fits.TimeSeries(mdfr1,
                                                  numRecent=numRecent,
                                                  plot1stObs=plot1stObs,
@@ -136,7 +137,8 @@ compareFits.BiomassData<-function(objs=NULL,
                                                  title=uF,
                                                  xlims=NULL,
                                                  ylims=NULL,
-                                                 showPlot=showPlot);
+                                                 showPlot=showPlot,
+                                                 verbose=verbose);
                     cp1<-gsub("&&fleet",uF,cap1,fixed=TRUE); cp1<-gsub("&&sex",uX,cp1,fixed=TRUE);
                     cp2<-gsub("&&fleet",uF,cap2,fixed=TRUE); cp2<-gsub("&&sex",uX,cp2,fixed=TRUE);
                     cp3<-gsub("&&fleet",uF,cap3,fixed=TRUE); cp3<-gsub("&&sex",uX,cp3,fixed=TRUE);

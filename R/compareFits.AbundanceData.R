@@ -50,8 +50,6 @@ compareFits.AbundanceData<-function(objs=NULL,
 
     if (fleet.type=='survey') catch.type<-'index';
 
-    cases<-names(objs);
-
     #create pdf, if necessary
     if(!is.null(pdf)){
         pdf(file=pdf,width=11,height=8,onefile=TRUE);
@@ -68,21 +66,16 @@ compareFits.AbundanceData<-function(objs=NULL,
         mdfr<-objs;
     } else {
         mdfr<-extractMDFR.Fits.AbundanceData(objs=objs,
-                                           fleets=fleets,
-                                           fleet.type=fleet.type,
-                                           catch.type=catch.type,
-                                           ci=ci,
-                                           fishery.pdfType=fishery.pdfType,
-                                           verbose=verbose);
+                                             fleets=fleets,
+                                             fleet.type=fleet.type,
+                                             catch.type=catch.type,
+                                             ci=ci,
+                                             fishery.pdfType=fishery.pdfType,
+                                             verbose=verbose);
     }
 
     plots<-NULL;
     if (!is.null(mdfr)){
-        mdfr$case<-factor(mdfr$case,levels=cases);
-        mdfr$y<-as.numeric(mdfr$y);
-        mdfr$x[mdfr$x=='all']<-'all sex';
-        mdfr$m[mdfr$m=='all']<-'all maturity';
-        mdfr$s[mdfr$s=='all']<-'all shell';
         mdfr$facets<-paste0(mdfr$x,"\n",mdfr$m,"\n",mdfr$s)
 
         #----------------------------------
@@ -92,9 +85,9 @@ compareFits.AbundanceData<-function(objs=NULL,
         figno<-1;
 
         #----------------------------------
-        # plot fits to biomass time series
+        # plot fits to abundance time series
         #----------------------------------
-        if (verbose) message("Plotting",nrow(mdfr),"rows.\n")
+        if (verbose) message("Plotting ",nrow(mdfr)," rows.\n")
         ylab<-""; cap1<-"1"; cap2<-"2";
         if ((catch.type=="index")&&(fleet.type=="survey")) {
             ylab<-"Survey abundance (millions)";
@@ -127,6 +120,7 @@ compareFits.AbundanceData<-function(objs=NULL,
             for (uX in uXs){
                 mdfr1<-mdfr0[mdfr0$x==uX,];
                 if (nrow(mdfr1)>0){
+                    if (verbose) message("uF = ",uF," uX = ",uX," nrow = ",nrow(mdfr1))
                     ps<-plotMDFR.Fits.TimeSeries(mdfr1,
                                                  numRecent=numRecent,
                                                  plot1stObs=plot1stObs,
@@ -140,7 +134,8 @@ compareFits.AbundanceData<-function(objs=NULL,
                                                  title=uF,
                                                  xlims=NULL,
                                                  ylims=NULL,
-                                                 showPlot=showPlot);
+                                                 showPlot=showPlot,
+                                                 verbose=verbose);
                     cp1<-gsub("&&fleet",uF,cap1,fixed=TRUE); cp1<-gsub("&&sex",uX,cp1,fixed=TRUE);
                     cp2<-gsub("&&fleet",uF,cap2,fixed=TRUE); cp2<-gsub("&&sex",uX,cp2,fixed=TRUE);
                     cp3<-gsub("&&fleet",uF,cap3,fixed=TRUE); cp3<-gsub("&&sex",uX,cp3,fixed=TRUE);

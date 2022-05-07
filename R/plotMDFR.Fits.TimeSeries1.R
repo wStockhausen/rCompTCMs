@@ -68,8 +68,8 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
     idx<-dfr[[type]]!='observed';
     if (verbose) {
         message("Starting plotMDFR.Fits.TimeSeries1().\n")
-        message("Plotting",sum(idx),"model predictions.\n")
-        message("Plotting",sum(!idx),"observations.\n")
+        message("Plotting ",sum(idx)," model predictions.\n")
+        message("Plotting ",sum(!idx)," observations.\n")
     }
     levels<-NULL;
     if (is.factor(dfr$case)) {

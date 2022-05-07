@@ -85,28 +85,34 @@ extractFits.SizeComps<-function(objs=NULL,
 
     if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
 
-    if (plot1stObs){
-        #drop observations from all cases except the first available by fleet
-        # idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
-        # mdfr<-mdfr[idx,];
-        #keep all predicted
-        mdfrp<-mdfr[mdfr$type=="predicted",];
-        #by fleet, get first case with observations
-        mdfro<-mdfr[mdfr$type=="observed",];
-        fleets<-unique(mdfr$fleet);
-        for (fleet in fleets) {
-            if (verbose) cat("Checking",fleet,"for model case with first observations.\n")
-            mdfrof<-mdfro[(mdfro$fleet==fleet),];
-            uCs<-unique(mdfrof$case);
-            if (verbose) cat("--These cases were found to include observations for this fleet:",paste(uCs,collapse=", "),"\n");
-            if (length(uCs)>0) {
-                idc<-mdfrof$case==uCs[1];
-                if (verbose) cat("--Using model case",uCs[1],"for first observations; found",sum(idc,na.rm=TRUE),"\n");
-                mdfrp<-rbind(mdfrp,mdfrof[idc,]);
+    if (verbose) message("after filtering for years, mdfr has ",nrow(mdfr)," rows")
+
+    if (!is.null(mdfr)|(nrow(mdfr)==0)){
+        if (plot1stObs){
+            #drop observations from all cases except the first available by fleet
+            # idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
+            # mdfr<-mdfr[idx,];
+            #keep all predicted
+            mdfrp<-mdfr[mdfr$type=="predicted",];
+            #by fleet, get first case with observations
+            mdfro<-mdfr[mdfr$type=="observed",];
+            fleets<-unique(mdfr$fleet);
+            for (fleet in fleets) {
+                if (verbose) cat("Checking",fleet,"for model case with first observations.\n")
+                mdfrof<-mdfro[(mdfro$fleet==fleet),];
+                uCs<-unique(mdfrof$case);
+                if (verbose) cat("--These cases were found to include observations for this fleet:",paste(uCs,collapse=", "),"\n");
+                if (length(uCs)>0) {
+                    idc<-mdfrof$case==uCs[1];
+                    if (verbose) cat("--Using model case",uCs[1],"for first observations; found",sum(idc,na.rm=TRUE),"\n");
+                    mdfrp<-rbind(mdfrp,mdfrof[idc,]);
+                }
             }
+            mdfr<-mdfrp;
         }
-        mdfr<-mdfrp;
     }
+
+    if (is.null(mdfr)) warning("mdfr is NULL!")
 
     if (verbose) cat("Finished rCompTCMs::extractFits.SizeComps().\n");
     return(mdfr);

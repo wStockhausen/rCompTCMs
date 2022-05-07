@@ -13,7 +13,7 @@
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
-#'[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.ZScores.ABData()].
+#'[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.ZScores.Biomass()].
 #'Also uses [wtsUtilities::printGGList].
 #'
 #'@return non-nested list of ggplot2 objects, with captions as names

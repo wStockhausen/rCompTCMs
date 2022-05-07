@@ -52,6 +52,6 @@ several model runs.
 }
 \details{
 Uses \code{\link[rTCSAM2013:getMDFR.SurveyQuantities]{rTCSAM2013::getMDFR.SurveyQuantities()}},
-\code{\link[rTCSAM2013:getMDFR.FisheryQuantities]{rTCSAM2013::getMDFR.FisheryQuantities()}}, \code{\link[rTCSAM02:getMDFR.ZScores.ABData]{rTCSAM02::getMDFR.ZScores.ABData()}}.
+\code{\link[rTCSAM2013:getMDFR.FisheryQuantities]{rTCSAM2013::getMDFR.FisheryQuantities()}}, \code{\link[rTCSAM02:getMDFR.ZScores.Biomass]{rTCSAM02::getMDFR.ZScores.Biomass()}}.
 Also uses \link[wtsUtilities:printGGList]{wtsUtilities::printGGList}.
 }

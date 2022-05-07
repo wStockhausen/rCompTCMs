@@ -25,7 +25,8 @@ plotMDFR.Fits.TimeSeries(
   xlims = NULL,
   ylims = NULL,
   colour_scale = ggplot2::scale_color_hue(),
-  showPlot = FALSE
+  showPlot = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -111,6 +112,10 @@ plotMDFR.Fits.TimeSeries(
 
 \item{showPlot}{\itemize{
 \item flag (T/F) to print plot
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic info
 }}
 }
 \value{

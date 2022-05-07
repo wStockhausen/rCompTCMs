@@ -33,7 +33,7 @@ extractFits.MeanSizeComps<-function(objs=NULL,
                                     plot1stObs=TRUE,
                                     verbose=FALSE){
 
-    if (verbose) cat("Starting rCompTCMs::extractFits.MeanSizeComps().\n");
+    if (verbose) message("Starting rCompTCMs::extractFits.MeanSizeComps().");
     options(stringsAsFactors=FALSE);
 
     fleet.type<-fleet.type[1];
@@ -56,18 +56,21 @@ extractFits.MeanSizeComps<-function(objs=NULL,
                                            plot1stObs=plot1stObs,
                                            verbose=verbose);
 
-    #compute averages over years
-    dfr1<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=mean,     na.rm=TRUE,value.var="val")
-    dfr2<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=stats::sd,na.rm=TRUE,value.var="val");
-    dfr3<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=length,value.var="val");
-    names(dfr1)[10]<-'val';
-    names(dfr2)[10]<-'sd';
-    mdfr<-dfr1;
-    res<-wtsUtilities::calcCIs(mdfr$val,sdvs=dfr2$sd,pdfType="normal",ci=ci);
-    mdfr$lci<-res$lci;
-    mdfr$uci<-res$uci;
-    mdfr$N  <-dfr3[["."]];
+    if (!is.null(mdfr)){
+        #compute averages over years
+        dfr1<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=mean,     na.rm=TRUE,value.var="val")
+        dfr2<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=stats::sd,na.rm=TRUE,value.var="val");
+        dfr3<-reshape2::dcast(mdfr,formula="case+process+fleet+category+type+x+m+s+z~.",fun.aggregate=length,value.var="val");
+        names(dfr1)[10]<-'val';
+        names(dfr2)[10]<-'sd';
+        mdfr<-dfr1;
+        res<-wtsUtilities::calcCIs(mdfr$val,sdvs=dfr2$sd,pdfType="normal",ci=ci);
+        mdfr$lci<-res$lci;
+        mdfr$uci<-res$uci;
+        mdfr$N  <-dfr3[["."]];
+    }
 
     #mdfr<-getMDFR.CanonicalFormat(mdfr);
+    if (verbose) message("Finished rCompTCMs::extractFits.MeanSizeComps().");
     return(mdfr);
 }
