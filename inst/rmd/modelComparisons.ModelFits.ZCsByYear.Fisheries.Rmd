@@ -4,7 +4,21 @@ date: '`r format(Sys.Date(),"%d %B, %Y")`'
 params: 
     Models: none
     title: "Tanner Crab Model Fits to Fishery Size Compositions" 
+    fleets: "all"
+    years: 'all'
     plot1stObs: TRUE
+    nrow: 5
+    ncol: 4
+    useBars: TRUE
+    usePins: FALSE
+    usePinsAndPts: FALSE
+    useLines: TRUE
+    usePoints: TRUE
+    lineSize: 1.0
+    pointSize: 1.0
+    alpha: 0.5
+    stripText: 
+        !r ggplot2::element_text()
     doc_type: "pdf"
     verbose: FALSE
 output: 
@@ -26,8 +40,7 @@ title: '`r params$title`'
     ##input model list
     Models<-params$Models;
     doc_type<-params$doc_type;
-    plot1stObs<-params$plot1stObs;
-    
+
     ##set appendix letter
     app="A";
     ##set knitr options for subsequent chunks
@@ -52,7 +65,20 @@ Fits to the fishery size composition data available to the model(s) are presente
   plts<-rCompTCMs::compareFits.SizeComps(Models,
                                          fleet.type="fishery",
                                          catch.type="retained",
-                                         plot1stObs=plot1stObs,
+                                         fleets=params$fleets,
+                                         years=params$years,
+                                         plot1stObs=params$plot1stObs,
+                                         nrow=params$nrow,
+                                         ncol=params$ncol,
+                                         useBars=params$useBars,
+                                         usePins=params$usePins,
+                                         usePinsAndPts=params$usePinsAndPts,
+                                         useLines=params$useLines,
+                                         usePoints=params$usePoints,
+                                         lineSize=params$lineSize,
+                                         pointSize=params$pointSize,
+                                         alpha=params$alpha,
+                                         stripText=params$stripText,
                                          showPlot=FALSE,
                                          verbose=params$verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
@@ -73,7 +99,20 @@ Fits to the fishery size composition data available to the model(s) are presente
   plts<-rCompTCMs::compareFits.SizeComps(Models,
                                          fleet.type="fishery",
                                          catch.type="total",
-                                         plot1stObs=plot1stObs,
+                                         fleets=params$fleets,
+                                         years=params$years,
+                                         plot1stObs=params$plot1stObs,
+                                         nrow=params$nrow,
+                                         ncol=params$ncol,
+                                         useBars=params$useBars,
+                                         usePins=params$usePins,
+                                         usePinsAndPts=params$usePinsAndPts,
+                                         useLines=params$useLines,
+                                         usePoints=params$usePoints,
+                                         lineSize=params$lineSize,
+                                         pointSize=params$pointSize,
+                                         alpha=params$alpha,
+                                         stripText=params$stripText,
                                          showPlot=FALSE,
                                          verbose=params$verbose);
   captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);

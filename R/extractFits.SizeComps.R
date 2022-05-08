@@ -8,8 +8,8 @@
 #' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
-#' @param years - years to plot, as numerical vector (or "all" to plot all years)
-#' @param plot1stObs - flag (T/F) to plot observations only from first case
+#' @param years - years to plot, as numerical vector (or "all" to extract all years)
+#' @param plot1stObs - flag (T/F) to extract observations only from first case, or vector of case names to return observations for
 #' @param verbose - flag (T/F) to print diagnostic information
 #'
 #'@details Uses \code{rTCSAM2013::getMDFR.SurveyQuantities()},
@@ -83,32 +83,40 @@ extractFits.SizeComps<-function(objs=NULL,
     mdfr$m[mdfr$m=='all']<-'all maturity';
     mdfr$s[mdfr$s=='all']<-'all shell';
 
-    if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
+    if (verbose) message("years = '",paste(years,sep=", "),"'")
 
-    if (verbose) message("after filtering for years, mdfr has ",nrow(mdfr)," rows")
+    if (is.numeric(years)) mdfr %<>% dplyr::filter(y %in% years);
 
-    if (!is.null(mdfr)|(nrow(mdfr)==0)){
-        if (plot1stObs){
-            #drop observations from all cases except the first available by fleet
-            # idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
-            # mdfr<-mdfr[idx,];
-            #keep all predicted
-            mdfrp<-mdfr[mdfr$type=="predicted",];
-            #by fleet, get first case with observations
-            mdfro<-mdfr[mdfr$type=="observed",];
-            fleets<-unique(mdfr$fleet);
-            for (fleet in fleets) {
-                if (verbose) cat("Checking",fleet,"for model case with first observations.\n")
-                mdfrof<-mdfro[(mdfro$fleet==fleet),];
-                uCs<-unique(mdfrof$case);
-                if (verbose) cat("--These cases were found to include observations for this fleet:",paste(uCs,collapse=", "),"\n");
-                if (length(uCs)>0) {
-                    idc<-mdfrof$case==uCs[1];
-                    if (verbose) cat("--Using model case",uCs[1],"for first observations; found",sum(idc,na.rm=TRUE),"\n");
-                    mdfrp<-rbind(mdfrp,mdfrof[idc,]);
+    if (verbose) message("after filtering for years, mdfr has ",nrow(mdfr)," rows and mode ",mode(mdfr))
+
+    if (!(is.null(mdfr)|(nrow(mdfr)==0))){
+        if (is.logical(plot1stObs)){
+            if (plot1stObs){
+                #drop observations from all cases except the first available by fleet
+                # idx<-(as.character(mdfr$case)==cases[1])&(mdfr$type=="observed")|(mdfr$type=="predicted");
+                # mdfr<-mdfr[idx,];
+                #keep all predicted
+                mdfrp<-mdfr[mdfr$type=="predicted",];
+                #by fleet, get first case with observations
+                mdfro<-mdfr[mdfr$type=="observed",];
+                fleets<-unique(mdfr$fleet);
+                for (fleet in fleets) {
+                    if (verbose) cat("Checking",fleet,"for model case with first observations.\n")
+                    mdfrof<-mdfro[(mdfro$fleet==fleet),];
+                    uCs<-unique(mdfrof$case);
+                    if (verbose) cat("--These cases were found to include observations for this fleet:",paste(uCs,collapse=", "),"\n");
+                    if (length(uCs)>0) {
+                        idc<-mdfrof$case==uCs[1];
+                        if (verbose) cat("--Using model case",uCs[1],"for first observations; found",sum(idc,na.rm=TRUE),"\n");
+                        mdfrp<-rbind(mdfrp,mdfrof[idc,]);
+                    }
                 }
+                mdfr<-mdfrp;
             }
-            mdfr<-mdfrp;
+        } else if (is.character(plot1stObs)){
+            mdfrp = mdfr %>% dplyr::filter(type=="predicted");
+            mdfro = mdfr %>% dplyr::filter((type=="observed")&(as.character(case) %in% plot1stObs));
+            mdfr = dplyr::bind_rows(mdfrp,mdfro);
         }
     }
 

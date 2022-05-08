@@ -14,6 +14,15 @@ compareFits.SizeComps(
   plot1stObs = TRUE,
   nrow = 5,
   ncol = 4,
+  useBars = TRUE,
+  usePins = FALSE,
+  usePinsAndPts = FALSE,
+  useLines = TRUE,
+  usePoints = TRUE,
+  lineSize = 1,
+  pointSize = 1,
+  alpha = 0.5,
+  stripText = ggplot2::element_text(),
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -45,7 +54,7 @@ compareFits.SizeComps(
 }}
 
 \item{plot1stObs}{\itemize{
-\item flag (T/F) to plot observations only from first case
+\item flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
 }}
 
 \item{nrow}{\itemize{
@@ -54,6 +63,42 @@ compareFits.SizeComps(
 
 \item{ncol}{\itemize{
 \item number of columns per page for output plots
+}}
+
+\item{useBars}{\itemize{
+\item flag to use bars for observations
+}}
+
+\item{usePins}{\itemize{
+\item flag to use pins for observations
+}}
+
+\item{usePinsAndPts}{\itemize{
+\item flag to add pts to observations when pins are used
+}}
+
+\item{useLines}{\itemize{
+\item flag to use lines for predictions
+}}
+
+\item{usePoints}{\itemize{
+\item flag to use points for predictions
+}}
+
+\item{lineSize}{\itemize{
+\item prediction line size
+}}
+
+\item{pointSize}{\itemize{
+\item prediction point size
+}}
+
+\item{alpha}{\itemize{
+\item prediction transparency
+}}
+
+\item{stripText}{\itemize{
+\item \code{\link[ggplot2:element]{ggplot2::element_text()}} object describing font and margin to use for panel strips
 }}
 
 \item{pdf}{\itemize{

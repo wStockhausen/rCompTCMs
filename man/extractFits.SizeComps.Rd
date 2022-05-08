@@ -21,9 +21,9 @@ extractFits.SizeComps(
 
 \item{catch.type}{- catch type ('index','retained',  or 'total')}
 
-\item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
+\item{years}{- years to plot, as numerical vector (or "all" to extract all years)}
 
-\item{plot1stObs}{- flag (T/F) to plot observations only from first case}
+\item{plot1stObs}{- flag (T/F) to extract observations only from first case, or vector of case names to return observations for}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 

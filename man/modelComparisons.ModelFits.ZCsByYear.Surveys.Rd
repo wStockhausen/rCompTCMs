@@ -6,7 +6,20 @@
 \usage{
 modelComparisons.ModelFits.ZCsByYear.Surveys(
   models,
+  fleets = "all",
+  years = "all",
   plot1stObs = TRUE,
+  nrow = 5,
+  ncol = 4,
+  useBars = TRUE,
+  usePins = FALSE,
+  usePinsAndPts = FALSE,
+  useLines = TRUE,
+  usePoints = TRUE,
+  lineSize = 1,
+  pointSize = 1,
+  alpha = 0.5,
+  stripText = ggplot2::element_text(),
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
   rmd = system.file("rmd/modelComparisons.ModelFits.ZCsByYear.Surveys.Rmd", package =
@@ -19,7 +32,33 @@ modelComparisons.ModelFits.ZCsByYear.Surveys(
 \arguments{
 \item{models}{- named list of model results (as resLst objects) to compare}
 
-\item{plot1stObs}{- flag to plot observed data only from first model}
+\item{fleets}{- names of fleets to include (or "all")}
+
+\item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
+
+\item{plot1stObs}{- flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations}
+
+\item{nrow}{- number of rows per page for output plots}
+
+\item{ncol}{- number of columns per page for output plots}
+
+\item{useBars}{- flag to use bars for observations}
+
+\item{usePins}{- flag to use pins for observations}
+
+\item{usePinsAndPts}{- flag to add pts to observations when pins are used}
+
+\item{useLines}{- flag to use lines for predictions}
+
+\item{usePoints}{- flag to use points for predictions}
+
+\item{lineSize}{- prediction line size}
+
+\item{pointSize}{- prediction point size}
+
+\item{alpha}{- prediction transparency}
+
+\item{stripText}{- [ggplot2::element_text()] object describing font and margin to use for panel strips}
 
 \item{output_format}{- "word_document" or "pdf_document"}
 

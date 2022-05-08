@@ -10,9 +10,18 @@
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
 #' @param  years - years to plot, as numerical vector (or "all" to plot all years)
-#' @param plot1stObs - flag (T/F) to plot observations only from first case
+#' @param plot1stObs - flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
 #' @param nrow - number of rows per page for output plots
 #' @param ncol - number of columns per page for output plots
+#' @param useBars - flag to use bars for observations
+#' @param usePins - flag to use pins for observations
+#' @param usePinsAndPts - flag to add pts to observations when pins are used
+#' @param useLines - flag to use lines for predictions
+#' @param usePoints - flag to use points for predictions
+#' @param lineSize - prediction line size
+#' @param pointSize - prediction point size
+#' @param alpha - prediction transparency
+#' @param stripText - [ggplot2::element_text()] object describing font and margin to use for panel strips
 #' @param pdf - name for output pdf file
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
@@ -37,6 +46,15 @@ compareFits.SizeComps<-function(objs=NULL,
                                 plot1stObs=TRUE,
                                 nrow=5,
                                 ncol=4,
+                                useBars=TRUE,
+                                usePins=FALSE,
+                                usePinsAndPts=FALSE,
+                                useLines=TRUE,
+                                usePoints=TRUE,
+                                lineSize=1,
+                                pointSize=1,
+                                alpha=0.5,
+                                stripText=ggplot2::element_text(),
                                 pdf=NULL,
                                 showPlot=FALSE,
                                 verbose=FALSE){
@@ -57,7 +75,7 @@ compareFits.SizeComps<-function(objs=NULL,
     }
 
     if (is.null(mdfr)){
-        mdfr<-rCompTCMs::extractFits.SizeComps(objs,
+        mdfr<-extractFits.SizeComps(objs,
                                                fleets=fleets,
                                                fleet.type=fleet.type,
                                                catch.type=catch.type,
@@ -71,11 +89,7 @@ compareFits.SizeComps<-function(objs=NULL,
     #----------------------------------
     plots<-list();
     figno<-1;
-    std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
-                               panel.background=ggplot2::element_blank(),
-                               panel.border    =ggplot2::element_rect(colour="black",fill=NA),
-                               panel.grid      =ggplot2::element_blank(),
-                               panel.spacing   =unit(0,units="cm"));
+    std_theme = wtsPlots::getStdTheme();
 
     #----------------------------------
     # plot fits to size comps
@@ -161,12 +175,15 @@ compareFits.SizeComps<-function(objs=NULL,
 
                             for (pg in 1:npg){ #loop over pages
                                 dfrp<-mdfrp[(mdfrp$y %in% ys[(pg-1)*mxp+1:mxp]),]
+                                dfrpo = dfrp[dfrp$type=='observed',];
                                 #do plot
                                 pd<-position_identity();
                                 p <- ggplot(data=dfrp)
-                                p <- p + geom_bar(aes(x=z,y=val,fill=case),data=dfrp[dfrp$type=='observed',],stat="identity",position='identity',alpha=0.5)
-                                p <- p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=1,alpha=0.5)
-                                p <- p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=1)
+                                if (useBars)   p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position='identity',alpha=0.5)
+                                if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position='identity',ymin=0.0,size=0.5)
+                                if (usePinsAndPts) p = p + geom_linerange(aes(x=z,y   =val,colour=case),data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
+                                if (useLines)  p = p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=lineSize,alpha=alpha)
+                                if (usePoints) p = p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=pointSize)
                                 p <- p + ylim(0,rng[2])
                                 p <- p + geom_hline(yintercept=0,colour='black',size=0.5)
                                 p <- p + labs(x=xlab,y=ylab)
@@ -180,7 +197,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 cp1<-gsub("&&fleet",fleet,cp1,fixed=TRUE);
                                 cp1<-gsub("&&pg",paste0("Page ",pg," of ",npg),cp1,fixed=TRUE);
                                 if (showPlot) figno<-wtsUtilities::printGGList(p,figno,cp1,showPlot)$figno;
-                                plots[[cp1]]<-p+std_theme;
+                                plots[[cp1]]<-p+std_theme+theme(strip.text=stripText);
                             }#pg
                         }#if
                     }#ss
