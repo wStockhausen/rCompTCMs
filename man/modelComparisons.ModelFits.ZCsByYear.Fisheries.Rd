@@ -9,6 +9,8 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries(
   models,
   fleets = "all",
   years = "all",
+  plotRetained = TRUE,
+  plotTotal = TRUE,
   plot1stObs = TRUE,
   nrow = 5,
   ncol = 4,
@@ -17,6 +19,7 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries(
   usePinsAndPts = FALSE,
   useLines = TRUE,
   usePoints = TRUE,
+  pinSize = 0.2,
   lineSize = 1,
   pointSize = 1,
   alpha = 0.5,
@@ -37,6 +40,10 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries(
 
 \item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
 
+\item{plotRetained}{- flag to plot retained catch size comps}
+
+\item{plotTotal}{- flag to plot total catch size comps}
+
 \item{plot1stObs}{- flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations}
 
 \item{nrow}{- number of rows per page for output plots}
@@ -52,6 +59,8 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries(
 \item{useLines}{- flag to use lines for predictions}
 
 \item{usePoints}{- flag to use points for predictions}
+
+\item{pinSize}{- width of pin line}
 
 \item{lineSize}{- prediction line size}
 

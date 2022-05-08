@@ -18,6 +18,7 @@
 #' @param usePinsAndPts - flag to add pts to observations when pins are used
 #' @param useLines - flag to use lines for predictions
 #' @param usePoints - flag to use points for predictions
+#' @param pinSize - width of pin line
 #' @param lineSize - prediction line size
 #' @param pointSize - prediction point size
 #' @param alpha - prediction transparency
@@ -31,6 +32,7 @@
 #'
 #'@return Non-nested list of ggplot2 objects, with captions as names
 #'
+#'@import dplyr
 #'@import ggplot2
 #'
 #'@md
@@ -51,6 +53,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 usePinsAndPts=FALSE,
                                 useLines=TRUE,
                                 usePoints=TRUE,
+                                pinSize=0.2,
                                 lineSize=1,
                                 pointSize=1,
                                 alpha=0.5,
@@ -76,12 +79,12 @@ compareFits.SizeComps<-function(objs=NULL,
 
     if (is.null(mdfr)){
         mdfr<-extractFits.SizeComps(objs,
-                                               fleets=fleets,
-                                               fleet.type=fleet.type,
-                                               catch.type=catch.type,
-                                               years=years,
-                                               plot1stObs=plot1stObs,
-                                               verbose=verbose);
+                                   fleets=fleets,
+                                   fleet.type=fleet.type,
+                                   catch.type=catch.type,
+                                   years=years,
+                                   plot1stObs=plot1stObs,
+                                   verbose=verbose);
     }
 
     #----------------------------------
@@ -150,13 +153,13 @@ compareFits.SizeComps<-function(objs=NULL,
                             if (mny<min(ys)){
                                 for (y in mny:(min(ys)-1)) {
                                     mdfrpp$y<-y;
-                                    mdfrp<-rbind(mdfrp,mdfrpp);
+                                    mdfrp<-dplyr::bind_rows(mdfrp,mdfrpp);
                                 }
                             }
                             if (mxy>max(ys)){
                                 for (y in (max(ys)+1):mxy) {
                                     mdfrpp$y<-y;
-                                    mdfrp<-rbind(mdfrp,mdfrpp);
+                                    mdfrp<-dplyr::bind_rows(mdfrp,mdfrpp);
                                 }
                             }
                             ys<-mny:mxy;
@@ -166,7 +169,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 if (!any(mdfrp$y==y)) {
                                     #year y is missing, so add in zero size comp for year y
                                     mdfrpp$y<-y;
-                                    mdfrp<-rbind(mdfrp,mdfrpp);
+                                    mdfrp<-dplyr::bind_rows(mdfrp,mdfrpp);
                                 }
                             }
 
@@ -174,14 +177,14 @@ compareFits.SizeComps<-function(objs=NULL,
                             if (verbose) message("rng = ",rng,'\n')
 
                             for (pg in 1:npg){ #loop over pages
-                                dfrp<-mdfrp[(mdfrp$y %in% ys[(pg-1)*mxp+1:mxp]),]
-                                dfrpo = dfrp[dfrp$type=='observed',];
+                                dfrp  = mdfrp %>% dplyr::filter(y %in% ys[(pg-1)*mxp+1:mxp]);
+                                dfrpo = dfrp %>% dplyr::filter(type=='observed');
                                 #do plot
-                                pd<-position_identity();
-                                p <- ggplot(data=dfrp)
-                                if (useBars)   p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position='identity',alpha=0.5)
-                                if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position='identity',ymin=0.0,size=0.5)
-                                if (usePinsAndPts) p = p + geom_linerange(aes(x=z,y   =val,colour=case),data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
+                                pd = position_identity();
+                                p  = ggplot(data=dfrp)
+                                if (useBars)       p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position='identity',alpha=0.5)
+                                if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position='identity',ymin=0.0,size=pinSize)
+                                if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val,colour=case),data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
                                 if (useLines)  p = p + geom_line(aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=lineSize,alpha=alpha)
                                 if (usePoints) p = p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=pointSize)
                                 p <- p + ylim(0,rng[2])

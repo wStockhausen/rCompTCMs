@@ -15,6 +15,7 @@
 #' @param usePinsAndPts - flag to add pts to observations when pins are used
 #' @param useLines - flag to use lines for predictions
 #' @param usePoints - flag to use points for predictions
+#' @param pinSize - width of pin line
 #' @param lineSize - prediction line size
 #' @param pointSize - prediction point size
 #' @param alpha - prediction transparency
@@ -46,6 +47,7 @@ modelComparisons.ModelFits.ZCsByYear.Surveys<-function(
         usePinsAndPts=FALSE,
         useLines=TRUE,
         usePoints=TRUE,
+        pinSize=0.2,
         lineSize=1,
         pointSize=1,
         alpha=0.5,
@@ -100,6 +102,7 @@ modelComparisons.ModelFits.ZCsByYear.Surveys<-function(
                         usePinsAndPts=usePinsAndPts,
                         useLines=useLines,
                         usePoints=usePoints,
+                        pinSize=pinSize,
                         lineSize=lineSize,
                         pointSize=pointSize,
                         alpha=alpha,

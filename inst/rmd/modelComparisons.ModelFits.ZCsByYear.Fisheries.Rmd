@@ -6,6 +6,8 @@ params:
     title: "Tanner Crab Model Fits to Fishery Size Compositions" 
     fleets: "all"
     years: 'all'
+    plotRetained: TRUE
+    plotTotal: TRUE
     plot1stObs: TRUE
     nrow: 5
     ncol: 4
@@ -14,6 +16,7 @@ params:
     usePinsAndPts: FALSE
     useLines: TRUE
     usePoints: TRUE
+    pinSize: 0.2
     lineSize: 1.0
     pointSize: 1.0
     alpha: 0.5
@@ -59,31 +62,37 @@ title: '`r params$title`'
 # Model fits to fishery size compositions, by year
 Fits to the fishery size composition data available to the model(s) are presented in this section as line plots by year. Not all of the fits presented are necessarily included in the parameter optimization for each model; some fits to datasets for a particular model may be included for comparison purposes with other models which include those data in their optimization. The reader should consult the main assessment document to determine which fits are included in the optimization for any particular model.
 
-# Retained catch size compositions
+<!---Retained catch -->
 
 ```{r plotFits.FisheryRetainedCatchZCsLinePlots,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.SizeComps(Models,
-                                         fleet.type="fishery",
-                                         catch.type="retained",
-                                         fleets=params$fleets,
-                                         years=params$years,
-                                         plot1stObs=params$plot1stObs,
-                                         nrow=params$nrow,
-                                         ncol=params$ncol,
-                                         useBars=params$useBars,
-                                         usePins=params$usePins,
-                                         usePinsAndPts=params$usePinsAndPts,
-                                         useLines=params$useLines,
-                                         usePoints=params$usePoints,
-                                         lineSize=params$lineSize,
-                                         pointSize=params$pointSize,
-                                         alpha=params$alpha,
-                                         stripText=params$stripText,
-                                         showPlot=FALSE,
-                                         verbose=params$verbose);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+  if (plotRetained){
+    cat("\n\n# Retained catch size compositions\n\n")
+    plts<-rCompTCMs::compareFits.SizeComps(Models,
+                                           fleet.type="fishery",
+                                           catch.type="retained",
+                                           fleets=params$fleets,
+                                           years=params$years,
+                                           plot1stObs=params$plot1stObs,
+                                           nrow=params$nrow,
+                                           ncol=params$ncol,
+                                           useBars=params$useBars,
+                                           usePins=params$usePins,
+                                           usePinsAndPts=params$usePinsAndPts,
+                                           useLines=params$useLines,
+                                           usePoints=params$usePoints,
+                                           pinSize=params$pinSize,
+                                           lineSize=params$lineSize,
+                                           pointSize=params$pointSize,
+                                           alpha=params$alpha,
+                                           stripText=params$stripText,
+                                           showPlot=FALSE,
+                                           verbose=params$verbose);
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+    for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,plts);
+  } else {
+    cat("\n\nRetained catch size compositions not plotted.\n\n")
+  }
   #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
   #fig<-res$figno;
   #rm(plts,res);
@@ -93,29 +102,35 @@ Fits to the fishery size composition data available to the model(s) are presente
 
 \clearpage
 
-# Total catch size compositions
+<!---Total catch -->
 
 ```{r plotFits.FisheryTotalCatchZCsLinePlots,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
-  plts<-rCompTCMs::compareFits.SizeComps(Models,
-                                         fleet.type="fishery",
-                                         catch.type="total",
-                                         fleets=params$fleets,
-                                         years=params$years,
-                                         plot1stObs=params$plot1stObs,
-                                         nrow=params$nrow,
-                                         ncol=params$ncol,
-                                         useBars=params$useBars,
-                                         usePins=params$usePins,
-                                         usePinsAndPts=params$usePinsAndPts,
-                                         useLines=params$useLines,
-                                         usePoints=params$usePoints,
-                                         lineSize=params$lineSize,
-                                         pointSize=params$pointSize,
-                                         alpha=params$alpha,
-                                         stripText=params$stripText,
-                                         showPlot=FALSE,
-                                         verbose=params$verbose);
-  captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
-  for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
-  rm(plt,plts);
+  if (plotTotal){
+    cat("\n\n# Total catch size compositions\n\n");
+    plts<-rCompTCMs::compareFits.SizeComps(Models,
+                                           fleet.type="fishery",
+                                           catch.type="total",
+                                           fleets=params$fleets,
+                                           years=params$years,
+                                           plot1stObs=params$plot1stObs,
+                                           nrow=params$nrow,
+                                           ncol=params$ncol,
+                                           useBars=params$useBars,
+                                           usePins=params$usePins,
+                                           usePinsAndPts=params$usePinsAndPts,
+                                           useLines=params$useLines,
+                                           usePoints=params$usePoints,
+                                           pinSize=params$pinSize,
+                                           lineSize=params$lineSize,
+                                           pointSize=params$pointSize,
+                                           alpha=params$alpha,
+                                           stripText=params$stripText,
+                                           showPlot=FALSE,
+                                           verbose=params$verbose);
+    captions<-wtsUtilities::getCaptionsFromGGPlotList(plts);
+    for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
+    rm(plt,plts);
+  } else {
+    cat("\n\nTotal catch size compositions not plotted.\n\n")
+  }
 ```

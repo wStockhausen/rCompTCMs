@@ -8,6 +8,8 @@
 #' @param fleets - names of fleets to include (or "all")
 #' @param years - years to plot, as numerical vector (or "all" to plot all years)
 #' @param plot1stObs - flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
+#' @param plotRetained - flag to plot retained catch size comps
+#' @param plotTotal - flag to plot total catch size comps
 #' @param nrow - number of rows per page for output plots
 #' @param ncol - number of columns per page for output plots
 #' @param useBars - flag to use bars for observations
@@ -15,6 +17,7 @@
 #' @param usePinsAndPts - flag to add pts to observations when pins are used
 #' @param useLines - flag to use lines for predictions
 #' @param usePoints - flag to use points for predictions
+#' @param pinSize - width of pin line
 #' @param lineSize - prediction line size
 #' @param pointSize - prediction point size
 #' @param alpha - prediction transparency
@@ -36,6 +39,8 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries<-function(
         models,
         fleets="all",
         years='all',
+        plotRetained=TRUE,
+        plotTotal=TRUE,
         plot1stObs=TRUE,
         nrow=5,
         ncol=4,
@@ -44,6 +49,7 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries<-function(
         usePinsAndPts=FALSE,
         useLines=TRUE,
         usePoints=TRUE,
+        pinSize=0.2,
         lineSize=1,
         pointSize=1,
         alpha=0.5,
@@ -91,6 +97,8 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries<-function(
                         Models=models,
                         fleets=fleets,
                         years=years,
+                        plotRetained=plotRetained,
+                        plotTotal=plotTotal,
                         plot1stObs=plot1stObs,
                         nrow=nrow,
                         ncol=ncol,
@@ -99,6 +107,7 @@ modelComparisons.ModelFits.ZCsByYear.Fisheries<-function(
                         usePinsAndPts=usePinsAndPts,
                         useLines=useLines,
                         usePoints=usePoints,
+                        pinSize=pinSize,
                         lineSize=lineSize,
                         pointSize=pointSize,
                         alpha=alpha,

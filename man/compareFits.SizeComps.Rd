@@ -19,6 +19,7 @@ compareFits.SizeComps(
   usePinsAndPts = FALSE,
   useLines = TRUE,
   usePoints = TRUE,
+  pinSize = 0.2,
   lineSize = 1,
   pointSize = 1,
   alpha = 0.5,
@@ -83,6 +84,10 @@ compareFits.SizeComps(
 
 \item{usePoints}{\itemize{
 \item flag to use points for predictions
+}}
+
+\item{pinSize}{\itemize{
+\item width of pin line
 }}
 
 \item{lineSize}{\itemize{
