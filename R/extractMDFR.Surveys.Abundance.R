@@ -14,6 +14,10 @@
 #'
 #'@details None.
 #'
+#'@import magrittr
+#'@import dplyr
+#'@import stringr
+#'
 #'@export
 #'
 extractMDFR.Surveys.Abundance<-function(objs,
@@ -30,27 +34,30 @@ extractMDFR.Surveys.Abundance<-function(objs,
         return(NULL);
     }
 
-    category<-category[1];
+    category<-"index";
 
     cases<-names(objs);
 
+    fleets %<>% stringr::str_replace(stringr::fixed("_"),stringr::fixed(" "));
+
     mdfr<-NULL;
     for (case in cases){
+        #--testing: case = cases[1];
         obj<-objs[[case]];
         if (verbose) cat("Processing '",case,"', a ",class(obj)[1]," object.\n",sep='');
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.Abundance(obj,category=category,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
-            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1 %<>% dplyr::filter(fleet %in% fleets);
             mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+            mdfr<-dplyr::bind_rows(mdfr,mdfr1);
         }
     }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
+    mdfr %<>% dplyr::mutate(case=factor(mdfr$case,levels=cases),
+                            y=as.numeric(y));
 
-    if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
+    if (is.numeric(years)) mdfr %<>% dplyr::filter(y %in% years);
 
     if (verbose) cat("finished rCompTCMs::extractMDFR.Surveys.Abundance()!\n");
     return(mdfr)

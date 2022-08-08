@@ -128,4 +128,8 @@ several model runs.
 \details{
 Uses \code{\link[=extractFits.SizeComps]{extractFits.SizeComps()}} to extract results.
 Also uses \code{\link[wtsUtilities:printGGList]{wtsUtilities::printGGList()}}.
+
+If \code{years} is numeric, plots start with \code{min(years)}, otherwise they
+start at the largest half-decade (e.g., 1980, 1985, 1990,...) les than or equal to the min
+year with observations.
 }

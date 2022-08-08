@@ -11,7 +11,7 @@
 #'@param years - 'all' or vector of years to include
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
-#'@return dataframe
+#'@return dataframe or NULL
 #'
 #'@details None.
 #'
@@ -44,12 +44,17 @@ extractMDFR.Fisheries.CatchBiomass<-function(objs,
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.Fisheries.CatchBiomass(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.CatchBiomass(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.CatchBiomass(obj,category=category,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
+        if ((!is.null(mdfr1))&&nrow(mdfr1)){
             if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+            if ((!is.null(mdfr1))&&nrow(mdfr1)){
+                mdfr1$case<-case;
+                mdfr<-rbind(mdfr,mdfr1);
+            }
         }
     }
+
+    if (is.null(mdfr)) return(NULL);
+
     mdfr$case<-factor(mdfr$case,levels=cases);
     mdfr$y<-as.numeric(mdfr$y);
 

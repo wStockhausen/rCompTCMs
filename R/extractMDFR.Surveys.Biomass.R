@@ -12,6 +12,10 @@
 #'
 #'@return dataframe in canonical format.
 #'
+#'@import magrittr
+#'@import dplyr
+#'@import stringr
+#'
 #'@details None.
 #'
 #'@export
@@ -35,6 +39,8 @@ extractMDFR.Surveys.Biomass<-function(objs,
 
     cases<-names(objs);
 
+    fleets %<>% stringr::str_replace(stringr::fixed("_"),stringr::fixed(" "));
+
     mdfr<-NULL;
     for (case in cases){
         obj<-objs[[case]];
@@ -43,15 +49,15 @@ extractMDFR.Surveys.Biomass<-function(objs,
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Surveys.Biomass(obj,category=category,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Surveys.Biomass(obj,category=category,cast=cast,verbose=verbose);
         if (!is.null(mdfr1)){
-            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1 %<>% dplyr::filter(fleet %in% fleets);
             mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+            mdfr<-dplyr::bind_rows(mdfr,mdfr1);
         }
     }
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.numeric(mdfr$y);
+    mdfr %<>% dplyr::mutate(case=factor(mdfr$case,levels=cases),
+                            y=as.numeric(y));
 
-    if (is.numeric(years)) mdfr<-mdfr[mdfr$y %in% years,];
+    if (is.numeric(years)) mdfr %<>% dplyr::filter(y %in% years);
 
     if (verbose) cat("finished rCompTCMs::extractMDFR.Surveys.Biomass(: Done))!\n");
     return(mdfr)

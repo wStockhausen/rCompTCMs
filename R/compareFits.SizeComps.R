@@ -30,6 +30,10 @@
 #'@details Uses [rCompTCMs::extractFits.SizeComps()] to extract results.
 #'Also uses [wtsUtilities::printGGList()].
 #'
+#'If \code{years} is numeric, plots start with \code{min(years)}, otherwise they
+#'start at the largest half-decade (e.g., 1980, 1985, 1990,...) les than or equal to the min
+#'year with observations.
+#'
 #'@return Non-nested list of ggplot2 objects, with captions as names
 #'
 #'@import dplyr
@@ -146,7 +150,11 @@ compareFits.SizeComps<-function(objs=NULL,
 
                             #add in missing years as size comps with 0's
                             ys<-sort(unique(mdfrp$y));
-                            mny<-5*floor(min(ys)/5);
+                            if (is.numeric(years)){
+                                mny = min(years);
+                            } else {
+                                mny<-5*floor(min(ys)/5);
+                            }
                             mxy<-mny+mxp*ceiling((max(ys)-mny+1)/mxp)-1;
                             mdfrpp<-mdfrp[1,];
                             mdfrpp$val<-0;

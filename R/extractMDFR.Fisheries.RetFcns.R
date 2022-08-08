@@ -35,12 +35,21 @@ extractMDFR.Fisheries.RetFcns<-function(objs,
         if (inherits(obj,"tcsam2013.resLst")) mdfr1<-rTCSAM2013::getMDFR.FisheryQuantities(obj,type='ret_yxz',verbose=verbose);
         if (inherits(obj,"rsimTCSAM.resLst")) mdfr1<-rsimTCSAM::getMDFR.Fisheries.RetFcns(obj,cast=cast,verbose=verbose);
         if (inherits(obj,"tcsam02.resLst"))   mdfr1<-rTCSAM02::getMDFR.Fisheries.RetFcns(obj,cast=cast,verbose=verbose);
-        if (!is.null(mdfr1)){
-            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
-            mdfr1$case<-case;
-            mdfr<-rbind(mdfr,mdfr1);
+        if (nrow(mdfr1)>0){
+            if ((!is.null(fleets))&&tolower(fleets[1])!="all") mdfr1 %<>% dplyr::filter(fleet %in% fleets);
+            if (nrow(mdfr1)>0){
+                mdfr1$case<-case;
+                mdfr<-dplyr::bind_rows(mdfr,mdfr1);
+            } else {
+                if (verbose) warning("case '",case,"' had zero rows.")
+            }
         }
     }
+    if (is.null(mdfr)) {
+        warning("rCompTCMs::extractMDFR.Fisheries.RetFcns:: Returning NULL object!")
+        return(mdfr);
+    }
+
     mdfr$z<-as.numeric(mdfr$z)
     mdfr$case<-factor(mdfr$case,levels=cases);
 

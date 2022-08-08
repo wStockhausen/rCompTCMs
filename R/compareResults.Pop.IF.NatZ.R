@@ -22,7 +22,7 @@
 #'@export
 #'
 compareResults.Pop.IF.NatZ<-function(objs,
-                                     type=c("iN_yxmsz","fN_yxmsz"),
+                                     type=c("iN_xmsz","fN_xmsz"),
                                      dodge=0.2,
                                      showPlot=FALSE,
                                      pdf=NULL,
@@ -65,7 +65,7 @@ compareResults.Pop.IF.NatZ<-function(objs,
     if (type=='iN_xmsz') ylab<-'Initial Population Abundance\n';
     if (type=='fN_xmsz') ylab<-'Final Population Abundance\n';
     p<-plotMDFR.XY(mdfr,x='z',value.var='val',agg.formula=NULL,
-                   facet_grid="m+s~x",
+                   facet_grid=formula(m+s~x),
                    xlab='size (mm CW)',ylab=ylab,units='millions',lnscale=FALSE,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='',

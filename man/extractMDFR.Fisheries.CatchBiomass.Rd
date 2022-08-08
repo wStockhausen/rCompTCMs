@@ -27,7 +27,7 @@ extractMDFR.Fisheries.CatchBiomass(
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }
 \value{
-dataframe
+dataframe or NULL
 }
 \description{
 This function extracts estimated fishery catch biomass by year

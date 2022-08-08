@@ -39,7 +39,7 @@ fontsize: 11pt
 title: '`r params$title`'
 ---
 
-```{r setupModelFitsToSurveySizeComps, include=FALSE}
+```{r setupModelFitsToFisherySizeComps, include=FALSE}
     ##input model list
     Models<-params$Models;
     doc_type<-params$doc_type;
@@ -65,6 +65,7 @@ Fits to the fishery size composition data available to the model(s) are presente
 <!---Retained catch -->
 
 ```{r plotFits.FisheryRetainedCatchZCsLinePlots,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions=NULL;#--need it defined for eval.after
   if (plotRetained){
     cat("\n\n# Retained catch size compositions\n\n")
     plts<-rCompTCMs::compareFits.SizeComps(Models,
@@ -91,7 +92,7 @@ Fits to the fishery size composition data available to the model(s) are presente
     for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
     rm(plt,plts);
   } else {
-    cat("\n\nRetained catch size compositions not plotted.\n\n")
+    cat("\n\n<!--Retained catch size compositions not plotted.-->\n\n")
   }
   #res<-wtsUtilities::printGGList(plots=plts,figno=fig,show=TRUE);
   #fig<-res$figno;
@@ -105,6 +106,7 @@ Fits to the fishery size composition data available to the model(s) are presente
 <!---Total catch -->
 
 ```{r plotFits.FisheryTotalCatchZCsLinePlots,results='asis',fig.height=6.5,fig.width=6.5,out.width="6.5in",fig.cap=captions,eval.after="fig.cap",fig.pos="H"}
+  captions=NULL;#--need it defined for eval.after
   if (plotTotal){
     cat("\n\n# Total catch size compositions\n\n");
     plts<-rCompTCMs::compareFits.SizeComps(Models,
@@ -131,6 +133,6 @@ Fits to the fishery size composition data available to the model(s) are presente
     for (plt in plts) {print(plt); cat("\n\n"); fig<-fig+1;}
     rm(plt,plts);
   } else {
-    cat("\n\nTotal catch size compositions not plotted.\n\n")
+    cat("\n\n<!--Total catch size compositions not plotted.-->\n\n")
   }
 ```

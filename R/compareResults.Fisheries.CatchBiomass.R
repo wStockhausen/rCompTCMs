@@ -62,7 +62,8 @@ compareResults.Fisheries.CatchBiomass<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Fisheries.CatchBiomass(objs,fleets=fleets,category=category,cast=cast,years=years,verbose=verbose)
+    mdfr<-extractMDFR.Fisheries.CatchBiomass(objs,fleets=fleets,category=category,cast=cast,years=years,verbose=verbose);
+    if (is.null(mdfr)) return(NULL);
 
     #----------------------------------
     #fishery catch biomass

@@ -55,7 +55,10 @@ compareResults.Fisheries.SelFcns<-function(objs,
         mdfr<-objs;
     } else {
         mdfr<-extractMDFR.Fisheries.SelFcns(objs,fleets=fleets,cast=cast,years=years,verbose=verbose);
-        if (is.null(mdfr)) return(list()); #empty list
+        if (is.null(mdfr)||(nrow(mdfr)==0)) {
+            warning("rCompTCMs::compareResults.Fisheries.SelFcns: returning empty list.")
+            return(list()); #empty list
+        }
     }
 
     #---------NEW CODE------------

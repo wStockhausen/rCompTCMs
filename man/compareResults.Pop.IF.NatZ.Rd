@@ -6,7 +6,7 @@
 \usage{
 compareResults.Pop.IF.NatZ(
   objs,
-  type = c("iN_yxmsz", "fN_yxmsz"),
+  type = c("iN_xmsz", "fN_xmsz"),
   dodge = 0.2,
   showPlot = FALSE,
   pdf = NULL,
