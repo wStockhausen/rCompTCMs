@@ -27,6 +27,7 @@
 #'@details uses \code{reshape2} package.
 #'
 #'@import ggplot2
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -60,7 +61,7 @@ plotMDFR.Bars<-function(mdfr,
         nms[nms==value.var]<-'.';
         colnames(mdfr)<-nms;
     }
-    
+
     #setp up labels
     ylb<-ylab;
     if (units!='') ylb<-paste(ylab," (",units,")",sep='')
@@ -69,7 +70,7 @@ plotMDFR.Bars<-function(mdfr,
         ylb<-paste(ylab," (ln-scale)",sep='')
         if (units!='') ylb<-paste(ylab," (",units,", ln-scale)",sep='')
     }
-    
+
     #plot resulting dataframe
     p <- ggplot(aes_string(x=x,y='.',colour=colour,fill=fill),data=mdfr);
     p <- p + geom_bar(stat="identity",position=position);
@@ -79,6 +80,7 @@ plotMDFR.Bars<-function(mdfr,
     if (!is.null(faceting)) p <- p + facet_grid(faceting);
     if (!is.null(guideTitleColour))   p <- p + guides(colour=guide_legend(title=guideTitleColour,  override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleFill))     p <- p + guides(fill=guide_legend(title=guideTitleFill,      override.aes=list(alpha=1.0,size=6,order=1)));
+    p = p + wtsPlots::getStdTheme();
     if (showPlot) print(p);
     return(invisible(p));
 }

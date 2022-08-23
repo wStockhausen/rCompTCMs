@@ -26,6 +26,8 @@
 #'@details uses \code{reshape2} package.
 #'
 #'@import ggplot2
+#'@import reshape2
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -59,7 +61,7 @@ plotMDFR.Bubbles<-function(mdfr,
         nms[nms==value.var]<-'.';
         colnames(mdfr)<-nms;
     }
-  
+
     #plot resulting dataframe
     if (sum(mdfr[["."]])==0) mdfr[["."]][1]<-1.0e-10;
     p <- ggplot(aes_string(x=x,y=y,size='.',colour=colour),data=mdfr);
@@ -78,6 +80,7 @@ plotMDFR.Bubbles<-function(mdfr,
             p <- p + guides(colour=guide_legend(guideTitleColour,override.aes=list(alpha=1.0,size=6),order=2));
         }
     }
+    p = p + wtsPlots::getStdTheme();
     if (showPlot) print(p);
 
     return(p)

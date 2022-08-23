@@ -30,6 +30,7 @@
 #'@details uses \code{reshape2} package.
 #'
 #'@import ggplot2
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -90,6 +91,7 @@ plotMDFR.BarLine<-function(mdfr,
     if (!is.null(guideTitleFill))     p <- p + guides(fill=guide_legend(title=guideTitleFill,      override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleLineType)) p <- p + guides(linetype=guide_legend(title=guideTitleLineType,override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleShape))    p <- p + guides(shape=guide_legend(title=guideTitleShape,      override.aes=list(alpha=1.0,size=6,order=1)));
+    p = p + wtsPlots::getStdTheme();
     if (showPlot) print(p);
     return(p)
 }

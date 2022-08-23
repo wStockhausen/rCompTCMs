@@ -68,9 +68,11 @@ retroGetMDFR<-function(modsRetro,
 #'@details Mohn's rho quantifies the relative bias exhibited by estimates of some
 #'quantity from a set of retrospective model runs.
 #'
+#'@import dplyr
 #'@import ggplot2
 #'@import magrittr
 #'@importFrom reshape2 dcast
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -95,7 +97,8 @@ retroCalcMohnsRho<-function(dfr,ylab="value",yadj=0,showPlot=FALSE){
        geom_line() +
        geom_point(data=(dfrp %>% dplyr::filter(y==as.numeric(case)-1+yadj)),size=2) +
        labs(x="peel",y=ylab,colour="peel",caption=paste0("Mohn's rho = ",trho)) +
-       lims(y=c(0,NA));
+       lims(y=c(0,NA)) +
+       wtsPlots::getStdTheme();
   if (showPlot) print(p);
 
   return(invisible(list(rho=rho,dfr=dfrpp,plot=p)));

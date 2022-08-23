@@ -12,10 +12,6 @@
 #'@details Creates bar plots for average recruitment, Bmsy, Fmsy, terminal year MMB,
 #'projected MMB, and status
 #'
-#'@import ggplot2
-#'@import magrittr
-#'@importFrom reshape2 dcast
-#'
 #'@export
 #'
 retroPlotOFLResults<-function(dfr.OFLs,x="case",xlab="Peel"){
@@ -138,6 +134,7 @@ retroPlotFitsAsTimeSeries<-function(dfr,ylab,units,lnscale=FALSE,dodge=0,size=2,
 #'@details The column "case" should indicate the peels of the retrospective runs
 #'
 #'@import ggplot2
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -146,6 +143,7 @@ retroPlotValuesAsBars<-function(dfr,xlab="peel",ylab="",facet_grid=NULL){
   p<-p+geom_bar(colour=NA,position=position_dodge());
   p<-p+labs(x=xlab,y=ylab,fill=xlab);
   if (!is.null(facet_grid)) p<-p+facet_grid(facet_grid);
+  p<-p+wtsPlots::getStdTheme();
   return(p)
 }
 
@@ -164,6 +162,7 @@ retroPlotValuesAsBars<-function(dfr,xlab="peel",ylab="",facet_grid=NULL){
 #'@details The column "case" should indicate the peels of the retrospective runs
 #'
 #'@import ggplot2
+#'@importFrom wtsPlots getStdTheme
 #'
 #'@export
 #'
@@ -172,6 +171,7 @@ retroPlotValuesBySize<-function(dfr,xlab="size (mm CW)",ylab="",facet_grid=NULL)
   p<-p+geom_line()+geom_point();
   p<-p+labs(x=xlab,y=ylab,colour="peel",shape="peel")
   if (!is.null(facet_grid)) p<-p+facet_grid(facet_grid);
+  p<-p+wtsPlots::getStdTheme();
   return(p)
 }
 
