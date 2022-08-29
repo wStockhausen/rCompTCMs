@@ -8,13 +8,23 @@ plotLollipops.GrowthData(
   mdfr,
   type = "zscores",
   extreme = 3,
-  dw = 0,
+  dw = 1,
   xlab = "pre-molt size",
   ylab = type
 )
 }
 \arguments{
 \item{mdfr}{- input dataframe from [rCompTCMs::extractMDFR.Fits.GrowthData()]}
+
+\item{type}{- type of value to plot (e.g., "zscores")}
+
+\item{extreme}{- criteria for extreme values}
+
+\item{dw}{- dodge width (x-axis units)}
+
+\item{xlab}{- x-axis label}
+
+\item{ylab}{- y-axis label}
 }
 \value{
 ggplot2 plot object

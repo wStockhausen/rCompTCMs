@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotLollipops.R
 \name{plotLollipops.ACD}
 \alias{plotLollipops.ACD}
-\title{plot lollipops for fits to size composition data}
+\title{plot lollipops for fits to aggregated catch data}
 \usage{
 plotLollipops.ACD(
   mdfr,
@@ -15,12 +15,24 @@ plotLollipops.ACD(
 }
 \arguments{
 \item{mdfr}{- input data}
+
+\item{type}{- type of value to plot (e.g., "z-scores")}
+
+\item{extreme}{- criteria for extreme values}
+
+\item{dw}{- dodge width (x-axis units)}
+
+\item{xlab}{- x-axis label}
+
+\item{ylab}{- y-axis label}
+
+\item{nrow}{- number of rows for faceting}
 }
 \value{
 ggplot2 plot object
 }
 \description{
-function to plot lollipops for fits to size composition data.
+function to plot lollipops for fits to aggregated catch data.
 }
 \details{
 Under construction!
