@@ -9,6 +9,7 @@ plotLollipops.ZCs(
   type = "zscores",
   extreme = 3,
   dw = 5,
+  size = 0.1,
   xlab = "size bin (mm CW)",
   ylab = "z-score",
   facet_wrap = ~y,
@@ -17,6 +18,18 @@ plotLollipops.ZCs(
 }
 \arguments{
 \item{mdfr}{- input data}
+
+\item{type}{- type of value to plot (e.g., "zscores")}
+
+\item{extreme}{- criteria for extreme values}
+
+\item{dw}{- dodge width (x-axis units)}
+
+\item{size}{- line size for lollipop stems}
+
+\item{xlab}{- x-axis label}
+
+\item{ylab}{- y-axis label}
 }
 \value{
 ggplot2 plot object

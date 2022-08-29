@@ -9,6 +9,7 @@ plotLollipops.GrowthData(
   type = "zscores",
   extreme = 3,
   dw = 1,
+  size = 0.1,
   xlab = "pre-molt size",
   ylab = type
 )
@@ -21,6 +22,8 @@ plotLollipops.GrowthData(
 \item{extreme}{- criteria for extreme values}
 
 \item{dw}{- dodge width (x-axis units)}
+
+\item{size}{- line size for lollipop stems}
 
 \item{xlab}{- x-axis label}
 

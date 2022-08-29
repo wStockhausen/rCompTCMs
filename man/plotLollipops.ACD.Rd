@@ -9,6 +9,7 @@ plotLollipops.ACD(
   type = "z-score",
   extreme = 3,
   dw = 1,
+  size = 0.1,
   xlab = "year",
   ylab = type
 )
@@ -16,17 +17,17 @@ plotLollipops.ACD(
 \arguments{
 \item{mdfr}{- input data}
 
-\item{type}{- type of value to plot (e.g., "z-scores")}
+\item{type}{- type of value to plot (e.g., "z-score")}
 
 \item{extreme}{- criteria for extreme values}
 
 \item{dw}{- dodge width (x-axis units)}
 
+\item{size}{- line size for lollipop stems}
+
 \item{xlab}{- x-axis label}
 
 \item{ylab}{- y-axis label}
-
-\item{nrow}{- number of rows for faceting}
 }
 \value{
 ggplot2 plot object

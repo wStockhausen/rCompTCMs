@@ -9,6 +9,7 @@ plotLollipops.MaturityOgiveData(
   type = "zscores",
   extreme = 3,
   dw = 5,
+  size = 0.1,
   nrow = 5,
   xlab = "size (mm CW)",
   ylab = type
@@ -22,6 +23,8 @@ plotLollipops.MaturityOgiveData(
 \item{extreme}{- criteria for extreme values}
 
 \item{dw}{- dodge width (x-axis units)}
+
+\item{size}{- line size for lollipop stems}
 
 \item{nrow}{- number of rows for faceting}
 

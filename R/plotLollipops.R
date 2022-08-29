@@ -4,6 +4,12 @@
 #' @description function to plot lollipops for fits to size composition data.
 #'
 #' @param mdfr - input data
+#' @param type - type of value to plot (e.g., "zscores")
+#' @param extreme - criteria for extreme values
+#' @param dw - dodge width (x-axis units)
+#' @param size - line size for lollipop stems
+#' @param xlab - x-axis label
+#' @param ylab - y-axis label
 #'
 #' @return ggplot2 plot object
 #'
@@ -19,6 +25,7 @@ plotLollipops.ZCs<-function(mdfr,
                             type="zscores",
                             extreme=3,
                             dw=5,
+                            size=0.1,
                             xlab="size bin (mm CW)",
                             ylab="z-score",
                             facet_wrap=~y,
@@ -32,7 +39,7 @@ plotLollipops.ZCs<-function(mdfr,
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,xend=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw)) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
          geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -67,10 +74,10 @@ plotLollipops.ZCs<-function(mdfr,
 #' @description function to plot lollipops for fits to aggregated catch data.
 #'
 #' @param mdfr - input data
-#' @param type - type of value to plot (e.g., "z-scores")
+#' @param type - type of value to plot (e.g., "z-score")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
-#' @param nrow - number of rows for faceting
+#' @param size - line size for lollipop stems
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
 #'
@@ -88,6 +95,7 @@ plotLollipops.ACD<-function(mdfr,
                             type="z-score",
                             extreme=3,
                             dw=1,
+                            size=0.1,
                             xlab="year",
                             ylab=type){
    type_ = type[1];
@@ -100,7 +108,7 @@ plotLollipops.ACD<-function(mdfr,
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=y,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw)) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
          geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
@@ -125,6 +133,7 @@ plotLollipops.ACD<-function(mdfr,
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
+#' @param size - line size for lollipop stems
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
 #'
@@ -142,6 +151,7 @@ plotLollipops.GrowthData<-function(mdfr,
                                     type="zscores",
                                     extreme=3,
                                     dw=1,
+                                    size=0.1,
                                     xlab="pre-molt size",
                                     ylab=type){
    type_ = type[1];
@@ -154,7 +164,7 @@ plotLollipops.GrowthData<-function(mdfr,
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=0.1) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
          geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
@@ -179,6 +189,7 @@ plotLollipops.GrowthData<-function(mdfr,
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
+#' @param size - line size for lollipop stems
 #' @param nrow - number of rows for faceting
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
@@ -197,6 +208,7 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
                                           type="zscores",
                                           extreme=3,
                                           dw=5,
+                                          size=0.1,
                                           nrow=5,
                                           xlab="size (mm CW)",
                                           ylab=type){
@@ -210,7 +222,7 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=0.1) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
          geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
