@@ -4,10 +4,12 @@
 \alias{extractMDFR.Pop.NaturalMortality}
 \title{Function to plot natural mortality rates by year using ggplot2}
 \usage{
-extractMDFR.Pop.NaturalMortality(objs, verbose = FALSE)
+extractMDFR.Pop.NaturalMortality(objs, type = "M_yxm", verbose = FALSE)
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{type}{- type of estimates to return}
 
 \item{verbose}{- flag (T/F) to print diagnostic information}
 }

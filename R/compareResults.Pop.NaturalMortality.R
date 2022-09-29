@@ -5,6 +5,7 @@
 #'   sex and maturity state.
 #'
 #'@param objs - list of resLst objects
+#'@param type - type of mortality values to plot
 #'@param dodge - width to dodge overlapping series
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
@@ -20,6 +21,7 @@
 #'@export
 #'
 compareResults.Pop.NaturalMortality<-function(objs,
+                                              type="M_cy",
                                               dodge=0.2,
                                               pdf=NULL,
                                               showPlot=FALSE,
@@ -37,7 +39,7 @@ compareResults.Pop.NaturalMortality<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Pop.NaturalMortality(objs,verbose=verbose);
+    mdfr<-extractMDFR.Pop.NaturalMortality(objs,type=type,verbose=verbose);
 
     #----------------------------------
     # plot natural mortality rates by year

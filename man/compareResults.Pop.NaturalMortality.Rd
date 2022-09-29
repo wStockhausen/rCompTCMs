@@ -6,6 +6,7 @@
 \usage{
 compareResults.Pop.NaturalMortality(
   objs,
+  type = "M_cy",
   dodge = 0.2,
   pdf = NULL,
   showPlot = FALSE,
@@ -14,6 +15,8 @@ compareResults.Pop.NaturalMortality(
 }
 \arguments{
 \item{objs}{- list of resLst objects}
+
+\item{type}{- type of mortality values to plot}
 
 \item{dodge}{- width to dodge overlapping series}
 
