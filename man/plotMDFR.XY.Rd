@@ -36,8 +36,8 @@ plotMDFR.XY(
   plotPoints = TRUE,
   plotLines = TRUE,
   plotABline = FALSE,
-  abline = list(intercept = 0, slope = 1, colour = "black", linetype = 3, size = 1,
-    alpha = 0.8),
+  abline = list(intercept = 0, slope = 1, colour = "black", linetype = 3, size = 1, alpha
+    = 0.8),
   showPlot = FALSE
 )
 }

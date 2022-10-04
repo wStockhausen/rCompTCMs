@@ -13,8 +13,8 @@ modelComparisons.Characteristics.Surveys(
   mxy = 5,
   output_format = c("word_document", "pdf_document"),
   output_dir = getwd(),
-  rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd",
-    package = "rCompTCMs"),
+  rmd = system.file("rmd/modelComparisons.EstimatedCharacteristics.Surveys.Rmd", package
+    = "rCompTCMs"),
   docx_styles = system.file("rmd/StylesForRmdDocs.docx", package = "wtsUtilities"),
   pdf_styles = system.file("rmd/StylesForRmdPDFs.sty", package = "wtsUtilities"),
   clean = FALSE
