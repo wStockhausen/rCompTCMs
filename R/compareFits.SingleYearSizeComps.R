@@ -136,9 +136,15 @@ compareFits.SingleYearSizeComps<-function(objs=NULL,
             #do plot
             pd = position_identity();
             p  = ggplot(data=dfrp)
-            if (useBars)       p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position='identity',alpha=0.5)
-            if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position='identity',ymin=0.0,size=pinSize)
-            if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val,colour=case),data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
+            if (plot1stObs){
+                if (useBars)       p = p + geom_bar(aes(x=z,y=val),fill="black",data=dfrpo,stat="identity",position='identity',alpha=0.5)
+                if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val),colour="black",data=dfrpo,stat="identity",position='identity',ymin=0.0,size=pinSize)
+                if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val),colour="black",data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
+            } else {
+                if (useBars)       p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position='identity',alpha=0.5)
+                if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position='identity',ymin=0.0,size=pinSize)
+                if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val,colour=case),data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
+            }
             if (useLines)      p = p + geom_line( aes(x=z,y=val,colour=case),data=dfrp[(dfrp$type=='predicted'),],size=lineSize,alpha=alpha)
             if (usePoints)     p = p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrp[(dfrp$type=='predicted'),],size=pointSize)
             p <- p + ylim(0,NA)
