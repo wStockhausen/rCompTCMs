@@ -7,9 +7,13 @@
 getResLsts(inp.dirs = NULL)
 }
 \arguments{
-\item{inp.dirs}{- a dataframe with columns "case", "modelType", "path", "repType", "modelName", "prsType"}
+\item{inp.dirs}{\itemize{
+\item a dataframe with columns "case", "modelType", "path", "repType", "modelName", "prsType"
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 a named list of the appropriate resLst objects.

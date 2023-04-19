@@ -42,71 +42,137 @@ plotMDFR.XY(
 )
 }
 \arguments{
-\item{mdfr}{- melted dataframe}
+\item{mdfr}{\itemize{
+\item melted dataframe
+}}
 
-\item{x}{- column name for x-axis values}
+\item{x}{\itemize{
+\item column name for x-axis values
+}}
 
-\item{value.var}{- column name for values to aggregate (value.var in cast)/plot on y-axis}
+\item{value.var}{\itemize{
+\item column name for values to aggregate (value.var in cast)/plot on y-axis
+}}
 
-\item{agg.formula}{- aggregation formula (left-hand side of cast formula)}
+\item{agg.formula}{\itemize{
+\item aggregation formula (left-hand side of cast formula)
+}}
 
-\item{agg.function}{- aggregation function (fun.aggregate in cast)}
+\item{agg.function}{\itemize{
+\item aggregation function (fun.aggregate in cast)
+}}
 
-\item{...}{- further arguments passed to aggregating function}
+\item{...}{\itemize{
+\item further arguments passed to aggregating function
+}}
 
-\item{colour}{- column name to which colour aesthetic is mapped}
+\item{colour}{\itemize{
+\item column name to which colour aesthetic is mapped
+}}
 
-\item{fill}{- column nameto which fill aesthetic is mapped}
+\item{fill}{\itemize{
+\item column nameto which fill aesthetic is mapped
+}}
 
-\item{linetype}{- column name to which linetype aesthetic is mapped}
+\item{linetype}{\itemize{
+\item column name to which linetype aesthetic is mapped
+}}
 
-\item{shape}{-  column name to which shape aesthetic is mapped}
+\item{shape}{\itemize{
+\item column name to which shape aesthetic is mapped
+}}
 
-\item{dodge}{- width to dodge overlapping points/lines}
+\item{dodge}{\itemize{
+\item width to dodge overlapping points/lines
+}}
 
-\item{facet_grid}{- faceting formula for facet_grid'ing}
+\item{facet_grid}{\itemize{
+\item faceting formula for facet_grid'ing
+}}
 
-\item{facet_wrap}{- faceting formula for facet_wrap'ing}
+\item{facet_wrap}{\itemize{
+\item faceting formula for facet_wrap'ing
+}}
 
-\item{nrow}{- number of rows when using facet_wrap}
+\item{nrow}{\itemize{
+\item number of rows when using facet_wrap
+}}
 
-\item{ncol}{- number of columns when using facet_wrap}
+\item{ncol}{\itemize{
+\item number of columns when using facet_wrap
+}}
 
-\item{dir}{- fastest direction ('h','v') for faceting}
+\item{dir}{\itemize{
+\item fastest direction ('h','v') for faceting
+}}
 
-\item{scales}{- scaling flag when faceting}
+\item{scales}{\itemize{
+\item scaling flag when faceting
+}}
 
-\item{xlim}{- x axis limits}
+\item{xlim}{\itemize{
+\item x axis limits
+}}
 
-\item{ylim}{- y axis limits}
+\item{ylim}{\itemize{
+\item y axis limits
+}}
 
-\item{xlab}{- x axis label}
+\item{xlab}{\itemize{
+\item x axis label
+}}
 
-\item{ylab}{- y axis label}
+\item{ylab}{\itemize{
+\item y axis label
+}}
 
-\item{units}{- combined with y axis label}
+\item{units}{\itemize{
+\item combined with y axis label
+}}
 
-\item{lnscale}{- flag to plot on ln-scale}
+\item{lnscale}{\itemize{
+\item flag to plot on ln-scale
+}}
 
-\item{title}{- plot title}
+\item{title}{\itemize{
+\item plot title
+}}
 
-\item{guideTitleColour}{- title for colour guide}
+\item{guideTitleColour}{\itemize{
+\item title for colour guide
+}}
 
-\item{guideTitleFill}{- title for fill guide}
+\item{guideTitleFill}{\itemize{
+\item title for fill guide
+}}
 
-\item{guideTitleLineType}{- title for linetype guide}
+\item{guideTitleLineType}{\itemize{
+\item title for linetype guide
+}}
 
-\item{guideTitleShape}{- title for shape guide}
+\item{guideTitleShape}{\itemize{
+\item title for shape guide
+}}
 
-\item{plotPoints}{- flag to plot points}
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
 
-\item{plotLines}{- flag to plot lines}
+\item{plotLines}{\itemize{
+\item flag to plot lines
+}}
 
-\item{plotABline}{- flag to plot a straight line}
+\item{plotABline}{\itemize{
+\item flag to plot a straight line
+}}
 
-\item{abline}{- list w/ components intercept, slope, colour, size, linetype, alpha describing line to plots}
+\item{abline}{\itemize{
+\item list w/ components intercept, slope, colour, size, linetype, alpha describing line to plots
+}}
 
-\item{showPlot}{- flag to show plot immediately}
+\item{showPlot}{\itemize{
+\item flag to show plot immediately
+}}
 }
 \value{
 ggplot2 object

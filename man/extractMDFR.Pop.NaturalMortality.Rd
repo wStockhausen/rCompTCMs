@@ -7,18 +7,24 @@
 extractMDFR.Pop.NaturalMortality(objs, type = "M_yxm", verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{type}{- type of estimates to return}
+\item{type}{\itemize{
+\item type of estimates to return
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function plots natural mortality estimates by year,
-  sex and maturity state.
+sex and maturity state.
 }
 \details{
 None.

@@ -7,13 +7,21 @@
 plotPop.MeanGrowth(mdfr, dodge = 0.2, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{mdfr}{- melted dataframe}
+\item{mdfr}{\itemize{
+\item melted dataframe
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot object

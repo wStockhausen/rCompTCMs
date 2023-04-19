@@ -15,19 +15,33 @@ extractMDFR.Fits.BiomassData(
 )
 }
 \arguments{
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{ci}{- confidence interval for plots}
+\item{ci}{\itemize{
+\item confidence interval for plots
+}}
 
-\item{fishery.pdfType}{- assumed distribution for fishery data}
+\item{fishery.pdfType}{\itemize{
+\item assumed distribution for fishery data
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{obj}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 }
 \value{
 dataframe
@@ -37,6 +51,6 @@ Function to extract fits to biomass time series by fleet among
 several model runs.
 }
 \details{
-Uses [rTCSAM2013::getMDFR.SurveyQuantities()],
-[rTCSAM2013::getMDFR.FisheryQuantities()], [rTCSAM02::getMDFR.Fits.FleetData()].
+Uses \code{\link[rTCSAM2013:getMDFR.SurveyQuantities]{rTCSAM2013::getMDFR.SurveyQuantities()}},
+\code{\link[rTCSAM2013:getMDFR.FisheryQuantities]{rTCSAM2013::getMDFR.FisheryQuantities()}}, \code{\link[rTCSAM02:getMDFR.Fits.FleetData]{rTCSAM02::getMDFR.Fits.FleetData()}}.
 }

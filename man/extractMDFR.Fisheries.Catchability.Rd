@@ -13,22 +13,32 @@ extractMDFR.Fisheries.Catchability(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{years}{- vector of years to show, or 'all' to show all years}
+\item{years}{\itemize{
+\item vector of years to show, or 'all' to show all years
+}}
 
-\item{cast}{- formula to exclude factors from "averaging" over}
+\item{cast}{\itemize{
+\item formula to exclude factors from "averaging" over
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
 }
 \description{
 This function extracts fishery catchability estimates by year,
-  sex and maturity state.
+sex and maturity state.
 }
 \details{
 None.

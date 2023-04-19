@@ -7,16 +7,20 @@
 extractMDFR.Pop.Recruitment(objs, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
 }
 \description{
 This function extracts recruitment estimates by year
-  among several models.
+among several models.
 }
 \details{
 None.

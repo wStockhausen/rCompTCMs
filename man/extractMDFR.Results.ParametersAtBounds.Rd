@@ -7,11 +7,17 @@
 extractMDFR.Results.ParametersAtBounds(objs, delta = 1e-04, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{delta}{- relative fraction of range defining "at bounds"}
+\item{delta}{\itemize{
+\item relative fraction of range defining "at bounds"
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe

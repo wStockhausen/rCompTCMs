@@ -14,17 +14,29 @@ compareResults.Pop.MeanGrowthPlusProbs(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{scale}{- scaling factor for probabilities}
+\item{scale}{\itemize{
+\item scaling factor for probabilities
+}}
 
-\item{zbnds}{- 2-element vector indicating lower and upper bounds on model size bins}
+\item{zbnds}{\itemize{
+\item 2-element vector indicating lower and upper bounds on model size bins
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplot objects (plots by sex)

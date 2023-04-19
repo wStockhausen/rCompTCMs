@@ -13,13 +13,18 @@
 #'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param lnscale - use log scale on y axis
 #'@param scales - scales parameter for facet_grid/facet_wrap
+#'@param types - cohort plot types ("progression","byyear")
+#'@param plotPoints - flag to plot points
+#'@param shapes - name of column for ggplot shape factors (defaults to 's' for shell condition)
+#'@param plotLines - flag to plot cohorts as lines
+#'@param linetypes - name of column for ggplot linetype factors (defaults to 'ms' for maturity + shell condition)
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return a list of ggplot2 objects
 #'
-#'@details If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-#'a set of time series plots are produced.
+#'@details Can plot cohort abundance as a progression by stage for each model or
+#'as size distributions by year with colours indicating different models.
 #'
 #'@import ggplot2
 #'
@@ -35,6 +40,10 @@ plotPop.CohortProgression<-function(mdfr,
                                    lnscale=FALSE,
                                    scales="fixed",
                                    types=c("progression","byyear"),
+                                   plotPoints=FALSE,
+                                   shapes="s",
+                                   plotLines=TRUE,
+                                   linetypes="ms",
                                    showPlot=FALSE,
                                    verbose=FALSE){
     if (verbose) message("starting rCompTCMs::plotPop.CohortProgression().\n");
@@ -81,8 +90,10 @@ plotPop.CohortProgression<-function(mdfr,
 
     if ("byyear" %in% types){
         if (verbose) message("Plotting progression by year\n")
-        uM<-sort(unique(mdfrp$m));
-        uS<-sort(unique(mdfrp$s));
+        mdfrp$ms = paste(mdfrp$m,mdfrp$s);
+        # uM<-sort(unique(mdfrp$m));
+        # uS<-sort(unique(mdfrp$s));
+        uMS<-sort(unique(mdfrp$ms));
         for (x in uX){
             idx<-mdfrp$x==x;
                     for (pg in 1:ceiling(length(uY)/mxy)){
@@ -91,14 +102,18 @@ plotPop.CohortProgression<-function(mdfr,
                         if (nrow(mdfrpp)>0){
                             if (verbose) message("Plotting ",x,paste0(uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],collapse=','),"\n");
                             mdfrpp$y<-factor(as.character(mdfrpp$y),levels=as.character(uY));
-                            p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
+                            p<-plotMDFR.XY(mdfrpp,
+                                           x='z',value.var='val',
+                                           agg.formula=NULL,
                                            facet_wrap=~y,nrow=nrow,scales=scales,
                                            xlab='size (mm CW)',ylab='Cohort Abundance',
                                            units='millions',lnscale=lnscale,
                                            title=paste0(x),
                                            colour='case',guideTitleColor='',
-                                           shape='m',guideTitleShape='',
-                                           linetype='s',guideTitleLineType='',
+                                           plotPoints=FALSE,
+                                           shape=shapes,guideTitleShape='',
+                                           plotLines=TRUE,
+                                           linetype=linetypes,guideTitleLineType='',
                                            showPlot=FALSE);
                             if (showPlot) print(p);
                             cap<-paste0("\n  \nFigure &&figno. Cohort progression size comps for ",x,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")

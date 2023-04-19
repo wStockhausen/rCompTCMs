@@ -20,36 +20,60 @@ compareResults.Fisheries.RetFcns(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{cast}{- formula to exclude factors from "averaging" over}
+\item{cast}{\itemize{
+\item formula to exclude factors from "averaging" over
+}}
 
-\item{fleets}{- vector of feets to plot, or "all"}
+\item{fleets}{\itemize{
+\item vector of feets to plot, or "all"
+}}
 
-\item{years}{- vector of years to show, or 'all' to show all years}
+\item{years}{\itemize{
+\item vector of years to show, or 'all' to show all years
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{singlePlot}{- flag to plot all years on single plot (be sure to adjust facet_grid)}
+\item{singlePlot}{\itemize{
+\item flag to plot all years on single plot (be sure to adjust facet_grid)
+}}
 
-\item{facet_wrap}{- ggplot2 formula to produce figure with wrapped facets}
+\item{facet_wrap}{\itemize{
+\item ggplot2 formula to produce figure with wrapped facets
+}}
 
-\item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
+\item{facet_grid}{\itemize{
+\item ggplot2 formula to produce figure with gridded facets
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 lists of ggplot2 objects, nested by fishery or an empty list if year is NULL
 }
 \description{
 This function compares fishery retention functions by year
-  among several models.
+among several models.
 }
 \details{
 None.

@@ -15,19 +15,33 @@ extractFits.SizeComps(
 )
 }
 \arguments{
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{years}{- years to plot, as numerical vector (or "all" to extract all years)}
+\item{years}{\itemize{
+\item years to plot, as numerical vector (or "all" to extract all years)
+}}
 
-\item{plot1stObs}{- flag (T/F) to extract observations only from first case, or vector of case names to return observations for}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to extract observations only from first case, or vector of case names to return observations for
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{obj}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 }
 \value{
 dataframe in canonical format

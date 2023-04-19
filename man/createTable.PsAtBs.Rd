@@ -7,7 +7,9 @@
 createTable.PsAtBs(dfr)
 }
 \arguments{
-\item{dfr}{- dataframe with parameters at bounds}
+\item{dfr}{\itemize{
+\item dataframe with parameters at bounds
+}}
 }
 \value{
 a \pkg{tables} tabular object

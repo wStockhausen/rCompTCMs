@@ -15,19 +15,33 @@ printResults.ParametersAtBounds(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{mdfr}{- dataframe from call to \code{extractMDFR.Results.ParametersAtBounds} (as alternative to objs)}
+\item{mdfr}{\itemize{
+\item dataframe from call to \code{extractMDFR.Results.ParametersAtBounds} (as alternative to objs)
+}}
 
-\item{delta}{- fraction of range which defines "at the bounds"}
+\item{delta}{\itemize{
+\item fraction of range which defines "at the bounds"
+}}
 
-\item{format}{- 'latex' or 'docx'}
+\item{format}{\itemize{
+\item 'latex' or 'docx'
+}}
 
-\item{landscape}{- flag indicating whether page orientation is landscape or portrait}
+\item{landscape}{\itemize{
+\item flag indicating whether page orientation is landscape or portrait
+}}
 
-\item{fontsize}{- font size (can be 'small')}
+\item{fontsize}{\itemize{
+\item font size (can be 'small')
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object

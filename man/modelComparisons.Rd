@@ -237,13 +237,21 @@ modelComparisons(
 \item T/F to delete intermediate files
 }}
 
-\item{plot1stObs}{- flag to plot observed data only from first model}
+\item{plot1stObs}{\itemize{
+\item flag to plot observed data only from first model
+}}
 
-\item{rmd_dir}{- folder enclosing rmd file}
+\item{rmd_dir}{\itemize{
+\item folder enclosing rmd file
+}}
 
-\item{base}{- name or index of base case for difference calculations}
+\item{base}{\itemize{
+\item name or index of base case for difference calculations
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic output}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic output
+}}
 }
 \description{
 Function to render a document of model comparison plots

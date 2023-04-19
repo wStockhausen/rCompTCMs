@@ -26,39 +26,73 @@ plotMDFR.Bubbles(
 )
 }
 \arguments{
-\item{x}{- column name for x-axis values}
+\item{x}{\itemize{
+\item column name for x-axis values
+}}
 
-\item{y}{- column name for y-axis values}
+\item{y}{\itemize{
+\item column name for y-axis values
+}}
 
-\item{value.var}{- column name for values to aggregate (value.var in cast)/plot as circles}
+\item{value.var}{\itemize{
+\item column name for values to aggregate (value.var in cast)/plot as circles
+}}
 
-\item{agg.formula}{- aggregation formula (left-hand side of cast formula)}
+\item{agg.formula}{\itemize{
+\item aggregation formula (left-hand side of cast formula)
+}}
 
-\item{agg.function}{- aggregation function (fun.aggregate in cast)}
+\item{agg.function}{\itemize{
+\item aggregation function (fun.aggregate in cast)
+}}
 
-\item{...}{- further arguments passed to aggregating function}
+\item{...}{\itemize{
+\item further arguments passed to aggregating function
+}}
 
-\item{colour}{- column name to which colour aesthetic is mapped}
+\item{colour}{\itemize{
+\item column name to which colour aesthetic is mapped
+}}
 
-\item{facet_grid}{- faceting formula}
+\item{facet_grid}{\itemize{
+\item faceting formula
+}}
 
-\item{units}{- units for bubble size scale}
+\item{units}{\itemize{
+\item units for bubble size scale
+}}
 
-\item{xlab}{- x axis label}
+\item{xlab}{\itemize{
+\item x axis label
+}}
 
-\item{ylab}{- y axis label}
+\item{ylab}{\itemize{
+\item y axis label
+}}
 
-\item{title}{- plot title}
+\item{title}{\itemize{
+\item plot title
+}}
 
-\item{alpha}{- transparency level}
+\item{alpha}{\itemize{
+\item transparency level
+}}
 
-\item{maxBubbleSize}{- max bubble size}
+\item{maxBubbleSize}{\itemize{
+\item max bubble size
+}}
 
-\item{useColourGradient}{- flag (T/F) to use a color gradient for bubble color}
+\item{useColourGradient}{\itemize{
+\item flag (T/F) to use a color gradient for bubble color
+}}
 
-\item{guideTitleColour}{- title for colour guide}
+\item{guideTitleColour}{\itemize{
+\item title for colour guide
+}}
 
-\item{showPlot}{- flag to show plot immediately}
+\item{showPlot}{\itemize{
+\item flag to show plot immediately
+}}
 }
 \value{
 ggplot2 object

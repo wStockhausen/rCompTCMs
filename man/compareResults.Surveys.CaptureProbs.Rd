@@ -20,36 +20,60 @@ compareResults.Surveys.CaptureProbs(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.CaptureProbs}}
+\item{objs}{\itemize{
+\item list of resLst objects or dataframe from call to \code{extractMDFR.Surveys.CaptureProbs}
+}}
 
-\item{cast}{- formula to exclude factors from "averaging" over}
+\item{cast}{\itemize{
+\item formula to exclude factors from "averaging" over
+}}
 
-\item{fleets}{- vector of fleets to plot, or "all"}
+\item{fleets}{\itemize{
+\item vector of fleets to plot, or "all"
+}}
 
-\item{years}{- vector of years to show, or 'all' to show all years}
+\item{years}{\itemize{
+\item vector of years to show, or 'all' to show all years
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{singlePlot}{- flag to plot all years on single plot (be sure to adjust facet_grid)}
+\item{singlePlot}{\itemize{
+\item flag to plot all years on single plot (be sure to adjust facet_grid)
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{facet_wrap}{- ggplot2 formula to produce figure with wrapped facets}
+\item{facet_wrap}{\itemize{
+\item ggplot2 formula to produce figure with wrapped facets
+}}
 
-\item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
+\item{facet_grid}{\itemize{
+\item ggplot2 formula to produce figure with gridded facets
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function compares survey capture probability functions (Q_vyxmsz) by year
-  among several models.
+among several models.
 }
 \details{
 None.

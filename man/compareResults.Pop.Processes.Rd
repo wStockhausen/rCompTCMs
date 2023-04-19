@@ -14,17 +14,29 @@ compareResults.Pop.Processes(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{showPlot}{- flag to show/print plots immediately}
+\item{showPlot}{\itemize{
+\item flag to show/print plots immediately
+}}
 
-\item{pdf}{- name of pdf file to record plot output to}
+\item{pdf}{\itemize{
+\item name of pdf file to record plot output to
+}}
 
-\item{width}{- pdf page width (in inches)}
+\item{width}{\itemize{
+\item pdf page width (in inches)
+}}
 
-\item{height}{- pdf page width (in inches)}
+\item{height}{\itemize{
+\item pdf page width (in inches)
+}}
 
-\item{verbose}{- flag (T/F) to print debug info}
+\item{verbose}{\itemize{
+\item flag (T/F) to print debug info
+}}
 }
 \value{
 list of ggplot2 objects.

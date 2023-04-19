@@ -31,51 +31,97 @@ modelComparisons.ModelFits.ZCsByYear.Surveys(
 )
 }
 \arguments{
-\item{models}{- named list of model results (as resLst objects) to compare}
+\item{models}{\itemize{
+\item named list of model results (as resLst objects) to compare
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
+\item{years}{\itemize{
+\item years to plot, as numerical vector (or "all" to plot all years)
+}}
 
-\item{plot1stObs}{- flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
+}}
 
-\item{nrow}{- number of rows per page for output plots}
+\item{nrow}{\itemize{
+\item number of rows per page for output plots
+}}
 
-\item{ncol}{- number of columns per page for output plots}
+\item{ncol}{\itemize{
+\item number of columns per page for output plots
+}}
 
-\item{useBars}{- flag to use bars for observations}
+\item{useBars}{\itemize{
+\item flag to use bars for observations
+}}
 
-\item{usePins}{- flag to use pins for observations}
+\item{usePins}{\itemize{
+\item flag to use pins for observations
+}}
 
-\item{usePinsAndPts}{- flag to add pts to observations when pins are used}
+\item{usePinsAndPts}{\itemize{
+\item flag to add pts to observations when pins are used
+}}
 
-\item{useLines}{- flag to use lines for predictions}
+\item{useLines}{\itemize{
+\item flag to use lines for predictions
+}}
 
-\item{usePoints}{- flag to use points for predictions}
+\item{usePoints}{\itemize{
+\item flag to use points for predictions
+}}
 
-\item{pinSize}{- width of pin line}
+\item{pinSize}{\itemize{
+\item width of pin line
+}}
 
-\item{lineSize}{- prediction line size}
+\item{lineSize}{\itemize{
+\item prediction line size
+}}
 
-\item{pointSize}{- prediction point size}
+\item{pointSize}{\itemize{
+\item prediction point size
+}}
 
-\item{alpha}{- prediction transparency}
+\item{alpha}{\itemize{
+\item prediction transparency
+}}
 
-\item{stripText}{- [ggplot2::element_text()] object describing font and margin to use for panel strips}
+\item{stripText}{\itemize{
+\item \code{\link[ggplot2:element]{ggplot2::element_text()}} object describing font and margin to use for panel strips
+}}
 
-\item{output_format}{- "word_document" or "pdf_document"}
+\item{output_format}{\itemize{
+\item "word_document" or "pdf_document"
+}}
 
-\item{output_dir}{- path to folder to use for output}
+\item{output_dir}{\itemize{
+\item path to folder to use for output
+}}
 
-\item{rmd}{- Rmd file to process (defalut="rmd/modelComparisons.ModelFits.ZCsByYear.Surveys.Rmd")}
+\item{rmd}{\itemize{
+\item Rmd file to process (defalut="rmd/modelComparisons.ModelFits.ZCsByYear.Surveys.Rmd")
+}}
 
-\item{docx_styles}{- full path to Word (docx) style template for Word documents}
+\item{docx_styles}{\itemize{
+\item full path to Word (docx) style template for Word documents
+}}
 
-\item{pdf_styles}{- full path to style template for pdf documents}
+\item{pdf_styles}{\itemize{
+\item full path to style template for pdf documents
+}}
 
-\item{clean}{- T/F to delete intermediate files}
+\item{clean}{\itemize{
+\item T/F to delete intermediate files
+}}
 
-\item{rmd_dir}{- folder enclosing rmd file}
+\item{rmd_dir}{\itemize{
+\item folder enclosing rmd file
+}}
 }
 \description{
 Function to render a document of comparison plots for model fits to

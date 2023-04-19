@@ -15,19 +15,33 @@ compareResults.Pop.GrowthMatrices.LinePlots(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{ncol}{- number of columns per page for multi-year plots}
+\item{ncol}{\itemize{
+\item number of columns per page for multi-year plots
+}}
 
-\item{nrow}{- number of rows per page (nominal) for multi-year plots}
+\item{nrow}{\itemize{
+\item number of rows per page (nominal) for multi-year plots
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplot objects, by sex

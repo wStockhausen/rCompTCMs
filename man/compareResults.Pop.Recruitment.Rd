@@ -14,24 +14,36 @@ compareResults.Pop.Recruitment(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects or dataframe from \code{extractMDFR.Pop.Recruitment}}
+\item{objs}{\itemize{
+\item list of resLst objects or dataframe from \code{extractMDFR.Pop.Recruitment}
+}}
 
-\item{numRecent}{- number of "recent" years to plot}
+\item{numRecent}{\itemize{
+\item number of "recent" years to plot
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplot2 objects
 }
 \description{
 This function compares recruitment estimates by year
-  among several models.
+among several models.
 }
 \details{
 None.

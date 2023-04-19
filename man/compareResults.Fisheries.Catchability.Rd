@@ -18,32 +18,52 @@ compareResults.Fisheries.Catchability(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- vector of fisheries to plot, or "all"}
+\item{fleets}{\itemize{
+\item vector of fisheries to plot, or "all"
+}}
 
-\item{years}{- vector of years to show, or 'all' to show all years}
+\item{years}{\itemize{
+\item vector of years to show, or 'all' to show all years
+}}
 
-\item{cast}{- formula to exclude factors from "averaging" over}
+\item{cast}{\itemize{
+\item formula to exclude factors from "averaging" over
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
+\item{facet_grid}{\itemize{
+\item ggplot2 formula to produce figure with gridded facets
+}}
 
-\item{scales}{- parameter passed to ggplot2::facet_grid()}
+\item{scales}{\itemize{
+\item parameter passed to ggplot2::facet_grid()
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 lists ofggplot2 objects, nested by fishery or an empty list if year is NULL
 }
 \description{
 This function plots fishery catchability estimates by year,
-  sex and maturity state.
+sex and maturity state.
 }
 \details{
 None.

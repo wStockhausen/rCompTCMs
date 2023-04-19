@@ -15,19 +15,33 @@ plotLollipops.ACD(
 )
 }
 \arguments{
-\item{mdfr}{- input data}
+\item{mdfr}{\itemize{
+\item input data
+}}
 
-\item{type}{- type of value to plot (e.g., "z-score")}
+\item{type}{\itemize{
+\item type of value to plot (e.g., "z-score")
+}}
 
-\item{extreme}{- criteria for extreme values}
+\item{extreme}{\itemize{
+\item criteria for extreme values
+}}
 
-\item{dw}{- dodge width (x-axis units)}
+\item{dw}{\itemize{
+\item dodge width (x-axis units)
+}}
 
-\item{size}{- line size for lollipop stems}
+\item{size}{\itemize{
+\item line size for lollipop stems
+}}
 
-\item{xlab}{- x-axis label}
+\item{xlab}{\itemize{
+\item x-axis label
+}}
 
-\item{ylab}{- y-axis label}
+\item{ylab}{\itemize{
+\item y-axis label
+}}
 }
 \value{
 ggplot2 plot object

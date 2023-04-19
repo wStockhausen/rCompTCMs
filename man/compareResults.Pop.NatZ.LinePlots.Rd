@@ -16,28 +16,44 @@ compareResults.Pop.NatZ.LinePlots(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{type}{- type of abundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz"-initial Ns,"fN_xmsz"-final Ns)}
+\item{type}{\itemize{
+\item type of abundance ("N_yxmsz","N_yxmz","N_yxz","iN_xmsz"-initial Ns,"fN_xmsz"-final Ns)
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{ncol}{- number of columns per page for multi-year plots}
+\item{ncol}{\itemize{
+\item number of columns per page for multi-year plots
+}}
 
-\item{nrow}{- number of rows per page (nominal) for multi-year plots}
+\item{nrow}{\itemize{
+\item number of rows per page (nominal) for multi-year plots
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function compares population numbers-at-size estimates by year
-  using line plots among several models.
+using line plots among several models.
 }
 \details{
 uses \code{rTCSAM2013::getMDFR.Pop.Quantities},

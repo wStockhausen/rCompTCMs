@@ -7,28 +7,55 @@
 extractMDFR.Pop.CohortProgression(
   objs,
   cast = "x+m+s+z",
+  scaleToDensity = FALSE,
+  aggToCutpts = FALSE,
+  cutpts = seq(25, 185, 5),
   years = "all",
   verbose = FALSE
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{\itemize{
+\item casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{scaleToDensity}{\itemize{
+\item flag to scale abundance to 1-mm size bins
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{aggToCutpts}{\itemize{
+\item flag to aggregate (rebin) to provided cutpts
+}}
+
+\item{cutpts}{\itemize{
+\item cutpoints to aggregate to
+}}
+
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
 }
 \description{
 This function extracts cohort progression by year
-  among several models as a dataframe.
+among several models as a dataframe.
 }
 \details{
 Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
-\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
+\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{\link[rTCSAM02:getMDFR.Pop.Abundance]{rTCSAM02::getMDFR.Pop.Abundance()}}, as appropriate., and
 cast to aggregate. This differs from \code{extractMDFR.Pop.Abundance1}.
+
+If scaleToDensity is true, the size distribution after cast'ing is scaled to abundance/mm to allow easier comparison between models
+with different bin sizes. If aggToCutpts is true, the distribution(s) are re-binned (aggregated) to a common set of
+cutpoints.
 }

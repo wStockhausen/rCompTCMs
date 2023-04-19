@@ -21,38 +21,64 @@ compareResults.Pop.Abundance(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{\itemize{
+\item casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+}}
 
-\item{facet_grid}{- formula for faceting using facet_grid}
+\item{facet_grid}{\itemize{
+\item formula for faceting using facet_grid
+}}
 
-\item{facet_wrap}{- formula for faceting using facet_wrap}
+\item{facet_wrap}{\itemize{
+\item formula for faceting using facet_wrap
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{lnscale}{- use log scale on y axis}
+\item{lnscale}{\itemize{
+\item use log scale on y axis
+}}
 
-\item{scales}{- scales parameter for facet_grid/facet_wrap}
+\item{scales}{\itemize{
+\item scales parameter for facet_grid/facet_wrap
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function compares estimated population abundance by year
-  among several models.
+among several models.
 }
 \details{
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,

@@ -12,13 +12,21 @@ compareResults.Pop.GrowthMatrices(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list with a ggplot object

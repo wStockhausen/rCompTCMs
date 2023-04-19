@@ -7,11 +7,17 @@
 retroPlotOFLResults(dfr.OFLs, x = "case", xlab = "Peel")
 }
 \arguments{
-\item{dfr.OFLs}{- dataframe of OFL-related values from a retrospective analysis}
+\item{dfr.OFLs}{\itemize{
+\item dataframe of OFL-related values from a retrospective analysis
+}}
 
-\item{x}{- name of dataframe column with "peel"labels}
+\item{x}{\itemize{
+\item name of dataframe column with "peel"labels
+}}
 
-\item{xlab}{- label for x-axis}
+\item{xlab}{\itemize{
+\item label for x-axis
+}}
 }
 \value{
 list of ggplot2 objects

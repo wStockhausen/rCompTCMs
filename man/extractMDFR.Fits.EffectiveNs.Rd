@@ -13,22 +13,32 @@ extractMDFR.Fits.EffectiveNs(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all" or NULL to include all)
+}}
 
-\item{fleet.type}{- 'survey','fishery'}
+\item{fleet.type}{\itemize{
+\item 'survey','fishery'
+}}
 
-\item{category}{- 'total','discard','retained','discard mortality', or 'index'}
+\item{category}{\itemize{
+\item 'total','discard','retained','discard mortality', or 'index'
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe
 }
 \description{
 This function extracts effective Ns from size comps by year
-  among several models.
+among several models.
 }
 \details{
 Results are extracted using \code{rTCSAM02::getMDFR.Fits.EffectiveNs}, as appropriate.

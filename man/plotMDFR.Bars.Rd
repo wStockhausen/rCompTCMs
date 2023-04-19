@@ -26,41 +26,77 @@ plotMDFR.Bars(
 )
 }
 \arguments{
-\item{mdfr}{- melted dataframe}
+\item{mdfr}{\itemize{
+\item melted dataframe
+}}
 
-\item{x}{- column name for x-axis values}
+\item{x}{\itemize{
+\item column name for x-axis values
+}}
 
-\item{value.var}{- column name for values to aggregate (value.var in cast)/plot on y-axis}
+\item{value.var}{\itemize{
+\item column name for values to aggregate (value.var in cast)/plot on y-axis
+}}
 
-\item{agg.formula}{- aggregation formula (left-hand side of cast formula)}
+\item{agg.formula}{\itemize{
+\item aggregation formula (left-hand side of cast formula)
+}}
 
-\item{agg.function}{- aggregation function (fun.aggregate in cast)}
+\item{agg.function}{\itemize{
+\item aggregation function (fun.aggregate in cast)
+}}
 
-\item{...}{- further arguments passed to aggregating function}
+\item{...}{\itemize{
+\item further arguments passed to aggregating function
+}}
 
-\item{colour}{- column name to which colour aesthetic is mapped}
+\item{colour}{\itemize{
+\item column name to which colour aesthetic is mapped
+}}
 
-\item{fill}{- column name to which fill aesthetic is mapped}
+\item{fill}{\itemize{
+\item column name to which fill aesthetic is mapped
+}}
 
-\item{faceting}{- faceting formula}
+\item{faceting}{\itemize{
+\item faceting formula
+}}
 
-\item{position}{- ggplot2 string for bar position adjustments: "dodge", "stack"}
+\item{position}{\itemize{
+\item ggplot2 string for bar position adjustments: "dodge", "stack"
+}}
 
-\item{xlab}{- x axis label}
+\item{xlab}{\itemize{
+\item x axis label
+}}
 
-\item{ylab}{- y axis label}
+\item{ylab}{\itemize{
+\item y axis label
+}}
 
-\item{units}{- combined with y axis label}
+\item{units}{\itemize{
+\item combined with y axis label
+}}
 
-\item{lnscale}{- flag to plot on ln-scale}
+\item{lnscale}{\itemize{
+\item flag to plot on ln-scale
+}}
 
-\item{title}{- plot title}
+\item{title}{\itemize{
+\item plot title
+}}
 
-\item{guideTitleColour}{- title for colour guide}
+\item{guideTitleColour}{\itemize{
+\item title for colour guide
+}}
 
-\item{guideTitleFill}{- title for fill guide}
+\item{guideTitleFill}{\itemize{
+\item title for fill guide
+}}
 
-\item{showPlot}{- flag to show plot immediately}
+\item{showPlot}{\itemize{
+\item flag to show plot immediately
+}}
 }
 \value{
 ggplot2 object

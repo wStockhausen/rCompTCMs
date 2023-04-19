@@ -6,6 +6,9 @@
 \usage{
 compareResults.Pop.RecSizeDistribution(
   objs,
+  scaleToDensity = FALSE,
+  aggToCutpts = FALSE,
+  cutpts = seq(25, 185, 5),
   dodge = 0.2,
   showPlot = TRUE,
   pdf = NULL,
@@ -13,15 +16,37 @@ compareResults.Pop.RecSizeDistribution(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects (or a dataframe from \code{\link[=extractMDFR.Pop.RecSizeDistribution]{extractMDFR.Pop.RecSizeDistribution()}})
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{scaleToDensity}{\itemize{
+\item flag to scale abundance to 1-mm size bins
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{aggToCutpts}{\itemize{
+\item flag to aggregate (rebin) to provided cutpts
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{cutpts}{\itemize{
+\item cutpoints to aggregate to
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
+
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
+
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot object
@@ -30,5 +55,8 @@ ggplot object
 Function to compare recruitment size distributions among several model runs.
 }
 \details{
-None.
+If scaleToDensity is true, the size distribution is scaled to abundance/mm to allow easier comparison between models
+with different bin sizes. If aggToCutpts is true, the distribution(s) are re-binned (aggregated) to a common set of
+cutpoints. If objs is a list of resLst objects, then \code{\link[=extractMDFR.Pop.RecSizeDistribution]{extractMDFR.Pop.RecSizeDistribution()}} is called first to obtain the size
+distributions.
 }

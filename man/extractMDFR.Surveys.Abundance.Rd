@@ -13,22 +13,32 @@ extractMDFR.Surveys.Abundance(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{\itemize{
+\item casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 a dataframe in canonical format
 }
 \description{
 This function extracts estimated survey abundance by year
-  among several models as a dataframe.
+among several models as a dataframe.
 }
 \details{
 None.

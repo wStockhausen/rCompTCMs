@@ -7,7 +7,9 @@
 extractMDFR.Fits.GrowthData(objs)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 }
 \value{
 dataframe

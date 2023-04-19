@@ -7,13 +7,21 @@
 retroPlotValuesBySize(dfr, xlab = "size (mm CW)", ylab = "", facet_grid = NULL)
 }
 \arguments{
-\item{dfr}{- dataframe of estimated values across size extracted from a series of retrospective model runs}
+\item{dfr}{\itemize{
+\item dataframe of estimated values across size extracted from a series of retrospective model runs
+}}
 
-\item{xlab}{- label for x-axis}
+\item{xlab}{\itemize{
+\item label for x-axis
+}}
 
-\item{ylab}{- label for y-axis}
+\item{ylab}{\itemize{
+\item label for y-axis
+}}
 
-\item{facet_grid}{- formula to apply faceting}
+\item{facet_grid}{\itemize{
+\item formula to apply faceting
+}}
 }
 \value{
 a ggplot2 object

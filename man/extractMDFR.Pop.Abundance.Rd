@@ -7,20 +7,28 @@
 extractMDFR.Pop.Abundance(objs, cast = "y+x", years = "all", verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{cast}{- casting formula for excluding y,x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{\itemize{
+\item casting formula for excluding y,x,m,s,z factor levels from sums across the unspecified factors
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
 }
 \description{
 This function extracts estimated population abundance by year
-  among several models as a dataframe.
+among several models as a dataframe.
 }
 \details{
 Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},

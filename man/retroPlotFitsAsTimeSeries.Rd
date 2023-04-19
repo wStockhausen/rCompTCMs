@@ -18,25 +18,45 @@ retroPlotFitsAsTimeSeries(
 )
 }
 \arguments{
-\item{dfr}{- dataframe of estimated values extracted from a series of retrospective model runs}
+\item{dfr}{\itemize{
+\item dataframe of estimated values extracted from a series of retrospective model runs
+}}
 
-\item{ylab}{- label for y-axis}
+\item{ylab}{\itemize{
+\item label for y-axis
+}}
 
-\item{units}{- label for y-axis units}
+\item{units}{\itemize{
+\item label for y-axis units
+}}
 
-\item{lnscale}{- flag to use log scale}
+\item{lnscale}{\itemize{
+\item flag to use log scale
+}}
 
-\item{dodge}{- amount to dodge overlapping values}
+\item{dodge}{\itemize{
+\item amount to dodge overlapping values
+}}
 
-\item{size}{- point shape size}
+\item{size}{\itemize{
+\item point shape size
+}}
 
-\item{colour}{- column name indicating retrospective model (default='case')}
+\item{colour}{\itemize{
+\item column name indicating retrospective model (default='case')
+}}
 
-\item{shape}{- column name for shapes (default=value assigned to colour)}
+\item{shape}{\itemize{
+\item column name for shapes (default=value assigned to colour)
+}}
 
-\item{facet_grid}{- formula to apply faceting}
+\item{facet_grid}{\itemize{
+\item formula to apply faceting
+}}
 
-\item{verbose}{- flag}
+\item{verbose}{\itemize{
+\item flag
+}}
 }
 \value{
 a ggplot2 object

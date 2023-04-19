@@ -7,13 +7,21 @@
 retroCalcMohnsRho(dfr, ylab = "value", yadj = 0, showPlot = FALSE)
 }
 \arguments{
-\item{dfr}{- dataframe of retrospective estimates for analysis}
+\item{dfr}{\itemize{
+\item dataframe of retrospective estimates for analysis
+}}
 
-\item{ylab}{- y axis label for plot}
+\item{ylab}{\itemize{
+\item y axis label for plot
+}}
 
-\item{yadj}{- adjustment to \code{assessment year-1} for max year in dataframe}
+\item{yadj}{\itemize{
+\item adjustment to \code{assessment year-1} for max year in dataframe
+}}
 
-\item{showPlot}{- flag (T/F) to show plot immediately}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot immediately
+}}
 }
 \value{
 Returns a list with rho, a dataframe of values, and a ggplot2 object, invisibly

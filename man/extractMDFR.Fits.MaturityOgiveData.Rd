@@ -7,7 +7,9 @@
 extractMDFR.Fits.MaturityOgiveData(objs)
 }
 \arguments{
-\item{objs}{- list of tcsam02 resLst objects}
+\item{objs}{\itemize{
+\item list of tcsam02 resLst objects
+}}
 }
 \value{
 dataframe

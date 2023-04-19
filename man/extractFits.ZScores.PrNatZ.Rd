@@ -15,19 +15,33 @@ extractFits.ZScores.PrNatZ(
 )
 }
 \arguments{
-\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all" or NULL to include all)
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',or 'total')
+}}
 
-\item{residuals.type}{- residual type for tcsam02 models ('pearsons' or 'nlls')}
+\item{residuals.type}{\itemize{
+\item residual type for tcsam02 models ('pearsons' or 'nlls')
+}}
 
-\item{tcsam2013.type}{- pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")}
+\item{tcsam2013.type}{\itemize{
+\item pearsons residuals type for tcsam2013 models ("PRs_yxmz","PRs_yxz")
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in format for \code{compareFits.ZScores.PrNatZ}.

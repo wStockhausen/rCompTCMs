@@ -13,22 +13,32 @@ plotPop.NaturalMortality(
 )
 }
 \arguments{
-\item{mdfr}{- melted dataframe}
+\item{mdfr}{\itemize{
+\item melted dataframe
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object as list element
 }
 \description{
 This function plots natural mortality estimates by year,
-  sex and maturity state.
+sex and maturity state.
 }
 \details{
 None.

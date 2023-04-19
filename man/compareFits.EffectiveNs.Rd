@@ -20,36 +20,60 @@ compareFits.EffectiveNs(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{mdfr}{- dataframe}
+\item{mdfr}{\itemize{
+\item dataframe
+}}
 
-\item{fleets}{- names of fleets to include (or "all" or NULL to include all)}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all" or NULL to include all)
+}}
 
-\item{fleet.type}{- 'survey','fishery'}
+\item{fleet.type}{\itemize{
+\item 'survey','fishery'
+}}
 
-\item{category}{- 'total','discard','retained','discard mortality', or 'index'}
+\item{category}{\itemize{
+\item 'total','discard','retained','discard mortality', or 'index'
+}}
 
-\item{years}{- vector of years to show, or 'all' to show all years}
+\item{years}{\itemize{
+\item vector of years to show, or 'all' to show all years
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{facet_wrap}{- ggplot2 formula to produce figure with wrapped facets}
+\item{facet_wrap}{\itemize{
+\item ggplot2 formula to produce figure with wrapped facets
+}}
 
-\item{facet_grid}{- ggplot2 formula to produce figure with gridded facets}
+\item{facet_grid}{\itemize{
+\item ggplot2 formula to produce figure with gridded facets
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 lists ofggplot2 objects, nested by fishery
 }
 \description{
 This function compares effective Ns from size compositions by year
-  among several models.
+among several models.
 }
 \details{
 None.

@@ -7,9 +7,13 @@
 extractMDFR.Pop.PrM2M(objs, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 
-\item{obj}{- list of resLst objects}
+\item{obj}{\itemize{
+\item list of resLst objects
+}}
 }
 \value{
 dataframe in canonical format

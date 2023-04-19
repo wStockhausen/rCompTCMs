@@ -23,42 +23,72 @@ compareResults.Fisheries.CatchAbundance(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
+\item{category}{\itemize{
+\item 'captured','discarded','retained','discard mortality', or 'index'
+}}
 
-\item{cast}{- cast'ing formula for aggregating by factors (x,m,s,z)}
+\item{cast}{\itemize{
+\item cast'ing formula for aggregating by factors (x,m,s,z)
+}}
 
-\item{facet_grid}{- formula (or string version of formula) for faceting using facet_grid}
+\item{facet_grid}{\itemize{
+\item formula (or string version of formula) for faceting using facet_grid
+}}
 
-\item{facet_wrap}{- one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap}
+\item{facet_wrap}{\itemize{
+\item one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap
+}}
 
-\item{scales}{- scales parameter for use with facet_grid/facet_wrap}
+\item{scales}{\itemize{
+\item scales parameter for use with facet_grid/facet_wrap
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{lnscale}{- use log scale on y axis}
+\item{lnscale}{\itemize{
+\item use log scale on y axis
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplot2 objects
 }
 \description{
 This function compares estimated fishery catch abundance by year
-  among several models.
+among several models.
 }
 \details{
 If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,

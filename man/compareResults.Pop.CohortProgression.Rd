@@ -7,6 +7,9 @@
 compareResults.Pop.CohortProgression(
   objs,
   cast = "x+m+s+z",
+  scaleToDensity = FALSE,
+  aggToCutpts = FALSE,
+  cutpts = seq(25, 185, 5),
   facet_grid = NULL,
   facet_wrap = NULL,
   dodge = 0.2,
@@ -15,47 +18,115 @@ compareResults.Pop.CohortProgression(
   nrow = 2,
   lnscale = FALSE,
   scales = "fixed",
+  types = c("progression", "byyear"),
+  plotPoints = FALSE,
+  shapes = "s",
+  plotLines = TRUE,
+  linetypes = "ms",
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of TCSAM02 resLst objects (or a dataframe from \code{\link[=extractMDFR.Pop.CohortProgression]{extractMDFR.Pop.CohortProgression()}})
+}}
 
-\item{cast}{- casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors}
+\item{cast}{\itemize{
+\item casting formula for excluding x,m,s,z factor levels from sums across the unspecified factors
+}}
 
-\item{facet_grid}{- formula for faceting using facet_grid}
+\item{scaleToDensity}{\itemize{
+\item flag to scale abundance to 1-mm size bins
+}}
 
-\item{facet_wrap}{- formula for faceting using facet_wrap}
+\item{aggToCutpts}{\itemize{
+\item flag to aggregate (rebin) to provided cutpts
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{cutpts}{\itemize{
+\item cutpoints to aggregate to
+}}
 
-\item{years}{- numeric vector of years to include (or NULL for all)}
+\item{facet_grid}{\itemize{
+\item formula for faceting using facet_grid
+}}
 
-\item{mxy}{- max number of years per page}
+\item{facet_wrap}{\itemize{
+\item formula for faceting using facet_wrap
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{lnscale}{- use log scale on y axis}
+\item{years}{\itemize{
+\item numeric vector of years to include (or NULL for all)
+}}
 
-\item{scales}{- scales parameter for facet_grid/facet_wrap}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{pdf}{- filename for pdf output (or NULL for no pdf)}
+\item{lnscale}{\itemize{
+\item use log scale on y axis
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{scales}{\itemize{
+\item scales parameter for facet_grid/facet_wrap
+}}
+
+\item{types}{\itemize{
+\item types of plots to produce ("progression","byyear")
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{shapes}{\itemize{
+\item name of column for ggplot shape factors (defaults to 's' for shell condition)
+}}
+
+\item{plotLines}{\itemize{
+\item flag to plot cohorts as lines
+}}
+
+\item{linetypes}{\itemize{
+\item name of column for ggplot linetype factors (defaults to 'ms' for maturity + shell condition)
+}}
+
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
+
+\item{pdf}{\itemize{
+\item filename for pdf output (or NULL for no pdf)
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
-ggplot2 object
+a list of ggplot2 objects, with potential captions as element names.
 }
 \description{
 This function compares cohort progression by year
-  among several models.
+among several models.
 }
 \details{
-If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced. Results are extracted using \code{extractMDFR.Pop.CohortProgression},
-for TCSAM02 model results (only). Plots are made using \code{plotPop.CohortProgression}.
+If \code{objs} is a list of TCSAM02 resLst objects,
+model results are extracted using \code{\link[=extractMDFR.Pop.CohortProgression]{extractMDFR.Pop.CohortProgression()}}.
+\code{objs} can also be a dataframe output \code{\link[=extractMDFR.Pop.CohortProgression]{extractMDFR.Pop.CohortProgression()}}.
+Plots are made using \code{\link[=plotMDFR.XY]{plotMDFR.XY()}}.
+You can an plot cohort abundance as a progression by stage for each model (\code{types="progression"} or
+as size distributions by year with colours indicating different models (\code{types="byyear"}.
+Sex-specific cohort progressions are plotted separately. By default,
+different maturity/shell condition categories are indicated using different linetypes.
 }

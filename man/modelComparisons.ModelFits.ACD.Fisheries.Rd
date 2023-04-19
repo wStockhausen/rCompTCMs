@@ -17,23 +17,41 @@ modelComparisons.ModelFits.ACD.Fisheries(
 )
 }
 \arguments{
-\item{models}{- named list of model results (as resLst objects) to compare}
+\item{models}{\itemize{
+\item named list of model results (as resLst objects) to compare
+}}
 
-\item{plot1stObs}{- flag to plot observed data only from first model}
+\item{plot1stObs}{\itemize{
+\item flag to plot observed data only from first model
+}}
 
-\item{output_format}{- "word_document" or "pdf_document"}
+\item{output_format}{\itemize{
+\item "word_document" or "pdf_document"
+}}
 
-\item{output_dir}{- path to folder to use for output}
+\item{output_dir}{\itemize{
+\item path to folder to use for output
+}}
 
-\item{rmd}{- Rmd file to process (defalut="rmd/modelComparisons.ModelFits.ACD.Fisheries.Rmd")}
+\item{rmd}{\itemize{
+\item Rmd file to process (defalut="rmd/modelComparisons.ModelFits.ACD.Fisheries.Rmd")
+}}
 
-\item{docx_styles}{- full path to Word (docx) style template for Word documents}
+\item{docx_styles}{\itemize{
+\item full path to Word (docx) style template for Word documents
+}}
 
-\item{pdf_styles}{- full path to style template for pdf documents}
+\item{pdf_styles}{\itemize{
+\item full path to style template for pdf documents
+}}
 
-\item{clean}{- T/F to delete intermediate files}
+\item{clean}{\itemize{
+\item T/F to delete intermediate files
+}}
 
-\item{rmd_dir}{- folder enclosing rmd file}
+\item{rmd_dir}{\itemize{
+\item folder enclosing rmd file
+}}
 }
 \description{
 Function to render a document of comparison plots for model fits to

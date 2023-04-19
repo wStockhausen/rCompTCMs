@@ -21,42 +21,68 @@ compareResults.Pop.Biomass1(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{type}{- type of biomass ("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx")}
+\item{type}{\itemize{
+\item type of biomass ("B_yxmsz","B_yxmz","B_yxz","B_yxms","B_yxm","B_yx")
+}}
 
-\item{years}{- "all" or numerical vector of years to include}
+\item{years}{\itemize{
+\item "all" or numerical vector of years to include
+}}
 
-\item{numRecent}{- number of "recent" years to plot}
+\item{numRecent}{\itemize{
+\item number of "recent" years to plot
+}}
 
-\item{facet_grid}{- formula for faceting using facet_grid}
+\item{facet_grid}{\itemize{
+\item formula for faceting using facet_grid
+}}
 
-\item{facet_wrap}{- formula for faceting using facet_wrap}
+\item{facet_wrap}{\itemize{
+\item formula for faceting using facet_wrap
+}}
 
-\item{scales}{- ggplot2 scales option for facet_grid}
+\item{scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
-  among several models.
+among several models.
 }
 \details{
 This function compares biomass estimates (aggregated or as size comps, depending on "type") by year
-  among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
+among several models. It uses \code{rTCSAM2013::getMDFR.Pop.Quantities},
 \code{rsimTCSAM::getMDFR.Pop.Quantities}, and to extract model results, and \code{rTCSAM02::getMDFR.Pop.Quantities}, and
 \code{plotMDFR.XY} to plot them. The level of aggregation is based on the value for "type" (unlike
 \code{compreResults.Pop.Biomass}, where a cast'ing formula is specified.)

@@ -16,27 +16,49 @@ extractFits.MeanSizeComps(
 )
 }
 \arguments{
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{years}{- years to plot, as numerical vector (or "all" to plot all years)}
+\item{years}{\itemize{
+\item years to plot, as numerical vector (or "all" to plot all years)
+}}
 
-\item{ci}{- confidence interval}
+\item{ci}{\itemize{
+\item confidence interval
+}}
 
-\item{plot1stObs}{- flag (T/F) to plot observations only from first case}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to plot observations only from first case
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 
-\item{obj}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{obj}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{facet_grid}{- faceting formula for ggplot2::facet_grid()}
+\item{facet_grid}{\itemize{
+\item faceting formula for ggplot2::facet_grid()
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 }
 \value{
 dataframe in canonical format

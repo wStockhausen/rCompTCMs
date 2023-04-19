@@ -14,24 +14,36 @@ extractMDFR.Fisheries.CatchAbundance(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{fleets}{- names of fleets to include (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to include (or "all")
+}}
 
-\item{category}{- 'captured','discarded','retained','discard mortality', or 'index'}
+\item{category}{\itemize{
+\item 'captured','discarded','retained','discard mortality', or 'index'
+}}
 
-\item{cast}{- cast'ing formula for aggregating by factors (y,x,m,s,z)}
+\item{cast}{\itemize{
+\item cast'ing formula for aggregating by factors (y,x,m,s,z)
+}}
 
-\item{years}{- 'all' or vector of years to include}
+\item{years}{\itemize{
+\item 'all' or vector of years to include
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
 }
 \description{
 This function extracts estimated fishery catch abundance by year
-  among several models as a dataframe.
+among several models as a dataframe.
 }
 \details{
 None.

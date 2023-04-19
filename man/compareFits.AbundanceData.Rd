@@ -21,31 +21,57 @@ compareFits.AbundanceData(
 )
 }
 \arguments{
-\item{objs}{- object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects}
+\item{objs}{\itemize{
+\item object that can be converted into a list of tcsam2013.resLst and/or tcsam02.resLst objects
+}}
 
-\item{fleets}{- names of fleets to plot (or "all")}
+\item{fleets}{\itemize{
+\item names of fleets to plot (or "all")
+}}
 
-\item{fleet.type}{- fleet type ('fishery' or 'survey')}
+\item{fleet.type}{\itemize{
+\item fleet type ('fishery' or 'survey')
+}}
 
-\item{catch.type}{- catch type ('index','retained',  or 'total')}
+\item{catch.type}{\itemize{
+\item catch type ('index','retained',  or 'total')
+}}
 
-\item{ci}{- confidence interval for plots}
+\item{ci}{\itemize{
+\item confidence interval for plots
+}}
 
-\item{fishery.pdfType}{- choice for fishery CIs ("norm2","normal","lognormal")}
+\item{fishery.pdfType}{\itemize{
+\item choice for fishery CIs ("norm2","normal","lognormal")
+}}
 
-\item{numRecent}{- number of recent years to include in "recent years" plots}
+\item{numRecent}{\itemize{
+\item number of recent years to include in "recent years" plots
+}}
 
-\item{plot1stObs}{- flag (T/F) to plot observations only from the first model}
+\item{plot1stObs}{\itemize{
+\item flag (T/F) to plot observations only from the first model
+}}
 
-\item{scales}{- ggplot2 scales option for facet_grid}
+\item{scales}{\itemize{
+\item ggplot2 scales option for facet_grid
+}}
 
-\item{position}{- indicates ggplot2 position_ to use ('dodge','jitter','identity',)}
+\item{position}{\itemize{
+\item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names, or NULL.

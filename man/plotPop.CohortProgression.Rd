@@ -15,41 +15,87 @@ plotPop.CohortProgression(
   lnscale = FALSE,
   scales = "fixed",
   types = c("progression", "byyear"),
+  plotPoints = FALSE,
+  shapes = "s",
+  plotLines = TRUE,
+  linetypes = "ms",
   showPlot = FALSE,
   verbose = FALSE
 )
 }
 \arguments{
-\item{mdfr}{- melted data.frame with cohort progressions}
+\item{mdfr}{\itemize{
+\item melted data.frame with cohort progressions
+}}
 
-\item{facet_grid}{- formula for faceting using facet_grid}
+\item{facet_grid}{\itemize{
+\item formula for faceting using facet_grid
+}}
 
-\item{facet_wrap}{- formula for faceting using facet_wrap}
+\item{facet_wrap}{\itemize{
+\item formula for faceting using facet_wrap
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{years}{- vector of years to include in plots (or NULL for all)}
+\item{years}{\itemize{
+\item vector of years to include in plots (or NULL for all)
+}}
 
-\item{mxy}{- max number of years per page}
+\item{mxy}{\itemize{
+\item max number of years per page
+}}
 
-\item{nrow}{- number of rows per page, when facet_wrap'ing}
+\item{nrow}{\itemize{
+\item number of rows per page, when facet_wrap'ing
+}}
 
-\item{lnscale}{- use log scale on y axis}
+\item{lnscale}{\itemize{
+\item use log scale on y axis
+}}
 
-\item{scales}{- scales parameter for facet_grid/facet_wrap}
+\item{scales}{\itemize{
+\item scales parameter for facet_grid/facet_wrap
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{types}{\itemize{
+\item cohort plot types ("progression","byyear")
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{shapes}{\itemize{
+\item name of column for ggplot shape factors (defaults to 's' for shell condition)
+}}
+
+\item{plotLines}{\itemize{
+\item flag to plot cohorts as lines
+}}
+
+\item{linetypes}{\itemize{
+\item name of column for ggplot linetype factors (defaults to 'ms' for maturity + shell condition)
+}}
+
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 a list of ggplot2 objects
 }
 \description{
 This function plots cohort progression by year
-  among several models.
+among several models.
 }
 \details{
-If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced.
+Can plot cohort abundance as a progression by stage for each model or
+as size distributions by year with colours indicating different models.
 }

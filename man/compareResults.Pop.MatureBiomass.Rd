@@ -14,24 +14,36 @@ compareResults.Pop.MatureBiomass(
 )
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{numRecent}{- number of "recent" years to plot}
+\item{numRecent}{\itemize{
+\item number of "recent" years to plot
+}}
 
-\item{dodge}{- width to dodge overlapping series}
+\item{dodge}{\itemize{
+\item width to dodge overlapping series
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{pdf}{- creates pdf, if not NULL}
+\item{pdf}{\itemize{
+\item creates pdf, if not NULL
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 ggplot2 object
 }
 \description{
 This function compares mature biomass-at-mating estimates by year
-  among several models.
+among several models.
 }
 \details{
 uses \code{rCompTCMs::extractMDFR.Pop.MatureBiomass}, and

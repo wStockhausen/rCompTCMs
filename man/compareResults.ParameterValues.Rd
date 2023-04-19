@@ -2,27 +2,30 @@
 % Please edit documentation in R/compareResults.ParameterValues.R
 \name{compareResults.ParameterValues}
 \alias{compareResults.ParameterValues}
-\title{Function to compare cohort progression by year among several models}
+\title{Function to compare parameter values among several models (UNDER DEVELOPMENT!)}
 \usage{
 compareResults.ParameterValues(objs, showPlot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{objs}{- list of resLst objects}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
-ggplot2 object
+ggplot2 object(?)
 }
 \description{
-This function compares cohort progression by year
-  among several models.
+This function compares parameter values
+among several models.
 }
 \details{
-If 'z' is a cast'ing factor, then a set of annual size composition plots are produced. Otherwise,
-a set of time series plots are produced. Results are extracted using \code{rTCSAM2013::getMDFR.Pop.Abundance},
-\code{rsimTCSAM::getMDFR.Pop.Abundance}, and/or \code{rTCSAM02::getMDFR.Pop.Abundance}, as appropriate, and 
-cast to aggregate. This differs from \code{compareResults.Pop.Abundance1}.
+Under development!
 }

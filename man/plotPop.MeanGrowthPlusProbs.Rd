@@ -16,17 +16,29 @@ plotPop.MeanGrowthPlusProbs(
 )
 }
 \arguments{
-\item{mdfrMnG}{- melted dataframe for mean growth (from calling \code{rTCSAM02::getMDFR.Pop.MeanGrowth})}
+\item{mdfrMnG}{\itemize{
+\item melted dataframe for mean growth (from calling \code{rTCSAM02::getMDFR.Pop.MeanGrowth})
+}}
 
-\item{mdfrPrG}{- melted dataframe with growth probabilities (from calling \code{rTCSAM02::getMDFR.Pop.GrowthMatrices})}
+\item{mdfrPrG}{\itemize{
+\item melted dataframe with growth probabilities (from calling \code{rTCSAM02::getMDFR.Pop.GrowthMatrices})
+}}
 
-\item{scale}{- scaling factor for probabilities}
+\item{scale}{\itemize{
+\item scaling factor for probabilities
+}}
 
-\item{zbnds}{- 2-element vector indicating lower and upper bounds on model size bins}
+\item{zbnds}{\itemize{
+\item 2-element vector indicating lower and upper bounds on model size bins
+}}
 
-\item{showPlot}{- flag to print plot to current device}
+\item{showPlot}{\itemize{
+\item flag to print plot to current device
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 list of ggplots by sex

@@ -19,27 +19,49 @@ plotMDFR.Fits.SizeComps(
 )
 }
 \arguments{
-\item{mdfr}{- dataframe from call to \code{rCompTCMs::extractFits.SizeComps}}
+\item{mdfr}{\itemize{
+\item dataframe from call to \code{rCompTCMs::extractFits.SizeComps}
+}}
 
-\item{ylab}{- y axis label}
+\item{ylab}{\itemize{
+\item y axis label
+}}
 
-\item{cap1}{- template for caption}
+\item{cap1}{\itemize{
+\item template for caption
+}}
 
-\item{plotObs}{- flag to plot observations}
+\item{plotObs}{\itemize{
+\item flag to plot observations
+}}
 
-\item{plotMod}{- flag to plot model predictions}
+\item{plotMod}{\itemize{
+\item flag to plot model predictions
+}}
 
-\item{plotObsAsBars}{- flag (T/F) to plot observations/predictions as bars/lines (T) or lines/bars (F)}
+\item{plotObsAsBars}{\itemize{
+\item flag (T/F) to plot observations/predictions as bars/lines (T) or lines/bars (F)
+}}
 
-\item{nrow}{- number of rows per page for output plots}
+\item{nrow}{\itemize{
+\item number of rows per page for output plots
+}}
 
-\item{ncol}{- number of columns per page for output plots}
+\item{ncol}{\itemize{
+\item number of columns per page for output plots
+}}
 
-\item{pdf}{- name for output pdf file}
+\item{pdf}{\itemize{
+\item name for output pdf file
+}}
 
-\item{showPlot}{- flag (T/F) to show plot}
+\item{showPlot}{\itemize{
+\item flag (T/F) to show plot
+}}
 
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 Non-nested list of ggplot2 objects, with captions as names

@@ -4,12 +4,34 @@
 \alias{extractMDFR.Pop.RecSizeDistribution}
 \title{Extract recruitment size distributions from several model runs}
 \usage{
-extractMDFR.Pop.RecSizeDistribution(objs, verbose = FALSE)
+extractMDFR.Pop.RecSizeDistribution(
+  objs,
+  scaleToDensity = FALSE,
+  aggToCutpts = FALSE,
+  cutpts = seq(25, 185, 5),
+  verbose = FALSE
+)
 }
 \arguments{
-\item{verbose}{- flag (T/F) to print diagnostic information}
+\item{objs}{\itemize{
+\item list of resLst objects
+}}
 
-\item{obj}{- list of resLst objects}
+\item{scaleToDensity}{\itemize{
+\item flag to scale abundance to 1-mm size bins
+}}
+
+\item{aggToCutpts}{\itemize{
+\item flag to aggregate (rebin) to provided cutpts
+}}
+
+\item{cutpts}{\itemize{
+\item cutpoints to aggregate to
+}}
+
+\item{verbose}{\itemize{
+\item flag (T/F) to print diagnostic information
+}}
 }
 \value{
 dataframe in canonical format
@@ -18,5 +40,7 @@ dataframe in canonical format
 Function to extract recruitment size distributions from several model runs.
 }
 \details{
-None.
+If scaleToDensity is true, the size distribution is scaled to abundance/mm to allow easier comparison between models
+with different bin sizes. If aggToCutpts is true, the distribution(s) are re-binned (aggregated) to a common set of
+cutpoints.
 }

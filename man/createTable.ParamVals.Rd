@@ -7,13 +7,21 @@
 createTable.ParamVals(dfr, ctg = NULL, prc = NULL, devs = FALSE)
 }
 \arguments{
-\item{dfr}{- dataframe with parameters at bounds}
+\item{dfr}{\itemize{
+\item dataframe with parameters at bounds
+}}
 
-\item{ctg}{- categories to include}
+\item{ctg}{\itemize{
+\item categories to include
+}}
 
-\item{prc}{- processes to include}
+\item{prc}{\itemize{
+\item processes to include
+}}
 
-\item{devs}{- flag (T/F) to include devs}
+\item{devs}{\itemize{
+\item flag (T/F) to include devs
+}}
 }
 \value{
 a \pkg{tables} tabular object
