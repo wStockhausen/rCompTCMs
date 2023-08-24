@@ -7,6 +7,9 @@
 compareResults.Pop.MaturityOgives(
   objs,
   nyrs = 10,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -19,6 +22,18 @@ compareResults.Pop.MaturityOgives(
 
 \item{nyrs}{\itemize{
 \item number of years per plot
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{pdf}{\itemize{

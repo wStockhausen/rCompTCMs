@@ -9,8 +9,8 @@
 #' @param fleets - names of fleets to include (or "all")
 #' @param fleet.type - fleet type ('fishery' or 'survey')
 #' @param catch.type - catch type ('index','retained',  or 'total')
-#' @param  years - years to plot, as numerical vector (or "all" to plot all years)
-#' @param plot1stObs - flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
+#' @param years - years to plot, as numerical vector (or "all" to plot all years)
+#' @param plot1stObs - flag (T/F) to plot observations only from first case, or character vector or cases from which to plot observations
 #' @param nrow - number of rows per page for output plots
 #' @param ncol - number of columns per page for output plots
 #' @param useBars - flag to use bars for observations
@@ -89,6 +89,20 @@ compareFits.SizeComps<-function(objs=NULL,
                                    years=years,
                                    plot1stObs=plot1stObs,
                                    verbose=verbose);
+        if (is.character(plot1stObs)) plot1stObs = FALSE;#--
+    } else {
+        if (is.logical(plot1stObs)) {
+            #--do nothing
+        } else if (is.character(plot1stObs)){
+            #--filter for desired cases
+            mdfrp = mdfr %>% dplyr::filter(type=="predicted");
+            mdfro = mdfr %>% dplyr::filter((type=="observed")&(as.character(case) %in% plot1stObs));
+            mdfr = dplyr::bind_rows(mdfrp,mdfro);
+            plot1stObs = FALSE;
+        } else {
+            stop(paste0("Error: plot1stObs must be logical or a character vector. ",
+                        "It was ",class(plot1stObs)));
+        }
     }
 
     #----------------------------------

@@ -6,6 +6,9 @@
 \usage{
 compareResults.Pop.Quantities(
   objs,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = TRUE,
   pdf = NULL,
   width = 8,
@@ -16,6 +19,18 @@ compareResults.Pop.Quantities(
 \arguments{
 \item{objs}{\itemize{
 \item (named list of objects)
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

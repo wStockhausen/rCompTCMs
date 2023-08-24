@@ -14,6 +14,9 @@ compareResults.Surveys.SelFcns(
   mxy = 15,
   facet_wrap = NULL,
   facet_grid = ifelse(singlePlot, "x~case", "y~x"),
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -54,6 +57,18 @@ compareResults.Surveys.SelFcns(
 
 \item{facet_grid}{\itemize{
 \item ggplot2 formula to produce figure with gridded facets
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{pdf}{\itemize{

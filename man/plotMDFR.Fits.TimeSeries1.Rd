@@ -24,6 +24,7 @@ plotMDFR.Fits.TimeSeries1(
   xlims = NULL,
   ylims = NULL,
   colour_scale = ggplot2::scale_color_hue(),
+  fill_scale = ggplot2::scale_fill_hue(),
   showPlot = FALSE,
   verbose = FALSE
 )
@@ -103,6 +104,10 @@ plotMDFR.Fits.TimeSeries1(
 
 \item{colour_scale}{\itemize{
 \item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 scale_fill object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_fill_hue()}})
 }}
 
 \item{showPlot}{\itemize{

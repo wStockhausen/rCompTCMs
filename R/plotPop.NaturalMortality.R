@@ -6,6 +6,8 @@
 #'
 #'@param mdfr - melted dataframe
 #'@param dodge - width to dodge overlapping series
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information

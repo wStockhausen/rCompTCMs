@@ -7,6 +7,9 @@
 #'@param objs - list of resLst objects or dataframe from \code{extractMDFR.Pop.Recruitment}
 #'@param numRecent - number of "recent" years to plot
 #'@param dodge - width to dodge overlapping series
+#' @param plotPoints - flag to include points (default: FALSE)
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -20,6 +23,9 @@
 compareResults.Pop.Recruitment<-function(objs,
                                          numRecent=15,
                                           dodge=0.2,
+                                            plotPoints=FALSE,
+                                            colour_scale=NULL,
+                                            fill_scale=NULL,
                                           showPlot=FALSE,
                                           pdf=NULL,
                                           verbose=FALSE){
@@ -54,6 +60,9 @@ compareResults.Pop.Recruitment<-function(objs,
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=FALSE,
                    dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -62,6 +71,9 @@ compareResults.Pop.Recruitment<-function(objs,
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=FALSE,
                    dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -71,6 +83,9 @@ compareResults.Pop.Recruitment<-function(objs,
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
                    dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -79,6 +94,9 @@ compareResults.Pop.Recruitment<-function(objs,
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Recruitment',units='millions',lnscale=TRUE,
                    dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);

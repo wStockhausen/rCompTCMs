@@ -55,7 +55,7 @@ compareFits.SizeComps(
 }}
 
 \item{plot1stObs}{\itemize{
-\item flag (T/F) to plot observations only from first case, or character vector cases cases from which to plot observations
+\item flag (T/F) to plot observations only from first case, or character vector or cases from which to plot observations
 }}
 
 \item{nrow}{\itemize{

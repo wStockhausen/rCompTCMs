@@ -5,6 +5,9 @@
 #'
 #'@param objs - list of resLst objects
 #'@param dodge - width to dodge overlapping series
+#' @param plotPoints - flag to include points (default: FALSE)
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -19,6 +22,9 @@
 #'
 compareResults.Pop.MeanGrowth<-function(objs,
                                         dodge=0.2,
+                                        plotPoints=FALSE,
+                                        colour_scale=NULL,
+                                        fill_scale=NULL,
                                         showPlot=FALSE,
                                         pdf=NULL,
                                         verbose=FALSE){
@@ -36,6 +42,9 @@ compareResults.Pop.MeanGrowth<-function(objs,
     mdfr<-extractMDFR.Pop.MeanGrowth(objs,verbose=verbose)
 
     p<-plotPop.MeanGrowth(mdfr,
+                          plotPoints=plotPoints,
+                          colour_scale=colour_scale,
+                          fill_scale=fill_scale,
                           dodge=dodge,
                           showPlot=showPlot,
                           verbose=verbose);

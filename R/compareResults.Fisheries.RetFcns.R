@@ -13,6 +13,8 @@
 #'@param singlePlot - flag to plot all years on single plot (be sure to adjust facet_grid)
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
 #'@param facet_grid - ggplot2 formula to produce figure with gridded facets
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -37,6 +39,8 @@ compareResults.Fisheries.RetFcns<-function(objs,
                                            singlePlot=FALSE,
                                            facet_wrap=NULL,
                                            facet_grid=ifelse(singlePlot,"x~case","y~x"),
+                                           colour_scale=NULL,
+                                           fill_scale=NULL,
                                            showPlot=FALSE,
                                            pdf=NULL,
                                            verbose=FALSE){
@@ -66,15 +70,16 @@ compareResults.Fisheries.RetFcns<-function(objs,
 
     #---------NEW CODE------------
     #--identify stanzas
-    tmp = mdfr %>% tidyr::pivot_wider(names_from=z,values_from=val);
+    tmp = mdfr |> tidyr::pivot_wider(names_from=z,values_from=val);
     cols = stringr::str_subset(names(tmp ),stringr::fixed("y"),negate=TRUE);
-    mdfr = tmp %>% dplyr::group_by(dplyr::across(dplyr::all_of(cols))) %>%
+    mdfr = tmp |> dplyr::group_by(dplyr::across(dplyr::all_of(cols))) |>
                    dplyr::summarize(ymn=min(y),
-                                    ymx=max(y)) %>%
-                   dplyr::ungroup() %>%
-                   tidyr::pivot_longer(cols=cols[10:length(cols)],names_to="z",values_to="val") %>%
+                                    ymx=max(y)) |>
+                   dplyr::ungroup() |>
+                   tidyr::pivot_longer(cols=cols[10:length(cols)],names_to="z",values_to="val") |>
                    dplyr::mutate(z=as.numeric(z),
-                                 stanza=ifelse(ymn!=ymx,paste0(ymn,"-",ymx),ymn));
+                                 stanza=ifelse(ymn!=ymx,paste0(ymn,"-",ymx),ymn)) |>
+                   dplyr::filter(!is.na(val));
     #--use stanza as faceting variable
 
     #----------------------------------
@@ -84,6 +89,7 @@ compareResults.Fisheries.RetFcns<-function(objs,
     uF<-unique(mdfr$fleet);
     if (fleets[1]!="all") uF<-fleets;
     for (f in uF){
+        #--testing: f=uF[1];
         if (verbose) message("Plotting fleet",f,"\n")
         mdfrp<-mdfr[mdfr$fleet==f,];
         # uY<-unique(mdfrp$y);
@@ -114,11 +120,12 @@ compareResults.Fisheries.RetFcns<-function(objs,
         #     cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,".  \n  \n")
         #     subPlots[[cap]]<-p;
         # }
-        rws = mdfrp %>% dplyr::distinct(x,m,s);
+        rws = mdfrp |> dplyr::distinct(x,m,s);
         for (i in 1:nrow(rws)){
+            #--for testing: i=1;
             rw = rws[i,];
             str = stringr::str_trim(stringr::str_remove_all(paste(rw$s,rw$m,rw$x),stringr::fixed("all")));
-            mdfrpp = mdfrp %>% dplyr::inner_join(rw,by=c("x","m","s"));
+            mdfrpp = mdfrp |> dplyr::inner_join(rw,by=c("x","m","s"));
             nStanzas = length(unique(mdfrpp$stanza));
             facets = facet_wrap(~stanza,ncol=1);
             if (nStanzas>3){facets = facet_wrap(~stanza,ncol=floor(sqrt(nStanzas)))}
@@ -129,6 +136,8 @@ compareResults.Fisheries.RetFcns<-function(objs,
                   theme(panel.background=element_rect(colour="black",fill="white"),
                         panel.border=element_rect(colour="black",fill=NA),
                         panel.spacing=unit(0.1,"cm"));
+           if (!is.null(colour_scale)) p = p + colour_scale
+           if (!is.null(fill_scale))   p = p + fill_scale;
             cap<-paste0("\n  \nFigure &&figno. Retention functions for ",str," crab in ",f,".  \n  \n");
             subPlots[[cap]]<-p;
         }

@@ -14,6 +14,8 @@ compareResults.Fisheries.RetFcns(
   singlePlot = FALSE,
   facet_wrap = NULL,
   facet_grid = ifelse(singlePlot, "x~case", "y~x"),
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -54,6 +56,14 @@ compareResults.Fisheries.RetFcns(
 
 \item{facet_grid}{\itemize{
 \item ggplot2 formula to produce figure with gridded facets
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

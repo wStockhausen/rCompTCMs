@@ -4,11 +4,25 @@
 \alias{compareResults.ParameterValues}
 \title{Function to compare parameter values among several models (UNDER DEVELOPMENT!)}
 \usage{
-compareResults.ParameterValues(objs, showPlot = FALSE, verbose = FALSE)
+compareResults.ParameterValues(
+  objs,
+  colour_scale = NULL,
+  fill_scale = NULL,
+  showPlot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{\itemize{
 \item list of resLst objects
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

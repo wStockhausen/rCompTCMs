@@ -16,6 +16,9 @@ compareResults.Fisheries.CatchBiomass(
   years = "all",
   mxy = 15,
   nrow = 5,
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -64,6 +67,18 @@ compareResults.Fisheries.CatchBiomass(
 
 \item{nrow}{\itemize{
 \item number of rows per page, when facet_wrap'ing
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

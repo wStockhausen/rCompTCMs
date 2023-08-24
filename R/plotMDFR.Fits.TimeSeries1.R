@@ -24,6 +24,7 @@
 #'@param xlims -
 #'@param ylims -
 #'@param colour_scale - ggplot2 scale_colour object (default is [ggplot2::scale_colour_hue()])
+#'@param fill_scale - ggplot2 scale_fill object (default is [ggplot2::scale_fill_hue()])
 #'@param showPlot - flag (T/F) to print plot
 #'@param verbose - flag (T/F) to print debugging info
 #'
@@ -57,6 +58,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                     xlims=NULL,
                                     ylims=NULL,
                                     colour_scale=ggplot2::scale_color_hue(),
+                                    fill_scale=ggplot2::scale_fill_hue(),
                                     showPlot=FALSE,
                                     verbose=FALSE){
     std_theme = ggplot2::theme(plot.background =ggplot2::element_blank(),
@@ -97,6 +99,7 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
 
     p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
     p <- p + colour_scale;
+    p <- p + fill_scale;
     if (plotObs){
         p <- p + geom_point(aes_string(shape=case),data=dfro,
                             size=2,alpha=0.7,position=position);

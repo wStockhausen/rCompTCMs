@@ -18,6 +18,8 @@
 #'@param shapes - name of column for ggplot shape factors (defaults to 's' for shell condition)
 #'@param plotLines - flag to plot cohorts as lines
 #'@param linetypes - name of column for ggplot linetype factors (defaults to 'ms' for maturity + shell condition)
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'

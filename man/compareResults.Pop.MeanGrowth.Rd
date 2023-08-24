@@ -7,6 +7,9 @@
 compareResults.Pop.MeanGrowth(
   objs,
   dodge = 0.2,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -19,6 +22,18 @@ compareResults.Pop.MeanGrowth(
 
 \item{dodge}{\itemize{
 \item width to dodge overlapping series
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

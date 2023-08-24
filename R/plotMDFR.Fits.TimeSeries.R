@@ -23,6 +23,7 @@
 #'@param xlims -
 #'@param ylims -
 #'@param colour_scale - ggplot2 scale_colour object (default is ggplot2::scale_colour_hue())
+#'@param fill_scale - ggplot2 scale_fill object (default is ggplot2::scale_fill_hue())
 #'@param showPlot - flag (T/F) to print plot
 #'@param verbose - flag (T/F) to print diagnostic info
 #'
@@ -57,7 +58,8 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                   title=NULL,
                                   xlims=NULL,
                                   ylims=NULL,
-                                  colour_scale=ggplot2::scale_color_hue(),
+                                  colour_scale=ggplot2::scale_colour_hue(),
+                                  fill_scale=ggplot2::scale_fill_hue(),
                                   showPlot=FALSE,
                                   verbose=FALSE){
     plots<-list();
@@ -84,6 +86,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
+                                      fill_scale=fill_scale,
                                       showPlot=showPlot,
                                       verbose=verbose);
         plots$p1<-p1;
@@ -123,6 +126,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xplims,
                                       ylims=yplims,
                                       colour_scale=colour_scale,
+                                      fill_scale=fill_scale,
                                       showPlot=showPlot,
                                       verbose=verbose);
         plots$p2<-p2;
@@ -163,6 +167,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
+                                          fill_scale=fill_scale,
                                           showPlot=showPlot,
                                           verbose=verbose);
             plots$p3<-p3;
@@ -191,6 +196,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
+                                      fill_scale=fill_scale,
                                       showPlot=showPlot,
                                       verbose=verbose);
         plots$p1<-p1;
@@ -229,6 +235,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
+                                          fill_scale=fill_scale,
                                           showPlot=showPlot,
                                           verbose=verbose);
             plots$p2<-p2;
@@ -258,6 +265,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                       xlims=xlims,
                                       ylims=ylims,
                                       colour_scale=colour_scale,
+                                      fill_scale=fill_scale,
                                       showPlot=showPlot,
                                       verbose=verbose);
         plots$p1<-p1;
@@ -296,6 +304,7 @@ plotMDFR.Fits.TimeSeries<-function(dfr,
                                           xlims=xplims,
                                           ylims=yplims,
                                           colour_scale=colour_scale,
+                                          fill_scale=fill_scale,
                                           showPlot=showPlot,
                                           verbose=verbose);
             plots$p2<-p2;

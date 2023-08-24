@@ -5,6 +5,8 @@
 #'   among several models.
 #'
 #'@param objs - list of resLst objects
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
@@ -17,8 +19,10 @@
 #'@export
 #'
 compareResults.ParameterValues<-function(objs,
-                                       showPlot=FALSE,
-                                       verbose=FALSE){
+                                        colour_scale=NULL,
+                                        fill_scale=NULL,
+                                        showPlot=FALSE,
+                                        verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.ParameterValues().\n");
     options(stringsAsFactors=FALSE);
 

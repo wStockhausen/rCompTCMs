@@ -11,6 +11,9 @@
 #' @param dodge - width to dodge overlapping series
 #' @param facet_grid - ggplot2 formula to produce figure with gridded facets
 #' @param scales - parameter passed to ggplot2::facet_grid()
+#' @param plotPoints - flag to plot points
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #' @param pdf - creates pdf, if not NULL
 #' @param showPlot - flag (T/F) to show plot
 #' @param verbose - flag (T/F) to print diagnostic information
@@ -30,6 +33,9 @@ compareResults.Fisheries.Catchability<-function(objs,
                                                 dodge=0.2,
                                                 facet_grid="x~.",
                                                 scales="free_y",
+                                                plotPoints=TRUE,
+                                                colour_scale=NULL,
+                                                fill_scale=NULL,
                                                 pdf=NULL,
                                                 showPlot=FALSE,
                                                 verbose=FALSE){
@@ -62,12 +68,14 @@ compareResults.Fisheries.Catchability<-function(objs,
         mdfrp<-mdfr[mdfr$fleet==f,];
         p <- ggplot(mdfrp,aes_string(x='y',y='val',colour='case'));
         p <- p + geom_line(position=pd);
-        p <- p + geom_point(position=pd);
+        if (plotPoints) p <- p + geom_point(position=pd);
         if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
         p <- p + labs(x='year',y="fishery catchability");
         p <- p + ggtitle(f);
         p <- p + facet_grid(facet_grid,scales=scales);
         p <- p + ylim(c(0,NA));
+        if (!is.null(colour_scale)) p = p + colour_scale;
+        if (!is.null(fill_scale))   p = p + fill_scale;
         if (showPlot) print(p);
         cap<-paste0("\n  \nFigure &&figno. Fishery catchabilities for ",f,".\n   \n");
         plots[[cap]]<-p+std_theme;

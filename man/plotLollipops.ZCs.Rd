@@ -10,6 +10,7 @@ plotLollipops.ZCs(
   extreme = 3,
   dw = 5,
   size = 0.1,
+  plotPoints = TRUE,
   xlab = "size bin (mm CW)",
   ylab = "z-score",
   facet_wrap = ~y,
@@ -35,6 +36,10 @@ plotLollipops.ZCs(
 
 \item{size}{\itemize{
 \item line size for lollipop stems
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot "pop" part of lolli
 }}
 
 \item{xlab}{\itemize{

@@ -10,6 +10,7 @@ plotLollipops.MaturityOgiveData(
   extreme = 3,
   dw = 5,
   size = 0.1,
+  plotPoints = TRUE,
   nrow = 5,
   xlab = "size (mm CW)",
   ylab = type
@@ -34,6 +35,10 @@ plotLollipops.MaturityOgiveData(
 
 \item{size}{\itemize{
 \item line size for lollipop stems
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot "pop" part of lolli
 }}
 
 \item{nrow}{\itemize{

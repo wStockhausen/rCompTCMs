@@ -5,6 +5,9 @@
 #'
 #' @param objs - list of resLst objects
 #' @param nyrs - number of years per plot
+#' @param plotPoints - flag to include points (default: FALSE)
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #' @param pdf - name for output pdf file
 #' @param showPlot - flag to print plot to current device
 #' @param verbose - flag (T/F) to print diagnostic information
@@ -19,6 +22,9 @@
 #'
 compareResults.Pop.MaturityOgives<-function(objs,
                                             nyrs=10,
+                                            plotPoints=FALSE,
+                                            colour_scale=NULL,
+                                            fill_scale=NULL,
                                              pdf=NULL,
                                              showPlot=FALSE,
                                              verbose=FALSE){
@@ -74,6 +80,9 @@ compareResults.Pop.MaturityOgives<-function(objs,
             mdfrpp<-dfrp[dfrp$type == 'predicted',];
             p <- ggplot(mdfrpp,aes_string(x='z',y='val',colour='y'));
             p <- p + geom_line(data=mdfrpp);
+            if (plotPoints) p <- p + geom_point(data=mdfrpp);
+            if (!is.null(colour_scale)) p = p + colour_scale;
+            if (!is.null(fill_scale))   p = p + fill_scale;
             if (any(!is.na(mdfrpp$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
             p <- p + labs(x='size (mm CW)',y="probability(mature)");
             #p <- p + ggtitle(d);

@@ -3,8 +3,10 @@
 #'
 #'@description This function plots sd_report recruitment and SSB time series from several model runs.
 #'
-#'@param objs - list of resLst objects
-#'@param verbose - flag (T/F) to print diagnostic information
+#' @param objs - list of resLst objects
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
+#' @param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return list with two ggplot2 objects
 #'
@@ -23,6 +25,8 @@
 #'
 compareResults.sdRep.DerivedVars<-function(objs,
                                            ci=0.95,
+                                           colour_scale=NULL,
+                                           fill_scale=NULL,
                                            verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.sdRep.DerivedVars().\n");
     options(stringsAsFactors=FALSE);
@@ -46,6 +50,8 @@ compareResults.sdRep.DerivedVars<-function(objs,
            facet_wrap(~variable,nrow=1,scales="free") +
            scale_y_continuous(limits=c(0,NA),oob=scales::squish) +
            wtsPlots::getStdTheme();
+    if (!is.null(colour_scale)) p1 = p1 + colour_scale;
+    if (!is.null(fill_scale))   p1 = p1 + fill_scale;
 
     vars = c("CurB","PrjB","OFL");
     dfr = mdfr %>% dplyr::filter(variable %in% vars);
@@ -59,6 +65,8 @@ compareResults.sdRep.DerivedVars<-function(objs,
            facet_wrap(~variable,nrow=1,scales="free") +
            scale_y_continuous(limits=c(0,NA),oob=scales::squish) +
            wtsPlots::getStdTheme();
+    if (!is.null(colour_scale)) p2 = p2 + colour_scale;
+    if (!is.null(fill_scale))   p2 = p2 + fill_scale;
 
     if (verbose) cat("finished rCompTCMs::compareResults.sdRep.DerivedVars().\n");
     return(list(p1,p2))

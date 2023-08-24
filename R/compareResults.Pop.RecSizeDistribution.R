@@ -8,6 +8,9 @@
 #'@param aggToCutpts - flag to aggregate (rebin) to provided cutpts
 #'@param cutpts - cutpoints to aggregate to
 #'@param dodge - width to dodge overlapping series
+#' @param plotPoints - flag to include points (default: FALSE)
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag to print plot to current device
 #'@param pdf - name for output pdf file
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -29,6 +32,9 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
                                                  aggToCutpts=FALSE,
                                                  cutpts=seq(25,185,5),
                                                  dodge=0.2,
+                                                 plotPoints=FALSE,
+                                                 colour_scale=NULL,
+                                                 fill_scale=NULL,
                                                  showPlot=TRUE,
                                                  pdf=NULL,
                                                  verbose=FALSE){
@@ -61,7 +67,9 @@ compareResults.Pop.RecSizeDistribution<-function(objs,
     pd<-position_dodge(width=dodge);
     p <- ggplot(mdfr,aes(x=z,y=val,colour=case));
     p <- p + geom_line(position=pd);
-    p <- p + geom_point(position=pd);
+    if (plotPoints) p <- p + geom_point(data=mdfrpp);
+    if (!is.null(colour_scale)) p = p + colour_scale;
+    if (!is.null(fill_scale))   p = p + fill_scale;
     p <- p + ylim(c(0,NA));
     if (scaleToDensity)
         p <- p + labs(x="size (mm CW)",y="recruitment size distribution\n(relative abundance/mm)");

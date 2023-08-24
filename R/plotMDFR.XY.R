@@ -35,6 +35,8 @@
 #'@param plotLines - flag to plot lines
 #'@param plotABline - flag to plot a straight line
 #'@param abline - list w/ components intercept, slope, colour, size, linetype, alpha describing line to plots
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag to show plot immediately
 #'
 #'@return ggplot2 object
@@ -77,6 +79,8 @@ plotMDFR.XY<-function(mdfr,
                        plotLines=TRUE,
                        plotABline=FALSE,
                        abline=list(intercept=0,slope=1,colour='black',linetype=3,size=1,alpha=0.8),
+                       colour_scale=NULL,
+                       fill_scale=NULL,
                        showPlot=FALSE
                        ){
     std_theme = wtsPlots::getStdTheme();
@@ -118,6 +122,8 @@ plotMDFR.XY<-function(mdfr,
     if (!is.null(title))    p <- p + ggtitle(title);
     if (!is.null(facet_grid)) p <- p + facet_grid(facet_grid,scales=scales);
     if (!is.null(facet_wrap)) p <- p + facet_wrap(facet_wrap,nrow=nrow,ncol=ncol,dir=dir,scales=scales)
+    if (!is.null(colour_scale)) p = p + colour_scale;
+    if (!is.null(fill_scale))   p = p + fill_scale;
     if (!is.null(guideTitleColour))   p <- p + guides(colour  =guide_legend(title=guideTitleColour,override.aes=list(alpha=1.0,size=6,order=1)));
     if (!is.null(guideTitleFill))     p <- p + guides(fill    =guide_legend(title=guideTitleFill));
     if (!is.null(guideTitleLineType)) p <- p + guides(linetype=guide_legend(title=guideTitleLineType));

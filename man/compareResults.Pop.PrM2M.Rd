@@ -7,7 +7,9 @@
 compareResults.Pop.PrM2M(
   objs,
   dodge = 0.2,
+  plotPoints = FALSE,
   colour_scale = ggplot2::scale_color_hue(),
+  fill_scale = ggplot2::scale_fill_hue(),
   showPlot = TRUE,
   pdf = NULL,
   verbose = FALSE
@@ -24,6 +26,10 @@ compareResults.Pop.PrM2M(
 
 \item{colour_scale}{\itemize{
 \item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_fill_hue()}})
 }}
 
 \item{showPlot}{\itemize{

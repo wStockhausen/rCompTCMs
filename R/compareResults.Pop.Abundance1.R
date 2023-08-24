@@ -14,6 +14,9 @@
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing
+#'@param plotPoints - flag to include points
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -40,6 +43,9 @@ compareResults.Pop.Abundance1<-function(objs,
                                        dodge=0.2,
                                        mxy=15,
                                        nrow=5,
+                                       plotPoints=TRUE,
+                                       colour_scale=NULL,
+                                       fill_scale=NULL,
                                        showPlot=FALSE,
                                        pdf=NULL,
                                        verbose=FALSE){
@@ -89,6 +95,9 @@ compareResults.Pop.Abundance1<-function(objs,
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -97,6 +106,9 @@ compareResults.Pop.Abundance1<-function(objs,
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=FALSE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -106,6 +118,9 @@ compareResults.Pop.Abundance1<-function(objs,
         p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -114,6 +129,9 @@ compareResults.Pop.Abundance1<-function(objs,
         p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,
                        xlab='year',ylab='Abundance',units="millions",lnscale=TRUE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='');
         if (showPlot||!is.null(pdf)) print(p);
@@ -130,6 +148,7 @@ compareResults.Pop.Abundance1<-function(objs,
             p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
                            facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,
                            xlab='size (mm CW)',ylab='Population Abundance',units='millions',lnscale=FALSE,
+                           plotPoints=plotPoints,
                            colour='case',guideTitleColor='',
                            shape='case',guideTitleShape='',
                            showPlot=FALSE);

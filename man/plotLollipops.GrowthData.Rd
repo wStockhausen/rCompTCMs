@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotLollipops.R
 \name{plotLollipops.GrowthData}
 \alias{plotLollipops.GrowthData}
-\title{plot lollipops for fits to molt increment data}
+\title{plot lollipops for fits to growth data}
 \usage{
 plotLollipops.GrowthData(
   mdfr,
@@ -10,6 +10,7 @@ plotLollipops.GrowthData(
   extreme = 3,
   dw = 1,
   size = 0.1,
+  plotPoints = TRUE,
   xlab = "pre-molt size",
   ylab = type
 )
@@ -35,6 +36,10 @@ plotLollipops.GrowthData(
 \item line size for lollipop stems
 }}
 
+\item{plotPoints}{\itemize{
+\item flag to plot "pop" part of lolli
+}}
+
 \item{xlab}{\itemize{
 \item x-axis label
 }}
@@ -47,7 +52,7 @@ plotLollipops.GrowthData(
 ggplot2 plot object
 }
 \description{
-function to plot lollipops for fits to molt increment data.
+function to plot lollipops for fits to growth data.
 }
 \details{
 Plots \code{type} as lollipops against pre-molt size.

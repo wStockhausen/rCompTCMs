@@ -16,6 +16,9 @@ compareResults.Surveys.Abundance(
   mxy = 15,
   nrow = 5,
   lnscale = FALSE,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -64,6 +67,18 @@ compareResults.Surveys.Abundance(
 
 \item{lnscale}{\itemize{
 \item use log scale on y axis
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

@@ -5,6 +5,8 @@
 #'
 #'@param objs - single model resLst object, or named list of them
 #' @param base - name or index of base case for difference calculations
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param verbose - flag (T/F) to print diagnostic info
 #'
 #'@return a list of ggplot2 plot objects
@@ -29,6 +31,8 @@
 #'
 compareResults.ManagementQuantities<-function(objs,
                                               base=1,
+                                              colour_scale=NULL,
+                                              fill_scale=NULL,
                                               verbose=FALSE){
   plots = list();
 
@@ -48,6 +52,8 @@ compareResults.ManagementQuantities<-function(objs,
                     facet_grid(.~category,scales="free") +
                     scale_colour_viridis_d(aesthetics=c("colour","fill"))+
                     labs(y=categories$label[[ic]]);
+    if (!is.null(colour_scale)) p = p + colour_scale
+    if (!is.null(fill_scale))   p = p + fill_scale;
     if (ic==1) lgnd = cowplot::get_legend(p);
     p = p + theme(panel.background=element_rect(colour="black",fill="white"),
                   legend.position="none",
@@ -87,6 +93,8 @@ compareResults.ManagementQuantities<-function(objs,
                     facet_grid(.~category,scales="free") +
                     scale_colour_viridis_d(aesthetics=c("colour","fill"))+
                     labs(y=categories$label[[ic]]);
+    if (!is.null(colour_scale)) p = p + colour_scale
+    if (!is.null(fill_scale))   p = p + fill_scale;
     if (ic==1) lgnd = cowplot::get_legend(p);
     p = p + theme(panel.background=element_rect(colour="black",fill="white"),
                   legend.position="none",

@@ -45,7 +45,7 @@ extractMDFR.Fits.EffectiveNs<-function(objs,
                 cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: fleets = ",paste(fleets,collapse=" "),"\n");
             }
             if ((!is.null(fleets))&&tolower(fleets[1])!="all") {
-                cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: Extracting fleets\n")
+                if (verbose) cat("rCompTCMs::extractMDFR.Fits.EffectiveNs: Extracting fleets\n")
                 mdfr1<-mdfr1[mdfr1$fleet %in% fleets,];
             }
             mdfr1$case<-case;

@@ -15,6 +15,9 @@ compareResults.Pop.Biomass(
   nrow = 5,
   lnscale = FALSE,
   scales = "fixed",
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -59,6 +62,18 @@ compareResults.Pop.Biomass(
 
 \item{scales}{\itemize{
 \item scales parameter for facet_grid/facet_wrap
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

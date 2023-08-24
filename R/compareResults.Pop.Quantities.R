@@ -4,6 +4,9 @@
 #'@description Function to compare population quantities from TCSAM2013, TCSAM02, and rsimTCSAM model runs.
 #'
 #'@param objs -  (named list of objects)
+#' @param plotPoints - flag to include points (default: FALSE)
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag to show/print plots immediately
 #'@param pdf - name of pdf file to record plot output to
 #'@param width - pdf page width (in inches)
@@ -19,6 +22,9 @@
 #'@export
 #'
 compareResults.Pop.Quantities<-function(objs,
+                                        plotPoints=FALSE,
+                                        colour_scale=NULL,
+                                        fill_scale=NULL,
                                         showPlot=TRUE,
                                         pdf=NULL,
                                         width=8,
@@ -41,7 +47,13 @@ compareResults.Pop.Quantities<-function(objs,
     #recruitment
     #----------------------------------
     if (verbose) cat("Plotting recruitment\n");
-    ps<-compareResults.Pop.Recruitment(objs,dodge=0.2,showPlot=FALSE,verbose=verbose);
+    ps<-compareResults.Pop.Recruitment(objs,
+                                       dodge=0.2,
+                                       plotPoints=plotPoints,
+                                       colour_scale=colour_scale,
+                                       fill_scale=fill_scale,
+                                       showPlot=FALSE,
+                                       verbose=verbose);
     if (showPlot||!is.null(pdf)) print(ps);
     plots$R_y<-ps[[1]];
     plots$lnR_y<-ps[[2]];
@@ -50,7 +62,13 @@ compareResults.Pop.Quantities<-function(objs,
     #mature biomass
     #----------------------------------
     if (verbose) cat("Plotting mature biomass\n");
-    ps<-compareResults.Pop.MatureBiomass(objs,dodge=0.2,showPlot=FALSE,verbose=verbose);
+    ps<-compareResults.Pop.MatureBiomass(objs,
+                                         dodge=0.2,
+                                         plotPoints=plotPoints,
+                                         colour_scale=colour_scale,
+                                         fill_scale=fill_scale,
+                                         showPlot=FALSE,
+                                         verbose=verbose);
     if (showPlot||!is.null(pdf)) print(ps);
     plots$MB_yx<-ps[[1]];
     plots$lnMB_yx<-ps[[2]];

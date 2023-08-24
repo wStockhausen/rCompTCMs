@@ -15,6 +15,9 @@ compareResults.Surveys.Biomass(
   dodge = 0.2,
   mxy = 15,
   nrow = 5,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -59,6 +62,18 @@ compareResults.Surveys.Biomass(
 
 \item{nrow}{\itemize{
 \item number of rows per page, when facet_wrap'ing
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points (default: FALSE)
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

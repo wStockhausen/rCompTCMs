@@ -38,6 +38,8 @@ plotMDFR.XY(
   plotABline = FALSE,
   abline = list(intercept = 0, slope = 1, colour = "black", linetype = 3, size = 1, alpha
     = 0.8),
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE
 )
 }
@@ -168,6 +170,14 @@ plotMDFR.XY(
 
 \item{abline}{\itemize{
 \item list w/ components intercept, slope, colour, size, linetype, alpha describing line to plots
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

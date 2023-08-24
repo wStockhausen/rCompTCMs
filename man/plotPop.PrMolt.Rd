@@ -8,6 +8,9 @@ plotPop.PrMolt(
   mdfr,
   dodge = 0.2,
   xbnds = NULL,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = TRUE,
   verbose = FALSE
 )
@@ -23,6 +26,18 @@ plotPop.PrMolt(
 
 \item{xbnds}{\itemize{
 \item two-element vector with x-axis bound (or NULL)
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points on plot
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

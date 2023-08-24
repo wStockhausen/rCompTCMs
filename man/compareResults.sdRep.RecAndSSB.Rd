@@ -4,11 +4,25 @@
 \alias{compareResults.sdRep.RecAndSSB}
 \title{Plot sd_report time series for recruitment and SSB from several model}
 \usage{
-compareResults.sdRep.RecAndSSB(objs, ci = 0.95, verbose = FALSE)
+compareResults.sdRep.RecAndSSB(
+  objs,
+  ci = 0.95,
+  colour_scale = NULL,
+  fill_scale = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{\itemize{
 \item list of resLst objects
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{verbose}{\itemize{

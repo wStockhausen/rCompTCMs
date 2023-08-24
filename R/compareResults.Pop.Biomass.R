@@ -14,6 +14,9 @@
 #'@param nrow - number of rows per page, when facet_wrap'ing
 #'@param lnscale - use log scale on y axis
 #'@param scales - scales parameter for facet_grid/facet_wrap
+#'@param plotPoints - flag to include points
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -41,6 +44,9 @@ compareResults.Pop.Biomass<-function(objs,
                                      nrow=5,
                                      lnscale=FALSE,
                                      scales="fixed",
+                                     plotPoints=TRUE,
+                                     colour_scale=NULL,
+                                     fill_scale=NULL,
                                      showPlot=FALSE,
                                      pdf=NULL,
                                      verbose=FALSE){
@@ -93,8 +99,11 @@ compareResults.Pop.Biomass<-function(objs,
                                            facet_wrap=~y,nrow=nrow,,scales=scales,
                                            xlab='size (mm CW)',ylab='Population Biomass',units="1000's t",lnscale=FALSE,
                                            title=paste0(x," ",m," ",s),
+                                           plotPoints=plotPoints,
                                            colour='case',guideTitleColor='',
                                            shape='case',guideTitleShape='',
+                                           colour_scale=colour_scale,
+                                           fill_scale=fill_scale,
                                            showPlot=FALSE);
                             if (showPlot||!is.null(pdf)) print(p);
                                 cap<-paste0("\n  \nFigure &&figno. Population biomass size comps for ",x," ",m," ",s,", (",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
@@ -112,6 +121,9 @@ compareResults.Pop.Biomass<-function(objs,
         p<-plotMDFR.XY(mdfr,x='y',value.var='val',agg.formula=NULL,
                        facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=nrow,scales=scales,
                        xlab='year',ylab='Population Biomass',units="1000's t",lnscale=FALSE,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        colour='case',guideTitleColor='',
                        shape='case',guideTitleShape='',
                        showPlot=FALSE);

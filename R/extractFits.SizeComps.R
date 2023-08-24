@@ -117,6 +117,9 @@ extractFits.SizeComps<-function(objs=NULL,
             mdfrp = mdfr %>% dplyr::filter(type=="predicted");
             mdfro = mdfr %>% dplyr::filter((type=="observed")&(as.character(case) %in% plot1stObs));
             mdfr = dplyr::bind_rows(mdfrp,mdfro);
+        } else {
+            stop(paste0("Error: plot1stObs must be logical or a character vector. ",
+                        "It was ",class(plot1stObs)));
         }
     }
 

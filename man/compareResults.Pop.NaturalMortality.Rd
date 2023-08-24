@@ -8,6 +8,9 @@ compareResults.Pop.NaturalMortality(
   objs,
   type = "M_cy",
   dodge = 0.2,
+  plotPoints = FALSE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -24,6 +27,18 @@ compareResults.Pop.NaturalMortality(
 
 \item{dodge}{\itemize{
 \item width to dodge overlapping series
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points on plot
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{pdf}{\itemize{

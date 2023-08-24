@@ -8,6 +8,7 @@
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
 #' @param size - line size for lollipop stems
+#' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
 #'
@@ -26,6 +27,7 @@ plotLollipops.ZCs<-function(mdfr,
                             extreme=3,
                             dw=5,
                             size=0.1,
+                            plotPoints=TRUE,
                             xlab="size bin (mm CW)",
                             ylab="z-score",
                             facet_wrap=~y,
@@ -40,7 +42,6 @@ plotLollipops.ZCs<-function(mdfr,
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,xend=z,colour=case,fill=case,shape=ctgf)) +
          geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
-         geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
          scale_y_continuous(limits=mx*c(-1,1),breaks=c(-extreme,0,extreme))+
@@ -50,7 +51,8 @@ plotLollipops.ZCs<-function(mdfr,
                panel.spacing.x=unit(0.02,"in"),
                panel.background=element_rect(colour="black",fill="white"),
                panel.grid.major.y=element_line(colour="grey",linetype=2));
-        if (!is.null(facet_wrap)) p = p + facet_wrap(facets,ncol=ncol);
+    if (plotPoints)           p1 = p1 + geom_point(aes(y=val,size=ctgz),position=position_dodge2(dw));
+    if (!is.null(facet_wrap)) p1 = p1 + facet_wrap(facets,ncol=ncol);
 
 
    # p2 = ggplot(tst,aes(x=as.factor(y),y=val,colour=case,fill=case)) +
@@ -78,6 +80,7 @@ plotLollipops.ZCs<-function(mdfr,
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
 #' @param size - line size for lollipop stems
+#' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
 #'
@@ -96,6 +99,7 @@ plotLollipops.ACD<-function(mdfr,
                             extreme=3,
                             dw=1,
                             size=0.1,
+                            plotPoints=TRUE,
                             xlab="year",
                             ylab=type){
    type_ = type[1];
@@ -109,7 +113,6 @@ plotLollipops.ACD<-function(mdfr,
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=y,colour=case,fill=case,shape=ctgf)) +
          geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
-         geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -121,19 +124,21 @@ plotLollipops.ACD<-function(mdfr,
                panel.spacing.x=unit(0.02,"in"),
                panel.background=element_rect(colour="black",fill="white"),
                panel.grid=element_blank());
+    if (plotPoints) p1 = p1 + geom_point(aes(y=val,size=ctgz),position=position_dodge2(dw));
     return(p1)
 }
 
 #'
-#' @title plot lollipops for fits to molt increment data
+#' @title plot lollipops for fits to growth data
 #'
-#' @description function to plot lollipops for fits to molt increment data.
+#' @description function to plot lollipops for fits to growth data.
 #'
 #' @param mdfr - input dataframe from [rCompTCMs::extractMDFR.Fits.GrowthData()]
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
 #' @param size - line size for lollipop stems
+#' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
 #'
@@ -152,6 +157,7 @@ plotLollipops.GrowthData<-function(mdfr,
                                     extreme=3,
                                     dw=1,
                                     size=0.1,
+                                    plotPoints=TRUE,
                                     xlab="pre-molt size",
                                     ylab=type){
    type_ = type[1];
@@ -165,7 +171,6 @@ plotLollipops.GrowthData<-function(mdfr,
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
          geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
-         geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -177,6 +182,7 @@ plotLollipops.GrowthData<-function(mdfr,
                panel.spacing.x=unit(0.02,"in"),
                panel.background=element_rect(colour="black",fill="white"),
                panel.grid=element_blank());
+    if (plotPoints) p1 = p1 + geom_point(aes(y=val,size=ctgz),position=position_dodge2(dw));
     return(p1)
 }
 
@@ -190,6 +196,7 @@ plotLollipops.GrowthData<-function(mdfr,
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
 #' @param size - line size for lollipop stems
+#' @param plotPoints - flag to plot "pop" part of lolli
 #' @param nrow - number of rows for faceting
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
@@ -209,6 +216,7 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
                                           extreme=3,
                                           dw=5,
                                           size=0.1,
+                                          plotPoints=TRUE,
                                           nrow=5,
                                           xlab="size (mm CW)",
                                           ylab=type){
@@ -223,7 +231,6 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
          geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
-         geom_point(aes(y=val,size=ctgz),    position=position_dodge2(dw)) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -235,6 +242,7 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
                panel.spacing.x=unit(0.02,"in"),
                panel.background=element_rect(colour="black",fill="white"),
                panel.grid=element_blank());
+    if (plotPoints) p1 = p1 + geom_point(aes(y=val,size=ctgz),position=position_dodge2(dw));
     return(p1)
 }
 

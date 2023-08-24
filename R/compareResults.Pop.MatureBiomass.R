@@ -7,6 +7,9 @@
 #'@param objs - list of resLst objects
 #'@param numRecent - number of "recent" years to plot
 #'@param dodge - width to dodge overlapping series
+#'@param plotPoints - flag to include points
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -23,6 +26,9 @@
 compareResults.Pop.MatureBiomass<-function(objs,
                                            numRecent=15,
                                            dodge=0.2,
+                                           plotPoints=TRUE,
+                                           colour_scale=NULL,
+                                           fill_scale=NULL,
                                            showPlot=FALSE,
                                            pdf=NULL,
                                            verbose=FALSE){
@@ -49,6 +55,9 @@ compareResults.Pop.MatureBiomass<-function(objs,
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Mature Biomass',units="1000's t",lnscale=FALSE,
                    facet_grid='x~.',dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -57,6 +66,9 @@ compareResults.Pop.MatureBiomass<-function(objs,
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Mature Biomass',units="1000's t",lnscale=FALSE,
                    facet_grid='x~.',dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -66,6 +78,9 @@ compareResults.Pop.MatureBiomass<-function(objs,
     p<-plotMDFR.XY(mdfr,x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Mature Biomass',units="1000's t",lnscale=TRUE,
                    facet_grid='x~.',dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);
@@ -74,6 +89,9 @@ compareResults.Pop.MatureBiomass<-function(objs,
     p<-plotMDFR.XY(mdfr[idx,],x='y',agg.formula=NULL,faceting=NULL,
                    xlab='year',ylab='Mature Biomass',units="1000's t",lnscale=TRUE,
                    facet_grid='x~.',dodge=dodge,
+                   plotPoints=plotPoints,
+                   colour_scale=colour_scale,
+                   fill_scale=fill_scale,
                    colour='case',guideTitleColor='',
                    shape='case',guideTitleShape='');
     if (showPlot||!is.null(pdf)) print(p);

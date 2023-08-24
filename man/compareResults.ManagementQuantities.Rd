@@ -4,7 +4,13 @@
 \alias{compareResults.ManagementQuantities}
 \title{Compare management quantities among model scenarios}
 \usage{
-compareResults.ManagementQuantities(objs, base = 1, verbose = FALSE)
+compareResults.ManagementQuantities(
+  objs,
+  base = 1,
+  colour_scale = NULL,
+  fill_scale = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{objs}{\itemize{
@@ -13,6 +19,14 @@ compareResults.ManagementQuantities(objs, base = 1, verbose = FALSE)
 
 \item{base}{\itemize{
 \item name or index of base case for difference calculations
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{verbose}{\itemize{

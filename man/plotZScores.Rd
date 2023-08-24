@@ -22,7 +22,9 @@ plotZScores(
   xlims = NULL,
   ylims = NULL,
   alpha = 1,
-  colour_scale = ggplot2::scale_color_hue(),
+  plotPoints = TRUE,
+  colour_scale = ggplot2::scale_colour_hue(),
+  fill_scale = ggplot2::scale_fill_hue(),
   showSmooths = TRUE,
   showPlot = FALSE
 )
@@ -56,6 +58,10 @@ plotZScores(
 \item indicates ggplot2 position_ to use ('dodge','jitter','identity',)
 }}
 
+\item{dodge}{\itemize{
+\item value to position dodge
+}}
+
 \item{facets}{\itemize{
 \item string giving faceting formula for facet_grid
 }}
@@ -76,6 +82,10 @@ plotZScores(
 \item title for plot
 }}
 
+\item{legend}{\itemize{
+\item legend title
+}}
+
 \item{xlims}{\itemize{
 \item limits for x axis
 }}
@@ -84,8 +94,20 @@ plotZScores(
 \item limits for y axis
 }}
 
+\item{alpha}{\itemize{
+\item transparency value to use
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points on plots
+}}
+
 \item{colour_scale}{\itemize{
 \item ggplot2 scale_colour object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_colour_hue()}})
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 scale_fill object (default is \code{\link[ggplot2:scale_hue]{ggplot2::scale_fill_hue()}})
 }}
 
 \item{showSmooths}{\itemize{

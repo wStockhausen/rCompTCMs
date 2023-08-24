@@ -13,6 +13,8 @@
 #'@param mxy - max number of years per page
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
 #'@param facet_grid - ggplot2 formula to produce figure with gridded facets
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -34,6 +36,8 @@ compareResults.Fisheries.SelFcns<-function(objs,
                                          mxy=15,
                                          facet_wrap=NULL,
                                          facet_grid=ifelse(singlePlot,"x~case","y~x"),
+                                         colour_scale=NULL,
+                                         fill_scale=NULL,
                                          showPlot=FALSE,
                                          pdf=NULL,
                                          verbose=FALSE){
@@ -126,6 +130,8 @@ compareResults.Fisheries.SelFcns<-function(objs,
                   theme(panel.background=element_rect(colour="black",fill="white"),
                         panel.border=element_rect(colour="black",fill=NA),
                         panel.spacing=unit(0.1,"cm"));
+            if (!is.null(colour_scale)) p = p + colour_scale
+            if (!is.null(fill_scale))   p = p + fill_scale;
             cap<-paste0("\n  \nFigure &&figno. Selectivity functions for ",str," crab in ",f,".  \n  \n");
             subPlots[[cap]]<-p;
         }

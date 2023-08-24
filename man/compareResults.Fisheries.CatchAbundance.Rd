@@ -17,6 +17,9 @@ compareResults.Fisheries.CatchAbundance(
   mxy = 15,
   nrow = 5,
   lnscale = FALSE,
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -69,6 +72,18 @@ compareResults.Fisheries.CatchAbundance(
 
 \item{lnscale}{\itemize{
 \item use log scale on y axis
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

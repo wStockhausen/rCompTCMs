@@ -13,6 +13,9 @@
 #'@param mxy - max number of years per page
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
 #'@param facet_grid - ggplot2 formula to produce figure with gridded facets
+#'@param plotPoints - flag to include points (default: FALSE)
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param pdf - creates pdf, if not NULL
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -34,6 +37,9 @@ compareResults.Surveys.AvlFcns<-function(objs,
                                          mxy=15,
                                          facet_wrap=NULL,
                                          facet_grid=ifelse(singlePlot,"x~case","y~x"),
+                                         plotPoints=FALSE,
+                                         colour_scale=NULL,
+                                         fill_scale=NULL,
                                          pdf=NULL,
                                          showPlot=FALSE,
                                          verbose=FALSE){
@@ -120,6 +126,9 @@ compareResults.Surveys.AvlFcns<-function(objs,
                   facets + ylim(0,1) +
                   xlab('size (mm CW)')+ylab('availability')+ggtitle(f)+
                   std_theme;
+            if (plotPoints) p <- p + geom_point(position=pd);
+            if (!is.null(colour_scale)) p = p + colour_scale;
+            if (!is.null(fill_scale))   p = p + fill_scale;
             cap<-paste0("\n  \nFigure &&figno. Availability functions for ",str," crab in the ",f," survey.  \n  \n");
             plots[[cap]]<-p;
         }

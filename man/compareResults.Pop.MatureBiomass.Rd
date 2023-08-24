@@ -8,6 +8,9 @@ compareResults.Pop.MatureBiomass(
   objs,
   numRecent = 15,
   dodge = 0.2,
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -24,6 +27,18 @@ compareResults.Pop.MatureBiomass(
 
 \item{dodge}{\itemize{
 \item width to dodge overlapping series
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{

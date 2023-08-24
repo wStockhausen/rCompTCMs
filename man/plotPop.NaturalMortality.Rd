@@ -32,6 +32,14 @@ plotPop.NaturalMortality(
 \item{verbose}{\itemize{
 \item flag (T/F) to print diagnostic information
 }}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
+}}
 }
 \value{
 ggplot2 object as list element

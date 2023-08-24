@@ -10,6 +10,7 @@ plotLollipops.ACD(
   extreme = 3,
   dw = 1,
   size = 0.1,
+  plotPoints = TRUE,
   xlab = "year",
   ylab = type
 )
@@ -33,6 +34,10 @@ plotLollipops.ACD(
 
 \item{size}{\itemize{
 \item line size for lollipop stems
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot "pop" part of lolli
 }}
 
 \item{xlab}{\itemize{

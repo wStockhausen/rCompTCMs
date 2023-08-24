@@ -8,6 +8,9 @@
 #'@param fleets - names of fleets to include (or "all")
 #'@param fleet.type - fleet type ('fishery' or 'survey')
 #'@param catch.type - catch type ('index','retained', 'discard', or 'total')
+#'@param plotPoints - flag to plot points
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param pdf - name for output pdf file
 #'@param showPlot - flag (T/F) to show plot
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -30,6 +33,9 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
                                       fleets="all",
                                       fleet.type=c('survey','fishery'),
                                       catch.type=c('index','retained','discard','total'),
+                                      plotPoints=TRUE,
+                                      colour_scale=NULL,
+                                      fill_scale=NULL,
                                       pdf=NULL,
                                       showPlot=FALSE,
                                       verbose=FALSE){
@@ -128,6 +134,9 @@ compareFits.ZScores.Biomass<-function(objs=NULL,
                        color='case',shape='case',legend='case',
                        facets="x~fleet",facet.scales='free_y',position='dodge',
                        ylab='z-score',title=uF,
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
                        showPlot=showPlot);
         cap<-paste0("  \n  \nFigure &&fno. Z-scores for ",catch.type," catch biomass in ",uF,".  \n  \n");
         if (showPlot) figno<-(wtsUtilities::printGGList(p,figno=figno,cap=cap))$figno;

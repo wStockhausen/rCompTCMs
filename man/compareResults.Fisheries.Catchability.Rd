@@ -12,6 +12,9 @@ compareResults.Fisheries.Catchability(
   dodge = 0.2,
   facet_grid = "x~.",
   scales = "free_y",
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -44,6 +47,18 @@ compareResults.Fisheries.Catchability(
 
 \item{scales}{\itemize{
 \item parameter passed to ggplot2::facet_grid()
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{pdf}{\itemize{

@@ -3,8 +3,10 @@
 #'
 #'@description This function plots sd_report recruitment and SSB time series from several model runs.
 #'
-#'@param objs - list of resLst objects
-#'@param verbose - flag (T/F) to print diagnostic information
+#' @param objs - list of resLst objects
+#' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
+#' @param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return ggplot2 object
 #'
@@ -21,6 +23,8 @@
 #'
 compareResults.sdRep.RecAndSSB<-function(objs,
                                          ci=0.95,
+                                         colour_scale=NULL,
+                                         fill_scale=NULL,
                                          verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::compareResults.sdRep.RecAndSSB().\n");
     options(stringsAsFactors=FALSE);
@@ -41,10 +45,14 @@ compareResults.sdRep.RecAndSSB<-function(objs,
            wtsPlots::getStdTheme() +
            theme(legend.position=c(0.99,0.99),
                  legend.justification=c(1,1));
+    if (!is.null(colour_scale)) p1 = p1 + colour_scale;
+    if (!is.null(fill_scale))   p1 = p1 + fill_scale;
+    lg = cowplot::get_legend(p1);
     p2 = p1 %+% (dfr %>% dplyr::filter(y>mx_year-20));
-    pg1 = cowplot::plot_grid(p1 + theme(axis.title.x=element_blank()),
+    pg1 = cowplot::plot_grid(p1 + theme(legend.position="none") + theme(axis.title.x=element_blank()),
                              p2 + theme(legend.position="none"),
                              ncol=1);
+    pgR = cowplot::plot_grid(pg1,lg,nrow=1,rel_widths=c(7,1));
 
     var_="SSB";
     dfr = mdfr %>% dplyr::filter(variable==var_);
@@ -54,13 +62,15 @@ compareResults.sdRep.RecAndSSB<-function(objs,
            facet_grid(.~x) +
            scale_y_continuous(limits=c(0,NA),oob=scales::squish) +
            wtsPlots::getStdTheme() ;
+    if (!is.null(colour_scale)) p1 = p1 + colour_scale;
+    if (!is.null(fill_scale))   p1 = p1 + fill_scale;
     lg = cowplot::get_legend(p1);
     p2 = p1 %+% (dfr %>% dplyr::filter(y>mx_year-20));
     pg2 = cowplot::plot_grid(p1 + theme(legend.position="none")+ theme(axis.title.x=element_blank()),
                              p2 + theme(legend.position="none"),
                              ncol=1);
-    pg3 = cowplot::plot_grid(pg2,lg,nrow=1,rel_widths=c(7,1));
+    pgS = cowplot::plot_grid(pg2,lg,nrow=1,rel_widths=c(7,1));
 
     if (verbose) cat("finished rCompTCMs::compareResults.sdRep.RecAndSSB().\n");
-    return(list(rec=pg1,ssb=pg2))
+    return(list(rec=pgR,ssb=pgS))
 }

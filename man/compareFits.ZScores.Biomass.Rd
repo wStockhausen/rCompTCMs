@@ -9,6 +9,9 @@ compareFits.ZScores.Biomass(
   fleets = "all",
   fleet.type = c("survey", "fishery"),
   catch.type = c("index", "retained", "discard", "total"),
+  plotPoints = TRUE,
+  colour_scale = NULL,
+  fill_scale = NULL,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -29,6 +32,18 @@ compareFits.ZScores.Biomass(
 
 \item{catch.type}{\itemize{
 \item catch type ('index','retained', 'discard', or 'total')
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to plot points
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{pdf}{\itemize{

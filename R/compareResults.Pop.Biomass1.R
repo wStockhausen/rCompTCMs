@@ -14,6 +14,9 @@
 #'@param dodge - width to dodge overlapping series
 #'@param mxy - max number of years per page
 #'@param nrow - number of rows per page, when facet_wrap'ing
+#'@param plotPoints - flag to include points
+#'@param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
+#'@param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -40,6 +43,9 @@ compareResults.Pop.Biomass1<-function(objs,
                                       dodge=0.2,
                                       mxy=15,
                                       nrow=5,
+                                      plotPoints=TRUE,
+                                     colour_scale=NULL,
+                                     fill_scale=NULL,
                                       showPlot=FALSE,
                                       pdf=NULL,
                                       verbose=FALSE){
@@ -91,7 +97,11 @@ compareResults.Pop.Biomass1<-function(objs,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
-                       shape='case',guideTitleShape='');
+                       shape='case',guideTitleShape='',
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
+                       showPlot=FALSE);
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Population biomass trends.  \n  \n")
         plots[[cap]]<-p;
@@ -99,7 +109,11 @@ compareResults.Pop.Biomass1<-function(objs,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=FALSE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
-                       shape='case',guideTitleShape='');
+                       shape='case',guideTitleShape='',
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
+                       showPlot=FALSE);
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Recent population biomass trends.  \n  \n")
         plots[[cap]]<-p;
@@ -108,7 +122,11 @@ compareResults.Pop.Biomass1<-function(objs,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
-                       shape='case',guideTitleShape='');
+                       shape='case',guideTitleShape='',
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
+                       showPlot=FALSE);
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Ln-scale population biomass trends.  \n  \n")
         plots[[cap]]<-p;
@@ -116,7 +134,11 @@ compareResults.Pop.Biomass1<-function(objs,
                        xlab='year',ylab='Biomass',units="1000's t",lnscale=TRUE,
                        facet_grid=facet_grid,dodge=dodge,scales=scales,
                        colour='case',guideTitleColor='',
-                       shape='case',guideTitleShape='');
+                       shape='case',guideTitleShape='',
+                       plotPoints=plotPoints,
+                       colour_scale=colour_scale,
+                       fill_scale=fill_scale,
+                       showPlot=FALSE);
         if (showPlot||!is.null(pdf)) print(p);
         cap<-paste0("\n  \nFigure &&figno. Recent ln-scale population biomass trends.  \n  \n")
         plots[[cap]]<-p;
@@ -133,6 +155,9 @@ compareResults.Pop.Biomass1<-function(objs,
                            xlab='size (mm CW)',ylab='Population Biomass',units="1000's t",lnscale=FALSE,
                            colour='case',guideTitleColor='',
                            shape='case',guideTitleShape='',
+                           plotPoints=plotPoints,
+                           colour_scale=colour_scale,
+                           fill_scale=fill_scale,
                            showPlot=FALSE);
             if (showPlot||!is.null(pdf)) print(p);
             cap<-paste0("\n  \nFigure &&figno. Population biomass size compositions (",type,"; ",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")

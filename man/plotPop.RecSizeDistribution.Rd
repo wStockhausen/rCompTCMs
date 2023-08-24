@@ -8,6 +8,9 @@ plotPop.RecSizeDistribution(
   mdfr,
   dodge = 0.2,
   xbnds = NULL,
+  plotPoints = plotPoints,
+  colour_scale = colour_scale,
+  fill_scale = fill_scale,
   showPlot = TRUE,
   pdf = NULL,
   verbose = FALSE
@@ -24,6 +27,18 @@ plotPop.RecSizeDistribution(
 
 \item{xbnds}{\itemize{
 \item two-element vector with x-axis bound (or NULL)
+}}
+
+\item{plotPoints}{\itemize{
+\item flag to include points on plot
+}}
+
+\item{colour_scale}{\itemize{
+\item ggplot2 colour scale to substitute for default (if not NULL)
+}}
+
+\item{fill_scale}{\itemize{
+\item ggplot2 fill scale to substitute for default (if not NULL)
 }}
 
 \item{showPlot}{\itemize{
