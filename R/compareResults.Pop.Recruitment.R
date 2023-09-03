@@ -10,6 +10,7 @@
 #' @param plotPoints - flag to include points (default: FALSE)
 #' @param colour_scale - ggplot2 colour scale to substitute for default (if not NULL)
 #' @param fill_scale - ggplot2 fill scale to substitute for default (if not NULL)
+#' @param advanceYear - flag to add 1 to year so recruitment coincides with year it's added to the population
 #'@param showPlot - flag (T/F) to show plot
 #'@param pdf - creates pdf, if not NULL
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -22,13 +23,14 @@
 #'
 compareResults.Pop.Recruitment<-function(objs,
                                          numRecent=15,
-                                          dodge=0.2,
-                                            plotPoints=FALSE,
-                                            colour_scale=NULL,
-                                            fill_scale=NULL,
-                                          showPlot=FALSE,
-                                          pdf=NULL,
-                                          verbose=FALSE){
+                                         dodge=0.2,
+                                         plotPoints=FALSE,
+                                         colour_scale=NULL,
+                                         fill_scale=NULL,
+                                         advanceYear = TRUE,
+                                         showPlot=FALSE,
+                                         pdf=NULL,
+                                         verbose=FALSE){
     if (verbose) cat("Starting rCompTCMs::compareResults.Pop.Recruitment().\n");
     options(stringsAsFactors=FALSE);
 
@@ -50,6 +52,8 @@ compareResults.Pop.Recruitment<-function(objs,
                       "but it was of class ",class(objs),"\n");
         stop(msg);
     }
+
+    if (advanceYear) mdfr$y = mdfr$y+1;
 
     idx<-mdfr$y>=(max(mdfr$y)-numRecent);
 

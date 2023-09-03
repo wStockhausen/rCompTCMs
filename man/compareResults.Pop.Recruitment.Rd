@@ -11,6 +11,7 @@ compareResults.Pop.Recruitment(
   plotPoints = FALSE,
   colour_scale = NULL,
   fill_scale = NULL,
+  advanceYear = TRUE,
   showPlot = FALSE,
   pdf = NULL,
   verbose = FALSE
@@ -39,6 +40,10 @@ compareResults.Pop.Recruitment(
 
 \item{fill_scale}{\itemize{
 \item ggplot2 fill scale to substitute for default (if not NULL)
+}}
+
+\item{advanceYear}{\itemize{
+\item flag to add 1 to year so recruitment coincides with year it's added to the population
 }}
 
 \item{showPlot}{\itemize{
