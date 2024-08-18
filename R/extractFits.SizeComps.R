@@ -111,7 +111,7 @@ extractFits.SizeComps<-function(objs=NULL,
                         mdfrp<-rbind(mdfrp,mdfrof[idc,]);
                     }
                 }
-                mdfr<-mdfrp;
+                mdfr<-mdfrp;#--only keep observations for first case
             }
         } else if (is.character(plot1stObs)){
             mdfrp = mdfr %>% dplyr::filter(type=="predicted");

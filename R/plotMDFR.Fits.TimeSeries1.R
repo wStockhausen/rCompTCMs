@@ -67,47 +67,52 @@ plotMDFR.Fits.TimeSeries1<-function(dfr,
                                panel.grid      =ggplot2::element_blank(),
                                panel.spacing   =unit(0,units="cm"));
 
-    idx<-dfr[[type]]!='observed';
-    if (verbose) {
-        message("Starting plotMDFR.Fits.TimeSeries1().\n")
-        message("Plotting ",sum(idx)," model predictions.\n")
-        message("Plotting ",sum(!idx)," observations.\n")
-    }
-    levels<-NULL;
+    levels_<-NULL;
     if (is.factor(dfr$case)) {
-        levels<-levels(dfr$case);
+        levels_<-levels(dfr$case);
     } else {
-        levels<-unique(as.character(dfr$case));
+        levels_<-unique(as.character(dfr$case));
     }
     dfr$case<-as.character(dfr$case); #strip factor levels
-    dfrp<-dfr[idx,];#predicted values
-    if (plot1stObs){
-        #remove observations from all but first case
-        dfro<-dfr[(dfr$case==unique(dfr$case)[1])&(!idx),];
-        if (!is.null(dfro)&&(nrow(dfro)>0)){
-          dfro$case<-'observed';
-          dfr<-rbind(dfro,dfrp);
-          if (!"observed" %in% levels) levels<-c(levels,"observed");
-        }
-    } else {
-        dfro<-dfr[!idx,];
-    }
-    dfr$case <-factor(dfr$case, levels=levels);
-    dfrp$case<-factor(dfrp$case,levels=levels);
-    dfro$case<-factor(dfro$case,levels=levels);
-    if (verbose)  message("Levels: ",paste0(levels,collapse=", "),".\n")
 
-    p <- ggplot(dfr,aes_string(x=x,y=y,color=case));
+    dfrp = dfr |> dplyr::filter(type!="observed");#predicted values
+    if (verbose) {
+        message("Starting plotMDFR.Fits.TimeSeries1().\n")
+        message("Plotting ",nrow(dfrp)," model predictions.\n")
+        message("Plotting ",nrow(dfr)-nrow(dfrp)," observations.\n")
+    }
+
+    #--determine observed data
+    obsCases = unique(dfr$case);
+    if (is.logical(plot1stObs)){
+        if (plot1stObs) obsCases = levels_[1];
+    } else if (is.character(plot1stObs)){
+        obsCases = plot1stObs;
+    }
+    #keep observations from requested cases
+    dfro = dfr |> dplyr::filter(case %in% obsCases,type=="observed");
+
+    if (verbose) cat("LEVELS =",levels_,"\n");
+
+    dfr = dplyr::bind_rows(dfro,dfrp) |>
+            dplyr::mutate(case=factor(case, levels=levels_));
+    dfrp = dfr |> dplyr::filter(type!="observed");
+    dfro = dfr |> dplyr::filter(type=="observed");
+    if (verbose)  message("Levels: ",paste0(levels_,collapse=", "),".\n")
+
+    p <- ggplot(dfr,aes_string(x=x,y=y,color=case,shape=case));
     p <- p + colour_scale;
     p <- p + fill_scale;
+    if (plotMod) p <- p + geom_line(data=dfrp,position=position);
     if (plotObs){
-        p <- p + geom_point(aes_string(shape=case),data=dfro,
+        p <- p + geom_point(data=dfro,
                             size=2,alpha=0.7,position=position);
         if (!is.null(dfro$lci)&&!all(is.na(dfro$lci))){
             if (verbose) cat("Plotting cis\n")
             p <- p + geom_linerange(aes_string(ymin=lci,ymax=uci),data=dfro,
                                     position=position,show.legend=FALSE);
         }
+        labs(shape="observed")
     }
     if (plotMod) p <- p + geom_line(data=dfrp,position=position);
     p <- p + coord_cartesian(xlim=xlims,ylim=ylims)

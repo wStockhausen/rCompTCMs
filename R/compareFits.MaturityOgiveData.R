@@ -63,9 +63,9 @@ compareFits.MaturityOgiveData<-function(objs,
         return(NULL);
     }
 
-    mdfr$z<-as.numeric(mdfr$z)
-    mdfr$case<-factor(mdfr$case,levels=cases);
-    mdfr$y<-as.character(mdfr$y);
+    mdfr = mdfr |> dplyr::mutate(z=as.numeric(z),
+                                 case=factor(case,levels=cases),
+                                 y=as.character(y));
 
     pd<-ggplot2::position_dodge(width=dodge);
     datasets<-unique(mdfr$category);
@@ -84,12 +84,16 @@ compareFits.MaturityOgiveData<-function(objs,
                 #plot maturity data and fits
                 #-------------------------------------------#
                 if (verbose) cat("\n--Plotting fits.\n")
-                if (plot1stObs) {
-                    mdfrpo<-mdfrp[(mdfrp$type == 'observed')&(mdfrp$case==dcs[1]), ];
-                } else {
-                    mdfrpo<-mdfrp[mdfrp$type == 'observed', ];
+                mdfrpp = mdfrp |> dplyr::filter(type == 'predicted');
+                obsCases = cases;
+                if (is.logical(plot1stObs)){
+                    if (plot1stObs) obsCases = cases[1];
+                } else if (is.character(plot1stObs)){
+                    obsCases = plot1stObs;
                 }
-                mdfrpp<-mdfrp[mdfrp$type == 'predicted',];
+                mdfrpo = mdfrp |> dplyr::filter(type == 'observed',
+                                                as.character(case) %in% obsCases);
+
                 zlims<-range(c(mdfrpo$z,mdfrpp$z));
                 ylims<-c(0,1);
                 if (verbose) cat("zlims = ",zlims,"\n");
@@ -98,18 +102,14 @@ compareFits.MaturityOgiveData<-function(objs,
                     iys<-min(c(nyrs*(iy-1)+1,nys+1)):min(c(nyrs*(iy),nys));
                     if (verbose) cat("iys: ",iys,"\n");
                     if (verbose) cat("uys[iys]: ",uys[iys],"\n");
-                    dfrp<-mdfrp[mdfrp$y %in% uys[iys],];
-                    if (plot1stObs) {
-                        mdfrpo<-dfrp[(dfrp$type == 'observed')&(dfrp$case==dcs[1]), ];
-                    } else {
-                        mdfrpo<-dfrp[dfrp$type == 'observed', ];
-                    }
-                    mdfrpp<-dfrp[dfrp$type == 'predicted',];
+                    dfrpp<-mdfrpp |> dplyr::filter(y %in% uys[iys]);
+                    dfrpo<-mdfrpo |> dplyr::filter(y %in% uys[iys]);
+                    dfrp = dplyr::bind_rows(dfrpp,dfrpo);
                     p <- ggplot(dfrp,aes_string(x='z',y='val',colour='case',shape='case'));
                     p <- p + coord_cartesian(xlim=zlims,ylim=ylims);
-                    p <- p + geom_point(data=mdfrpo,position=pd);
-                    p <- p + geom_line(data=mdfrpp,position=pd);
-                    if (any(!is.na(mdfr$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
+                    p <- p + geom_line(data=dfrpp,position=pd);
+                    p <- p + geom_point(data=dfrpo,position=pd);
+                    if (any(!is.na(dfrp$lci))) p <- p + geom_errorbar(aes_string(ymin='lci',ymax='uci'),position=pd);
                     p <- p + labs(x='size (mm CW)',y="probability(mature)");
                     p <- p + facet_grid(y~.) + std_theme;
                     if (showPlot) print(p);

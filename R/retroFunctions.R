@@ -34,21 +34,6 @@ retroGetMDFR<-function(modsRetro,
   tmp = dfrp %>% dplyr::mutate(group=as.numeric(as.character(case))) %>%
                  dplyr::filter(as.numeric(as.character(y))<group+yadj) %>%
                  dplyr::select(!group);
-  # if (is.factor(dfrp$y)){
-  #   lvls<-levels(dfrp$y);
-  #   dfrp$y<-as.numeric(as.character(dfrp$y));
-  #   dfrp$y<-dfrp$y+yadj;
-  #   dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
-  #   dfrp$y<-factor(dfrp$y,levels=lvls);
-  # } else if (mode(dfrp$y)=="numeric"){
-  #   dfrp$y<-dfrp$y+yadj;
-  #   dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
-  # } else if (mode(dfrp$y)=="character"){
-  #   dfrp$y<-as.numeric(dfrp$y);
-  #   dfrp$y<-dfrp$y+yadj;
-  #   dfrp<-dfrp[dfrp$y<=(as.numeric(as.character(dfrp$case))),];
-  #   dfrp$y<-as.character(dfrp$y);
-  # }
   return(tmp);
 }
 
