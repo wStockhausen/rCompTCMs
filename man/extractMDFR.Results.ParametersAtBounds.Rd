@@ -26,5 +26,6 @@ dataframe
 This function extracts parameters at one of their bounds from several model runs as a dataframe.
 }
 \details{
-Results are extracted using \code{rTCSAM02::getMDFR.ParametersAtBounds} for tcsam02 model runs.
+Results are extracted using \code{rTCSAM02::getMDFR.ParametersAtBounds} for tcsam02 model runs. If no parameters
+are found at a bound, the function returns NULL.
 }

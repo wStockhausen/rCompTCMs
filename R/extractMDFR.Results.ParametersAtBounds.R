@@ -2,14 +2,15 @@
 #'@title Extract parameters at one of their bounds from several model runs as a dataframe
 #'
 #'@description This function extracts parameters at one of their bounds from several model runs as a dataframe.
-#'   
+#'
 #'@param objs - list of resLst objects
 #'@param delta - relative fraction of range defining "at bounds"
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return dataframe
 #'
-#'@details Results are extracted using \code{rTCSAM02::getMDFR.ParametersAtBounds} for tcsam02 model runs.
+#'@details Results are extracted using \code{rTCSAM02::getMDFR.ParametersAtBounds} for tcsam02 model runs. If no parameters
+#'are found at a bound, the function returns NULL.
 #'
 #'@export
 #'
@@ -18,7 +19,7 @@ extractMDFR.Results.ParametersAtBounds<-function(objs,
                                                  verbose=FALSE){
     if (verbose) cat("starting rCompTCMs::extractMDFR.Results.ParametersAtBounds().\n");
     options(stringsAsFactors=FALSE);
-    
+
     cases<-names(objs);
 
     mdfr<-NULL;
@@ -34,6 +35,11 @@ extractMDFR.Results.ParametersAtBounds<-function(objs,
             mdfr<-rbind(mdfr,mdfr1);
         }
     }
+    if (is.null(mdfr)||(nrow(mdfr)==0)) {
+        if (verbose) cat("finished rCompTCMs::extractMDFR.Results.ParametersAtBounds(): No parameters at bounds--returning NULL.\n");
+        return(NULL);
+    }
+
     mdfr$case<-factor(mdfr$case,levels=cases);
 
     if (verbose) cat("finished rCompTCMs::extractMDFR.Results.ParametersAtBounds().\n");
