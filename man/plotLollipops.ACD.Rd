@@ -9,7 +9,7 @@ plotLollipops.ACD(
   type = "z-score",
   extreme = 3,
   dw = 1,
-  size = 0.1,
+  linewidth = 0.1,
   plotPoints = TRUE,
   xlab = "year",
   ylab = type
@@ -32,8 +32,8 @@ plotLollipops.ACD(
 \item dodge width (x-axis units)
 }}
 
-\item{size}{\itemize{
-\item line size for lollipop stems
+\item{linewidth}{\itemize{
+\item linewidth for lollipop stems
 }}
 
 \item{plotPoints}{\itemize{

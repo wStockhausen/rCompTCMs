@@ -9,7 +9,7 @@ plotLollipops.MaturityOgiveData(
   type = "zscores",
   extreme = 3,
   dw = 5,
-  size = 0.1,
+  linewidth = 0.1,
   plotPoints = TRUE,
   nrow = 5,
   xlab = "size (mm CW)",
@@ -33,8 +33,8 @@ plotLollipops.MaturityOgiveData(
 \item dodge width (x-axis units)
 }}
 
-\item{size}{\itemize{
-\item line size for lollipop stems
+\item{linewidth}{\itemize{
+\item linewidth for lollipop stems
 }}
 
 \item{plotPoints}{\itemize{

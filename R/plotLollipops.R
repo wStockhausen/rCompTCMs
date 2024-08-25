@@ -7,7 +7,7 @@
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
-#' @param size - line size for lollipop stems
+#' @param linewidth - linewidth for lollipop stems
 #' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
@@ -16,7 +16,6 @@
 #'
 #' @details Under construction!
 #'
-#' @import magrittr
 #' @import dplyr
 #' @import ggplot2
 #'
@@ -26,22 +25,22 @@ plotLollipops.ZCs<-function(mdfr,
                             type="zscores",
                             extreme=3,
                             dw=5,
-                            size=0.1,
+                            linewidth=0.1,
                             plotPoints=TRUE,
                             xlab="size bin (mm CW)",
                             ylab="z-score",
                             facet_wrap=~y,
                             ncol=2){
    type_ = type[1];
-   tst = mdfr %>% dplyr::filter(type==type_) %>%
-                  dplyr::select(case,y,x,z,val) %>%
-                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) %>%
+   tst = mdfr |> dplyr::filter(type==type_) |>
+                  dplyr::select(case,y,x,z,val) |>
+                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) |>
                   dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
                                 ctgz=ifelse(ctg=="ok",1,2));
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,xend=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),linewidth=linewidth) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
          scale_y_continuous(limits=mx*c(-1,1),breaks=c(-extreme,0,extreme))+
@@ -79,7 +78,7 @@ plotLollipops.ZCs<-function(mdfr,
 #' @param type - type of value to plot (e.g., "z-score")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
-#' @param size - line size for lollipop stems
+#' @param linewidth - linewidth for lollipop stems
 #' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
@@ -88,7 +87,6 @@ plotLollipops.ZCs<-function(mdfr,
 #'
 #' @details Under construction!
 #'
-#' @import magrittr
 #' @import dplyr
 #' @import ggplot2
 #'
@@ -98,21 +96,21 @@ plotLollipops.ACD<-function(mdfr,
                             type="z-score",
                             extreme=3,
                             dw=1,
-                            size=0.1,
+                            linewidth=0.1,
                             plotPoints=TRUE,
                             xlab="year",
                             ylab=type){
    type_ = type[1];
-   tst = mdfr %>% dplyr::filter(type==type_) %>%
-                  dplyr::select(case,y,x,m,s,val) %>%
-                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) %>%
+   tst = mdfr |> dplyr::filter(type==type_) |>
+                  dplyr::select(case,y,x,m,s,val) |>
+                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) |>
                   dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
                                 ctgz=ifelse(ctg=="ok",1,2),
                                 facet=paste0(x,"\n",m,"\n",s));
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=y,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),linewidth=linewidth) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -137,7 +135,7 @@ plotLollipops.ACD<-function(mdfr,
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
-#' @param size - line size for lollipop stems
+#' @param linewidth - linewidth for lollipop stems
 #' @param plotPoints - flag to plot "pop" part of lolli
 #' @param xlab - x-axis label
 #' @param ylab - y-axis label
@@ -146,7 +144,9 @@ plotLollipops.ACD<-function(mdfr,
 #'
 #' @details Plots \code{type} as lollipops against pre-molt size.
 #'
-#' @import magrittr
+#' If `type` = "recalc zscores", then the zscores are recalculated
+#' (they were incorrectly calculated prior to August 2024).
+#'
 #' @import dplyr
 #' @import ggplot2
 #'
@@ -156,21 +156,37 @@ plotLollipops.GrowthData<-function(mdfr,
                                     type="zscores",
                                     extreme=3,
                                     dw=1,
-                                    size=0.1,
+                                    linewidth=0.1,
                                     plotPoints=TRUE,
                                     xlab="pre-molt size",
                                     ylab=type){
    type_ = type[1];
-   tst = mdfr %>% dplyr::filter(type==type_) %>%
-                  dplyr::select(case,y,x,m,s,z,val) %>%
-                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) %>%
-                  dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
-                                ctgz=ifelse(ctg=="ok",1,2),
-                                facet=paste0(x,"\n",m,"\n",s));
+   if (type!="recalc zscores"){
+       tst = mdfr |> dplyr::filter(type==type_) |>
+                      dplyr::select(case,y,x,m,s,z,val) |>
+                      dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) |>
+                      dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
+                                    ctgz=ifelse(ctg=="ok",1,2),
+                                    facet=paste0(x,"\n",m,"\n",s));
+   } else {
+       #--recalculate zscores using var[X]=E[X]*beta,
+       #--where X is the molt INCREMENT, E[X] is the mean molt INCREMENT, and beta = 1/ibeta
+       #--note that zPst-mnZ = (zPst-zPre)-(mnZ-zPre) = obsMI - prdMI so
+       #--zscore = (zPst-mnZ)/sqrt((mnZ-zPre)/ibeta)
+       #--in mdfr: observed = zPst, predicted = mnZ, z = zPre, ibeta = ibeta
+       tst = mdfr |> dplyr::select(case,pc,y,x,m,s,z,val,type) |>
+                     tidyr::pivot_wider(names_from="type",values_from="val") |>
+                      dplyr::mutate(val=(observed-predicted)/sqrt((predicted-z)/ibeta)) |>
+                      dplyr::select(case,y,x,m,s,z,val) |>
+                      dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) |>
+                      dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
+                                    ctgz=ifelse(ctg=="ok",1,2),
+                                    facet=paste0(x,"\n",m,"\n",s));
+   }
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),linewidth=linewidth) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
@@ -195,7 +211,7 @@ plotLollipops.GrowthData<-function(mdfr,
 #' @param type - type of value to plot (e.g., "zscores")
 #' @param extreme - criteria for extreme values
 #' @param dw - dodge width (x-axis units)
-#' @param size - line size for lollipop stems
+#' @param linewidth - linewidth for lollipop stems
 #' @param plotPoints - flag to plot "pop" part of lolli
 #' @param nrow - number of rows for faceting
 #' @param xlab - x-axis label
@@ -205,7 +221,6 @@ plotLollipops.GrowthData<-function(mdfr,
 #'
 #' @details Plots \code{type} as lollipops against size, faceted by year.
 #'
-#' @import magrittr
 #' @import dplyr
 #' @import ggplot2
 #'
@@ -215,22 +230,22 @@ plotLollipops.MaturityOgiveData<-function(mdfr,
                                           type="zscores",
                                           extreme=3,
                                           dw=5,
-                                          size=0.1,
+                                          linewidth=0.1,
                                           plotPoints=TRUE,
                                           nrow=5,
                                           xlab="size (mm CW)",
                                           ylab=type){
    type_ = type[1];
-   tst = mdfr %>% dplyr::filter(type==type_) %>%
-                  dplyr::select(case,y,x,m,s,z,val) %>%
-                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) %>%
+   tst = mdfr |> dplyr::filter(type==type_) |>
+                  dplyr::select(case,y,x,m,s,z,val) |>
+                  dplyr::mutate(ctg=ifelse(abs(val)<extreme,"ok","extreme")) |>
                   dplyr::mutate(ctgf=factor(ctg,levels=c("ok","extreme")),
                                 ctgz=ifelse(ctg=="ok",1,2),
                                 facet=paste0(x,"\n",m,"\n",s));
 
    mx = max(extreme,max(abs(tst$val),na.rm=TRUE));
    p1 = ggplot(tst,aes(x=z,colour=case,fill=case,shape=ctgf)) +
-         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),size=size) +
+         geom_linerange(aes(ymin=0,ymax=val),position=position_dodge2(dw),linewidth=linewidth) +
          geom_hline(yintercept= extreme,linetype=2,colour="black")+
          geom_hline(yintercept=       0,linetype=2,colour="black")+
          geom_hline(yintercept=-extreme,linetype=2,colour="black")+
