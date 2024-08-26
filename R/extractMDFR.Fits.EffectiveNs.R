@@ -7,7 +7,7 @@
 #'@param objs - list of resLst objects
 #'@param fleets - names of fleets to include (or "all" or NULL to include all)
 #'@param fleet.type - 'survey','fishery'
-#'@param category - 'total','discard','retained','discard mortality', or 'index'
+#'@param category - 'total', 'discard', 'retained', or 'index'
 #'@param verbose - flag (T/F) to print diagnostic information
 #'
 #'@return dataframe
@@ -19,7 +19,7 @@
 extractMDFR.Fits.EffectiveNs<-function(objs,
                                        fleets="all",
                                        fleet.type=c("survey","fishery"),
-                                       category=c('index','captured','discarded','retained','discard mortality'),
+                                       category=c('index','total','discard','retained'),
                                        verbose=FALSE){
     if (verbose) cat("--starting rCompTCMs::extractMDFR.Fits.EffectiveNs()\n");
     options(stringsAsFactors=FALSE);

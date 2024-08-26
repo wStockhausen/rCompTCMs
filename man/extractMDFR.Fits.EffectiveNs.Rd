@@ -8,7 +8,7 @@ extractMDFR.Fits.EffectiveNs(
   objs,
   fleets = "all",
   fleet.type = c("survey", "fishery"),
-  category = c("index", "captured", "discarded", "retained", "discard mortality"),
+  category = c("index", "total", "discard", "retained"),
   verbose = FALSE
 )
 }
@@ -26,7 +26,7 @@ extractMDFR.Fits.EffectiveNs(
 }}
 
 \item{category}{\itemize{
-\item 'total','discard','retained','discard mortality', or 'index'
+\item 'total', 'discard', 'retained', or 'index'
 }}
 
 \item{verbose}{\itemize{

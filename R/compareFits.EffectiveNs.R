@@ -8,7 +8,7 @@
 #'@param mdfr - dataframe
 #'@param fleets - names of fleets to include (or "all" or NULL to include all)
 #'@param fleet.type - 'survey','fishery'
-#'@param category - 'total','discard','retained','discard mortality', or 'index'
+#'@param category - 'total', 'discard', 'retained', or 'index'
 #'@param years - vector of years to show, or 'all' to show all years
 #'@param dodge - width to dodge overlapping series
 #'@param facet_wrap - ggplot2 formula to produce figure with wrapped facets
@@ -19,7 +19,7 @@
 #'
 #'@return lists ofggplot2 objects, nested by fishery
 #'
-#'@details None.
+#'@details Effective N's > 1.0e10 are treated as NA's.
 #'
 #'@import ggplot2
 #'@import wtsPlots
@@ -30,7 +30,7 @@ compareFits.EffectiveNs<-function(objs=NULL,
                                   mdfr=NULL,
                                   fleets="all",
                                   fleet.type=c("survey","fishery"),
-                                  category=c('index','captured','discarded','retained','discard mortality'),
+                                  category=c('index','total','discard','retained'),
                                   years='all',
                                   dodge=0.2,
                                   facet_wrap=NULL,
@@ -42,7 +42,6 @@ compareFits.EffectiveNs<-function(objs=NULL,
     options(stringsAsFactors=FALSE);
 
     std_theme = wtsPlots::getStdTheme();
-
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -73,7 +72,7 @@ compareFits.EffectiveNs<-function(objs=NULL,
     uF<-unique(mdfr$fleet);
     for (f in uF){
         if (verbose) cat("Plotting fleet",f,"\n")
-        mdfrp<-mdfr[mdfr$fleet==f,];
+        mdfrp = mdfr |> dplyr::filter(fleet==f) |> dplyr::mutate(val=ifelse(val>1.0e10,NA,val));
         p<-wtsPlots::plotMDFR.XY(mdfrp,x='y',value.var='val',agg.formula=NULL,
                                  facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
                                  xlab='year',ylab='Effective N',units='',lnscale=FALSE,

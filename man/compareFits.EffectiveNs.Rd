@@ -9,7 +9,7 @@ compareFits.EffectiveNs(
   mdfr = NULL,
   fleets = "all",
   fleet.type = c("survey", "fishery"),
-  category = c("index", "captured", "discarded", "retained", "discard mortality"),
+  category = c("index", "total", "discard", "retained"),
   years = "all",
   dodge = 0.2,
   facet_wrap = NULL,
@@ -37,7 +37,7 @@ compareFits.EffectiveNs(
 }}
 
 \item{category}{\itemize{
-\item 'total','discard','retained','discard mortality', or 'index'
+\item 'total', 'discard', 'retained', or 'index'
 }}
 
 \item{years}{\itemize{
@@ -76,5 +76,5 @@ This function compares effective Ns from size compositions by year
 among several models.
 }
 \details{
-None.
+Effective N's > 1.0e10 are treated as NA's.
 }
