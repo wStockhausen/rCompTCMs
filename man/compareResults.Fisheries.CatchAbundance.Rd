@@ -7,7 +7,8 @@
 compareResults.Fisheries.CatchAbundance(
   objs,
   fleets = "all",
-  category = c("captured", "discarded", "retained", "discard mortality", "index"),
+  category = c("captured", "discarded", "retained", "discard mortality",
+    "total mortality", "index"),
   cast = NULL,
   facet_grid = NULL,
   facet_wrap = NULL,
@@ -35,7 +36,7 @@ compareResults.Fisheries.CatchAbundance(
 }}
 
 \item{category}{\itemize{
-\item 'captured','discarded','retained','discard mortality', or 'index'
+\item 'captured','discarded','retained','discard mortality','total mortality', or 'index'
 }}
 
 \item{cast}{\itemize{

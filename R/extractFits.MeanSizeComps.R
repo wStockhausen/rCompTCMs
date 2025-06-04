@@ -71,6 +71,7 @@ extractFits.MeanSizeComps<-function(objs=NULL,
     }
 
     #mdfr<-getMDFR.CanonicalFormat(mdfr);
+    mdfr$case = factor(mdfr$case,levels=cases);
     if (verbose) message("Finished rCompTCMs::extractFits.MeanSizeComps().");
     return(mdfr);
 }

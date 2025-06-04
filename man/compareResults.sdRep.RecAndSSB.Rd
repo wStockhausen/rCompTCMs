@@ -5,7 +5,8 @@
 \title{Plot sd_report time series for recruitment and SSB from several model}
 \usage{
 compareResults.sdRep.RecAndSSB(
-  objs,
+  objs = NULL,
+  mdfr = NULL,
   ci = 0.95,
   colour_scale = NULL,
   fill_scale = NULL,
@@ -30,7 +31,13 @@ compareResults.sdRep.RecAndSSB(
 }}
 }
 \value{
-ggplot2 object
+list with elements
+\itemize{
+\item {rec - cowplot object with arranged recruitment plots}
+\item {ssb - cowplot object with arranged ssb plots}
+\item {plts$rec - list of ggplot2 objects}
+\item {plts$ssb - list off ssb ggplot2 objects}
+}
 }
 \description{
 This function plots sd_report recruitment and SSB time series from several model runs.

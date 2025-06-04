@@ -15,7 +15,7 @@ compareFits.MeanSizeComps(
   plot1stObs = TRUE,
   facet_grid = "m+s~x",
   scales = "free_y",
-  linesize = 1,
+  linewidth = 1,
   pdf = NULL,
   showPlot = FALSE,
   verbose = FALSE
@@ -62,7 +62,7 @@ compareFits.MeanSizeComps(
 \item scales parameter for \code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}}
 }}
 
-\item{linesize}{\itemize{
+\item{linewidth}{\itemize{
 \item line width (in mm)
 }}
 

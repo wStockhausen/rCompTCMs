@@ -22,6 +22,7 @@
 #' @param lineSize - prediction line size
 #' @param pointSize - prediction point size
 #' @param alpha - prediction transparency
+#' @param dodge - amount to dodge observations along x-axis when plotting multiple observed datasets
 #' @param stripText - [ggplot2::element_text()] object describing font and margin to use for panel strips
 #' @param pdf - name for output pdf file
 #' @param showPlot - flag (T/F) to show plot
@@ -61,6 +62,7 @@ compareFits.SizeComps<-function(objs=NULL,
                                 lineSize=1,
                                 pointSize=1,
                                 alpha=0.5,
+                                dodge=0.2,
                                 stripText=ggplot2::element_text(),
                                 pdf=NULL,
                                 showPlot=FALSE,
@@ -212,9 +214,9 @@ compareFits.SizeComps<-function(objs=NULL,
                                     if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val),colour="black",data=dfrpo,stat="identity",position='identity',ymin=0.0,size=pinSize)
                                     if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val),colour="black",data=dfrpo,stat="identity",position='identity',size=0.5,alpha=1)
                                 } else {
-                                    if (useBars)       p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position=position_dodge2(0.2),alpha=0.5)
-                                    if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position=position_dodge2(0.2),ymin=0.0,size=pinSize)
-                                    if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val,colour=case),data=dfrpo,stat="identity",position=position_dodge2(0.2),size=0.5,alpha=1)
+                                    if (useBars)       p = p + geom_bar(aes(x=z,y=val,fill=case),data=dfrpo,stat="identity",position=position_dodge2(dodge),alpha=0.5)
+                                    if (usePins)       p = p + geom_linerange(aes(x=z,ymax=val,colour=case),data=dfrpo,stat="identity",position=position_dodge2(dodge),ymin=0.0,size=pinSize)
+                                    if (usePinsAndPts) p = p + geom_point(aes(x=z,y=val,colour=case),data=dfrpo,stat="identity",position=position_dodge2(dodge),size=0.5,alpha=1)
                                 }
                                 if (useLines)  p = p + geom_line(aes(x=z,y=val,colour=case),data=dfrpp,size=lineSize,alpha=alpha)
                                 if (usePoints) p = p + geom_point(aes(x=z,y=val,colour=case,shape=case),data=dfrpp,size=pointSize)

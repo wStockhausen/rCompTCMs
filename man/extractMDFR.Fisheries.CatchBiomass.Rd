@@ -7,7 +7,8 @@
 extractMDFR.Fisheries.CatchBiomass(
   objs,
   fleets = "all",
-  category = c("captured", "discarded", "retained", "discard mortality", "index"),
+  category = c("captured", "discarded", "retained", "discard mortality",
+    "total mortality", "index"),
   cast = NULL,
   years = "all",
   verbose = FALSE
@@ -23,7 +24,7 @@ extractMDFR.Fisheries.CatchBiomass(
 }}
 
 \item{category}{\itemize{
-\item 'captured','discarded','retained','discard mortality', or 'index'
+\item 'captured','discarded','retained','discard mortality', 'total mortality', or 'index'
 }}
 
 \item{cast}{\itemize{

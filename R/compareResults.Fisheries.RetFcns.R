@@ -94,32 +94,6 @@ compareResults.Fisheries.RetFcns<-function(objs,
         mdfrp<-mdfr[mdfr$fleet==f,];
         # uY<-unique(mdfrp$y);
         subPlots<-list();
-        # if(!singlePlot){
-        #     for (pg in 1:ceiling(length(uY)/mxy)){
-        #         mdfrpp<-mdfrp[mdfrp$y %in% uY[(1+mxy*(pg-1)):min(length(uY),mxy*pg)],];
-        #         p<-plotMDFR.XY(mdfrpp,x='z',value.var='val',agg.formula=NULL,
-        #                        facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
-        #                        xlab='size (mm CW)',ylab='retention',units='',lnscale=FALSE,
-        #                        title=f,
-        #                        colour='case',guideTitleColor='',
-        #                        shape='case',guideTitleShape='',
-        #                        showPlot=FALSE);
-        #         if (showPlot||!is.null(pdf)) print(p);
-        #         cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,"(",pg," of ",ceiling(length(uY)/mxy),").  \n  \n")
-        #         subPlots[[cap]]<-p;
-        #     }#pg
-        # } else {
-        #     p<-plotMDFR.XY(mdfrp,x='z',value.var='val',agg.formula=NULL,
-        #                    facet_grid=facet_grid,facet_wrap=facet_wrap,nrow=5,
-        #                    xlab='size (mm CW)',ylab='retention',units='',lnscale=FALSE,
-        #                    title=f,
-        #                    colour='y',guideTitleColour='year',
-        #                    shape='y',guideTitleShape='year',
-        #                    showPlot=FALSE);
-        #     if (showPlot||!is.null(pdf)) print(p);
-        #     cap<-paste0("\n  \nFigure &&figno. Retention functions for ",f,".  \n  \n")
-        #     subPlots[[cap]]<-p;
-        # }
         rws = mdfrp |> dplyr::distinct(x,m,s);
         for (i in 1:nrow(rws)){
             #--for testing: i=1;

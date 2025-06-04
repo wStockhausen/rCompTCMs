@@ -6,7 +6,7 @@
 #'
 #'@param objs - list of resLst objects
 #'@param fleets - names of fleets to include (or "all")
-#'@param category - 'captured','discarded','retained','discard mortality', or 'index'
+#'@param category - 'captured','discarded','retained','discard mortality','total mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (x,m,s,z)
 #'@param facet_grid - formula (or string version of formula) for faceting using facet_grid
 #'@param facet_wrap - one-sided formula (e.g., "~y+x") or character vector (e.g., c('y','x')) for faceting using facet_wrap
@@ -34,7 +34,7 @@
 #'
 compareResults.Fisheries.CatchAbundance<-function(objs,
                                                   fleets="all",
-                                           category=c('captured','discarded','retained','discard mortality','index'),
+                                           category=c('captured','discarded','retained','discard mortality', 'total mortality','index'),
                                            cast=NULL,
                                            facet_grid=NULL,
                                            facet_wrap=NULL,

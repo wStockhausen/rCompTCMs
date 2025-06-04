@@ -23,6 +23,7 @@ compareFits.SizeComps(
   lineSize = 1,
   pointSize = 1,
   alpha = 0.5,
+  dodge = 0.2,
   stripText = ggplot2::element_text(),
   pdf = NULL,
   showPlot = FALSE,
@@ -100,6 +101,10 @@ compareFits.SizeComps(
 
 \item{alpha}{\itemize{
 \item prediction transparency
+}}
+
+\item{dodge}{\itemize{
+\item amount to dodge observations along x-axis when plotting multiple observed datasets
 }}
 
 \item{stripText}{\itemize{

@@ -6,7 +6,7 @@
 #'
 #'@param objs - list of resLst objects
 #'@param fleets - names of fleets to include (or "all")
-#'@param category - 'captured','discarded','retained','discard mortality', or 'index'
+#'@param category - 'captured','discarded','retained','discard mortality','total mortality', or 'index'
 #'@param cast - cast'ing formula for aggregating by factors (y,x,m,s,z)
 #'@param years - 'all' or vector of years to include
 #'@param verbose - flag (T/F) to print diagnostic information
@@ -19,7 +19,7 @@
 #'
 extractMDFR.Fisheries.CatchAbundance<-function(objs,
                                                fleets="all",
-                                               category=c('captured','discarded','retained','discard mortality','index'),
+                                               category=c('captured','discarded','retained','discard mortality','total mortality','index'),
                                                cast=NULL,
                                                years='all',
                                                verbose=FALSE){

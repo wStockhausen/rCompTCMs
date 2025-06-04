@@ -1,8 +1,7 @@
 #'
-#'@title Function to plot natural mortality rates by year using ggplot2
+#'@title Function to extract a dataframe pf natural mortality rates by year, sex, and maturity state
 #'
-#'@description This function plots natural mortality estimates by year,
-#'   sex and maturity state.
+#'@description This function extracts a dataframe pf natural mortality rates by year, sex, and maturity state.
 #'
 #'@param objs - list of resLst objects
 #'@param type - type of estimates to return

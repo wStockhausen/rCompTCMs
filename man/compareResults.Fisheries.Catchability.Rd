@@ -5,7 +5,8 @@
 \title{Function to plot fishery catchabilities by year using ggplot2}
 \usage{
 compareResults.Fisheries.Catchability(
-  objs,
+  objs = NULL,
+  mdfr = NULL,
   fleets = "all",
   years = "all",
   cast = "x",
@@ -23,6 +24,10 @@ compareResults.Fisheries.Catchability(
 \arguments{
 \item{objs}{\itemize{
 \item list of resLst objects
+}}
+
+\item{mdfr}{\itemize{
+\item dataframe alternative to objs
 }}
 
 \item{fleets}{\itemize{

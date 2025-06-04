@@ -2,7 +2,7 @@
 % Please edit documentation in R/extractMDFR.Pop.NaturalMortality.R
 \name{extractMDFR.Pop.NaturalMortality}
 \alias{extractMDFR.Pop.NaturalMortality}
-\title{Function to plot natural mortality rates by year using ggplot2}
+\title{Function to extract a dataframe pf natural mortality rates by year, sex, and maturity state}
 \usage{
 extractMDFR.Pop.NaturalMortality(objs, type = "M_yxm", verbose = FALSE)
 }
@@ -23,8 +23,7 @@ extractMDFR.Pop.NaturalMortality(objs, type = "M_yxm", verbose = FALSE)
 ggplot2 object
 }
 \description{
-This function plots natural mortality estimates by year,
-sex and maturity state.
+This function extracts a dataframe pf natural mortality rates by year, sex, and maturity state.
 }
 \details{
 None.

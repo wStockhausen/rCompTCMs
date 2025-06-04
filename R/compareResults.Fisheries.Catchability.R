@@ -5,6 +5,7 @@
 #'   sex and maturity state.
 #'
 #' @param objs - list of resLst objects
+#' @param mdfr - dataframe alternative to objs
 #' @param fleets - vector of fisheries to plot, or "all"
 #' @param years - vector of years to show, or 'all' to show all years
 #' @param cast - formula to exclude factors from "averaging" over
@@ -26,7 +27,8 @@
 #'
 #'@export
 #'
-compareResults.Fisheries.Catchability<-function(objs,
+compareResults.Fisheries.Catchability<-function(objs=NULL,
+                                                mdfr=NULL,
                                                 fleets="all",
                                                 years='all',
                                                 cast='x',
@@ -44,7 +46,12 @@ compareResults.Fisheries.Catchability<-function(objs,
 
     if (is.null(years)) return(list());
 
-    cases<-names(objs);
+    if (!is.null(objs)){
+      mdfr<-extractMDFR.Fisheries.Catchability(objs,fleets=fleets,years=years,cast=cast,verbose=verbose);
+      cases<-names(objs);
+    } else {
+        cases = unique(mdfr$case);
+    }
 
     #create pdf, if necessary
     if(!is.null(pdf)){
@@ -53,7 +60,6 @@ compareResults.Fisheries.Catchability<-function(objs,
         showPlot<-TRUE;
     }
 
-    mdfr<-extractMDFR.Fisheries.Catchability(objs,fleets=fleets,years=years,cast=cast,verbose=verbose);
 
     #----------------------------------
     # plot fishery catchability by year
