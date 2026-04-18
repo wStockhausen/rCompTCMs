@@ -34,5 +34,5 @@ Imports:
     wtsPlots,
     wtsUtilities (>= 2018.03.13)
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
