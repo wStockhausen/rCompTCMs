@@ -26,7 +26,7 @@ compareResults.Pop.PrM2M<-function(objs,
                                    plotPoints=FALSE,
                                    colour_scale=ggplot2::scale_color_hue(),
                                    fill_scale=ggplot2::scale_fill_hue(),
-                                   showPlot=TRUE,
+                                   showPlot=FALSE,
                                    pdf=NULL,
                                    verbose=FALSE){
     options(stringsAsFactors=FALSE);
